@@ -1,0 +1,17 @@
+{
+  "presets": ["env", "react", "stage-0"],
+  "plugins": [
+    [
+      "transform-decorators-legacy",
+      "module-resolver",
+      {
+        "root": [".", "./src"],
+        "alias": {
+          "components": "./src/components",
+          "styles": "./styles"
+        },
+        "cwd": "babelrc"
+      }
+    ]
+  ]
+}
