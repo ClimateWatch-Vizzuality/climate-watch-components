@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@bit/aabdaab.cw-components.global.card": "^1.0.18",
+    "gh-pages": "^1.2.0",
     "react": "^16.4.1",
     "react-css-themr": "^2.1.2",
     "react-dom": "^16.4.1",
@@ -37,6 +38,7 @@
   },
   "scripts": {
     "start": "styleguidist server",
-    "build": "styleguidist build"
+    "build": "styleguidist build",
+    "deploy": "yarn run build && gh-pages -d styleguide"
   }
 }

@@ -7,6 +7,9 @@
 # bit
 **/.bit
 
+# build
+/styleguide
+
 # testing
 /coverage
 
