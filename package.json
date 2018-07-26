@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bit/aabdaab.cw-components.global.card": "1.0.21",
+    "@bit/aabdaab.cw-components.global.check-input": "^0.0.2",
     "gh-pages": "^1.2.0",
     "react": "^16.4.1",
     "react-css-themr": "^2.1.2",
     "react-dom": "^16.4.1",
-    "react-styleguidist": "^7.1.0",
-    "@bit/aabdaab.cw-components.global.card": "1.0.21"
+    "react-styleguidist": "^7.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
