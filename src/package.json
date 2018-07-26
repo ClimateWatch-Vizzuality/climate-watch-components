@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@bit/aabdaab.cw-components.global.card": "file:./components/global/card",
-    "@bit/aabdaab.cw-components.style.settings": "file:./components/style/settings"
-  }
-}

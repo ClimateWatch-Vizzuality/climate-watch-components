@@ -78,11 +78,12 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@bit/aabdaab.cw-components.global.card@^1.0.18":
-  version "1.0.18"
-  resolved "https://node.bitsrc.io/aabdaab.cw-components.global.card/-/aabdaab.cw-components.global.card-1.0.18.tgz#3e88dfe50c7e78d603ebb918f32873d231b37b17"
+"@bit/aabdaab.cw-components.global.card@1.0.22":
+  version "1.0.21"
+  resolved "https://node.bitsrc.io/aabdaab.cw-components.global.card/-/aabdaab.cw-components.global.card-1.0.21.tgz#5fedb4510441ac432e6beba5e9f906befcf5d055"
   dependencies:
     "@bit/aabdaab.cw-components.style.settings" "0.0.1"
+    classnames "2.2.6"
     prop-types "15.5.10"
     react "16.2.0"
 
@@ -1756,7 +1757,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.6:
+classnames@2.2.6, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 

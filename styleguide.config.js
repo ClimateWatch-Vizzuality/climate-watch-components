@@ -17,21 +17,6 @@ module.exports = {
       ]
     }
   },
-  ignore: ['**/src/components/global/**/*'],
-  // sections: [
-  //   {
-  //     name: 'UI',
-  //     components: () => ([ path.resolve(__dirname, 'src/components/ui/*', 'index.js') ])
-  //   },
-  //   {
-  //     name: 'Map',
-  //     components: () => ([ path.resolve(__dirname, 'src/components/map/*', 'index.js') ])
-  //   },
-  //   {
-  //     name: 'Form',
-  //     components: () => ([ path.resolve(__dirname, 'src/components/form/*', 'index.js') ])
-  //   }
-  // ],
   skipComponentsWithoutExample: true,
   getComponentPathLine: (componentPath) => {
     const dirname = path.dirname(componentPath, '.js');
