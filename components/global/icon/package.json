@@ -1,0 +1,15 @@
+{
+  "name": "@bit/aabdaab.cw-components.global.icon",
+  "version": "0.0.3",
+  "homepage": "https://bitsrc.io/aabdaab/cw-components/global/icon",
+  "main": "dist/components/icon/icon.js",
+  "dependencies": {
+    "classnames": "2.2.5",
+    "prop-types": "15.5.10",
+    "react-css-themr": "2.1.2",
+    "react": "16.2.0"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "license": "SEE LICENSE IN LICENSE"
+}
