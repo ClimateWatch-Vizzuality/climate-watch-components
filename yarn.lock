@@ -79,8 +79,8 @@
     to-fast-properties "^2.0.0"
 
 "@bit/aabdaab.cw-components.global.card@1.0.22":
-  version "1.0.21"
-  resolved "https://node.bitsrc.io/aabdaab.cw-components.global.card/-/aabdaab.cw-components.global.card-1.0.21.tgz#5fedb4510441ac432e6beba5e9f906befcf5d055"
+  version "1.0.22"
+  resolved "https://node.bitsrc.io/aabdaab.cw-components.global.card/-/aabdaab.cw-components.global.card-1.0.22.tgz#3a8ac4f376aa2be9ed977ab736e9f512cd6d6b83"
   dependencies:
     "@bit/aabdaab.cw-components.style.settings" "0.0.1"
     classnames "2.2.6"

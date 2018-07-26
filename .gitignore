@@ -6,6 +6,9 @@
 
 # bit
 **/.bit
+.bitmap
+bit.json
+/components
 
 # build
 /styleguide
