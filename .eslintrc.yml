@@ -1,0 +1,27 @@
+---
+extends: [
+   vizzuality
+]
+globals:
+  require: true
+  config: true
+  __DEV__: true
+parser: babel-eslint
+parserOptions:
+  ecmaVersion: 7
+  ecmaFeatures:
+    jsx: true
+    experimentalObjectRestSpread: true
+  sourceType: module
+plugins: [react, prettier]
+
+settings:
+  import/resolver:
+    node:
+      extensions:
+        - .js
+        - .jsx
+
+      moduleDirectory:
+        - node_modules
+        - src/components
