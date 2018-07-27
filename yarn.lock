@@ -97,6 +97,13 @@
     react "16.2.0"
     react-css-themr "2.1.2"
 
+"@bit/aabdaab.cw-components.global.icon@^0.0.5":
+  version "0.0.5"
+  resolved "https://node.bitsrc.io/aabdaab.cw-components.global.icon/-/aabdaab.cw-components.global.icon-0.0.5.tgz#c96bbb1e541e028d0cae1a7c4c570bfac1bc5eae"
+  dependencies:
+    prop-types "15.5.10"
+    react "16.2.0"
+
 "@bit/aabdaab.cw-components.style.settings@0.0.1":
   version "0.0.1"
   resolved "https://node.bitsrc.io/aabdaab.cw-components.style.settings/-/aabdaab.cw-components.style.settings-0.0.1.tgz#f384a9bb296b2fb4d275fca71bba07c1cdf117e3"
