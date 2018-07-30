@@ -97,7 +97,7 @@
     react "16.2.0"
     react-css-themr "2.1.2"
 
-"@bit/aabdaab.cw-components.global.icon@^0.0.5":
+"@bit/aabdaab.cw-components.global.icon@latest":
   version "0.0.5"
   resolved "https://node.bitsrc.io/aabdaab.cw-components.global.icon/-/aabdaab.cw-components.global.icon-0.0.5.tgz#c96bbb1e541e028d0cae1a7c4c570bfac1bc5eae"
   dependencies:
