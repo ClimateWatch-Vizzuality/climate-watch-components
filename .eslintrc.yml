@@ -14,17 +14,9 @@ parserOptions:
     experimentalObjectRestSpread: true
   sourceType: module
 plugins: [react, prettier]
-rules: 
+rules:
   jsx-a11y/click-events-have-key-events: 'warn'
   jsx-a11y/no-noninteractive-element-interactions: 'warn'
 
 settings:
-  import/resolver:
-    node:
-      extensions:
-        - .js
-        - .jsx
-
-      moduleDirectory:
-        - node_modules
-        - src/components
+  import/resolver: webpack
