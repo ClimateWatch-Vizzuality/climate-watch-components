@@ -1,4 +1,4 @@
-### Card bit example:
+### Card example:
 
 ```js
 const styles = require('./card-styles.scss');
@@ -8,3 +8,4 @@ const styles = require('./card-styles.scss');
     </div>
 </Card>
 ```
+
