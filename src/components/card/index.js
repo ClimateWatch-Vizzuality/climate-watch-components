@@ -15,6 +15,7 @@ class Card extends PureComponent {
       <div className={cx(styles.card, theme.card)}>
         <div className={styles.data}>
           <CheckInput
+            id="inputCard"
             label={'Subscribe'}
             toggleFirst
             theme={styles}

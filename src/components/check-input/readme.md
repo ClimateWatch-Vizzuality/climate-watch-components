@@ -1,12 +1,11 @@
 ### Check-input bit example:
 
 ```js
-const styles = require('./check-input-styles.scss');
+const styles = require('./check-input-theme.scss');
 <CheckInput
     className={styles.checkbox}
     label={'Subscribe'}
     toggleFirst
-    theme={styles}
     disabled={false}
 />
 ```

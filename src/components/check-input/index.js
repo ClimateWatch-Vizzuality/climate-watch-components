@@ -7,9 +7,9 @@ import styles from './check-input-styles.scss';
 /**
  * Represents a check input
  */
-const CheckInputComponent = props => {
+const CheckInput = props => {
   const {
-    className,
+    id,
     label,
     checked,
     onChange,
@@ -18,27 +18,28 @@ const CheckInputComponent = props => {
     disabled
   } = props;
   return (
-    <div className={className}>
+    <div className={cx(styles.checkInput, theme.checkInput)}>
       <label
-        className={cx(theme.switch, { [styles.toggleFirst]: toggleFirst })}
-        htmlFor="checkbox"
+        className={cx(styles.switch, { [styles.toggleFirst]: toggleFirst })}
+        htmlFor={id}
       >
         <input
-          className={theme.checkbox}
+          className={styles.checkbox}
           type="checkbox"
           checked={checked}
           onChange={onChange}
-          id="checkbox"
+          id={id}
           disabled={disabled}
         />
-        <span className={theme.label}>{label}</span>
-        <div className={cx(theme.slider, theme.round)} />
+        <span className={styles.label}>{label}</span>
+        <div className={cx(styles.slider, styles.round)} />
       </label>
     </div>
   );
 };
 
-CheckInputComponent.propTypes = {
+CheckInput.propTypes = {
+  id: PropTypes.string,
   className: PropTypes.string,
   label: PropTypes.string,
   checked: PropTypes.bool,
@@ -48,4 +49,9 @@ CheckInputComponent.propTypes = {
   theme: PropTypes.object
 };
 
-export default CheckInputComponent;
+CheckInput.defaultProps = {
+  id: Math.random().toString(36).substring(2, 15),
+  theme: {}
+}
+
+export default CheckInput;
