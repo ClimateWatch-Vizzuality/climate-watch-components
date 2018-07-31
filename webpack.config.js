@@ -3,28 +3,20 @@ const glob = require('glob');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const config = {
   entry: './src/index.js',
-
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     libraryTarget: 'commonjs2'
   },
-
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.png$/,
-        use: 'url-loader'
-      },
+      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.png$/, use: 'url-loader' },
+      { test: /\.svg$/, use: [ { loader: 'svg-sprite-loader' } ] },
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
@@ -40,7 +32,7 @@ const config = {
             {
               loader: 'sass-loader',
               options: {
-                includePaths: ['./node_modules', './src/css']
+                includePaths: [ './node_modules', './src/css' ]
                   .map(d => path.join(__dirname, d))
                   .map(g => glob.sync(g))
                   .reduce((a, c) => a.concat(c), [])
@@ -51,26 +43,14 @@ const config = {
       }
     ]
   },
-
-  externals: [
-    'react',
-    'react-dom',
-    'react-css-modules'
-  ],
-
-  resolve: {
-    extensions: ['.js', '.jsx', '.json'],
-    symlinks: false
-  },
-
+  externals: [ 'react', 'react-dom', 'react-css-modules' ],
+  resolve: { extensions: [ '.js', '.jsx', '.json' ], symlinks: false },
   optimization: {
     minimizer: [
-      //https://github.com/mishoo/UglifyJS2/tree/harmony
+      // https://github.com/mishoo/UglifyJS2/tree/harmony
       new UglifyJsPlugin({
         uglifyOptions: {
-          output: {
-            comments: false
-          },
+          output: { comments: false },
           minify: {},
           compress: {
             warnings: false,
@@ -84,10 +64,9 @@ const config = {
             join_vars: true
           }
         }
-      }),
+      })
     ]
   },
-
   plugins: [
     new ExtractTextPlugin({
       disable: false,
@@ -99,12 +78,11 @@ const config = {
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+      test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$/,
       threshold: 10240,
       minRatio: 0.8
     })
   ]
-
 };
 
 module.exports = config;
