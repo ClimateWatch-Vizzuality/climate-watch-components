@@ -1,0 +1,33 @@
+.cw__check-input-styles_checkbox {
+  margin-top: 10px; }
+
+.cw__check-input-styles_label {
+  font-size: 13px;
+  font-weight: bold;
+  color: green; }
+
+.cw__check-input-styles_slider {
+  background-color: pink;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: relative;
+  right: 0;
+  top: 0;
+  transition: 0.2s;
+  width: 28px; }
+
+input:checked ~ .cw__check-input-styles_slider {
+  background-color: lightblue; }
+.cw__card-styles_title {
+  font-size: 24px;
+  font-weight: bold;
+  color: lightcoral; }
+
+.cw__card-styles_subtitle {
+  color: lightcoral; }
+
+.cw__card-styles_cardContent {
+  margin: 15px;
+  color: pink;
+  font-family: Impact; }

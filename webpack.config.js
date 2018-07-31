@@ -2,8 +2,8 @@ const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const config = {
   entry: './src/index.js',
@@ -55,17 +55,37 @@ const config = {
   externals: [
     'react',
     'react-dom',
-    'react-css-modules',
-    'leaflet',
-    'vega'
+    'react-css-modules'
   ],
 
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
-    alias: {
-      components: '.src/components'
-    },
     symlinks: false
+  },
+
+  optimization: {
+    minimizer: [
+      //https://github.com/mishoo/UglifyJS2/tree/harmony
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          output: {
+            comments: false
+          },
+          minify: {},
+          compress: {
+            warnings: false,
+            conditionals: true,
+            unused: true,
+            comparisons: true,
+            sequences: true,
+            dead_code: true,
+            evaluate: true,
+            if_return: true,
+            join_vars: true
+          }
+        }
+      }),
+    ]
   },
 
   plugins: [
@@ -75,21 +95,6 @@ const config = {
       filename: '[name].css'
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true
-      },
-      output: { comments: false }
-    }),
     new webpack.HashedModuleIdsPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
@@ -97,8 +102,7 @@ const config = {
       test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
       threshold: 10240,
       minRatio: 0.8
-    }),
-    process.env.BUNDLE_ANALIZE ? new BundleAnalyzerPlugin({ analyzerMode: 'static' }) : () => {}
+    })
   ]
 
 };
