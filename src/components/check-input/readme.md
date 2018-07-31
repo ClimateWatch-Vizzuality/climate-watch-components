@@ -1,4 +1,4 @@
-### Check-input bit example:
+### Check-input example:
 
 ```js
 const styles = require('./check-input-theme.scss');
