@@ -1,11 +1,87 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import BitAccordion from '@bit/aabdaab.cw-components.global.accordion';
+import { Collapse } from 'react-collapse';
+import cx from 'classnames';
+// import Icon from '../icon';
+import Icon from '@bit/aabdaab.cw-components.global.icon';
+
+import dropdownArrow from './assets/dropdown-arrow.svg';
+import styles from './accordion-styles.scss';
 
 /**
  * Table component to show nested data structures
  */
-const Accordion = props => <BitAccordion {...props} />;
+class Accordion extends PureComponent {
+  render() {
+    const {
+      className,
+      data,
+      handleOnClick,
+      openSlug,
+      children,
+      isChild,
+      hasNestedCollapse
+    } = this.props;
+    return (
+      <div className={className}>
+        {data &&
+          data.length > 0 &&
+          data.map((section, index) => {
+            let isOpen = index === 0;
+            if (openSlug) {
+              if (openSlug !== 'none') {
+                const isActiveInResults = data.some(d => d.slug === openSlug);
+                isOpen =
+                  openSlug === section.slug ||
+                  (index === 0 && !isActiveInResults);
+              } else {
+                isOpen = false;
+              }
+            }
+            const title = section.parent
+              ? `${section.parent.name} | ${section.title}`
+              : section.title;
+            return (
+              <section
+                key={`${section.slug}-${section.title}`}
+                className={styles.accordion}
+              >
+                <button
+                  className={cx(styles.header, isChild ? styles.subHeader : '')}
+                  onClick={() => handleOnClick(section.slug, isOpen)}
+                >
+                  <div className={styles.layout}>
+                    <div className={styles.title}>
+                      {title}
+                      <Icon
+                        icon={dropdownArrow}
+                        className={cx(styles.iconArrow, {
+                          [styles.isOpen]: isOpen
+                        })}
+                      />
+                    </div>
+                  </div>
+                </button>
+                <Collapse
+                  isOpened={isOpen}
+                  hasNestedCollapse={hasNestedCollapse}
+                >
+                  {isOpen && (
+                    <div>
+                      {React.Children.map(children, (child, i) => {
+                        if (i === index) return child;
+                        return null;
+                      })}
+                    </div>
+                  )}
+                </Collapse>
+              </section>
+            );
+          })}
+      </div>
+    );
+  }
+}
 
 Accordion.propTypes = {
   /** Active slug
@@ -38,13 +114,13 @@ Accordion.propTypes = {
 };
 
 Accordion.defaultProps = {
-  openSlug: '',
-  handleOnClick: () => {},
-  children: null,
-  isChild: false,
-  hasNestedCollapse: false,
   data: [],
-  theme: {}
+  theme: {},
+  openSlug: '',
+  children: null,
+  handleOnClick: () => {},
+  hasNestedCollapse: false,
+  isChild: false,
 };
 
 export default Accordion;

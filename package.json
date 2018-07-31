@@ -23,7 +23,9 @@
     "gh-pages": "1.2.0",
     "prop-types": "15.6.2",
     "react": "16.4.1",
+    "react-collapse": "^4.0.3",
     "react-dom": "16.4.1",
+    "react-motion": "^0.5.2",
     "react-styleguidist": "7.1.0"
   },
   "devDependencies": {
