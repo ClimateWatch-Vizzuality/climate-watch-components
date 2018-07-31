@@ -1,7 +1,10 @@
-### Icon bit example:
+### Icon example:
 
 ```js
-const styles = require('./icon-styles.scss');
+const theme = require('./icon-theme.scss');
 const icon = require('../../assets/contact.svg');
-<Icon icon={icon} theme={styles}/>
+const handleOnClick = () => {
+  console.log('something');
+}
+<Icon icon={icon} theme={theme} onClick={handleOnClick}/>
 ```

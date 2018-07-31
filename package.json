@@ -26,6 +26,7 @@
   "dependencies": {
     "@bit/aabdaab.cw-components.global.card": "latest",
     "@bit/aabdaab.cw-components.global.check-input": "latest",
+    "classnames": "^2.2.6",
     "eslint-plugin-prettier": "2.6.2",
     "gh-pages": "1.2.0",
     "lint-staged": "^7.2.0",
@@ -35,7 +36,9 @@
     "react-collapse": "^4.0.3",
     "react-dom": "16.4.1",
     "react-motion": "^0.5.2",
-    "react-styleguidist": "7.1.0"
+    "react-styleguidist": "7.1.0",
+    "stylelint": "^9.4.0",
+    "stylelint-config-standard": "^18.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
