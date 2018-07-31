@@ -1,9 +1,14 @@
 const path = require('path');
 const glob = require('glob');
+const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
-  resolve: { extensions: [ '.js', '.jsx', '.json' ] },
+  resolve: {
+    extensions: [ '.js', '.jsx', '.json' ],
+    plugins: [ new DirectoryNamedWebpackPlugin(true) ]
+  },
+  node: { fs: 'empty', net: 'empty' },
   module: {
     rules: [
       { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },

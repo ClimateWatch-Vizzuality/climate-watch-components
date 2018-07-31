@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 
 const config = {
   entry: './src/index.js',
@@ -12,6 +13,7 @@ const config = {
     filename: 'bundle.js',
     libraryTarget: 'commonjs2'
   },
+  node: { fs: 'empty', net: 'empty' },
   module: {
     rules: [
       { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
@@ -44,7 +46,11 @@ const config = {
     ]
   },
   externals: [ 'react', 'react-dom', 'react-css-modules' ],
-  resolve: { extensions: [ '.js', '.jsx', '.json' ], symlinks: false },
+  resolve: {
+    extensions: [ '.js', '.jsx', '.json' ],
+    symlinks: false,
+    plugins: [ new DirectoryNamedWebpackPlugin(true) ]
+  },
   optimization: {
     minimizer: [
       // https://github.com/mishoo/UglifyJS2/tree/harmony
