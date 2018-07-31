@@ -20,19 +20,19 @@ const CheckInput = props => {
   return (
     <div className={cx(styles.checkInput, theme.checkInput)}>
       <label
-        className={cx(styles.switch, { [styles.toggleFirst]: toggleFirst })}
+        className={cx(styles.switch, { [styles.toggleFirst]: toggleFirst }, theme.switch)}
         htmlFor={id}
       >
         <input
-          className={styles.checkbox}
+          id={id}
           type="checkbox"
           checked={checked}
           onChange={onChange}
-          id={id}
+          className={styles.checkbox}
           disabled={disabled}
         />
-        <span className={styles.label}>{label}</span>
-        <div className={cx(styles.slider, styles.round)} />
+        <span className={cx(styles.label, theme.label)}>{label}</span>
+        <div className={cx(styles.slider, styles.round, theme.slider)} />
       </label>
     </div>
   );

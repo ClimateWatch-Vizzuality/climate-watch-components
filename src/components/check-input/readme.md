@@ -3,9 +3,10 @@
 ```js
 const styles = require('./check-input-theme.scss');
 <CheckInput
-    className={styles.checkbox}
-    label={'Subscribe'}
-    toggleFirst
-    disabled={false}
+  className={styles.checkbox}
+  label={'Subscribe'}
+  toggleFirst
+  theme={styles}
+  disabled={false}
 />
 ```
