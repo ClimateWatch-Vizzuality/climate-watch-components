@@ -24,8 +24,6 @@
     }
   },
   "dependencies": {
-    "@bit/aabdaab.cw-components.global.card": "latest",
-    "@bit/aabdaab.cw-components.global.check-input": "latest",
     "classnames": "^2.2.6",
     "compression-webpack-plugin": "^1.1.11",
     "eslint-plugin-prettier": "2.6.2",
