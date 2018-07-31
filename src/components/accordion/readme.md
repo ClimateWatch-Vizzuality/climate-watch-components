@@ -1,4 +1,4 @@
-### Accordion bit example:
+### Accordion example:
 
 ```js
 initialState = {

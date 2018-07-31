@@ -1,20 +1,19 @@
 const path = require('path');
 const glob = require('glob');
+const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
-  resolve: { extensions: ['.js', '.jsx', '.json'] },
+  resolve: {
+    extensions: [ '.js', '.jsx', '.json' ],
+    plugins: [ new DirectoryNamedWebpackPlugin(true) ]
+  },
+  node: { fs: 'empty', net: 'empty' },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: 'url-loader'
-      },
+      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.(jpe?g|png|gif)$/i, use: 'url-loader' },
+      { test: /\.svg$/, use: 'svg-sprite-loader' },
       {
         test: /\.scss$/,
         use: [
@@ -24,7 +23,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              includePaths: ['./node_modules', './src/css']
+              includePaths: [ './node_modules', './src/css' ]
                 .map(d => path.join(__dirname, d))
                 .map(g => glob.sync(g))
                 .reduce((a, c) => a.concat(c), [])

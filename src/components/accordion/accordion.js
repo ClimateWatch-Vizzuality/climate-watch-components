@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
 import cx from 'classnames';
-// import Icon from '../icon';
-import Icon from '@bit/aabdaab.cw-components.global.icon';
+import Icon from '../icon/icon';
 
 import dropdownArrow from './assets/dropdown-arrow.svg';
 import styles from './accordion-styles.scss';
@@ -24,60 +23,65 @@ class Accordion extends PureComponent {
     } = this.props;
     return (
       <div className={theme.wrapper}>
-        {data &&
-          data.length > 0 &&
-          data.map((section, index) => {
-            let isOpen = index === 0;
-            if (openSlug) {
-              if (openSlug !== 'none') {
-                const isActiveInResults = data.some(d => d.slug === openSlug);
-                isOpen =
-                  openSlug === section.slug ||
-                  (index === 0 && !isActiveInResults);
-              } else {
-                isOpen = false;
+        {
+          data && data.length > 0 && data.map((section, index) => {
+              let isOpen = index === 0;
+              if (openSlug) {
+                if (openSlug !== 'none') {
+                  const isActiveInResults = data.some(d => d.slug === openSlug);
+                  isOpen = openSlug === section.slug ||
+                    index === 0 && !isActiveInResults;
+                } else {
+                  isOpen = false;
+                }
               }
-            }
-            const title = section.parent
-              ? `${section.parent.name} | ${section.title}`
-              : section.title;
-            return (
-              <section
-                key={`${section.slug}-${section.title}`}
-                className={cx(styles.accordion, theme.accordion)}
-              >
-                <button
-                  className={cx(styles.header, isChild ? styles.subHeader : '')}
-                  onClick={() => handleOnClick(section.slug, isOpen)}
+              const title = section.parent
+                ? `${section.parent.name} | ${section.title}`
+                : section.title;
+              return (
+                <section
+                  key={`${section.slug}-${section.title}`}
+                  className={cx(styles.accordion, theme.accordion)}
                 >
-                  <div className={styles.layout}>
-                    <div className={styles.title}>
-                      {title}
-                      <Icon
-                        icon={dropdownArrow}
-                        className={cx(styles.iconArrow, {
-                          [styles.isOpen]: isOpen
-                        })}
-                      />
+                  <button
+                    type="button"
+                    className={cx(
+                      styles.header,
+                      isChild ? styles.subHeader : ''
+                    )}
+                    onClick={() => handleOnClick(section.slug, isOpen)}
+                  >
+                    <div className={styles.layout}>
+                      <div className={styles.title}>
+                        {title}
+                        <Icon
+                          icon={dropdownArrow}
+                          className={cx(styles.iconArrow, {
+                            [styles.isOpen]: isOpen
+                          })}
+                        />
+                      </div>
                     </div>
-                  </div>
-                </button>
-                <Collapse
-                  isOpened={isOpen}
-                  hasNestedCollapse={hasNestedCollapse}
-                >
-                  {isOpen && (
-                    <div>
-                      {React.Children.map(children, (child, i) => {
-                        if (i === index) return child;
-                        return null;
-                      })}
-                    </div>
-                  )}
-                </Collapse>
-              </section>
-            );
-          })}
+                  </button>
+                  <Collapse
+                    isOpened={isOpen}
+                    hasNestedCollapse={hasNestedCollapse}
+                  >
+                    {
+                      isOpen && (
+                      <div>
+                        {React.Children.map(children, (child, i) => {
+                              if (i === index) return child;
+                              return null;
+                            })}
+                      </div>
+                        )
+                    }
+                  </Collapse>
+                </section>
+              );
+            })
+        }
       </div>
     );
   }
@@ -110,7 +114,7 @@ Accordion.propTypes = {
   /** Themable options */
   theme: PropTypes.shape({
     wrapper: PropTypes.string,
-    accordion: PropTypes.string,
+    accordion: PropTypes.string
   })
 };
 
@@ -119,9 +123,10 @@ Accordion.defaultProps = {
   theme: {},
   openSlug: '',
   children: null,
-  handleOnClick: () => {},
+  handleOnClick: () => {
+  },
   hasNestedCollapse: false,
-  isChild: false,
+  isChild: false
 };
 
 export default Accordion;
