@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import CheckInput from '../check-input'
 
 import styles from './card-styles.scss';
 
@@ -10,21 +9,27 @@ import styles from './card-styles.scss';
  */
 class Card extends PureComponent {
   render() {
-    const { title, subtitle, children, theme } = this.props;
+    const { title, children, subtitle, theme } = this.props;
     return (
       <div className={cx(styles.card, theme.card)}>
         <div className={styles.data}>
-          <CheckInput
-            id="inputCard"
-            label={'Subscribe'}
-            toggleFirst
-            theme={styles}
-            disabled={false}
-          />
+          {children}
         </div>
         <div className={styles.contentContainer}>
-          {title && <p className={cx(styles.title, theme.title)}>{title}</p>}
-          {subtitle && <p className={cx(styles.subtitle, theme.subtitle)}>{subtitle}</p>}
+          {
+            title && (
+            <p className={cx(styles.title, theme.title)}>
+              {title}
+            </p>
+              )
+          }
+          {
+            subtitle && (
+            <p className={cx(styles.subtitle, theme.subtitle)}>
+              {subtitle}
+            </p>
+              )
+          }
         </div>
       </div>
     );
@@ -34,16 +39,14 @@ class Card extends PureComponent {
 Card.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   theme: PropTypes.shape({
     card: PropTypes.string,
     title: PropTypes.string,
-    subtitle: PropTypes.string,
-  }),
+    subtitle: PropTypes.string
+  })
 };
 
-Card.defaultProps = {
-  theme: {}
-};
+Card.defaultProps = { theme: {}, title: '', subtitle: '' };
 
 export default Card;
