@@ -1,3 +1,43 @@
+.cw__icon-styles_icon {
+  width: 15px;
+  height: 15px; }
+
+.cw__icon-styles_cursor {
+  cursor: pointer; }
+.cw__accordion-styles_accordion {
+  position: relative; }
+
+.cw__accordion-styles_header {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #fff;
+  color: #113750;
+  font-size: 1.5rem;
+  font-family: "Lato", sans-serif;
+  border-bottom: solid 1px rgba(17, 55, 80, 0.3);
+  cursor: pointer; }
+  .cw__accordion-styles_header:focus {
+    outline: none; }
+  .cw__accordion-styles_header .cw__accordion-styles_title {
+    text-align: left;
+    position: relative;
+    padding-right: 30px; }
+
+.cw__accordion-styles_subHeader {
+  background-color: rgba(245, 246, 247, 0.5);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 1.1875rem; }
+  .cw__accordion-styles_subHeader .cw__accordion-styles_title {
+    padding-left: 15px; }
+
+.cw__accordion-styles_iconArrow {
+  transition: transform 0.25s ease-in-out;
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 5px); }
+  .cw__accordion-styles_iconArrow.cw__accordion-styles_isOpen {
+    transform: rotate(180deg); }
 .cw__card-styles_card {
   display: flex;
   flex-direction: column;
