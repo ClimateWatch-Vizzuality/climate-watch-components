@@ -8,7 +8,7 @@ initialState = {
     { title: 'hey2', slug: 'my-slug2', content: 'my super content2' }
   ]
 }
-const styles = require('./accordion-styles.scss');
+const styles = require('./accordion-theme.scss');
 const handleOnClick = (slug) => {
   setState((state) => {
     const openSlug = state.openSlug === slug ? 'none' : slug;

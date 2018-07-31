@@ -22,7 +22,7 @@ module.exports = {
     const dirname = path.dirname(componentPath, '.js');
     const componentName = camelCase(dirname.split('/').slice(-1)[0]);
 
-    return `import ${upperFirst(componentName)} from '@bit/aabdaab.cw-components.global.${componentName}'`;
+    return `import { ${upperFirst(componentName)} } from 'cw-components';`;
   },
   webpackConfig
 };

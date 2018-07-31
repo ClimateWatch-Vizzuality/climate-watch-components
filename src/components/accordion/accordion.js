@@ -14,8 +14,8 @@ import styles from './accordion-styles.scss';
 class Accordion extends PureComponent {
   render() {
     const {
-      className,
       data,
+      theme,
       handleOnClick,
       openSlug,
       children,
@@ -23,7 +23,7 @@ class Accordion extends PureComponent {
       hasNestedCollapse
     } = this.props;
     return (
-      <div className={className}>
+      <div className={theme.wrapper}>
         {data &&
           data.length > 0 &&
           data.map((section, index) => {
@@ -44,7 +44,7 @@ class Accordion extends PureComponent {
             return (
               <section
                 key={`${section.slug}-${section.title}`}
-                className={styles.accordion}
+                className={cx(styles.accordion, theme.accordion)}
               >
                 <button
                   className={cx(styles.header, isChild ? styles.subHeader : '')}
@@ -109,7 +109,8 @@ Accordion.propTypes = {
   hasNestedCollapse: PropTypes.bool,
   /** Themable options */
   theme: PropTypes.shape({
-    accordion: PropTypes.string
+    wrapper: PropTypes.string,
+    accordion: PropTypes.string,
   })
 };
 
