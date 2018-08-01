@@ -3,6 +3,7 @@
   "rules": {
     "block-no-empty": null,
     "no-descending-specificity": null,
+    "no-duplicate-selectors": null,
     "selector-pseudo-class-no-unknown": [
       true, { ignorePseudoClasses: ["global"] }
     ]
