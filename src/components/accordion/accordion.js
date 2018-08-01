@@ -21,10 +21,11 @@ class Accordion extends PureComponent {
       isChild,
       hasNestedCollapse
     } = this.props;
+    const hasData = data && data.length > 0;
     return (
       <div className={theme.wrapper}>
         {
-          data && data.length > 0 && data.map((section, index) => {
+          hasData && data.map((section, index) => {
               let isOpen = index === 0;
               if (openSlug) {
                 if (openSlug !== 'none') {
@@ -56,9 +57,11 @@ class Accordion extends PureComponent {
                         {title}
                         <Icon
                           icon={dropdownArrow}
-                          className={cx(styles.iconArrow, {
-                            [styles.isOpen]: isOpen
-                          })}
+                          theme={{
+                            icon: cx(styles.iconArrow, {
+                              [styles.isOpen]: isOpen
+                            })
+                          }}
                         />
                       </div>
                     </div>
