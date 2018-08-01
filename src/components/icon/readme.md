@@ -1,4 +1,3 @@
-### Icon example:
 
 ```js
 const theme = require('./icon-theme.scss');

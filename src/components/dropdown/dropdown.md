@@ -1,11 +1,21 @@
 
 ```js
+initialState = {
+  selected: [],
+  data:[
+    { label: 'Apple', value: 'Apple' },
+    { label: 'Mango', value: 'Mango' },
+    { label: 'Banana', value: 'Banana '}
+  ]
+}
+const onValueChange = (selected) => {
+  setState({ selected })
+}
+
 <Dropdown
-  options={[
-    {label: 'Apple', value: 'Apple'},
-    {label: 'Mango', value: 'Mango'},
-    {label: 'Banana', value: 'Banana'}
-  ]}
+  value={state.selected}
+  options={state.data}
+  onValueChange={onValueChange}
   hasSearch={false}
 />
 ```

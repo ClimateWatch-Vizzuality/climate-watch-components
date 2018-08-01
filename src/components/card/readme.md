@@ -1,4 +1,3 @@
-### Card example:
 
 ```js
 const styles = require('./card-styles.scss');
