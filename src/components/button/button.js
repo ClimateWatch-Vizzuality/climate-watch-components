@@ -14,7 +14,6 @@ const Button = props => {
     children,
     className,
     square,
-    color,
     disabled,
     onClick,
     noBox,
@@ -23,11 +22,6 @@ const Button = props => {
   } = props;
   const classNames = cx(className, styles.button, theme.button, {
     [styles.square]: square,
-    [styles.transparent]: color === 'transparent',
-    [styles.yellow]: color === 'yellow',
-    [styles.white]: color === 'white',
-    [styles.plain]: color === 'plain',
-    [styles.red]: color === 'red',
     [styles.noBox]: noBox,
     [styles.disabled]: disabled || !onClick && !link && !href,
     [styles.noSpace]: noSpace
@@ -69,8 +63,6 @@ Button.propTypes = {
   link: PropTypes.string,
   /** Option to render button as a square */
   square: PropTypes.bool,
-  /** Pass color of the button */
-  color: PropTypes.string,
   /** Option to render button without space  */
   noSpace: PropTypes.bool,
   /** Option to render button without box */
@@ -89,7 +81,6 @@ Button.defaultProps = {
   className: '',
   link: '',
   square: false,
-  color: '',
   noBox: false,
   onClick: () => {
   },
