@@ -1,15 +1,66 @@
-import { PureComponent, createElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {
+  // eslint-disable-next-line
+  ReactSelectize,
+  MultiSelect as SelectizeMultiSelect
+} from 'react-selectize';
+// eslint-disable-next-line
+import { CSSTransitionGroup } from 'react-transition-group';
+import cx from 'classnames';
 import remove from 'lodash/remove';
 import deburr from 'lodash/deburr';
 import toUpper from 'lodash/toUpper';
 
-import MultiSelectComponent from './multiselect-component';
+import dropdownArrow from './assets/dropdown-arrow.svg';
+import infoIcon from './assets/info.svg';
+import Icon from '../icon';
+import Loading from '../loading';
+import selectizeStyles from '../../styles/react-selectize.scss';
+import styles from './multiselect-styles.scss';
 
-export { default as component } from './multiselect-component';
-export { default as styles } from './multiselect-styles.scss';
+class Multiselect extends Component {
+  // eslint-disable-line react/prefer-stateless-function
+  constructor() {
+    super();
+    this.state = { search: '' };
+  }
 
-class MultiSelect extends PureComponent {
+  componentDidUpdate(prevProps, prevState) {
+    const { search } = this.state;
+    if (search !== prevState.search) {
+      this.selectorElement.highlightFirstSelectableOption();
+    }
+  }
+
+  getSelectorValue() {
+    const { values, options, selectedLabel, children } = this.props;
+    if (children) {
+      return children;
+    }
+    const { search } = this.state;
+    const hasValues = values && values.length;
+    if (selectedLabel && !search) {
+      return (
+        <span>
+          {selectedLabel}
+        </span>
+      );
+    }
+    if (hasValues && !search) {
+      return values.length === options && options.length ? (
+        <span>
+          All selected
+        </span>
+) : (
+  <span>
+    {`${values.length} selected`}
+  </span>
+);
+    }
+    return null;
+  }
+
   filterOptions = (options, something, search) => {
     const optionsParsed = [];
     const { values, hideSelected } = this.props;
@@ -51,22 +102,121 @@ class MultiSelect extends PureComponent {
   };
 
   render() {
-    return createElement(MultiSelectComponent, {
-      ...this.props,
-      filterOptions: this.filterOptions,
-      onValuesChange: this.handleChange
-    });
+    const { search } = this.state;
+    const {
+      label,
+      theme,
+      loading,
+      children,
+      mirrorX,
+      hideSelected,
+      icon,
+      info,
+      infoText
+    } = this.props;
+    return (
+      <div
+        className={cx(
+          selectizeStyles.dropdown,
+          styles.multiSelectWrapper,
+          theme.wrapper
+        )}
+      >
+        {
+          label && (
+          <span className={styles.label}>
+            {label}
+          </span>
+            )
+        }
+        {
+          info && (
+          <div data-tip={infoText} className={styles.infoContainer}>
+            <Icon icon={infoIcon} className={styles.infoIcon} />
+          </div>
+            )
+        }
+        <div
+          className={cx(
+            theme.dropdown,
+            styles.multiSelect,
+            children ? styles.hasChildren : '',
+            { [styles.mirrorX]: mirrorX },
+            { [styles.searchable]: !icon }
+          )}
+        >
+          <div className={cx(styles.values, 'values')}>
+            {this.getSelectorValue()}
+          </div>
+          {loading && <Loading className={styles.loader} mini />}
+          <SelectizeMultiSelect
+            ref={el => {
+              this.selectorElement = el;
+            }}
+            filterOptions={this.filterOptions}
+            renderValue={() => <span />}
+            renderOption={option => {
+              const className = option.isSelected
+                ? cx(styles.selected, theme.selected)
+                : '';
+              return (!hideSelected || !option.isSelected) && (
+              <div
+                className={cx(
+                      className,
+                      option.groupId ? styles.nested : ''
+                    )}
+              >
+                {option.label}
+                {option.isSelected && <span className={styles.checked} />}
+              </div>
+                );
+            }}
+            onValuesChange={this.handleChange}
+            renderToggleButton={({ open }) => (
+              <Icon
+                className={open ? styles.isOpen : ''}
+                icon={icon || dropdownArrow}
+              />
+            )}
+            onSearchChange={s => this.setState({ search: s })}
+            search={search}
+            {...this.props}
+          />
+        </div>
+      </div>
+    );
   }
 }
 
-MultiSelect.propTypes = {
+Multiselect.propTypes = {
+  theme: PropTypes.object,
   onValueChange: PropTypes.func.isRequired,
+  info: PropTypes.bool,
+  infoText: PropTypes.string,
+  label: PropTypes.string,
+  selectedLabel: PropTypes.string,
+  children: PropTypes.node,
+  loading: PropTypes.bool,
+  mirrorX: PropTypes.bool,
+  icon: PropTypes.object,
+  options: PropTypes.array.isRequired,
   values: PropTypes.arrayOf(
     PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
   ).isRequired,
   hideSelected: PropTypes.bool
 };
 
-MultiSelect.defaultProps = { hideSelected: false };
+Multiselect.defaultProps = {
+  theme: { selected: styles.selected },
+  info: false,
+  icon: null,
+  infoText: '',
+  selectedLabel: '',
+  children: null,
+  label: '',
+  mirrorX: false,
+  loading: false,
+  hideSelected: false
+};
 
-export default MultiSelect;
+export default Multiselect;

@@ -12,11 +12,11 @@ const onValueChange = (selected) => {
   setState({ selected })
 }
 
-<MultiSelect
+<Multiselect
   options={state.data}
   values={state.selected}
   onValueChange={onValueChange}
 >
-</MultiSelect>
+</Multiselect>
 ```
 
