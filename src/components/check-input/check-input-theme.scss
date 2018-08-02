@@ -1,25 +1,27 @@
+@import '../../styles/theme-settings';
+
 .checkbox {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .label {
-    font-size: 13px;
-    font-weight: bold;
-    color: green;
+  font-size: 13px;
+  font-weight: bold;
+  color: $accent-color;
 }
 
 .slider {
-    background-color: pink;
-    bottom: 0;
-    cursor: pointer;
-    left: 0;
-    position: relative;
-    right: 0;
-    top: 0;
-    transition: 0.2s;
-    width: 28px;
+  background-color: $theme-color;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: relative;
+  right: 0;
+  top: 0;
+  transition: 0.2s;
+  width: 28px;
 }
 
 input:checked ~ .slider {
-    background-color: lightblue;
-  }
+  background-color: $accent-color;
+}

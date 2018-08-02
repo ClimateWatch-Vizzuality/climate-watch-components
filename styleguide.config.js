@@ -3,7 +3,7 @@ const camelCase = require('lodash/camelCase');
 const upperFirst = require('lodash/upperFirst');
 
 const webpackConfig = require('./styleguide.webpack.js');
-const { name, version } = require('./package.json');
+const { version } = require('./package.json');
 
 module.exports = {
   title: `CW components | ${version}`,
@@ -18,7 +18,7 @@ module.exports = {
     }
   },
   skipComponentsWithoutExample: true,
-  getComponentPathLine: (componentPath) => {
+  getComponentPathLine: componentPath => {
     const dirname = path.dirname(componentPath, '.js');
     const componentName = camelCase(dirname.split('/').slice(-1)[0]);
 
