@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { NavLink } from 'react-router-dom';
 import styles from './button-styles.scss';
 
 /**
@@ -9,7 +8,6 @@ import styles from './button-styles.scss';
  */
 const Button = props => {
   const {
-    link,
     href,
     children,
     className,
@@ -20,10 +18,11 @@ const Button = props => {
     noSpace,
     theme
   } = props;
+  const notActionable = disabled || !onClick && !href && !children;
   const classNames = cx(className, styles.button, theme.button, {
     [styles.square]: square,
     [styles.noBox]: noBox,
-    [styles.disabled]: disabled || !onClick && !link && !href,
+    [styles.disabled]: notActionable,
     [styles.noSpace]: noSpace
   });
   if (href) {
@@ -33,21 +32,17 @@ const Button = props => {
       </a>
     );
   }
-  return link ? (
-    <NavLink className={classNames} to={link} onClick={onClick}>
+  return (
+    <button
+      type="button"
+      title={disabled ? 'Coming soon' : ''}
+      disabled={disabled}
+      className={classNames}
+      onClick={onClick}
+    >
       {children}
-    </NavLink>
-) : (
-  <button
-    type="button"
-    title={disabled ? 'Coming soon' : ''}
-    disabled={disabled}
-    className={classNames}
-    onClick={onClick}
-  >
-    {children}
-  </button>
-);
+    </button>
+  );
 };
 
 Button.propTypes = {
@@ -59,8 +54,6 @@ Button.propTypes = {
   className: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]),
   /** Theming button with customized styles */
   theme: PropTypes.shape({ button: PropTypes.string }),
-  /** Link to which button click will redirect */
-  link: PropTypes.string,
   /** Option to render button as a square */
   square: PropTypes.bool,
   /** Option to render button without space  */
@@ -79,7 +72,6 @@ Button.defaultProps = {
   href: null,
   children: null,
   className: '',
-  link: '',
   square: false,
   noBox: false,
   onClick: () => {
