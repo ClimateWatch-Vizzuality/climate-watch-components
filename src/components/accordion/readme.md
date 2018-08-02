@@ -1,4 +1,3 @@
-### Accordion example:
 
 ```js
 initialState = {

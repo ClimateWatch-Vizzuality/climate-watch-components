@@ -1,4 +1,7 @@
+@import '../../styles/theme-settings';
+
 .icon {
   height: 20px;
   width: 20px;
+  fill: $theme-color;
 }

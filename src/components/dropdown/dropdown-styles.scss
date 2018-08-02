@@ -1,0 +1,76 @@
+@import '../../styles/settings.scss';
+
+.dropdownWrapper {
+  position: relative;
+  width: 100%;
+
+  &.flex {
+    display: flex;
+  }
+
+  &.requiredError {
+    :global .react-selectize-control {
+      border: 1px solid $error !important;
+    }
+  }
+}
+
+.dot {
+  width: 13px;
+  height: 12px;
+  position: absolute;
+  border-radius: 15px;
+  left: 15px;
+  top: 20px;
+  margin-right: 20px;
+}
+
+.label {
+  display: inline-block;
+  font-size: $font-size-s;
+  font-weight: $font-weight-bold;
+  color: $theme-color;
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+
+.requiredError {
+  font-size: $font-size-s;
+  font-weight: $font-weight;
+  color: $error;
+}
+
+.optional {
+  font-size: $font-size-s;
+  font-weight: $font-weight;
+  color: $gray;
+}
+
+.loader {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  z-index: 1;
+}
+
+.withDot {
+  :global .react-selectize-control {
+    margin-left: 2em;
+  }
+}
+
+.infoContainer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.infoIcon {
+  fill: $gray;
+}
+
+.white {
+  fill: #fff;
+}
