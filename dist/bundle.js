@@ -68,8 +68,8 @@ module.exports = (function(t) {
       x,
       S,
       T,
-      C,
       E,
+      C,
       j,
       P,
       k,
@@ -113,7 +113,7 @@ module.exports = (function(t) {
       return Math.atan2(t, e);
     }), T = function(t) {
       return ~~t;
-    }, C = Math.round, E = Math.ceil, j = Math.floor, P = function(t) {
+    }, E = Math.round, C = Math.ceil, j = Math.floor, P = function(t) {
       return t != t;
     }, k = function(t) {
       return t % 2 == 0;
@@ -150,8 +150,8 @@ module.exports = (function(t) {
       atan: x,
       atan2: S,
       truncate: T,
-      round: C,
-      ceiling: E,
+      round: E,
+      ceiling: C,
       floor: j,
       isItNaN: P,
       even: k,
@@ -1493,6 +1493,15 @@ module.exports = (function(t) {
       }), n;
     };
   },
+  '8KRR': function(t, e) {
+    t.exports = {
+      row: 'cw__bottom-bar-styles_row',
+      container: 'cw__bottom-bar-styles_container',
+      bottomBar: 'cw__bottom-bar-styles_bottomBar',
+      text: 'cw__bottom-bar-styles_text',
+      align: 'cw__bottom-bar-styles_align'
+    };
+  },
   '8PcY': function(t, e, n) {
     'use strict';
     e.__esModule = !0, e.getChildMapping = function(t) {
@@ -2265,14 +2274,14 @@ module.exports = (function(t) {
         case g:
           return t == e + '';
         case h:
-          var C = s;
+          var E = s;
         case m:
-          var E = r & l;
-          if ((C || (C = u), t.size != e.size && !E)) return !1;
+          var C = r & l;
+          if ((E || (E = u), t.size != e.size && !C)) return !1;
           var j = T.get(t);
           if (j) return j == e;
           r |= c, T.set(t, e);
-          var P = a(C(t), C(e), r, _, S, T);
+          var P = a(E(t), E(e), r, _, S, T);
           return T.delete(t), P;
         case b:
           if (x) return x.call(t) == x.call(e);
@@ -2580,9 +2589,9 @@ module.exports = (function(t) {
               });
             }), t;
           };
-        var S = r.xlink.uri, T = 'xlink:href', C = /[{}|\\\^\[\]`"<>]/g;
-        function E(t) {
-          return t.replace(C, function(t) {
+        var S = r.xlink.uri, T = 'xlink:href', E = /[{}|\\\^\[\]`"<>]/g;
+        function C(t) {
+          return t.replace(E, function(t) {
             return '%' + t[0].charCodeAt(0).toString(16).toUpperCase();
           });
         }
@@ -2606,7 +2615,7 @@ module.exports = (function(t) {
             return '[' + t + ']';
           }).join(','),
           N = function(t, e, n, r) {
-            var o = E(n), i = E(r);
+            var o = C(n), i = C(r);
             (function(t, e) {
               return m(t).reduce(
                 function(t, n) {
@@ -3160,8 +3169,8 @@ module.exports = (function(t) {
       x,
       S,
       T,
-      C,
       E,
+      C,
       j,
       P,
       k,
@@ -3302,7 +3311,7 @@ module.exports = (function(t) {
       return n;
     }), T = function(t) {
       return [].concat.apply([], t);
-    }, C = bt(function(t, e) {
+    }, E = bt(function(t, e) {
       var n;
       return [].concat.apply(
         [],
@@ -3313,7 +3322,7 @@ module.exports = (function(t) {
           return a;
         })()
       );
-    }), E = function(t) {
+    }), C = function(t) {
       var e;
       return [].concat.apply(
         [],
@@ -3321,7 +3330,7 @@ module.exports = (function(t) {
           var n, r, o, i = [];
           for (n = 0, o = (r = t).length; n < o; ++n)
             e = r[n], 'Array' === mt.call(e).slice(8, -1)
-              ? i.push(E(e))
+              ? i.push(C(e))
               : i.push(e);
           return i;
         })()
@@ -3599,8 +3608,8 @@ module.exports = (function(t) {
       mean: W,
       average: H,
       concat: T,
-      concatMap: C,
-      flatten: E,
+      concatMap: E,
+      flatten: C,
       maximum: V,
       minimum: q,
       maximumBy: G,
@@ -3886,8 +3895,8 @@ module.exports = (function(t) {
             x,
             S,
             T,
-            C,
             E,
+            C,
             j,
             P,
             k,
@@ -3902,7 +3911,7 @@ module.exports = (function(t) {
             U,
             z,
             F = this;
-          return e = (t = this.getComputedState()).anchor, t.filteredOptions, n = t.highlightedUid, r = t.onAnchorChange, o = t.onOpenChange, i = t.onHighlightedUidChange, a = t.onSearchChange, s = t.onValuesChange, l = t.search, c = t.open, p = t.options, f = t.values, null != (t = this.props) && (v = t.autofocus, m = t.autosize, g = t.cancelKeyboardEventOnSelection, b = t.delimiters, w = t.disabled, O = t.dropdownDirection, _ = t.groupId, x = t.groups, S = t.groupsAsColumns, T = t.hideResetButton, C = t.inputProps, E = t.name, j = t.onKeyboardSelectionFailed, P = t.renderToggleButton, k = t.renderGroupTitle, N = t.renderResetButton, M = t.serialize, A = t.tether, I = t.tetherProps, D = t.theme, L = t.transitionEnter, R = t.transitionLeave, B = t.transitionEnterTimeout, U = t.transitionLeaveTimeout, z = t.uid), d(
+          return e = (t = this.getComputedState()).anchor, t.filteredOptions, n = t.highlightedUid, r = t.onAnchorChange, o = t.onOpenChange, i = t.onHighlightedUidChange, a = t.onSearchChange, s = t.onValuesChange, l = t.search, c = t.open, p = t.options, f = t.values, null != (t = this.props) && (v = t.autofocus, m = t.autosize, g = t.cancelKeyboardEventOnSelection, b = t.delimiters, w = t.disabled, O = t.dropdownDirection, _ = t.groupId, x = t.groups, S = t.groupsAsColumns, T = t.hideResetButton, E = t.inputProps, C = t.name, j = t.onKeyboardSelectionFailed, P = t.renderToggleButton, k = t.renderGroupTitle, N = t.renderResetButton, M = t.serialize, A = t.tether, I = t.tetherProps, D = t.theme, L = t.transitionEnter, R = t.transitionLeave, B = t.transitionEnterTimeout, U = t.transitionLeaveTimeout, z = t.uid), d(
             y(
               y(
                 {
@@ -3919,8 +3928,8 @@ module.exports = (function(t) {
                   hideResetButton: T,
                   highlightedUid: n,
                   onHighlightedUidChange: i,
-                  inputProps: C,
-                  name: E,
+                  inputProps: E,
+                  name: C,
                   onKeyboardSelectionFailed: j,
                   renderGroupTitle: k,
                   renderResetButton: N,
@@ -4887,6 +4896,56 @@ module.exports = (function(t) {
         });
     };
   },
+  ZOtO: function(t, e, n) {
+    'use strict';
+    Object.defineProperty(e, '__esModule', { value: !0 });
+    var r = s(n('cDcd')), o = s(n('17x9')), i = s(n('TSYQ')), a = s(n('8KRR'));
+    function s(t) {
+      return t && t.__esModule ? t : { default: t };
+    }
+    var u = function(t) {
+      var e = t.theme, n = t.footerText, o = t.children;
+      return r.default.createElement(
+        'div',
+        { className: (0, i.default)(a.default.container, e.container) },
+        r.default.createElement(
+          'div',
+          {
+            className: (0, i.default)(
+              a.default.row,
+              a.default.bottomBar,
+              e.row,
+              e.bottomBar
+            )
+          },
+          o,
+          r.default.createElement(
+            'span',
+            {
+              className: (0, i.default)(
+                a.default.text,
+                a.default.align,
+                e.text,
+                e.align
+              )
+            },
+            n
+          )
+        )
+      );
+    };
+    u.propTypes = {
+      footerText: o.default.string.isRequired,
+      theme: o.default.shape({
+        row: o.default.string,
+        bottomBar: o.default.string,
+        text: o.default.string,
+        align: o.default.string,
+        container: o.default.string
+      }),
+      children: o.default.node
+    }, u.defaultProps = { children: null, theme: {} }, e.default = u;
+  },
   ZWtO: function(t, e, n) {
     var r = n('4uTw'), o = n('9Nap');
     t.exports = function(t, e) {
@@ -5049,8 +5108,8 @@ module.exports = (function(t) {
         x,
         S,
         T,
-        C = [].slice,
-        E = ({}).toString;
+        E = [].slice,
+        C = ({}).toString;
       function j(t, e) {
         var n,
           r = function(o) {
@@ -5083,7 +5142,7 @@ module.exports = (function(t) {
           : [ n + r ].concat(y(t, e, n + r + e.length));
       }), m = j(function(t, e) {
         var n, r, o;
-        return n = e[0], 0 === (r = C.call(e, 1)).length ? null != (o = t[n]) ? o : null : void 0 === t[n] ? null : m(t[n], r);
+        return n = e[0], 0 === (r = E.call(e, 1)).length ? null != (o = t[n]) ? o : null : void 0 === t[n] ? null : m(t[n], r);
       }), g = function(t) {
         return 0 === l(
             p.filter(function(t) {
@@ -5091,7 +5150,7 @@ module.exports = (function(t) {
             })(t)
           ).length;
       }, b = j(function(t, e) {
-        return E.call(t).slice(8, -1) === E.call(e).slice(8, -1) &&
+        return C.call(t).slice(8, -1) === C.call(e).slice(8, -1) &&
           (o(function(e) {
             return u(e, t);
           })([
@@ -5099,7 +5158,7 @@ module.exports = (function(t) {
             'Number',
             'String',
             'undefined'
-          ]) ? t === e : 'Array' === E.call(t).slice(8, -1) ? t.length === e.length && r(function(n) {
+          ]) ? t === e : 'Array' === C.call(t).slice(8, -1) ? t.length === e.length && r(function(n) {
                   return b(t[n], e[n]);
                 })(
                   (function() {
@@ -5139,14 +5198,14 @@ module.exports = (function(t) {
         return o = m(t, e), x(t, e, o ? r(o, n) : n);
       }), _ = j(function(t, e) {
         var n, r;
-        return n = E.call(e).slice(8, -1), o(function(t) {
+        return n = C.call(e).slice(8, -1), o(function(t) {
           return t === n;
         }, [
           'Boolean',
           'Number',
           'String',
           'Function'
-        ]) ? e : null === t || 'Undefined' === E.call(t).slice(8, -1) ? e : 0 === (r = p.keys(e)).length ? t : (a(function(n) {
+        ]) ? e : null === t || 'Undefined' === C.call(t).slice(8, -1) ? e : 0 === (r = p.keys(e)).length ? t : (a(function(n) {
                 return t[n] = _(
                   p.keys(t[n]).length > 0 ? (function(t, e) {
                       var n = ({}).hasOwnProperty;
@@ -5158,7 +5217,7 @@ module.exports = (function(t) {
               })(r), t);
       }), x = j(function(t, e, n) {
         var r, o, i;
-        return r = e[0], (o = C.call(e, 1)).length > 0 ? (t[r] = null != (i = t[r]) ? i : {}, x(t[r], o, n)) : (t[r] = n, t);
+        return r = e[0], (o = E.call(e, 1)).length > 0 ? (t[r] = null != (i = t[r]) ? i : {}, x(t[r], o, n)) : (t[r] = n, t);
       }), S = function(t) {
         return c(function(e) {
           return c(function(t) {
@@ -5247,10 +5306,10 @@ module.exports = (function(t) {
           ? o(t, e, n, y, m, g)
           : i(t, e, O, n, y, m, g);
       if (!(n & p)) {
-        var C = x && v.call(t, '__wrapped__'),
-          E = S && v.call(e, '__wrapped__');
-        if (C || E) {
-          var j = C ? t.value() : t, P = E ? e.value() : e;
+        var E = x && v.call(t, '__wrapped__'),
+          C = S && v.call(e, '__wrapped__');
+        if (E || C) {
+          var j = E ? t.value() : t, P = C ? e.value() : e;
           return g || (g = new r()), m(j, P, n, y, g);
         }
       }
@@ -6086,7 +6145,7 @@ module.exports = (function(t) {
             getScrollBarSize: h,
             removeUtilElements: c
           };
-          var C = function(t, e) {
+          var E = function(t, e) {
             if (Array.isArray(t)) return t;
             if (Symbol.iterator in Object(t)) return (function(t, e) {
                 var n = [], r = !0, o = !1, i = void 0;
@@ -6125,7 +6184,7 @@ module.exports = (function(t) {
                 return n && t(e.prototype, n), r && t(e, r), e;
               };
             })(),
-            E = function(t, e, n) {
+            C = function(t, e, n) {
               for (var r = !0; r; ) {
                 var o = t, i = e, a = n;
                 r = !1, null === o && (o = Function.prototype);
@@ -6254,14 +6313,14 @@ module.exports = (function(t) {
                 e.width), 'string' == typeof t.top && -1 !== t.top.indexOf('%') && (t.top = parseFloat(t.top, 10) / 100 * e.height), t;
           }
           var H = function(t) {
-            var e = t.split(' '), n = C(e, 2), r = n[0], o = n[1];
+            var e = t.split(' '), n = E(e, 2), r = n[0], o = n[1];
             return { top: r, left: o };
           },
             V = H,
             q = (function(r) {
               function o(t) {
                 var r = this;
-                e(this, o), E(
+                e(this, o), C(
                   Object.getPrototypeOf(o.prototype),
                   'constructor',
                   this
@@ -6562,7 +6621,7 @@ module.exports = (function(t) {
                             targetOffset: d,
                             manualOffset: v,
                             manualTargetOffset: y,
-                            scrollbarSize: C,
+                            scrollbarSize: E,
                             attachment: this.attachment
                           });
                         if (!1 === O) return !1;
@@ -6581,12 +6640,12 @@ module.exports = (function(t) {
                       },
                         x = this.target.ownerDocument,
                         T = x.defaultView,
-                        C = void 0;
+                        E = void 0;
                       return T.innerHeight > x.documentElement.clientHeight &&
-                        (C = this.cache(
+                        (E = this.cache(
                           'scrollbar-size',
                           h
-                        ), _.viewport.bottom -= C.height), T.innerWidth > x.documentElement.clientWidth && (C = this.cache('scrollbar-size', h), _.viewport.right -= C.width), -1 !== [ '', 'static' ].indexOf(x.body.style.position) && -1 !== [ '', 'static' ].indexOf(x.body.parentElement.style.position) || (_.page.bottom = x.body.scrollHeight - g - a, _.page.right = x.body.scrollWidth - m - i), void 0 !== this.options.optimizations && !1 !== this.options.optimizations.moveElement && void 0 === this.targetModifier && (function() {
+                        ), _.viewport.bottom -= E.height), T.innerWidth > x.documentElement.clientWidth && (E = this.cache('scrollbar-size', h), _.viewport.right -= E.width), -1 !== [ '', 'static' ].indexOf(x.body.style.position) && -1 !== [ '', 'static' ].indexOf(x.body.parentElement.style.position) || (_.page.bottom = x.body.scrollHeight - g - a, _.page.right = x.body.scrollWidth - m - i), void 0 !== this.options.optimizations && !1 !== this.options.optimizations.moveElement && void 0 === this.targetModifier && (function() {
                           var e = t.cache('target-offsetparent', function() {
                             return f(t.target);
                           }),
@@ -6751,7 +6810,7 @@ module.exports = (function(t) {
             })(T);
           q.modules = [], n.position = D;
           var G = v(q, n),
-            C = function(t, e) {
+            E = function(t, e) {
               if (Array.isArray(t)) return t;
               if (Symbol.iterator in Object(t)) return (function(t, e) {
                   var n = [], r = !0, o = !1, i = void 0;
@@ -6815,7 +6874,7 @@ module.exports = (function(t) {
                 void 0 === u && (u = '');
                 var d = void 0, v = void 0;
                 if (u.indexOf(' ') >= 0) {
-                  var g = u.split(' '), b = C(g, 2);
+                  var g = u.split(' '), b = E(g, 2);
                   v = b[0], d = b[1];
                 } else d = v = u;
                 var w = (function(t, e) {
@@ -6922,7 +6981,7 @@ module.exports = (function(t) {
               }), !0;
             }
           });
-          var C = function(t, e) {
+          var E = function(t, e) {
             if (Array.isArray(t)) return t;
             if (Symbol.iterator in Object(t)) return (function(t, e) {
                 var n = [], r = !0, o = !1, i = void 0;
@@ -6958,7 +7017,7 @@ module.exports = (function(t) {
                 var o = void 0, i = void 0;
                 if ('string' == typeof r) {
                   (r = r.split(' '))[1] = r[1] || r[0];
-                  var a = C(r, 2);
+                  var a = E(r, 2);
                   o = a[0], i = a[1], o = parseFloat(o, 10), i = parseFloat(i, 10);
                 } else o = r.top, i = r.left;
                 return { top: e += o, left: n += i };
@@ -7255,20 +7314,20 @@ module.exports = (function(t) {
                   w++
                 ) {
                   var O = p[w].style, _ = {}, x = {}, S = {}, T = {};
-                  for (var C in O) if (Object.prototype.hasOwnProperty.call(O, C)) {
-                      var E = O[C];
-                      if ('number' == typeof E)
-                        _[C] = E, x[C] = 0, S[C] = E, T[C] = 0;
+                  for (var E in O) if (Object.prototype.hasOwnProperty.call(O, E)) {
+                      var C = O[E];
+                      if ('number' == typeof C)
+                        _[E] = C, x[E] = 0, S[E] = C, T[E] = 0;
                       else {
-                        for (var j = g[w][C], P = b[w][C], k = 0; k < s; k++) {
+                        for (var j = g[w][E], P = b[w][E], k = 0; k < s; k++) {
                           var N = u.default(
                             v / 1e3,
                             j,
                             P,
-                            E.val,
-                            E.stiffness,
-                            E.damping,
-                            E.precision
+                            C.val,
+                            C.stiffness,
+                            C.damping,
+                            C.precision
                           );
                           j = N[0], P = N[1];
                         }
@@ -7276,15 +7335,15 @@ module.exports = (function(t) {
                           v / 1e3,
                           j,
                           P,
-                          E.val,
-                          E.stiffness,
-                          E.damping,
-                          E.precision
+                          C.val,
+                          C.stiffness,
+                          C.damping,
+                          C.precision
                         ),
                           A = M[0],
                           I = M[1];
-                        _[C] = j + (A - j) * a, x[C] = P +
-                          (I - P) * a, S[C] = j, T[C] = P;
+                        _[E] = j + (A - j) * a, x[E] = P +
+                          (I - P) * a, S[E] = j, T[E] = P;
                       }
                     }
                   g[w] = S, b[w] = T, d[w] = _, h[w] = x;
@@ -8281,59 +8340,66 @@ module.exports = (function(t) {
     Object.defineProperty(e, 'Accordion', {
       enumerable: !0,
       get: function() {
-        return p(r).default;
+        return f(r).default;
       }
     });
     var o = n('kb7i');
     Object.defineProperty(e, 'Card', {
       enumerable: !0,
       get: function() {
-        return p(o).default;
+        return f(o).default;
       }
     });
     var i = n('LbaS');
     Object.defineProperty(e, 'CheckInput', {
       enumerable: !0,
       get: function() {
-        return p(i).default;
+        return f(i).default;
       }
     });
     var a = n('QRQV');
     Object.defineProperty(e, 'Icon', {
       enumerable: !0,
       get: function() {
-        return p(a).default;
+        return f(a).default;
       }
     });
-    var s = n('yQV4');
+    var s = n('ZOtO');
+    Object.defineProperty(e, 'BottomBar', {
+      enumerable: !0,
+      get: function() {
+        return f(s).default;
+      }
+    });
+    var u = n('yQV4');
     Object.defineProperty(e, 'Button', {
       enumerable: !0,
       get: function() {
-        return p(s).default;
+        return f(u).default;
       }
     });
-    var u = n('XGPw');
+    var l = n('XGPw');
     Object.defineProperty(e, 'Loading', {
       enumerable: !0,
       get: function() {
-        return p(u).default;
+        return f(l).default;
       }
     });
-    var l = n('mJ17');
+    var c = n('mJ17');
     Object.defineProperty(e, 'Dropdown', {
       enumerable: !0,
       get: function() {
-        return p(l).default;
+        return f(c).default;
       }
     });
-    var c = n('6V4F');
-    function p(t) {
+    var p = n('6V4F');
+    function f(t) {
       return t && t.__esModule ? t : { default: t };
     }
     Object.defineProperty(e, 'Multiselect', {
       enumerable: !0,
       get: function() {
-        return p(c).default;
+        return f(p).default;
       }
     });
   },
@@ -8516,7 +8582,7 @@ module.exports = (function(t) {
                       T < a;
                       T++
                     ) {
-                      var C = u.default(
+                      var E = u.default(
                         h / 1e3,
                         x,
                         S,
@@ -8525,9 +8591,9 @@ module.exports = (function(t) {
                         _.damping,
                         _.precision
                       );
-                      x = C[0], S = C[1];
+                      x = E[0], S = E[1];
                     }
-                    var E = u.default(
+                    var C = u.default(
                       h / 1e3,
                       x,
                       S,
@@ -8536,8 +8602,8 @@ module.exports = (function(t) {
                       _.damping,
                       _.precision
                     ),
-                      j = E[0],
-                      P = E[1];
+                      j = C[0],
+                      P = C[1];
                     m[O] = x + (j - x) * i, g[O] = S +
                       (P - S) * i, b[O] = x, w[O] = S;
                   }
@@ -8723,8 +8789,8 @@ module.exports = (function(t) {
             x,
             S,
             T,
-            C,
             E,
+            C,
             j,
             P,
             k,
@@ -8738,7 +8804,7 @@ module.exports = (function(t) {
             B,
             U,
             z = this;
-          return (t = this.getComputedState()).filteredOptions, e = t.highlightedUid, n = t.onHighlightedUidChange, r = t.onOpenChange, o = t.onSearchChange, i = t.onValueChange, a = t.open, s = t.options, u = t.search, c = t.value, f = t.values, null != (t = this.props) && (d = t.autofocus, h = t.autosize, v = t.cancelKeyboardEventOnSelection, g = t.delimiters, w = t.disabled, O = t.dropdownDirection, _ = t.groupId, x = t.groups, S = t.groupsAsColumns, T = t.hideResetButton, C = t.name, E = t.inputProps, j = t.onBlurResetsInput, P = t.renderToggleButton, k = t.renderGroupTitle, N = t.renderResetButton, M = t.serialize, A = t.tether, I = t.tetherProps, D = t.theme, L = t.transitionEnter, R = t.transitionLeave, B = t.transitionEnterTimeout, U = t.transitionLeaveTimeout, t.uid), y(
+          return (t = this.getComputedState()).filteredOptions, e = t.highlightedUid, n = t.onHighlightedUidChange, r = t.onOpenChange, o = t.onSearchChange, i = t.onValueChange, a = t.open, s = t.options, u = t.search, c = t.value, f = t.values, null != (t = this.props) && (d = t.autofocus, h = t.autosize, v = t.cancelKeyboardEventOnSelection, g = t.delimiters, w = t.disabled, O = t.dropdownDirection, _ = t.groupId, x = t.groups, S = t.groupsAsColumns, T = t.hideResetButton, E = t.name, C = t.inputProps, j = t.onBlurResetsInput, P = t.renderToggleButton, k = t.renderGroupTitle, N = t.renderResetButton, M = t.serialize, A = t.tether, I = t.tetherProps, D = t.theme, L = t.transitionEnter, R = t.transitionLeave, B = t.transitionEnterTimeout, U = t.transitionLeaveTimeout, t.uid), y(
             b(
               b(
                 {
@@ -8756,8 +8822,8 @@ module.exports = (function(t) {
                   hideResetButton: T,
                   highlightedUid: e,
                   onHighlightedUidChange: n,
-                  inputProps: E,
-                  name: C,
+                  inputProps: C,
+                  name: E,
                   onBlurResetsInput: j,
                   renderGroupTitle: k,
                   renderResetButton: N,

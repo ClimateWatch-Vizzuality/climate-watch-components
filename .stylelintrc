@@ -2,6 +2,7 @@
   "extends": "stylelint-config-standard",
   "rules": {
     "block-no-empty": null,
+    "at-rule-no-unknown": null,
     "no-descending-specificity": null,
     "no-duplicate-selectors": null,
     "selector-pseudo-class-no-unknown": [
