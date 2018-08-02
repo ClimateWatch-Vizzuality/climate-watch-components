@@ -129,74 +129,8 @@ input:checked ~ .cw__check-input-styles_label {
 
 .cw__check-input-styles_slider.cw__check-input-styles_round::before {
   border-radius: 50%; }
-/* stylelint-disable */
-.cw__bottom-bar-styles_content {
-  display: flex;
-  flex-flow: row wrap;
-  margin-right: 0.9375rem;
-  margin-left: 0.9375rem;
-  padding-right: 0.625rem;
-  padding-left: 0.625rem;
-  max-width: 1230px;
-  margin: 0 auto; }
-  @media print, screen and (min-width: 37.5em) {
-    .cw__bottom-bar-styles_content {
-      padding-right: 0.9375rem;
-      padding-left: 0.9375rem; } }
-  .cw__bottom-bar-styles_content > * {
-    width: calc(100% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem; }
-
-.cw__bottom-bar-styles_loadingModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.25);
-  z-index: 50; }
-
 .cw__bottom-bar-styles_row {
-  display: flex;
-  flex-flow: row wrap;
-  margin-right: 0.9375rem;
-  margin-left: 0.9375rem;
-  padding-right: 0.625rem;
-  padding-left: 0.625rem;
-  max-width: 1230px;
-  margin: 0 auto; }
-  @media print, screen and (min-width: 37.5em) {
-    .cw__bottom-bar-styles_row {
-      padding-right: 0.9375rem;
-      padding-left: 0.9375rem; } }
-  .cw__bottom-bar-styles_row > * {
-    width: calc(100% - 1.875rem);
-    margin-right: 0.9375rem;
-    margin-left: 0.9375rem; }
-  @media screen and (min-width: 37.5rem) {
-    .cw__bottom-bar-styles_row {
-      display: flex;
-      flex-flow: row wrap;
-      margin-right: 0.9375rem;
-      margin-left: 0.9375rem;
-      padding-right: 0.625rem;
-      padding-left: 0.625rem;
-      max-width: 1230px;
-      margin: 0 auto; } }
-  @media screen and (min-width: 37.5rem) and (min-width: 37.5em) {
-    .cw__bottom-bar-styles_row {
-      padding-right: 0.9375rem;
-      padding-left: 0.9375rem; } }
-  @media screen and (min-width: 37.5rem) {
-      .cw__bottom-bar-styles_row > *:nth-child(1) {
-        width: calc(33.33333% - 1.875rem);
-        margin-right: 0.9375rem;
-        margin-left: 0.9375rem; }
-      .cw__bottom-bar-styles_row > *:nth-child(2) {
-        width: calc(66.66667% - 1.875rem);
-        margin-right: 0.9375rem;
-        margin-left: 0.9375rem; } }
+  width: 100%; }
 
 .cw__bottom-bar-styles_container {
   background-color: #1b3b5a;
