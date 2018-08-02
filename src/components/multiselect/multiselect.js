@@ -20,7 +20,6 @@ import selectizeStyles from '../../styles/react-selectize.scss';
 import styles from './multiselect-styles.scss';
 
 class Multiselect extends Component {
-  // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
     this.state = { search: '' };
@@ -48,15 +47,9 @@ class Multiselect extends Component {
       );
     }
     if (hasValues && !search) {
-      return values.length === options && options.length ? (
-        <span>
-          All selected
-        </span>
-) : (
-  <span>
-    {`${values.length} selected`}
-  </span>
-);
+      return values.length === options && options.length
+        ? <span> All selected </span>
+        : <span> {`${values.length} selected`} </span>;
     }
     return null;
   }
@@ -188,8 +181,13 @@ class Multiselect extends Component {
   }
 }
 
+const valueShape = { label: PropTypes.string, value: PropTypes.string };
 Multiselect.propTypes = {
-  theme: PropTypes.object,
+  theme: PropTypes.shape({
+    wrapper: PropTypes.string,
+    dropdown: PropTypes.string,
+    selected: PropTypes.string
+  }),
   onValueChange: PropTypes.func.isRequired,
   info: PropTypes.bool,
   infoText: PropTypes.string,
@@ -199,10 +197,8 @@ Multiselect.propTypes = {
   loading: PropTypes.bool,
   mirrorX: PropTypes.bool,
   icon: PropTypes.object,
-  options: PropTypes.array.isRequired,
-  values: PropTypes.arrayOf(
-    PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
-  ).isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape(valueShape)).isRequired,
+  values: PropTypes.arrayOf(PropTypes.shape(valueShape)).isRequired,
   hideSelected: PropTypes.bool
 };
 
