@@ -17,7 +17,7 @@ plugins: [react, prettier]
 rules:
   jsx-a11y/click-events-have-key-events: 'warn'
   jsx-a11y/no-noninteractive-element-interactions: 'warn'
-  import/extensions: 0
+  import/extensions: [error, {"js": never, "jsx": never, "packages": always}]
 
 settings:
   import/resolver: webpack
