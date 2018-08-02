@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "foundation-sites": "^6.5.0-rc.2",
     "gh-pages": "1.2.0",
     "prop-types": "15.6.2",
     "react": "16.4.1",
