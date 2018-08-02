@@ -1,5 +1,5 @@
 //rem converter
 /* stylelint-disable */
 @function rem($px, $base: 16px) {
-    @return ($px / $base) * 1rem;
+  @return ($px / $base) * 1rem;
 }
