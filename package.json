@@ -38,8 +38,8 @@
     "react-responsive": "^5.0.0",
     "react-selectize": "^3.0.1",
     "react-styleguidist": "7.1.0",
-    "react-tooltip": "^3.6.1",
-    "react-transition-group": "^1.1.2"
+    "react-transition-group": "^1.1.2",
+    "react-virtualized": "^9.20.1"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

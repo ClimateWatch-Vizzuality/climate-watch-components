@@ -20,6 +20,7 @@ rules:
   import/extensions: [error, {"js": never, "jsx": never, "packages": always}]
   react/jsx-one-expression-per-line: 'warn'
   react/sort-comp: 0
+  import/prefer-default-export: 0
 
 settings:
   import/resolver: webpack
