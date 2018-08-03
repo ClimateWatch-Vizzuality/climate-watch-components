@@ -35,6 +35,7 @@
     "react-dom": "16.4.1",
     "react-dom-factories": "^1.0.0",
     "react-motion": "^0.5.2",
+    "react-responsive": "^5.0.0",
     "react-selectize": "^3.0.1",
     "react-styleguidist": "7.1.0",
     "react-transition-group": "^1.1.2"
