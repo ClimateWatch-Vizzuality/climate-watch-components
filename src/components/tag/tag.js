@@ -62,12 +62,18 @@ class Tag extends PureComponent {
 }
 
 Tag.propTypes = {
+  /** Tags data */
   data: Proptypes.object,
   onRemove: Proptypes.func,
+  /** Tooltip id */
   tooltipId: Proptypes.string,
+  /** Label name */
   label: Proptypes.string,
+  /** Tag color */
   color: Proptypes.string,
+  /** Can remove tag option */
   canRemove: Proptypes.bool,
+  /** Theming options */
   theme: Proptypes.shape({
     dot: Proptypes.string,
     label: Proptypes.string,

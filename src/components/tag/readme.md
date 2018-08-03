@@ -1,6 +1,6 @@
 ```js
 const locationsValues = 5;
-const handleRemove = () => { console.info('Remove sth'); };
+const handleRemove = () => { console.info('Remove this tag'); };
 <Tag
     key='PL'
     label='Poland'
@@ -11,5 +11,6 @@ const handleRemove = () => { console.info('Remove sth'); };
     canRemove={locationsValues.length > 1}
     color='orange'
     onRemove={handleRemove}
+    canRemove={true}
 />
 ```
