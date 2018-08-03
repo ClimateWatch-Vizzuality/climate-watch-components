@@ -14,24 +14,19 @@ class Tag extends PureComponent {
   };
 
   render() {
-    const {
-      data,
-      theme,
-      color,
-      label,
-      className,
-      canRemove,
-      tooltipId
-    } = this.props;
+    const { data, theme, color, label, canRemove, tooltipId } = this.props;
 
     const tagContent = (
       <React.Fragment>
-        <span className={styles.dot} style={{ backgroundColor: color }} />
+        <span
+          className={cx(styles.dot, theme.dot)}
+          style={{ backgroundColor: color }}
+        />
         {
           data && data.title && tooltipId
             ? (
               <p
-                className={styles.label}
+                className={cx(styles.label, theme.label)}
                 data-tip={data.title}
                 data-for={tooltipId}
               >
@@ -44,10 +39,13 @@ class Tag extends PureComponent {
           canRemove && (
           <button
             type="button"
-            className={styles.closeButton}
+            className={cx(styles.closeButton, theme.closeButton)}
             onClick={this.handleClick}
           >
-            <Icon icon={closeIcon} theme={{ icon: styles.icon }} />
+            <Icon
+              icon={closeIcon}
+              theme={{ icon: cx(styles.icon, theme.icon) }}
+            />
           </button>
             )
         }
@@ -55,11 +53,11 @@ class Tag extends PureComponent {
     );
     return data && data.url ? (
       <div>
-        <a href={data.url} className={cx(styles.tag, className)}>
+        <a href={data.url} className={cx(styles.tag, theme.tag)}>
           {tagContent}
         </a>
       </div>
-) : <li className={cx(styles.tag, className)}>{tagContent}</li>;
+) : <li className={cx(styles.tag, theme.tag)}>{tagContent}</li>;
   }
 }
 
@@ -69,9 +67,14 @@ Tag.propTypes = {
   tooltipId: Proptypes.string,
   label: Proptypes.string,
   color: Proptypes.string,
-  className: Proptypes.string,
   canRemove: Proptypes.bool,
-  theme: Proptypes.object
+  theme: Proptypes.shape({
+    dot: Proptypes.string,
+    label: Proptypes.string,
+    closeButton: Proptypes.string,
+    icon: Proptypes.string,
+    tag: Proptypes.string
+  })
 };
 
 Tag.defaultProps = {
@@ -82,7 +85,6 @@ Tag.defaultProps = {
   },
   label: '',
   color: 'black',
-  className: '',
   theme: {}
 };
 

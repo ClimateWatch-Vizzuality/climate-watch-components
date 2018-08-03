@@ -9,6 +9,7 @@ const handleRemove = () => { console.info('Remove sth'); };
         value: 'Poland'
     }}
     canRemove={locationsValues.length > 1}
+    color='orange'
     onRemove={handleRemove}
 />
 ```
