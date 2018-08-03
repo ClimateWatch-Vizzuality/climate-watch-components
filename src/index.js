@@ -7,3 +7,4 @@ export { default as Button } from './components/button';
 export { default as Loading } from './components/loading';
 export { default as Dropdown } from './components/dropdown';
 export { default as Multiselect } from './components/multiselect';
+export { default as Contact } from './components/contact';
