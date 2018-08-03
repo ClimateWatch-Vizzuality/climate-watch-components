@@ -19,6 +19,7 @@ rules:
   jsx-a11y/no-noninteractive-element-interactions: 'warn'
   import/extensions: [error, {"js": never, "jsx": never, "packages": always}]
   react/jsx-one-expression-per-line: 'warn'
+  react/sort-comp: 0
 
 settings:
   import/resolver: webpack
