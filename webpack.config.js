@@ -49,7 +49,11 @@ const config = {
   resolve: {
     extensions: [ '.js', '.jsx', '.json' ],
     symlinks: false,
-    plugins: [ new DirectoryNamedWebpackPlugin(true) ]
+    plugins: [ new DirectoryNamedWebpackPlugin(true) ],
+    alias: {
+      components: path.resolve(__dirname, 'src/components/'),
+      styles: path.resolve(__dirname, 'src/styles/')
+    }
   },
   optimization: {
     minimizer: [

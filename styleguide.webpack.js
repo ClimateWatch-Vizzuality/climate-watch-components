@@ -6,7 +6,11 @@ module.exports = {
   devtool: 'eval',
   resolve: {
     extensions: [ '.js', '.jsx', '.json' ],
-    plugins: [ new DirectoryNamedWebpackPlugin(true) ]
+    plugins: [ new DirectoryNamedWebpackPlugin(true) ],
+    alias: {
+      components: path.resolve(__dirname, 'src/components/'),
+      styles: path.resolve(__dirname, 'src/styles/')
+    }
   },
   node: { fs: 'empty', net: 'empty' },
   module: {
