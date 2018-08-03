@@ -8,7 +8,7 @@ import infoIcon from './assets/info.svg';
  * Icon component for displaying an icon
  */
 const Icon = ({ icon, theme, onClick }) => {
-  const classNames = cx(styles.icon, onClick ? styles.cursor : '', theme.icon);
+  const classNames = cx(styles.icon, theme.icon, onClick ? styles.cursor : '');
 
   return (
     <svg className={classNames} viewBox={icon.viewBox} onClick={onClick}>
