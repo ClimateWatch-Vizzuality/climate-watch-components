@@ -1,0 +1,10 @@
+@import '../../styles/theme-settings';
+
+.input {
+  box-shadow: 0 5px 15px 0 rgba($theme-color, 0.7);
+  color: $accent-color;
+}
+
+.icon {
+  right: 20px;
+}
