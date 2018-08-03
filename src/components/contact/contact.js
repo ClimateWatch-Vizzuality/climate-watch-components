@@ -18,13 +18,16 @@ const Contact = ({ contactMail, contactText, theme }) => (
     >
       {contactText}
     </a>
-    <Icon icon={contactIcon} />
+    <Icon icon={contactIcon} theme={{ icon: theme.icon }} />
   </div>
 );
 
 Contact.propTypes = {
+  /** Email address */
   contactMail: PropTypes.string.isRequired,
+  /** Text to display */
   contactText: PropTypes.string,
+  /** Theming options */
   theme: PropTypes.shape({
     contactContainer: PropTypes.string,
     contact: PropTypes.string,
