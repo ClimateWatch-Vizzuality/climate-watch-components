@@ -6,6 +6,7 @@
 
 # build
 /styleguide
+/dist
 
 # testing
 /coverage
