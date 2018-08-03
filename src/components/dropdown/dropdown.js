@@ -70,7 +70,7 @@ class Dropdown extends PureComponent {
               theme.select
             )}
             renderToggleButton={() => (
-              <Icon icon={dropdownArrow} theme={theme.icon} />
+              <Icon icon={dropdownArrow} theme={{ icon: theme.icon }} />
             )}
             {...this.props}
           />
