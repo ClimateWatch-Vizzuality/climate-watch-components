@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Icon from 'components/icon';
 import debounce from 'lodash/debounce';
 import cx from 'classnames';
 
 import searchIcon from './assets/search.svg';
 import styles from './input-styles.scss';
+import Icon from '../icon/icon';
 
 /**
  * Input text component with optional icon
