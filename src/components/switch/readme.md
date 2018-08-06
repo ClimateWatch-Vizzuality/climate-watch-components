@@ -1,3 +1,4 @@
+Version with initially selected international tab
 ```js
 const options = [
     { name: 'international', value: 'international' },
@@ -5,7 +6,7 @@ const options = [
     { name: 'non-monetized', value: 'non-monetized' }
 ];
 const onClick = () => { console.info('clicked it'); };
-<Switch options={options} onClick={onClick} />
+<Switch options={options} onClick={onClick} selectedOption='international' />
 ```
 
 Themed version

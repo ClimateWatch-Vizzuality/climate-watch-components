@@ -6,7 +6,7 @@ import styles from './switch-styles.scss';
 class Switch extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedOption: '' };
+    this.state = { selectedOption: props.selectedOption };
   }
 
   handleOnClick(option) {
@@ -55,14 +55,17 @@ Switch.propTypes = {
     wrapper: PropTypes.string
   }),
   /** The onClick action occurring when user clicks on the option */
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  /** Initially selected option */
+  selectedOption: PropTypes.string
 };
 
 Switch.defaultProps = {
   theme: {},
   onClick: () => {
   },
-  options: {}
+  options: {},
+  selectedOption: ''
 };
 
 export default Switch;
