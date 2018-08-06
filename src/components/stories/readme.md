@@ -1,6 +1,7 @@
 ```js
 const planetImage = require('./assets/pretty_planet.jpg');
 const secondPlanetImage = require('./assets/prep-planet.jpeg');
+const handleStoryClick = (storyTitle) => { console.info(storyTitle); }
 const stories = [
     {
         link: 'some-link',
@@ -18,7 +19,7 @@ const stories = [
     }
 ];
 <Stories 
-    stories={stories} storiesTitle="Highlighted Stories"
+    stories={stories} storiesTitle="Highlighted Stories" handleClick={handleStoryClick}
 />
 ```
 

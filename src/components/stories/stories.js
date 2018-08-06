@@ -8,7 +8,7 @@ import styles from './stories-styles.scss';
 class Stories extends PureComponent {
   // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { stories, handleClickAnalytics, storiesTitle, theme } = this.props;
+    const { stories, handleClick, storiesTitle, theme } = this.props;
     return (
       <div className={cx(styles.container, theme.container)}>
         <h2 className={cx(styles.title, theme.title)}>
@@ -26,7 +26,7 @@ class Stories extends PureComponent {
               href={story.link}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => handleClickAnalytics(story.title)}
+              onClick={() => handleClick(story.title)}
             >
               {story.title}
             </a>
@@ -38,8 +38,14 @@ class Stories extends PureComponent {
 }
 
 Stories.propTypes = {
-  stories: PropTypes.array.isRequired,
-  handleClickAnalytics: PropTypes.func.isRequired,
+  stories: PropTypes.arrayOf(
+    PropTypes.shape({
+      link: PropTypes.string,
+      title: PropTypes.string,
+      background_image_url: PropTypes.string
+    })
+  ).isRequired,
+  handleClick: PropTypes.func.isRequired,
   storiesTitle: PropTypes.string.isRequired,
   theme: PropTypes.shape({
     grid: PropTypes.string,
