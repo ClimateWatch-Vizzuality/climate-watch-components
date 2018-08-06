@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import Proptypes from 'prop-types';
 import cx from 'classnames';
+import ReactTooltip from 'react-tooltip';
 
 import closeIcon from './assets/legend-close.svg';
 import styles from './tag-styles.scss';
@@ -13,9 +14,8 @@ class Tag extends PureComponent {
     onRemove(label);
   };
 
-  render() {
+  getTooltipContent() {
     const { data, theme, color, label, canRemove, tooltipId } = this.props;
-
     const tagContent = (
       <React.Fragment>
         <span
@@ -51,13 +51,29 @@ class Tag extends PureComponent {
         }
       </React.Fragment>
     );
-    return data && data.url ? (
+    return tagContent;
+  }
+
+  render() {
+    const { data, theme, tooltipId } = this.props;
+    const hasDataUrl = data && data.url;
+
+    return (
       <div>
-        <a href={data.url} className={cx(styles.tag, theme.tag)}>
-          {tagContent}
-        </a>
+        {
+          hasDataUrl ? (
+            <a href={data.url} className={cx(styles.tag, theme.tag)}>
+              {this.getTooltipContent()}
+            </a>
+) : (
+  <li className={cx(styles.tag, theme.tag)}>
+    {this.getTooltipContent()}
+  </li>
+)
+        }
+        {tooltipId && <ReactTooltip id={tooltipId} />}
       </div>
-) : <li className={cx(styles.tag, theme.tag)}>{tagContent}</li>;
+    );
   }
 }
 
@@ -85,8 +101,8 @@ Tag.propTypes = {
 
 Tag.defaultProps = {
   canRemove: false,
-  tooltipId: '',
   data: {},
+  tooltipId: '',
   onRemove: () => {
   },
   label: '',
