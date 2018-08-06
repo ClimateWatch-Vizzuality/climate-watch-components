@@ -13,26 +13,25 @@ const handleRemove = (target) => { console.info('Remove this tag', target); };
             title: 'Poland',
             value: 'Poland'
         }}
-        tooltipId='poland-tooltip-id'
-        canRemove={locationsValues.length > 1}
+        tooltipId='tooltip-id'
+        canRemove
         color='orange'
-        onRemove={handleRemove({target: 'any target'})}
+        onRemove={handleRemove}
     />
-    <ReactTooltip id='poland-tooltip-id' />
     <Tag
         key='PT'
         label='Portugal'
         theme={theme}
         data={{
-            id: 'PT',
+          id: 'PT',
             title: 'Portugal',
             value: 'Portugal'
         }}
-        tooltipId='portugal-tooltip-id'
-        canRemove={locationsValues.length > 1}
+        tooltipId='tooltip-id'
+        canRemove={false}
         color='red'
-        onRemove={handleRemove({target: 'any target'})}
+        onRemove={handleRemove}
     />
-    <ReactTooltip id='portugal-tooltip-id' />
+    <ReactTooltip id='tooltip-id' />
 </div>
 ```
