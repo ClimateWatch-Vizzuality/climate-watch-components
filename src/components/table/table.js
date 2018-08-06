@@ -188,16 +188,27 @@ class Table extends PureComponent {
 }
 
 Table.propTypes = {
+  /* Array of any kind of data you want to display */
   data: PropTypes.array.isRequired,
+  /* Initial columns active in the table */
   defaultColumns: PropTypes.array,
+  /* Initial column to sort by */
   sortBy: PropTypes.string,
+  /* Include top right dropdown to filter active columns */
   hasColumnSelect: PropTypes.bool,
+  /* Build dinamycally the rows height */
   setRowsHeight: PropTypes.func,
+  /* Build dinamycally the columns width */
   setColumnWidth: PropTypes.func,
+  /* Initial table height */
   tableHeight: PropTypes.number,
+  /* Initial table header height */
   headerHeight: PropTypes.number,
+  /* Trim line to include ... */
   ellipsisColumns: PropTypes.array,
+  /* Boolean to allow scroll in the horizontal direction */
   horizontalScroll: PropTypes.bool.isRequired,
+  /* Array to order the column headers */
   firstColumnHeaders: PropTypes.array
 };
 
