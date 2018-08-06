@@ -1,0 +1,56 @@
+@import '../../styles/settings';
+
+.wrapper {
+  width: 100%;
+}
+
+.main {
+  color: $white;
+  font-family: $font-family-1;
+  width: 100%;
+
+  &.withButton {
+    @media #{$tablet-landscape} {
+      width: 70%;
+    }
+  }
+
+  a {
+    color: $theme-color;
+    border-bottom: solid 1px $theme-secondary;
+  }
+}
+
+.title {
+  font-size: $font-size-large;
+  font-weight: $font-weight-light;
+  line-height: $line-height-xs;
+  margin-bottom: 10px;
+
+  @media #{$tablet-landscape} {
+    font-size: $font-size-xl-large;
+  }
+}
+
+.description {
+  margin-bottom: 20px;
+  line-height: $line-height-medium;
+  color: $white;
+
+  br {
+    line-height: 200%;
+  }
+}
+
+.disclaimer {
+  color: black;
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.columns {
+  @media #{$tablet-landscape} {
+    max-width: 100%;
+    column-count: 2;
+  }
+}
