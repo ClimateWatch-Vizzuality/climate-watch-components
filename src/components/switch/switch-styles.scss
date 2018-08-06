@@ -1,0 +1,32 @@
+@import '../../styles/settings.scss';
+
+$switch-border-radius: 30px;
+
+.wrapper {
+    border-radius: $switch-border-radius;
+    display: inline-flex;
+    border: 1px solid $gray;
+    color: $gray;
+}
+
+.option {
+    text-transform: uppercase;
+    font-family: $font-family-1;
+    font-size: 13px;
+    padding: 15px;
+    letter-spacing: 1px;
+    margin: {
+        left: 12px;
+        right: 12px;
+    }
+}
+
+.checkedOption {
+    border-radius: $switch-border-radius;
+    color: $white;
+    background-color: $bg-main;
+}
+
+.cursor {
+    cursor: pointer;
+}
