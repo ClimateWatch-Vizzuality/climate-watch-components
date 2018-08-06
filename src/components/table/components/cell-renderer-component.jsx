@@ -1,26 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LineChart, Line } from 'recharts';
-import { sanitize } from 'app/utils';
-import { Link, NavLink } from 'react-router-dom';
-import styles from './table-styles.scss';
-
-const renderTrendLine = (chartData, titleLink) => {
-  const dataValues =
-    chartData && chartData.split(',').map(v => ({ value: parseFloat(v) }));
-  const chart = (
-    <LineChart width={70} height={35} data={dataValues}>
-      <Line dot={false} dataKey="value" stroke="#113750" strokeWidth={2} />
-    </LineChart>
-  );
-  return titleLink ? (
-    <Link className={styles.trendLink} to={titleLink.url}>
-      {chart}
-    </Link>
-  ) : (
-    chart
-  );
-};
+import { sanitize } from 'utils';
+import styles from '../table-styles.scss';
 
 const cellRenderer = ({
   props: { parseHtml, titleLinks, emptyValueLabel },
@@ -41,7 +22,7 @@ const cellRenderer = ({
         {cellData}
       </a>
     ) : (
-      <NavLink to={titleLink.url}>{cellData}</NavLink>
+      <a href={titleLink.url}>{cellData}</a>
     );
   }
   // render Html or finally cellData
@@ -65,7 +46,7 @@ cellRenderer.propTypes = {
     trendLine: PropTypes.string, // 'field name of the trend line column'
     parseHtml: PropTypes.bool,
     emptyValueLabel: PropTypes.string
-  })
+  }).isRequired
 };
 
 export default cellRenderer;

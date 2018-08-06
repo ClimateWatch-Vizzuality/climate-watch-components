@@ -1,11 +1,22 @@
-import { PureComponent, createElement } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { SortDirection } from 'react-virtualized';
 import _sortBy from 'lodash/sortBy';
 import reverse from 'lodash/reverse';
-import Component from './table-component';
+import {
+  Column,
+  Table as VirtualizedTable,
+  AutoSizer,
+  SortDirection
+} from 'react-virtualized';
+import cx from 'classnames';
+import difference from 'lodash/difference';
 
-class TableContainer extends PureComponent {
+import { pixelBreakpoints } from '../../styles/responsive';
+import MultiSelect from '../multiselect';
+import cellRenderer from './components/cell-renderer-component';
+import styles from './table-styles.scss';
+
+class Table extends PureComponent {
   constructor(props) {
     super(props);
     const { data, defaultColumns, sortBy } = props;
@@ -16,8 +27,12 @@ class TableContainer extends PureComponent {
       sortBy: sortBy || Object.keys(data[0])[0],
       sortDirection: SortDirection.ASC,
       activeColumns: columns.map(d => ({ label: d, value: d })),
-      columnsOptions: Object.keys(data[0]).map(d => ({ label: d, value: d }))
+      columnsOptions: data &&
+        data.length &&
+        Object.keys(data[0]).map(d => ({ label: d, value: d })) ||
+        []
     };
+    this.minColumnWidth = 180;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,16 +42,39 @@ class TableContainer extends PureComponent {
     }
   }
 
-  setRowsHeight = () => 60;
-
-  setColumnWidth = () => 200;
-
   setOptionsClose = () => {
-    this.setState({ optionsOpen: false });
+    this.setState(
+      ({ optionsOpen }) => optionsOpen ? { optionsOpen: false } : null
+    );
   };
 
   setOptionsOpen = () => {
-    this.setState({ optionsOpen: true });
+    this.setState(
+      ({ optionsOpen }) => !optionsOpen ? { optionsOpen: true } : null
+    );
+  };
+
+  getResponsiveWidth = (columns, width) => {
+    if (columns.length === 1) return width;
+
+    const isMinColumSized = width / columns < this.minColumnWidth;
+
+    let responsiveRatio = 1.4;
+    // Mobile
+    let responsiveColumnRatio = 0.2;
+    if (
+      width > pixelBreakpoints.portrait && width < pixelBreakpoints.landscape
+    ) {
+      responsiveColumnRatio = 0.1;
+      responsiveRatio = 1.2; // Tablet
+    } else if (width > pixelBreakpoints.landscape) {
+      // Desktop
+      responsiveColumnRatio = 0.1;
+      responsiveRatio = 1;
+    }
+    const columnRatio = isMinColumSized ? responsiveColumnRatio : 0;
+    const columnExtraWidth = columnRatio * columns;
+    return width * responsiveRatio * (1 + columnExtraWidth);
   };
 
   getDataSorted = (data, sortBy, sortDirection) => {
@@ -44,10 +82,6 @@ class TableContainer extends PureComponent {
     return sortDirection === SortDirection.DESC
       ? reverse(dataSorted)
       : dataSorted;
-  };
-
-  toggleOptionsOpen = () => {
-    this.setState(state => ({ optionsOpen: !state.optionsOpen }));
   };
 
   handleSortChange = ({ sortBy, sortDirection }) => {
@@ -69,36 +103,114 @@ class TableContainer extends PureComponent {
       columnsOptions,
       optionsOpen
     } = this.state;
-    return createElement(Component, {
-      ...this.props,
-      data,
-      sortBy,
-      optionsOpen,
-      sortDirection,
-      activeColumns,
-      columnsOptions,
-      handleSortChange: this.handleSortChange,
-      handleColumnChange: this.handleColumnChange,
-      setRowsHeight: this.setRowsHeight,
-      setColumnWidth: this.setColumnWidth,
-      setOptionsOpen: this.setOptionsOpen,
-      setOptionsClose: this.setOptionsClose,
-      toggleOptionsOpen: this.toggleOptionsOpen
-    });
+    const {
+      hasColumnSelect,
+      tableHeight,
+      headerHeight,
+      setRowsHeight,
+      setColumnWidth,
+      ellipsisColumns,
+      horizontalScroll,
+      firstColumnHeaders
+    } = this.props;
+
+    if (!data.length) return null;
+    const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
+    const activeColumnNames = activeColumns.map(c => c.value);
+    const columnData = activeColumnNames
+      .filter(c => firstColumnHeaders.includes(c))
+      .concat(difference(activeColumnNames, firstColumnHeaders));
+    return (
+      <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
+        {
+          hasColumnSelectedOptions && (
+          <div
+            role="button"
+            tabIndex={0}
+            className={styles.columnSelectorWrapper}
+            onMouseEnter={this.setOptionsOpen}
+            onMouseLeave={this.setOptionsClose}
+          >
+            <MultiSelect
+              theme={{ dropdown: styles.columnSelector }}
+              values={activeColumns || []}
+              options={columnsOptions || []}
+              onValueChange={this.handleColumnChange}
+              hideResetButton
+              open={optionsOpen}
+            >
+              <span className={styles.selectorValue}>...</span>
+            </MultiSelect>
+          </div>
+            )
+        }
+        <div
+          className={cx(styles.tableWrapper, {
+            [styles.horizontalScroll]: horizontalScroll
+          })}
+        >
+          <AutoSizer disableHeight>
+            {({ width }) => (
+              <VirtualizedTable
+                className={styles.table}
+                width={this.getResponsiveWidth(activeColumns.length, width)}
+                height={tableHeight}
+                headerHeight={headerHeight}
+                rowHeight={setRowsHeight(activeColumns)}
+                rowCount={data.length}
+                sort={this.handleSortChange}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                rowGetter={({ index }) => data[index]}
+              >
+                {columnData.map(column => (
+                  <Column
+                    className={cx(styles.column, {
+                      [styles.ellipsis]: ellipsisColumns &&
+                        ellipsisColumns.indexOf(column) > -1
+                    })}
+                    key={column}
+                    label={column}
+                    dataKey={column}
+                    width={setColumnWidth(column)}
+                    flexGrow={1}
+                    cellRenderer={cell =>
+                      cellRenderer({ props: this.props, cell })}
+                  />
+                ))}
+              </VirtualizedTable>
+            )}
+          </AutoSizer>
+        </div>
+      </div>
+    );
   }
 }
 
-TableContainer.propTypes = {
+Table.propTypes = {
   data: PropTypes.array.isRequired,
   defaultColumns: PropTypes.array,
-  sortBy: PropTypes.string.isRequired
+  sortBy: PropTypes.string,
+  hasColumnSelect: PropTypes.bool,
+  setRowsHeight: PropTypes.func,
+  setColumnWidth: PropTypes.func,
+  tableHeight: PropTypes.number,
+  headerHeight: PropTypes.number,
+  ellipsisColumns: PropTypes.array,
+  horizontalScroll: PropTypes.bool.isRequired,
+  firstColumnHeaders: PropTypes.array
 };
 
-TableContainer.defaultProps = {
-  data: [],
+Table.defaultProps = {
   sortBy: 'value',
+  tableHeight: 460,
+  headerHeight: 30,
+  defaultColumns: [],
+  hasColumnSelect: false,
   setColumnWidth: () => 60,
-  setRowsHeight: () => 200
+  setRowsHeight: () => 80,
+  ellipsisColumns: [],
+  firstColumnHeaders: []
 };
 
-export default TableContainer;
+export default Table;
