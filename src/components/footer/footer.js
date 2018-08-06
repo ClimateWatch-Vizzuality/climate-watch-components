@@ -111,8 +111,11 @@ Footer.propTypes = {
       })
     })
   ).isRequired,
+  /** include partners section or not */
   includePartners: PropTypes.bool,
+  /** option to include contact link */
   includeContact: PropTypes.bool,
+  /** contact values to pass */
   contactOptions: PropTypes.shape({
     contactTitle: PropTypes.string,
     contactMail: PropTypes.string,
@@ -122,7 +125,9 @@ Footer.propTypes = {
       icon: PropTypes.string
     })
   }),
+  /** option to include a bottom bar */
   includeBottom: PropTypes.bool,
+  /** theming options */
   theme: PropTypes.shape({
     footer: PropTypes.string,
     border: PropTypes.string,
