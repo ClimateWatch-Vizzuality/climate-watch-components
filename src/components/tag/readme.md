@@ -1,5 +1,6 @@
 ```js
 const theme = require('./tag-theme.scss');
+const ReactTooltip = require('react-tooltip');
 const locationsValues = 5;
 const handleRemove = (target) => { console.info('Remove this tag', target); };
 <div style={{ display: 'flex' }}>
@@ -17,6 +18,7 @@ const handleRemove = (target) => { console.info('Remove this tag', target); };
         color='orange'
         onRemove={handleRemove({target: 'any target'})}
     />
+    <ReactTooltip id='poland-tooltip-id' />
     <Tag
         key='PT'
         label='Portugal'
@@ -31,5 +33,6 @@ const handleRemove = (target) => { console.info('Remove this tag', target); };
         color='red'
         onRemove={handleRemove({target: 'any target'})}
     />
+    <ReactTooltip id='portugal-tooltip-id' />
 </div>
 ```

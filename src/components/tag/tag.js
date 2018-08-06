@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import Proptypes from 'prop-types';
 import cx from 'classnames';
-import ReactTooltip from 'react-tooltip';
 
 import closeIcon from './assets/legend-close.svg';
 import styles from './tag-styles.scss';
@@ -55,7 +54,7 @@ class Tag extends PureComponent {
   }
 
   render() {
-    const { data, theme, tooltipId } = this.props;
+    const { data, theme } = this.props;
     const hasDataUrl = data && data.url;
 
     return (
@@ -71,7 +70,6 @@ class Tag extends PureComponent {
   </li>
 )
         }
-        {tooltipId && <ReactTooltip id={tooltipId} />}
       </div>
     );
   }
