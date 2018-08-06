@@ -22,7 +22,7 @@ const BottomBar = ({ theme, footerText, children }) => (
 
 BottomBar.propTypes = {
   /** Read only text to display */
-  footerText: PropTypes.string.isRequired,
+  footerText: PropTypes.string,
   /** Theming options */
   theme: PropTypes.shape({
     row: PropTypes.string,
@@ -34,6 +34,6 @@ BottomBar.propTypes = {
   children: PropTypes.node
 };
 
-BottomBar.defaultProps = { children: null, theme: {} };
+BottomBar.defaultProps = { children: null, theme: {}, footerText: '' };
 
 export default BottomBar;

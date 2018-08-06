@@ -10,13 +10,13 @@ import styles from './contact-styles.scss';
 /**
  * Contact component
  */
-const Contact = ({ contactMail, contactText, theme }) => (
+const Contact = ({ contactMail, contactTitle, theme }) => (
   <div className={cx(styles.contactContainer, theme.contactContainer)}>
     <a
       className={cx(styles.contact, theme.contact)}
       href={`mailto:${contactMail}`}
     >
-      {contactText}
+      {contactTitle}
     </a>
     <Icon icon={contactIcon} theme={{ icon: theme.icon }} />
   </div>
@@ -26,7 +26,7 @@ Contact.propTypes = {
   /** Email address */
   contactMail: PropTypes.string.isRequired,
   /** Text to display */
-  contactText: PropTypes.string,
+  contactTitle: PropTypes.string,
   /** Theming options */
   theme: PropTypes.shape({
     contactContainer: PropTypes.string,
@@ -35,6 +35,6 @@ Contact.propTypes = {
   })
 };
 
-Contact.defaultProps = { contactText: 'CONTACT US', theme: {} };
+Contact.defaultProps = { contactTitle: 'CONTACT US', theme: {} };
 
 export default Contact;
