@@ -17,7 +17,7 @@ class Switch extends Component {
   }
 
   render() {
-    const { options, theme } = this.props;
+    const { options, theme, name } = this.props;
     const { selectedOption } = this.state;
     const hasOptions = options && options.length > 1;
     const checkedStyle = cx(styles.checkedOption, theme.checkedOption);
@@ -35,6 +35,7 @@ class Switch extends Component {
               <input
                 type="radio"
                 id={option.value}
+                name={name}
                 className={cx(styles.radioInput, theme.radioInput)}
                 onClick={() => this.handleOnClick(option)}
               />
@@ -48,6 +49,8 @@ class Switch extends Component {
 }
 
 Switch.propTypes = {
+  /** Name for the input radio group */
+  name: PropTypes.string,
   /** Switch options */
   options: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string, value: PropTypes.string })
@@ -66,6 +69,7 @@ Switch.propTypes = {
 };
 
 Switch.defaultProps = {
+  name: Math.random().toString(36).substring(2, 15),
   theme: {},
   onClick: () => {
   },
