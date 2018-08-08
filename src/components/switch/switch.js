@@ -27,6 +27,7 @@ class Switch extends Component {
         {
           hasOptions && options.map(option => (
             <label
+              key={option.value}
               htmlFor={option.value}
               className={cx(styles.option, theme.option, styles.cursor, {
                   [checkedStyle]: selectedOption === option.value
