@@ -8,6 +8,7 @@ const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 
 const config = {
   entry: './src/index.js',
+  mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -17,7 +18,7 @@ const config = {
   module: {
     rules: [
       { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.png$/, use: 'url-loader' },
+      { test: /\.(jpg|jpeg|png|gif)$/, use: 'url-loader' },
       { test: /\.svg$/, use: [ { loader: 'svg-sprite-loader' } ] },
       {
         test: /\.scss$/,
