@@ -1,7 +1,7 @@
 
 ```js
 initialState = {
-  openSlug: '',
+  openSlug: 'my-slug',
   data:[
     { title: 'hey', slug: 'my-slug', content: 'my super content' },
     { title: 'hey2', slug: 'my-slug2', content: 'my super content2' }
