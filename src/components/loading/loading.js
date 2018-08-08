@@ -31,7 +31,7 @@ Loading.propTypes = {
     loaderTrack: PropTypes.string,
     loaderLight: PropTypes.string
   }),
-  height: PropTypes.number || PropTypes.string,
+  height: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   mini: PropTypes.bool
 };
 
