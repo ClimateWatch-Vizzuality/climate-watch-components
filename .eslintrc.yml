@@ -24,6 +24,7 @@ rules:
   import/prefer-default-export: 0
   class-methods-use-this: 1
   react/destructuring-assignment: 1
+  import/no-extraneous-dependencies: 0
 
 settings:
   import/resolver: webpack
