@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import storiesDefaultImage from './assets/stories-default.jpg';
 
 import styles from './stories-styles.scss';
 
 class Stories extends PureComponent {
-  // eslint-disable-line react/prefer-stateless-function
   render() {
     const { stories, handleClick, storiesTitle, theme } = this.props;
     return (
@@ -19,10 +17,7 @@ class Stories extends PureComponent {
             <a
               key={story.link}
               className={cx(styles.story, theme.story)}
-              style={{
-                backgroundImage: `url(${story.background_image_url ||
-                  storiesDefaultImage})`
-              }}
+              style={{ backgroundImage: `url(${story.background_image_url})` }}
               href={story.link}
               target="_blank"
               rel="noopener noreferrer"
