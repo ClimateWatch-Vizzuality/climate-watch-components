@@ -8,7 +8,6 @@ import BottomBar from '../bottom-bar/bottom-bar';
 import Contact from '../contact/contact';
 
 class Footer extends PureComponent {
-  // eslint-disable-line react/prefer-stateless-function
   render() {
     const {
       partners,
