@@ -24,13 +24,15 @@
 
 .label {
   padding: 5px 0;
-  margin-right: 8px;
+  margin: 0 8px 0 0;
   width: max-content;
 }
 
 .closeButton {
   fill: $dark-gray;
   cursor: pointer;
+  padding: 2px 0px 2px 2px;
+  border: none;
 
   &:focus {
     outline: none;

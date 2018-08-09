@@ -73,15 +73,17 @@ class Multiselect extends Component {
 
   handleChange = values => {
     const { onValueChange } = this.props;
-    const selectedValues = values.map(d => d.value);
-    const duplicateValue = this.findDuplicateInArray(selectedValues);
-    if (duplicateValue) {
-      remove(selectedValues, value => duplicateValue === value);
+    if (onValueChange) {
+      const selectedValues = values.map(d => d.value);
+      const duplicateValue = this.findDuplicateInArray(selectedValues);
+      if (duplicateValue) {
+        remove(selectedValues, value => duplicateValue === value);
+      }
+      const selected = values.filter(
+        value => selectedValues.indexOf(value.value) > -1
+      );
+      onValueChange(selected);
     }
-    const selected = values.filter(
-      value => selectedValues.indexOf(value.value) > -1
-    );
-    onValueChange(selected);
   };
 
   findDuplicateInArray = array => {
@@ -181,7 +183,10 @@ class Multiselect extends Component {
   }
 }
 
-const valueShape = { label: PropTypes.string, value: PropTypes.string };
+const valueShape = {
+  label: PropTypes.string,
+  value: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]).isRequired
+};
 Multiselect.propTypes = {
   theme: PropTypes.shape({
     wrapper: PropTypes.string,

@@ -9,11 +9,11 @@ const partners = [
         }
     }
 ];
-<Footer 
-    includeBottom={true} 
+<Footer
+    includeBottom={true}
     includeContact={true}
     includePartners={true}
-    contactOptions={{ contactTitle: 'Contact Us', contactMail: 'example@example.com' }} 
+    contactOptions={{ contactTitle: 'Contact Us', contactMail: 'example@example.com' }}
     partners={partners}
 />
 ```
