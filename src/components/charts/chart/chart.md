@@ -1,4 +1,3 @@
-Example of line and area chart
 ```js
 const data = require('../assets/data.js');
 initialState = {

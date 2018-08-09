@@ -9,6 +9,9 @@ import cx from 'classnames';
 
 import styles from './chart-styles.scss';
 
+/**
+ * Rechart wrapper for line an area charts
+ */
 class Chart extends PureComponent {
   render() {
     const {
@@ -71,19 +74,32 @@ class Chart extends PureComponent {
 }
 
 Chart.propTypes = {
-  type: PropTypes.string.isRequired,
+  /** Type of the charts supported so far */
+  type: PropTypes.oneOf([ 'line', 'area' ]).isRequired,
+  /** Shows an error when something unexpected happen */
   error: PropTypes.bool,
+  /** Custom message when error */
+  customMessage: PropTypes.string,
+  /** Shows a spinner while it is loading */
   loading: PropTypes.bool.isRequired,
+  /** Options removal available */
   hideRemoveOptions: PropTypes.bool,
+  /** Array of options in the legend */
   dataOptions: PropTypes.array,
+  /** Array of options active in the legend */
   dataSelected: PropTypes.array,
+  /** Callback on legend active values change */
+  onLegendChange: PropTypes.func,
+  /** Array of chart data */
   data: PropTypes.array.isRequired,
+  /** Array of chart data */
   config: PropTypes.object.isRequired,
+  /** Initial height of the chart in number or % */
   height: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
-  customMessage: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
-  model: PropTypes.object,
-  theme: PropTypes.shape({ wrapper: PropTypes.string }),
-  onLegendChange: PropTypes.func
+  /** Data model url and image */
+  model: PropTypes.shape({ url: PropTypes.string, logo: PropTypes.string }),
+  /** Customization options */
+  theme: PropTypes.shape({ wrapper: PropTypes.string })
 };
 
 Chart.defaultProps = {

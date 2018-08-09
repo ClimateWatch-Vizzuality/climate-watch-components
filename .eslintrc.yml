@@ -22,7 +22,6 @@ rules:
   import/extensions: [error, {"js": never, "jsx": never, "packages": always}]
   react/jsx-one-expression-per-line: 'warn'
   react/sort-comp: 0
-  react/destructuring-assignment: 0
   import/prefer-default-export: 0
   class-methods-use-this: 1
   react/destructuring-assignment: 1
