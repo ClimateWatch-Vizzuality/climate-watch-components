@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import _sortBy from 'lodash/sortBy';
 import reverse from 'lodash/reverse';
 import {
-  Column,
   Table as VirtualizedTable,
-  AutoSizer,
+  Column,
   SortDirection
-} from 'react-virtualized';
+} from 'react-virtualized/dist/commonjs/Table';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import cx from 'classnames';
 import difference from 'lodash/difference';
 
