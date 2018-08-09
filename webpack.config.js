@@ -5,6 +5,9 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
+const BundleAnalyzerPlugin = require(
+  'webpack-bundle-analyzer'
+).BundleAnalyzerPlugin;
 
 const config = {
   entry: './src/index.js',
@@ -35,7 +38,7 @@ const config = {
             {
               loader: 'sass-loader',
               options: {
-                includePaths: [ './node_modules', './src/css' ]
+                includePaths: [ './node_modules', './src/styles' ]
                   .map(d => path.join(__dirname, d))
                   .map(g => glob.sync(g))
                   .reduce((a, c) => a.concat(c), [])
@@ -46,7 +49,7 @@ const config = {
       }
     ]
   },
-  externals: [ 'react', 'react-dom', 'react-css-modules' ],
+  externals: [ 'react', 'react-dom', 'classnames', 'lodash', 'prop-types' ],
   resolve: {
     extensions: [ '.js', '.jsx', '.json' ],
     symlinks: false,
@@ -93,7 +96,8 @@ const config = {
       test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$/,
       threshold: 10240,
       minRatio: 0.8
-    })
+    }),
+    new BundleAnalyzerPlugin()
   ]
 };
 

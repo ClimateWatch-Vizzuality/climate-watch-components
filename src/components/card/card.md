@@ -7,4 +7,3 @@ const styles = require('./card-styles.scss');
     </div>
 </Card>
 ```
-

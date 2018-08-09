@@ -28,7 +28,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              includePaths: [ './node_modules', './src/css' ]
+              includePaths: [ './node_modules', './src/styles' ]
                 .map(d => path.join(__dirname, d))
                 .map(g => glob.sync(g))
                 .reduce((a, c) => a.concat(c), [])

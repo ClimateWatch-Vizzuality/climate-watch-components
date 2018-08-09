@@ -13,6 +13,7 @@ export { default as Loading } from './components/loading';
 export { default as Modal } from './components/modal';
 export { default as Multiselect } from './components/multiselect';
 export { default as NoContent } from './components/no-content';
+export { default as Section } from './components/section';
 export { default as Stories } from './components/stories';
 export { default as Switch } from './components/switch';
 export { default as Table } from './components/table';

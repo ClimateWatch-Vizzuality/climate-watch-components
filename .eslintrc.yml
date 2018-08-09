@@ -5,6 +5,7 @@ extends: [
 globals:
   require: true
   config: true
+  window: true
   __DEV__: true
 parser: babel-eslint
 parserOptions:
@@ -22,6 +23,9 @@ rules:
   react/jsx-one-expression-per-line: 'warn'
   react/sort-comp: 0
   import/prefer-default-export: 0
+  class-methods-use-this: 1
+  react/destructuring-assignment: 1
+  import/no-extraneous-dependencies: 0
 
 settings:
   import/resolver: webpack

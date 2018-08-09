@@ -18,8 +18,7 @@ const stories = [
         background_image_url: secondPlanetImage
     }
 ];
-<Stories 
+<Stories
     stories={stories} storiesTitle="Highlighted Stories" handleClick={handleStoryClick}
 />
 ```
-
