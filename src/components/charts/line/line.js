@@ -12,53 +12,9 @@ import {
   Label
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
-import { format } from 'd3-format';
 import debounce from 'lodash/debounce';
 import isUndefined from 'lodash/isUndefined';
-
-const CustomizedXAxisTick = ({ x, y, payload }) => (
-  <g transform={`translate(${x},${y})`}>
-    <text
-      x="15"
-      y="0"
-      dy="16"
-      textAnchor="end"
-      stroke="#b1b1c1"
-      strokeWidth="0.5"
-      fontSize="13px"
-    >
-      {payload.value}
-    </text>
-  </g>
-);
-
-const getYLabelformat = (unit, precision, value) => {
-  let typeValue = unit ? 'r' : 's';
-  if (precision) typeValue = 'f';
-  const suffix = unit ? '' : 't';
-  return `${format(`.${2}${typeValue}`)(value)}${suffix}`;
-};
-
-const CustomizedYAxisTick = ({ index, x, y, payload, unit, precision }) => (
-  <g transform={`translate(${x},${y})`}>
-    <text
-      x="0"
-      y="0"
-      dy="0"
-      textAnchor="end"
-      stroke="#b1b1c1"
-      strokeWidth="0.5"
-      fontSize="13px"
-    >
-      {
-        index === 0 &&
-          (payload.value === 0 || payload.value < 0 && payload.value > -0.001)
-          ? '0'
-          : getYLabelformat(unit, precision, payload.value)
-      }
-    </text>
-  </g>
-);
+import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 
 class ChartLine extends PureComponent {
   debouncedMouseMove = debounce(
@@ -115,7 +71,7 @@ class ChartLine extends PureComponent {
             dataKey="x"
             scale="time"
             type="number"
-            tick={<CustomizedXAxisTick />}
+            tick={<CustomXAxisTick />}
             padding={{ left: 15, right: 20 }}
             tickSize={8}
             domain={domain && domain.x || [ 'auto', 'auto' ]}
@@ -126,9 +82,7 @@ class ChartLine extends PureComponent {
             tickLine={false}
             scale="linear"
             type="number"
-            tick={
-              <CustomizedYAxisTick precision={config.precision} unit={unit} />
-            }
+            tick={<CustomYAxisTick precision={config.precision} unit={unit} />}
             domain={domain && domain.y || [ 'auto', 'auto' ]}
             interval="preserveStartEnd"
           >
@@ -170,34 +124,6 @@ class ChartLine extends PureComponent {
     );
   }
 }
-
-CustomizedXAxisTick.propTypes = {
-  x: PropTypes.number,
-  y: PropTypes.number,
-  payload: PropTypes.object
-};
-
-CustomizedXAxisTick.defaultProps = { x: null, y: null, payload: {} };
-
-CustomizedYAxisTick.propTypes = {
-  x: PropTypes.number,
-  y: PropTypes.number,
-  index: PropTypes.number,
-  payload: PropTypes.object,
-  unit: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
-  precision: PropTypes.number
-};
-
-CustomizedYAxisTick.defaultProps = {
-  x: null,
-  y: null,
-  index: null,
-  payload: {},
-  unit: null,
-  precision: null
-};
-
-CustomizedYAxisTick.defaultProps = { precision: null, unit: false };
 
 ChartLine.propTypes = {
   config: PropTypes.object.isRequired,

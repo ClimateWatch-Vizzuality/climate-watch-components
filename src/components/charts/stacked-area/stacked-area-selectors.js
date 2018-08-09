@@ -1,4 +1,3 @@
-import { includeTotalData } from 'utils/stacked-area';
 import min from 'lodash/min';
 import max from 'lodash/max';
 import isArray from 'lodash/isArray';
@@ -9,7 +8,16 @@ export const getDataWithTotal = createSelector(
   [ getData, state => state.config ],
   (data, config) => {
     if (!data || !config) return null;
-    return includeTotalData(data, config);
+    return data.map(d => {
+      let total = null;
+      config.columns.y.forEach(key => {
+        if (d[key.value]) {
+          if (!total) total = 0;
+          total += d[key.value];
+        }
+      });
+      return { ...d, total };
+    });
   }
 );
 

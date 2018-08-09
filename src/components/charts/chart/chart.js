@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import ChartStackedArea from 'components/charts/stacked-area';
+import ChartStackedArea from 'components/charts/stacked-area';
 import LineChart from 'components/charts/line';
 import LegendChart from 'components/charts/legend-chart';
 import Loading from 'components/loading';
@@ -34,9 +34,7 @@ class Chart extends PureComponent {
       return 'No data available';
     };
 
-    // const ChartComponent = type === 'line' ? LineChart : ChartStackedArea;
-    const ChartComponent = LineChart;
-    // TODO REMOVE THIS FOR THE ABOVE LINE
+    const ChartComponent = type === 'line' ? LineChart : ChartStackedArea;
     const hasError = !loading && (error || !hasData);
     const hasDataOptions = !loading && dataOptions;
     return (
@@ -95,7 +93,7 @@ Chart.defaultProps = {
   dataSelected: [],
   hideRemoveOptions: false,
   theme: {},
-  model: {},
+  model: null,
   customMessage: '',
   onLegendChange: () => {
   }

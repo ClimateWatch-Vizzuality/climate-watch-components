@@ -1,8 +1,9 @@
-Example of line chart
+Example of line and area chart
 ```js
 const data = require('../assets/data.js');
 initialState = {
   ...data,
+  type: 'line',
   loading: false
 };
 const handleLegendChange = (filtersSelected) => {
@@ -17,9 +18,15 @@ const handleLegendChange = (filtersSelected) => {
     }
   })
 }
+const toggleCharType = (filtersSelected) => {
+  setState(state => ({ type: state.type === 'line' ? 'area' : 'line' }))
+}
 <React.Fragment>
+  <Button onClick={toggleCharType} >
+    Toggle type
+  </Button>
   <Chart
-    type="line"
+    type={state.type}
     config={state.config}
     data={state.data}
     domain={state.domain}

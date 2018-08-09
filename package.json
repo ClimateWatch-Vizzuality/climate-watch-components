@@ -35,7 +35,9 @@
     "react-tooltip": "3.6.1",
     "react-transition-group": "1.1.2",
     "react-virtualized": "9.20.1",
-    "recharts": "1.1.0"
+    "recharts": "1.1.0",
+    "recharts-scale": "0.3.2",
+    "reselect": "3.0.1"
   },
   "peerDependencies": {
     "classnames": "2.2.6",
