@@ -15,7 +15,7 @@ class Card extends PureComponent {
         <div className={cx(styles.data, theme.data)}>
           {children}
         </div>
-        <div className={cx(styles.contentContainer.theme.contentContainer)}>
+        <div className={cx(styles.contentContainer, theme.contentContainer)}>
           {
             title && (
             <p className={cx(styles.title, theme.title)}>
