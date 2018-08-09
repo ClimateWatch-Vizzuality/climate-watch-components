@@ -1,7 +1,7 @@
 .cw__icon-styles_icon {
   width: 15px;
   height: 15px;
-  fill: green; }
+  fill: #113750; }
 
 .cw__icon-styles_cursor {
   cursor: pointer; }
@@ -875,6 +875,18 @@ input:checked ~ .cw__check-input-styles_label {
 .cw__no-content-styles_img {
   width: 30px;
   height: 30px; }
+.cw__section-styles_row {
+  width: 100%; }
+
+.cw__section-styles_section {
+  display: block;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-bottom: solid 1px #f5f6f7; }
+
+.cw__section-styles_gray {
+  background-color: #f5f6f7; }
 .cw__stories-styles_container {
   position: relative;
   height: 700px; }
@@ -1109,12 +1121,14 @@ input:checked ~ .cw__check-input-styles_label {
 
 .cw__tag-styles_label {
   padding: 5px 0;
-  margin-right: 8px;
+  margin: 0 8px 0 0;
   width: max-content; }
 
 .cw__tag-styles_closeButton {
   fill: #8f8fa1;
-  cursor: pointer; }
+  cursor: pointer;
+  padding: 2px 0px 2px 2px;
+  border: none; }
   .cw__tag-styles_closeButton:focus {
     outline: none; }
 
