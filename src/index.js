@@ -2,6 +2,7 @@ export { default as Accordion } from './components/accordion';
 export { default as BottomBar } from './components/bottom-bar';
 export { default as Button } from './components/button';
 export { default as Card } from './components/card';
+export { default as Chart } from './components/charts/chart';
 export { default as CheckInput } from './components/check-input';
 export { default as Contact } from './components/contact';
 export { default as Dropdown } from './components/dropdown';
