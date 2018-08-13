@@ -33,6 +33,7 @@ class ChartLine extends PureComponent {
 
   render() {
     const {
+      dots,
       config,
       data,
       height,
@@ -110,7 +111,7 @@ class ChartLine extends PureComponent {
                     isAnimationActive={
                       isUndefined(config.animation) ? true : config.animation
                     }
-                    dot={{ strokeWidth: 0, fill: color, radius: 0.5 }}
+                    dot={dots && { strokeWidth: 0, fill: color, radius: 0.5 }}
                     dataKey={column.value}
                     stroke={color}
                     strokeWidth={2}
@@ -126,6 +127,7 @@ class ChartLine extends PureComponent {
 }
 
 ChartLine.propTypes = {
+  dots: PropTypes.bool,
   config: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired,
   showUnit: PropTypes.bool,
@@ -133,15 +135,17 @@ ChartLine.propTypes = {
   onMouseMove: PropTypes.func,
   forceFixedFormatDecimals: PropTypes.number,
   margin: PropTypes.object,
-  domain: PropTypes.object.isRequired
+  domain: PropTypes.object
 };
 
 ChartLine.defaultProps = {
+  dots: true,
   height: '100%',
   showUnit: false,
   onMouseMove: () => {
   },
   margin: { top: 0, right: 10, left: 10, bottom: 0 },
+  domain: null,
   forceFixedFormatDecimals: null
 };
 

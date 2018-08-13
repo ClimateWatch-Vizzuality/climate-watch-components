@@ -16,7 +16,6 @@ const onValueChange = (selected) => {
   value={state.selected}
   options={state.data}
   onValueChange={onValueChange}
-  hasSearch={false}
 />
 ```
 
@@ -41,7 +40,6 @@ const theme = require('./dropdown-themes.scss');
     value={state.selected}
     options={state.data}
     onValueChange={onValueChange}
-    hasSearch={false}
   />
 </div>
 ```
