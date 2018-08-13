@@ -84,11 +84,8 @@ const valueShape = { label: PropTypes.string, value: PropTypes.string };
 
 Dropdown.propTypes = {
   label: PropTypes.string,
-  openUp: PropTypes.bool,
-  transparent: PropTypes.bool,
   info: PropTypes.bool,
   infoText: PropTypes.string,
-  hasSearch: PropTypes.bool,
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
   withDot: PropTypes.bool,
@@ -107,12 +104,9 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
   label: '',
-  openUp: false,
-  transparent: false,
   info: false,
   infoText: '',
   theme: {},
-  hasSearch: false,
   loading: false,
   disabled: false,
   withDot: false,
