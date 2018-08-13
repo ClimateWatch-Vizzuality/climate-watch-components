@@ -24,8 +24,8 @@ class Chart extends PureComponent {
       data,
       config,
       height,
-      customMessage,
       model,
+      customMessage,
       hideRemoveOptions,
       onLegendChange
     } = this.props;
@@ -76,6 +76,8 @@ class Chart extends PureComponent {
 Chart.propTypes = {
   /** Type of the charts supported so far */
   type: PropTypes.oneOf([ 'line', 'area' ]).isRequired,
+  /** Custom dot for line visualization */
+  dots: PropTypes.bool, // eslint-disable-line
   /** Shows an error when something unexpected happen */
   error: PropTypes.bool,
   /** Custom message when error */
@@ -103,6 +105,7 @@ Chart.propTypes = {
 };
 
 Chart.defaultProps = {
+  dots: true,
   height: 300,
   error: false,
   dataOptions: [],

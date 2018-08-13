@@ -12,6 +12,7 @@ export { default as Input } from './components/input';
 export { default as Intro } from './components/intro';
 export { default as Loading } from './components/loading';
 export { default as Modal } from './components/modal';
+export { default as ModalHeader } from './components/modal/modal-header';
 export { default as Multiselect } from './components/multiselect';
 export { default as NoContent } from './components/no-content';
 export { default as Section } from './components/section';
