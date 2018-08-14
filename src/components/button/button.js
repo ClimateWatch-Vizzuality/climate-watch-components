@@ -8,7 +8,7 @@ import styles from './button-styles.scss';
  */
 const Button = props => {
   const {
-    href,
+    link,
     children,
     className,
     square,
@@ -18,18 +18,21 @@ const Button = props => {
     noSpace,
     theme
   } = props;
-  const notActionable = disabled || !onClick && !href && !children;
+  const notActionable = disabled || !onClick && !link && !children;
   const classNames = cx(className, styles.button, theme.button, {
     [styles.square]: square,
     [styles.noBox]: noBox,
     [styles.disabled]: notActionable,
     [styles.noSpace]: noSpace
   });
-  if (href) {
+  if (link) {
     return (
-      <a className={classNames} href={href}>
+      <link.type
+        {...link.props}
+        className={cx(classNames, link.props.className)}
+      >
         {children}
-      </a>
+      </link.type>
     );
   }
   return (
@@ -49,7 +52,7 @@ Button.propTypes = {
   /** Any data structure to render */
   children: PropTypes.node,
   /** Link to which button click will redirect */
-  href: PropTypes.string,
+  link: PropTypes.node,
   /** Class names for styling */
   className: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]),
   /** Theming button with customized styles */
@@ -69,7 +72,7 @@ Button.propTypes = {
 Button.defaultProps = {
   noSpace: false,
   disabled: false,
-  href: null,
+  link: null,
   children: null,
   className: '',
   square: false,
