@@ -42,7 +42,7 @@ class Chart extends PureComponent {
     const hasDataOptions = !loading && dataOptions;
     return (
       <div className={cx(styles.wrapper, theme.wrapper)}>
-        {loading && <Loading light className={styles.loader} />}
+        {loading && <Loading height={height} light className={styles.loader} />}
         {
           hasError &&
             (
@@ -77,7 +77,8 @@ Chart.propTypes = {
   /** Type of the charts supported so far */
   type: PropTypes.oneOf([ 'line', 'area' ]).isRequired,
   /** Custom dot for line visualization */
-  dots: PropTypes.bool, // eslint-disable-line
+  // eslint-disable-next-line
+  dots: PropTypes.bool,
   /** Shows an error when something unexpected happen */
   error: PropTypes.bool,
   /** Custom message when error */
