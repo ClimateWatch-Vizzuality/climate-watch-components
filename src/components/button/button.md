@@ -1,5 +1,3 @@
-### Button example:
-
 ```js
 const theme = require('./button-theme.scss');
 const onClick = () => { console.info('hello button') };

@@ -10,7 +10,6 @@ const Button = props => {
   const {
     link,
     children,
-    className,
     square,
     disabled,
     onClick,
@@ -19,7 +18,7 @@ const Button = props => {
     theme
   } = props;
   const notActionable = disabled || !onClick && !link && !children;
-  const classNames = cx(className, styles.button, theme.button, {
+  const classNames = cx(styles.button, theme.button, {
     [styles.square]: square,
     [styles.noBox]: noBox,
     [styles.disabled]: notActionable,
@@ -53,8 +52,6 @@ Button.propTypes = {
   children: PropTypes.node,
   /** Link to which button click will redirect */
   link: PropTypes.node,
-  /** Class names for styling */
-  className: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]),
   /** Theming button with customized styles */
   theme: PropTypes.shape({ button: PropTypes.string }),
   /** Option to render button as a square */
@@ -74,7 +71,6 @@ Button.defaultProps = {
   disabled: false,
   link: null,
   children: null,
-  className: '',
   square: false,
   noBox: false,
   onClick: () => {
