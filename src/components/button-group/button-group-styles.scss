@@ -1,0 +1,42 @@
+@import '../../styles/settings';
+
+.wrapper {
+  border-radius: 4px;
+  float: left;
+  display: flex;
+  justify-content: space-between;
+  border-right: solid 1px $border-color;
+  height: 45px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.09);
+  transition: box-shadow 150ms ease-out;
+
+  &:hover {
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.09);
+  }
+
+  & > :first-child {
+    border-radius: 4px 0 0 4px;
+  }
+
+  & > :last-child {
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+.button {
+  border: solid 1px $border-color;
+  border-radius: 0;
+  border-right: 0;
+  padding: 0;
+  width: 100%;
+  box-shadow: none;
+  fill: rgba($theme-color, 0.7);
+  transition: fill 150ms ease-out;
+  min-width: 20px;
+
+  &:hover {
+    box-shadow: none;
+    fill: $theme-color;
+  }
+}
+
