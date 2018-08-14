@@ -11,7 +11,7 @@ import styles from './intro-styles.scss';
 const Intro = props => {
   const { title, description, disclaimer, theme, textColumns, button } = props;
   const actionButton = button && (
-  <Button className={theme.button} {...button}>
+  <Button theme={{ button: theme.button }} {...button}>
     {button.text}
   </Button>
     );
