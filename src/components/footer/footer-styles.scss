@@ -101,3 +101,23 @@
   margin-right: 10px;
   min-width: 90px;
 }
+
+.footerContainer {
+  display: flex;
+  align-items: center;
+}
+
+.firstColumnFooter {
+  display: flex;
+  flex: 50%;
+}
+
+.secondColumnFooter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  flex: 50%;
+  text-align: right;
+}

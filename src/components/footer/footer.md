@@ -12,11 +12,12 @@ const partners = [
 ];
 <Footer
     includeBottom={true}
-    includeContact={true}
     includePartners={true}
-    contactOptions={{ contactTitle: 'Contact Us', contactMail: 'example@example.com' }}
     partners={partners}
     theme={theme}
     footerText='Powered by Vizzuality'
+    partnersTitle='Support received from:'
+    disclaimerText='Copyright by Vizzuality'
+    children={<div>Some texto here</div>}
 />
 ```
