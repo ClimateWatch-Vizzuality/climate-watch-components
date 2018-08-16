@@ -5,18 +5,17 @@ import cx from 'classnames';
 import styles from './footer-styles.scss';
 
 import BottomBar from '../bottom-bar/bottom-bar';
-import Contact from '../contact/contact';
 
 class Footer extends PureComponent {
   render() {
     const {
       partners,
       includePartners,
-      includeContact,
-      contactOptions,
       includeBottom,
       footerText,
+      disclaimerText,
       partnersTitle,
+      children,
       theme
     } = this.props;
     const className = cx(
@@ -30,63 +29,81 @@ class Footer extends PureComponent {
         {
           includePartners && (
           <div
-            className={cx(
-                  styles.content,
-                  theme.content,
-                  styles.nav,
-                  theme.nav
-                )}
+            className={cx(styles.footerContainer, theme.footerContainer)}
           >
-            <div>{partnersTitle}</div>
-            <div className="grid-column-item">
+            <div
+              className={cx(
+                    styles.firstColumnFooter,
+                    theme.secondColumnFooter
+                  )}
+            >
               <div
-                className={cx(styles.contentWrapper, theme.contentWrapper)}
+                className={cx(
+                      styles.content,
+                      theme.content,
+                      styles.nav,
+                      theme.nav
+                    )}
               >
+                <div>
+                  {partnersTitle}
+                </div>
                 <div className="grid-column-item">
-                  <div className={theme.partnersContainer}>
-                    {partners.map(
-                          partner => partner.img && (
-                          <div
-                            key={partner.img.alt}
-                            className={cx(
-                                  styles.logoContainer,
-                                  theme.logoContainer
-                                )}
-                          >
-                            <a
-                              className={cx(
-                                    styles.logo,
-                                    theme.logo,
-                                    styles[partner.img.customClass]
-                                  )}
-                              href={partner.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <img
-                                className={cx(
-                                      styles.defaultLogo,
-                                      theme.logo
-                                    )}
-                                src={partner.img.src}
-                                alt={partner.img.alt}
-                              />
-                            </a>
-                          </div>
-                            )
+                  <div
+                    className={cx(
+                          styles.contentWrapper,
+                          theme.contentWrapper
                         )}
+                  >
+                    <div className="grid-column-item">
+                      <div className={theme.partnersContainer}>
+                        {partners.map(
+                              partner => partner.img && (
+                              <div
+                                key={partner.img.alt}
+                                className={cx(
+                                      styles.logoContainer,
+                                      theme.logoContainer
+                                    )}
+                              >
+                                <a
+                                  className={cx(
+                                        styles.logo,
+                                        theme.logo,
+                                        styles[partner.img.customClass]
+                                      )}
+                                  href={partner.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <img
+                                    className={cx(
+                                          styles.defaultLogo,
+                                          theme.logo
+                                        )}
+                                    src={partner.img.src}
+                                    alt={partner.img.alt}
+                                  />
+                                </a>
+                              </div>
+                                )
+                            )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-                {
-                      includeContact &&
-                        (
-                          <Contact
-                            contactTitle={contactOptions.contactTitle}
-                            contactMail={contactOptions.contactMail}
-                          />
-                        )
-                    }
+                <div className={theme.disclaimer}>
+                  {disclaimerText}
+                </div>
               </div>
+            </div>
+            <div
+              className={cx(
+                    styles.secondColumnFooter,
+                    theme.secondColumnFooter
+                  )}
+            >
+              {children}
             </div>
           </div>
             )
@@ -122,26 +139,16 @@ Footer.propTypes = {
       })
     })
   ).isRequired,
+  disclaimerText: PropTypes.string,
   /** include partners section or not */
   includePartners: PropTypes.bool,
-  /** option to include contact link */
-  includeContact: PropTypes.bool,
-  /** contact values to pass */
-  contactOptions: PropTypes.shape({
-    contactTitle: PropTypes.string,
-    contactMail: PropTypes.string,
-    theme: PropTypes.shape({
-      contactContainer: PropTypes.string,
-      contact: PropTypes.string,
-      icon: PropTypes.string
-    })
-  }),
   /** Footer text passed to BottomBar component */
   footerText: PropTypes.string,
   /** Partners Text */
   partnersTitle: PropTypes.string,
   /** option to include a bottom bar */
   includeBottom: PropTypes.bool,
+  children: PropTypes.node,
   /** theming options */
   theme: PropTypes.shape({
     footer: PropTypes.string,
@@ -152,6 +159,7 @@ Footer.propTypes = {
     partnersContainer: PropTypes.string,
     logoContainer: PropTypes.string,
     logo: PropTypes.string,
+    disclaimer: PropTypes.string,
     /** Bottom bar specific theme options */
     bottomBar: PropTypes.string,
     bottomBarContainer: PropTypes.string,
@@ -161,12 +169,12 @@ Footer.propTypes = {
 
 Footer.defaultProps = {
   footerText: '',
+  disclaimerText: '',
   partnersTitle: '',
   includePartners: true,
-  includeContact: true,
-  contactOptions: {},
   includeBottom: true,
-  theme: {}
+  theme: {},
+  children: null
 };
 
 export default Footer;
