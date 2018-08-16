@@ -4,18 +4,21 @@ import cx from 'classnames';
 
 import styles from './bottom-bar-styles.scss';
 
+function createMarkup(text) {
+  return { __html: text };
+}
+
 /**
  * Bottom Bar component
  */
 const BottomBar = ({ theme, footerText, children }) => (
-  <div className={cx(styles.container, theme.container)}>
-    <div
-      className={cx(styles.row, styles.bottomBar, theme.row, theme.bottomBar)}
-    >
+  <div className={cx(styles.container, theme.bottomBarContainer)}>
+    <div className={cx(styles.row, styles.bottomBar, theme.bottomBar)}>
       {children}
-      <span className={cx(styles.text, styles.align, theme.text, theme.align)}>
-        {footerText}
-      </span>
+      <span
+        className={cx(styles.text, styles.align, theme.bottomBarText)}
+        dangerouslySetInnerHTML={createMarkup(footerText)}
+      />
     </div>
   </div>
 );
@@ -25,11 +28,9 @@ BottomBar.propTypes = {
   footerText: PropTypes.string,
   /** Theming options */
   theme: PropTypes.shape({
-    row: PropTypes.string,
-    bottomBar: PropTypes.string,
-    text: PropTypes.string,
-    align: PropTypes.string,
-    container: PropTypes.string
+    bottomBarContainer: PropTypes.string,
+    bottomBarText: PropTypes.string,
+    bottomBar: PropTypes.string
   }),
   children: PropTypes.node
 };

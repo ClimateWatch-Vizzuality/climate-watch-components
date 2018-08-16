@@ -50,7 +50,7 @@ class Modal extends PureComponent {
         {header}
         <Button
           onClick={() => onRequestClose()}
-          className={cx(styles.closeBtn, theme.closeBtn)}
+          theme={{ button: cx(styles.closeBtn, theme.closeBtn) }}
           square
         >
           <Icon

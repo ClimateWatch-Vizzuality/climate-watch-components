@@ -15,6 +15,8 @@ class Footer extends PureComponent {
       includeContact,
       contactOptions,
       includeBottom,
+      footerText,
+      partnersTitle,
       theme
     } = this.props;
     const className = cx(
@@ -35,7 +37,7 @@ class Footer extends PureComponent {
                   theme.nav
                 )}
           >
-            <div>Partners</div>
+            <div>{partnersTitle}</div>
             <div className="grid-column-item">
               <div
                 className={cx(styles.contentWrapper, theme.contentWrapper)}
@@ -91,7 +93,17 @@ class Footer extends PureComponent {
         }
         {
           includeBottom &&
-            <BottomBar className={cx(styles.content, theme.content)} />
+            (
+              <BottomBar
+                footerText={footerText}
+                className={cx(styles.content, theme.content)}
+                theme={{
+                  bottomBar: theme.bottomBar,
+                  bottomBarContainer: theme.bottomBarContainer,
+                  bottomBarText: theme.bottomBarText
+                }}
+              />
+            )
         }
       </footer>
     );
@@ -124,6 +136,10 @@ Footer.propTypes = {
       icon: PropTypes.string
     })
   }),
+  /** Footer text passed to BottomBar component */
+  footerText: PropTypes.string,
+  /** Partners Text */
+  partnersTitle: PropTypes.string,
   /** option to include a bottom bar */
   includeBottom: PropTypes.bool,
   /** theming options */
@@ -135,11 +151,17 @@ Footer.propTypes = {
     contentWrapper: PropTypes.string,
     partnersContainer: PropTypes.string,
     logoContainer: PropTypes.string,
-    logo: PropTypes.string
+    logo: PropTypes.string,
+    /** Bottom bar specific theme options */
+    bottomBar: PropTypes.string,
+    bottomBarContainer: PropTypes.string,
+    bottomBarText: PropTypes.string
   })
 };
 
 Footer.defaultProps = {
+  footerText: '',
+  partnersTitle: '',
   includePartners: true,
   includeContact: true,
   contactOptions: {},
