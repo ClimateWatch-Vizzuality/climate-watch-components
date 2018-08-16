@@ -97,6 +97,11 @@ class Footer extends PureComponent {
               <BottomBar
                 footerText={footerText}
                 className={cx(styles.content, theme.content)}
+                theme={{
+                  bottomBar: theme.bottomBar,
+                  bottomBarContainer: theme.bottomBarContainer,
+                  bottomBarText: theme.bottomBarText
+                }}
               />
             )
         }
@@ -131,7 +136,7 @@ Footer.propTypes = {
       icon: PropTypes.string
     })
   }),
-  /** Footer text */
+  /** Footer text passed to BottomBar component */
   footerText: PropTypes.string,
   /** Partners Text */
   partnersTitle: PropTypes.string,
@@ -146,7 +151,11 @@ Footer.propTypes = {
     contentWrapper: PropTypes.string,
     partnersContainer: PropTypes.string,
     logoContainer: PropTypes.string,
-    logo: PropTypes.string
+    logo: PropTypes.string,
+    /** Bottom bar specific theme options */
+    bottomBar: PropTypes.string,
+    bottomBarContainer: PropTypes.string,
+    bottomBarText: PropTypes.string
   })
 };
 
