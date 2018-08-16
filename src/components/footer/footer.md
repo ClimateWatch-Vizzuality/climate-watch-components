@@ -1,5 +1,6 @@
 ```js
 const logo = require('./assets/acts.png');
+const theme = require('./footer-theme.scss');
 const partners = [
     {
         link: 'example-link',
@@ -15,5 +16,7 @@ const partners = [
     includePartners={true}
     contactOptions={{ contactTitle: 'Contact Us', contactMail: 'example@example.com' }}
     partners={partners}
+    theme={theme}
+    footerText='Powered by Vizzuality'
 />
 ```
