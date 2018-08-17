@@ -7,7 +7,6 @@ export { default as Chart } from './components/charts/chart';
 export { default as CheckInput } from './components/check-input';
 export { default as Contact } from './components/contact';
 export { default as Dropdown } from './components/dropdown';
-export { default as Footer } from './components/footer';
 export { default as Icon } from './components/icon';
 export { default as Input } from './components/input';
 export { default as Intro } from './components/intro';
