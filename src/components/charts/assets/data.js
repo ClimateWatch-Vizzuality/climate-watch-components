@@ -4,14 +4,22 @@ export const config = {
     yLeft: { name: 'Emissions', unit: 'CO<sub>2</sub>e', format: 'number' }
   },
   theme: {
-    yAllGhg: { stroke: '#00B4D2', fill: '#00B4D2' },
-    yCo2: { stroke: '#0677B3', fill: '#0677B3' },
-    yCh4: { stroke: '#D2187C', fill: '#D2187C' },
+    yAllGhg: { stroke: '#9854b1', fill: '#9854b1' },
+    ghgInventory: { stroke: '#000000', fill: '#000000' },
+    yCo2: { stroke: '#00955f', fill: '#00955f' },
+    yCh4: { stroke: '#3498db', fill: '#3498db' },
     yN2O: { stroke: '#FFB400', fill: '#FFB400' },
-    yFGas: { stroke: '#FF7800', fill: '#FF7800' }
+    yFGas: { stroke: '#FF7800', fill: '#FF7800' },
+    ppd: { stroke: '#3498db', fill: '#d6eaf8' },
+    bau: { stroke: '#f5b335', fill: '#fdf0d7' },
+    ltms: { stroke: '#f97da1', fill: '#f97da1' }
   },
   tooltip: {
     yAllGhg: { label: 'All GHG' },
+    ghgInventory: { label: 'GHG Inventory' },
+    ltms: { label: 'LTMs' },
+    ppd: { label: 'PPD' },
+    bau: { label: 'BaU' },
     yCo2: { label: 'CO2' },
     yCh4: { label: 'CH4' },
     yN2O: { label: 'N2O' },
@@ -26,7 +34,10 @@ export const config = {
       { label: 'CH4', value: 'yCh4' },
       { label: 'N2O', value: 'yN2O' },
       { label: 'F-Gas', value: 'yFGas' }
-    ]
+    ],
+    z: [ { label: 'GHG Inventory', value: 'ghgInventory' } ],
+    w: [ { label: 'PPD', value: 'ppd' }, { label: 'BaU', value: 'bau' } ],
+    t: [ { label: 'LTMs', value: 'ltms' } ]
   }
 };
 
@@ -35,13 +46,19 @@ export const initialYColumns = [
   { label: 'CO2', value: 'yCo2' },
   { label: 'CH4', value: 'yCh4' },
   { label: 'N2O', value: 'yN2O' },
-  { label: 'F-Gas', value: 'yFGas' }
+  { label: 'F-Gas', value: 'yFGas' },
+  { label: 'BaU', value: 'bau' },
+  { label: 'PPD', value: 'ppd' }
 ];
 
 export const data = [
   {
     x: 1990,
     yAllGhg: 33823470500.000004,
+    ppd: 3360321169,
+    ltms: 7260373623,
+    bau: 246769808420,
+    ghgInventory: 7260373623,
     yCo2: 24697808420,
     yCh4: 6260373623,
     yN2O: 2603211690,
@@ -49,7 +66,11 @@ export const data = [
   },
   {
     x: 1991,
+    ppd: 53503211690,
+    ltms: 8260373623,
+    bau: 2769808420,
     yAllGhg: 34008494300,
+    ghgInventory: 8260373623,
     yCo2: 24896694270,
     yCh4: 6250436642,
     yN2O: 2593531229,
@@ -57,7 +78,11 @@ export const data = [
   },
   {
     x: 1992,
+    ppd: 53203211690,
+    ltms: 9260373623,
+    bau: 24676808420,
     yAllGhg: 33927955810,
+    ghgInventory: 9260373623,
     yCo2: 24830355700,
     yCh4: 6232559945,
     yN2O: 2591452609,
@@ -65,7 +90,11 @@ export const data = [
   },
   {
     x: 1993,
+    ppd: 63503211690,
+    ltms: 10260353623,
+    bau: 246739808420,
     yAllGhg: 34051213100,
+    ghgInventory: 10260373623,
     yCo2: 24978277170,
     yCh4: 6212714853,
     yN2O: 2580878129,
@@ -73,7 +102,11 @@ export const data = [
   },
   {
     x: 1994,
+    ppd: 83903211690,
+    ltms: 2260373623,
+    bau: 246469808420,
     yAllGhg: 34231542970.000004,
+    ghgInventory: 11260373623,
     yCo2: 25119866250,
     yCh4: 6226280491,
     yN2O: 2600297894,
@@ -81,7 +114,10 @@ export const data = [
   },
   {
     x: 1995,
+    ppd: 43503211690,
+    ltms: 3260373623,
     yAllGhg: 34922077380,
+    ghgInventory: 12260373623,
     yCo2: 25756751920,
     yCh4: 6230246017,
     yN2O: 2644225712,
@@ -89,7 +125,10 @@ export const data = [
   },
   {
     x: 1996,
+    ppd: 93503211690,
+    ltms: 9260373623,
     yAllGhg: 35376050940,
+    ghgInventory: 14260373623,
     yCo2: 26163539560,
     yCh4: 6234078864,
     yN2O: 2659988324,
@@ -97,6 +136,8 @@ export const data = [
   },
   {
     x: 1997,
+    ppd: 53503211890,
+    ltms: 100260373623,
     yAllGhg: 36626681840,
     yCo2: 27115778030,
     yCh4: 6480349194,
@@ -105,6 +146,8 @@ export const data = [
   },
   {
     x: 1998,
+    ppd: 75303211690,
+    ltms: 12260373623,
     yAllGhg: 36299089570,
     yCo2: 26782316460,
     yCh4: 6439063189,
