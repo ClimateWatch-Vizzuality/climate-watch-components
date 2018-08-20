@@ -39,13 +39,12 @@ class Input extends Component {
 
   handleChange = value => {
     this.setState({ value });
-    this.debouncedChange();
+    this.debouncedChange(value);
   };
 
   debouncedChange = debounce(
-    () => {
+    search => {
       const { onChange } = this.props;
-      const { search } = this.state;
       if (onChange) {
         onChange(search);
       }
