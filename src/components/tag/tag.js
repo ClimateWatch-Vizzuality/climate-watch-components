@@ -14,13 +14,28 @@ class Tag extends PureComponent {
   };
 
   getTooltipContent() {
-    const { data, theme, color, label, canRemove, tooltipId } = this.props;
+    const {
+      data,
+      theme,
+      color,
+      label,
+      canRemove,
+      tooltipId,
+      icon
+    } = this.props;
+    const hasIcon = icon && icon.id;
     const tagContent = (
       <React.Fragment>
-        <span
-          className={cx(styles.dot, theme.dot)}
-          style={{ backgroundColor: color }}
-        />
+        {
+          hasIcon
+            ? <Icon icon={icon} theme={{ icon: cx(styles.icon, theme.icon) }} />
+            : (
+              <span
+                className={cx(styles.dot, theme.dot)}
+                style={{ backgroundColor: color }}
+              />
+)
+        }
         {
           data && data.title && tooltipId
             ? (
@@ -78,6 +93,7 @@ class Tag extends PureComponent {
 Tag.propTypes = {
   /** Tags data */
   data: Proptypes.object,
+  icon: Proptypes.object,
   onRemove: Proptypes.func,
   /** Tooltip id */
   tooltipId: Proptypes.string,
@@ -101,6 +117,7 @@ Tag.defaultProps = {
   canRemove: false,
   data: {},
   tooltipId: '',
+  icon: null,
   onRemove: () => {
   },
   label: '',
