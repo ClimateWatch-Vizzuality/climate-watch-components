@@ -3,6 +3,7 @@ import Proptypes from 'prop-types';
 import { format } from 'd3-format';
 import cx from 'classnames';
 
+import Icon from 'components/icon';
 import styles from './tooltip-chart-styles.scss';
 
 class TooltipChart extends PureComponent {
@@ -75,17 +76,25 @@ class TooltipChart extends PureComponent {
             content.payload.length > 0 &&
             this.sortByValue(content.payload, config).map(
               y =>
-                y.payload && y.dataKey !== 'total'
+                y.payload &&
+                  y.dataKey !== 'total' &&
+                  config.tooltip[y.dataKey].label
                   ? (
                     <div key={`${y.dataKey}`} className={styles.label}>
                       <div className={styles.legend}>
-                        <span
-                          className={styles.labelDot}
-                          style={{
-                          backgroundColor: config.theme[y.dataKey] &&
-                            config.theme[y.dataKey].stroke
-                        }}
-                        />
+                        {
+                        config.theme[y.dataKey].icon
+                          ? <Icon icon={config.theme[y.dataKey].icon} />
+                          : (
+                            <span
+                              className={styles.labelDot}
+                              style={{
+                              backgroundColor: config.theme[y.dataKey] &&
+                                config.theme[y.dataKey].stroke
+                            }}
+                            />
+)
+                      }
                         <p
                           className={cx(styles.labelName, {
                           [styles.notAvailable]: !(y.payload &&
