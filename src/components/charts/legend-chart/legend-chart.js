@@ -58,6 +58,7 @@ class LegendChart extends PureComponent {
                     }}
                     label={column.label}
                     color={config.theme[column.value].stroke}
+                    icon={config.theme[column.value].icon}
                     tooltipId="legend-tooltip"
                     onRemove={this.handleRemove}
                     canRemove={

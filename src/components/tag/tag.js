@@ -5,6 +5,7 @@ import cx from 'classnames';
 import closeIcon from './assets/legend-close.svg';
 import styles from './tag-styles.scss';
 import Icon from '../icon/icon';
+import dotsIcon from './assets/dots.svg';
 
 class Tag extends PureComponent {
   handleClick = e => {
@@ -14,13 +15,28 @@ class Tag extends PureComponent {
   };
 
   getTooltipContent() {
-    const { data, theme, color, label, canRemove, tooltipId } = this.props;
+    const {
+      data,
+      theme,
+      color,
+      label,
+      canRemove,
+      tooltipId,
+      icon
+    } = this.props;
+    const hasIcon = icon && icon.id && !color;
     const tagContent = (
       <React.Fragment>
-        <span
-          className={cx(styles.dot, theme.dot)}
-          style={{ backgroundColor: color }}
-        />
+        {
+          hasIcon
+            ? <Icon icon={icon} theme={{ icon: cx(styles.icon, theme.icon) }} />
+            : (
+              <span
+                className={cx(styles.dot, theme.dot)}
+                style={{ backgroundColor: color }}
+              />
+)
+        }
         {
           data && data.title && tooltipId
             ? (
@@ -78,6 +94,7 @@ class Tag extends PureComponent {
 Tag.propTypes = {
   /** Tags data */
   data: Proptypes.object,
+  icon: Proptypes.object,
   onRemove: Proptypes.func,
   /** Tooltip id */
   tooltipId: Proptypes.string,
@@ -101,10 +118,11 @@ Tag.defaultProps = {
   canRemove: false,
   data: {},
   tooltipId: '',
+  icon: dotsIcon,
   onRemove: () => {
   },
   label: '',
-  color: 'black',
+  color: '',
   theme: {}
 };
 
