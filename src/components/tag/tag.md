@@ -1,7 +1,6 @@
 ```js
 const theme = require('./tag-theme.scss');
 const ReactTooltip = require('react-tooltip');
-const locationsValues = 5;
 const handleRemove = (target) => { console.info('Remove this tag', target); };
 <div style={{ display: 'flex' }}>
     <Tag
@@ -40,7 +39,6 @@ Tag with icon passed
 ```js
 const theme = require('./tag-theme.scss');
 const ReactTooltip = require('react-tooltip');
-const locationsValues = 5;
 const handleRemove = (target) => { console.info('Remove this tag', target); };
 <div style={{ display: 'flex' }}>
     <Tag
