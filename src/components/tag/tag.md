@@ -42,7 +42,6 @@ const theme = require('./tag-theme.scss');
 const ReactTooltip = require('react-tooltip');
 const locationsValues = 5;
 const handleRemove = (target) => { console.info('Remove this tag', target); };
-const dotsIcon = require('./assets/dots.svg');
 <div style={{ display: 'flex' }}>
     <Tag
         key='PL'
@@ -53,7 +52,6 @@ const dotsIcon = require('./assets/dots.svg');
             title: 'Poland',
             value: 'Poland'
         }}
-        icon={dotsIcon}
         tooltipId='tooltip-id'
         canRemove
         color='orange'
