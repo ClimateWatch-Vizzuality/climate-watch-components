@@ -128,7 +128,6 @@ class LineDottedLineAreaComposedChart extends PureComponent {
                       key={column.value}
                       dataKey={column.value}
                       dot={false}
-                      stackId={1}
                       stroke={color}
                       strokeWidth={2}
                       isAnimationActive={
