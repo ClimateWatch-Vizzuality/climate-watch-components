@@ -27505,8 +27505,10 @@ module.exports = (function(e) {
               m = o && a && a.length !== o.length,
               g = a.length < 2,
               b = r && r.columns,
-              _ = r && Object.keys(r.columns);
-            _.shift();
+              _ = r ? Object.keys(r.columns) : [];
+            _ = _.filter(function(e) {
+              return 'x' !== e;
+            });
             var x = a.map(function(e) {
               return e.label;
             }),
