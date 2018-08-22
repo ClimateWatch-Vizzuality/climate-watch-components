@@ -33,14 +33,53 @@ class LegendChart extends PureComponent {
       dataSelected &&
       dataSelected.length !== dataOptions.length;
     const mirrorX = dataSelected.length < 2;
-    const hasColumns = config && config.columns && config.columns.y.length;
+    const hasAnyColumns = config && config.columns;
+    const hasYColumns = hasAnyColumns && config.columns.y.length;
+    const hasWColumns = hasAnyColumns && config.columns.w.length;
+    const hasZColumns = hasAnyColumns && config.columns.z.length;
+    const hasTColumns = hasAnyColumns && config.columns.t.length;
+    const hasColumns = hasYColumns || hasWColumns || hasZColumns || hasTColumns;
     const dataSelectedIds = dataSelected.map(d => d.label);
-    const filteredColumns = hasColumns
+
+    const filteredYColumns = hasYColumns
       ? config.columns.y.filter(
         column => dataSelectedIds.includes(column.label)
       )
       : [];
+
+    const filteredWColumns = hasWColumns
+      ? config.columns.w.filter(
+        column => dataSelectedIds.includes(column.label)
+      )
+      : [];
+
+    const filteredZColumns = hasZColumns
+      ? config.columns.z.filter(
+        column => dataSelectedIds.includes(column.label)
+      )
+      : [];
+
+    const filteredTColumns = hasTColumns
+      ? config.columns.t.filter(
+        column => dataSelectedIds.includes(column.label)
+      )
+      : [];
+
+    const filteredColumns = [
+      ...filteredYColumns,
+      ...filteredWColumns,
+      ...filteredZColumns,
+      ...filteredTColumns
+    ];
+
     const hasLegendNote = config && config.legendNote;
+
+    const columnsLength = [
+      ...config.columns.y,
+      ...config.columns.w,
+      ...config.columns.z,
+      ...config.columns.t
+    ].length;
     return (
       <div className={cx(styles.legendChart, theme.wrapper)}>
         <div className={styles.legendContainer}>
@@ -61,9 +100,7 @@ class LegendChart extends PureComponent {
                     icon={config.theme[column.value].icon}
                     tooltipId="legend-tooltip"
                     onRemove={this.handleRemove}
-                    canRemove={
-                      hideRemoveOptions ? false : config.columns.y.length > 1
-                    }
+                    canRemove={hideRemoveOptions ? false : columnsLength > 1}
                   />
                 ))}
                 {hasColumns && <ReactTooltip id="legend-tooltip" />}
