@@ -339,7 +339,8 @@ export const filters = [
   { value: 16, label: 'N2O' },
   { value: 20, label: 'GHG Inventory' },
   { value: 21, label: 'BaU' },
-  { value: 22, label: 'ppd' }
+  { value: 22, label: 'ppd' },
+  { value: 23, label: 'LTMs' }
 ];
 
 export const filtersSelected = [
@@ -349,5 +350,6 @@ export const filtersSelected = [
   { value: 16, label: 'N2O' },
   { value: 20, label: 'GHG Inventory' },
   { value: 21, label: 'BaU' },
-  { value: 22, label: 'ppd' }
+  { value: 22, label: 'ppd' },
+  { value: 23, label: 'LTMs' }
 ];
