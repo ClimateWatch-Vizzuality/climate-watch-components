@@ -3,6 +3,7 @@ import Proptypes from 'prop-types';
 import { format } from 'd3-format';
 import cx from 'classnames';
 
+import Icon from 'components/icon';
 import styles from './tooltip-chart-styles.scss';
 
 class TooltipChart extends PureComponent {
@@ -34,6 +35,20 @@ class TooltipChart extends PureComponent {
       return yValues[b.dataKey] - yValues[a.dataKey];
     };
     return payload.sort(compare);
+  };
+
+  renderValue = (y, unitIsCo2) => {
+    if (y.payload && y.payload[y.dataKey] !== undefined) {
+      if (Array.isArray(y.payload[y.dataKey])) {
+        return `${format(
+          this.getFormat()
+        )(y.payload[y.dataKey][0])} - ${format(this.getFormat())(y.payload[y.dataKey][1])} ${unitIsCo2 ? 't' : ''}`;
+      }
+      return `${format(
+        this.getFormat()
+      )(y.payload[y.dataKey])}${unitIsCo2 ? 't' : ''}`;
+    }
+    return 'n/a';
   };
 
   render() {
@@ -75,17 +90,25 @@ class TooltipChart extends PureComponent {
             content.payload.length > 0 &&
             this.sortByValue(content.payload, config).map(
               y =>
-                y.payload && y.dataKey !== 'total'
+                y.payload &&
+                  y.dataKey !== 'total' &&
+                  config.tooltip[y.dataKey].label
                   ? (
                     <div key={`${y.dataKey}`} className={styles.label}>
                       <div className={styles.legend}>
-                        <span
-                          className={styles.labelDot}
-                          style={{
-                          backgroundColor: config.theme[y.dataKey] &&
-                            config.theme[y.dataKey].stroke
-                        }}
-                        />
+                        {
+                        config.theme[y.dataKey].icon
+                          ? <Icon icon={config.theme[y.dataKey].icon} />
+                          : (
+                            <span
+                              className={styles.labelDot}
+                              style={{
+                              backgroundColor: config.theme[y.dataKey] &&
+                                config.theme[y.dataKey].stroke
+                            }}
+                            />
+)
+                      }
                         <p
                           className={cx(styles.labelName, {
                           [styles.notAvailable]: !(y.payload &&
@@ -99,13 +122,7 @@ class TooltipChart extends PureComponent {
                         </p>
                       </div>
                       <p className={styles.labelValue}>
-                        {
-                        y.payload && y.payload[y.dataKey] !== undefined
-                          ? `${format(this.getFormat())(
-                            y.payload[y.dataKey]
-                          )}${unitIsCo2 ? 't' : ''}`
-                          : 'n/a'
-                      }
+                        {this.renderValue(y, unitIsCo2)}
                       </p>
                     </div>
 )

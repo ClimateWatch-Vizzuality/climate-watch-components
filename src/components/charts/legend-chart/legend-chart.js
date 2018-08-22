@@ -33,14 +33,34 @@ class LegendChart extends PureComponent {
       dataSelected &&
       dataSelected.length !== dataOptions.length;
     const mirrorX = dataSelected.length < 2;
-    const hasColumns = config && config.columns && config.columns.y.length;
+
+    const hasAnyColumns = config && config.columns;
+    const columnKeys = Object.keys(config.columns);
+    columnKeys.shift();
+
     const dataSelectedIds = dataSelected.map(d => d.label);
-    const filteredColumns = hasColumns
-      ? config.columns.y.filter(
-        column => dataSelectedIds.includes(column.label)
-      )
-      : [];
+
+    const hasColumnsWithKey = key =>
+      hasAnyColumns && config.columns[key].length;
+
+    const hasColumns = columnKeys
+      .map(key => hasColumnsWithKey(key))
+      .some(value => value > 0);
+
+    const filterColumns = key =>
+      hasColumnsWithKey(key)
+        ? config.columns[key].filter(
+          column => dataSelectedIds.includes(column.label)
+        )
+        : [];
+
+    let filteredColumns = columnKeys.map(key => filterColumns(key));
+    filteredColumns = [].concat(...filteredColumns);
+
     const hasLegendNote = config && config.legendNote;
+
+    const columnsLength = filteredColumns.length;
+
     return (
       <div className={cx(styles.legendChart, theme.wrapper)}>
         <div className={styles.legendContainer}>
@@ -58,11 +78,10 @@ class LegendChart extends PureComponent {
                     }}
                     label={column.label}
                     color={config.theme[column.value].stroke}
+                    icon={config.theme[column.value].icon}
                     tooltipId="legend-tooltip"
                     onRemove={this.handleRemove}
-                    canRemove={
-                      hideRemoveOptions ? false : config.columns.y.length > 1
-                    }
+                    canRemove={hideRemoveOptions ? false : columnsLength > 1}
                   />
                 ))}
                 {hasColumns && <ReactTooltip id="legend-tooltip" />}
