@@ -27505,7 +27505,7 @@ module.exports = (function(e) {
               m = o && a && a.length !== o.length,
               g = a.length < 2,
               b = r && r.columns,
-              _ = Object.keys(r.columns);
+              _ = r && Object.keys(r.columns);
             _.shift();
             var x = a.map(function(e) {
               return e.label;
