@@ -121,7 +121,7 @@ class LineDottedLineAreaComposedChart extends PureComponent {
               )}
             />
             {
-              config.columns && config.columns.w.map(column => {
+              config.columns && config.columns.rangedArea.map(column => {
                   const color = config.theme[column.value].stroke || '';
                   return (
                     <Area
@@ -140,7 +140,7 @@ class LineDottedLineAreaComposedChart extends PureComponent {
                 })
             }
             {
-              config.columns && config.columns.y.map(column => {
+              config.columns && config.columns.lineWithDots.map(column => {
                   const color = config.theme[column.value].stroke || '';
                   return (
                     <Line
@@ -159,7 +159,7 @@ class LineDottedLineAreaComposedChart extends PureComponent {
             }
             {
               config.columns &&
-                config.columns.z.map(column => (
+                config.columns.dots.map(column => (
                   <Line
                     key={column.value}
                     isAnimationActive={
@@ -175,7 +175,7 @@ class LineDottedLineAreaComposedChart extends PureComponent {
                 ))
             }
             {
-              config.columns && config.columns.t.map(column => {
+              config.columns && config.columns.line.map(column => {
                   const color = config.theme[column.value].stroke || '';
                   return (
                     <Line

@@ -1,5 +1,5 @@
 ```js
-const data = require('../assets/data.js');
+const data = require('../assets/data-for-composed-chart.js');
 initialState = {
   ...data,
   loading: false
@@ -7,16 +7,16 @@ initialState = {
 const handleLegendChange = (filtersSelected) => {
   setState(state => {
     const filterIds = filtersSelected.map(f => f.label);
-    const filteredWColumns = data.initialWColumns.filter(col => filterIds.includes(col.label));
-    const filteredZColumns = data.initialZColumns.filter(col => filterIds.includes(col.label));
-    const filteredTColumns = data.initialTColumns.filter(col => filterIds.includes(col.label));
-    const filteredYColumns = data.initialYColumns.filter(col => filterIds.includes(col.label));
+    const filteredLineWithDotsColumns = data.initialLineWithDotsColumns.filter(col => filterIds.includes(col.label));
+    const filteredRangedAreaColumns = data.initialRangedAreaColumns.filter(col => filterIds.includes(col.label));
+    const filteredDotsColumns = data.initialDotsColumns.filter(col => filterIds.includes(col.label));
+    const filteredLineColumns = data.initialLineColumns.filter(col => filterIds.includes(col.label));
 
     const config = {...state.config};
-    config.columns.y = filteredYColumns;
-    config.columns.w = filteredWColumns;
-    config.columns.z = filteredZColumns;
-    config.columns.t = filteredTColumns;
+    config.columns.lineWithDots = filteredLineWithDotsColumns;
+    config.columns.rangedArea = filteredRangedAreaColumns;
+    config.columns.dots = filteredDotsColumns;
+    config.columns.line = filteredLineColumns;
     return {
       filtersSelected,
       config

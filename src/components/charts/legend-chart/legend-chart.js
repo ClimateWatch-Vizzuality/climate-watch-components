@@ -35,16 +35,17 @@ class LegendChart extends PureComponent {
     const mirrorX = dataSelected.length < 2;
 
     const hasAnyColumns = config && config.columns;
+    const columnKeys = Object.keys(config.columns);
+    columnKeys.shift();
 
     const dataSelectedIds = dataSelected.map(d => d.label);
 
     const hasColumnsWithKey = key =>
       hasAnyColumns && config.columns[key].length;
 
-    const hasColumns = hasColumnsWithKey('y') ||
-      hasColumnsWithKey('w') ||
-      hasColumnsWithKey('z') ||
-      hasColumnsWithKey('t');
+    const hasColumns = columnKeys
+      .map(key => hasColumnsWithKey(key))
+      .some(value => value > 0);
 
     const filterColumns = key =>
       hasColumnsWithKey(key)
@@ -53,21 +54,13 @@ class LegendChart extends PureComponent {
         )
         : [];
 
-    const filteredColumns = [
-      ...filterColumns('y'),
-      ...filterColumns('w'),
-      ...filterColumns('z'),
-      ...filterColumns('t')
-    ];
+    let filteredColumns = columnKeys.map(key => filterColumns(key));
+    filteredColumns = [].concat(...filteredColumns);
 
     const hasLegendNote = config && config.legendNote;
 
-    const columnsLength = [
-      ...config.columns.y,
-      ...config.columns.w,
-      ...config.columns.z,
-      ...config.columns.t
-    ].length;
+    const columnsLength = filteredColumns.length;
+
     return (
       <div className={cx(styles.legendChart, theme.wrapper)}>
         <div className={styles.legendContainer}>
