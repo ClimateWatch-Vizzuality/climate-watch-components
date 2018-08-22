@@ -35,7 +35,7 @@ class LegendChart extends PureComponent {
     const mirrorX = dataSelected.length < 2;
 
     const hasAnyColumns = config && config.columns;
-    const columnKeys = Object.keys(config.columns);
+    const columnKeys = config && Object.keys(config.columns);
     columnKeys.shift();
 
     const dataSelectedIds = dataSelected.map(d => d.label);
