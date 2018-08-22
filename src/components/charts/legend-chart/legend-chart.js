@@ -33,43 +33,31 @@ class LegendChart extends PureComponent {
       dataSelected &&
       dataSelected.length !== dataOptions.length;
     const mirrorX = dataSelected.length < 2;
+
     const hasAnyColumns = config && config.columns;
-    const hasYColumns = hasAnyColumns && config.columns.y.length;
-    const hasWColumns = hasAnyColumns && config.columns.w.length;
-    const hasZColumns = hasAnyColumns && config.columns.z.length;
-    const hasTColumns = hasAnyColumns && config.columns.t.length;
-    const hasColumns = hasYColumns || hasWColumns || hasZColumns || hasTColumns;
+
     const dataSelectedIds = dataSelected.map(d => d.label);
 
-    const filteredYColumns = hasYColumns
-      ? config.columns.y.filter(
-        column => dataSelectedIds.includes(column.label)
-      )
-      : [];
+    const hasColumnsWithKey = key =>
+      hasAnyColumns && config.columns[key].length;
 
-    const filteredWColumns = hasWColumns
-      ? config.columns.w.filter(
-        column => dataSelectedIds.includes(column.label)
-      )
-      : [];
+    const hasColumns = hasColumnsWithKey('y') ||
+      hasColumnsWithKey('w') ||
+      hasColumnsWithKey('z') ||
+      hasColumnsWithKey('t');
 
-    const filteredZColumns = hasZColumns
-      ? config.columns.z.filter(
-        column => dataSelectedIds.includes(column.label)
-      )
-      : [];
-
-    const filteredTColumns = hasTColumns
-      ? config.columns.t.filter(
-        column => dataSelectedIds.includes(column.label)
-      )
-      : [];
+    const filterColumns = key =>
+      hasColumnsWithKey(key)
+        ? config.columns[key].filter(
+          column => dataSelectedIds.includes(column.label)
+        )
+        : [];
 
     const filteredColumns = [
-      ...filteredYColumns,
-      ...filteredWColumns,
-      ...filteredZColumns,
-      ...filteredTColumns
+      ...filterColumns('y'),
+      ...filterColumns('w'),
+      ...filterColumns('z'),
+      ...filterColumns('t')
     ];
 
     const hasLegendNote = config && config.legendNote;
