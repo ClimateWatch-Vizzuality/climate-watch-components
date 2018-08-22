@@ -336,20 +336,12 @@ export const filters = [
   { value: 15, label: 'CH4' },
   { value: 14, label: 'CO2' },
   { value: 17, label: 'F-Gas' },
-  { value: 16, label: 'N2O' },
-  { value: 20, label: 'GHG Inventory' },
-  { value: 21, label: 'BaU' },
-  { value: 22, label: 'ppd' },
-  { value: 23, label: 'LTMs' }
+  { value: 16, label: 'N2O' }
 ];
 
 export const filtersSelected = [
   { value: 13, label: 'All GHG' },
   { value: 15, label: 'CH4' },
   { value: 14, label: 'CO2' },
-  { value: 16, label: 'N2O' },
-  { value: 20, label: 'GHG Inventory' },
-  { value: 21, label: 'BaU' },
-  { value: 22, label: 'ppd' },
-  { value: 23, label: 'LTMs' }
+  { value: 16, label: 'N2O' }
 ];
