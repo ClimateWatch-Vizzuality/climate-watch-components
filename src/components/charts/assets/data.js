@@ -10,20 +10,16 @@ export const config = {
     yCh4: { stroke: '#3498db', fill: '#3498db' },
     yN2O: { stroke: '#FFB400', fill: '#FFB400' },
     yFGas: { stroke: '#FF7800', fill: '#FF7800' },
-    ppdFrom: { stroke: '#3498db', fill: '#fff' },
-    bauFrom: { stroke: '#f5b335', fill: '#fdf0d7' },
-    bauTo: { stroke: '#f5b335', fill: '#fff' },
-    ppdTo: { stroke: '#3498db', fill: '#d6eaf8' },
+    ppd: { stroke: '#3498db', fill: '#d6eaf8' },
+    bau: { stroke: '#f5b335', fill: '#fdf0d7' },
     ltms: { stroke: '#f97da1', fill: '#f97da1' }
   },
   tooltip: {
     yAllGhg: { label: 'All GHG' },
     ghgInventory: { label: 'GHG Inventory' },
     ltms: { label: 'LTMs' },
-    ppdFrom: { label: 'PPD' },
-    bauFrom: { label: 'BaU' },
-    bauTo: { label: null },
-    ppdTo: { label: null },
+    ppd: { label: 'PPD' },
+    bau: { label: 'BaU' },
     yCo2: { label: 'CO2' },
     yCh4: { label: 'CH4' },
     yN2O: { label: 'N2O' },
@@ -40,12 +36,7 @@ export const config = {
       { label: 'F-Gas', value: 'yFGas' }
     ],
     z: [ { label: 'GHG Inventory', value: 'ghgInventory' } ],
-    w: [
-      { label: 'ppd', value: 'ppdFrom' },
-      { label: null, value: 'ppdTo' },
-      { label: null, value: 'bauTo' },
-      { label: 'BaU', value: 'bauFrom' }
-    ],
+    w: [ { label: 'ppd', value: 'ppd' }, { label: 'BaU', value: 'bau' } ],
     t: [ { label: 'LTMs', value: 'ltms' } ]
   }
 };
@@ -55,21 +46,27 @@ export const initialYColumns = [
   { label: 'CO2', value: 'yCo2' },
   { label: 'CH4', value: 'yCh4' },
   { label: 'N2O', value: 'yN2O' },
-  { label: 'F-Gas', value: 'yFGas' },
-  { label: 'BaU', value: 'bauFrom' },
-  { label: '', value: 'bauTo' },
-  { label: 'PPD', value: 'ppdFrom' }
+  { label: 'F-Gas', value: 'yFGas' }
 ];
+
+export const initialWColumns = [
+  { label: 'ppd', value: 'ppd' },
+  { label: 'BaU', value: 'bau' }
+];
+
+export const initialZColumns = [
+  { label: 'GHG Inventory', value: 'ghgInventory' }
+];
+
+export const initialTColumns = [ { label: 'LTMs', value: 'ltms' } ];
 
 export const data = [
   {
     x: 1990,
     yAllGhg: 33823470500.000004,
-    ppdFrom: 3360321169,
-    ppdTo: 1360321169,
+    ppd: [ 1360321169, 3360321169 ],
     ltms: 7260373623,
-    bauFrom: 75360321169,
-    bauTo: 25360321169,
+    bau: [ 15360321169, 25360321169 ],
     ghgInventory: 7260373623,
     yCo2: 24697808420,
     yCh4: 6260373623,
@@ -78,11 +75,9 @@ export const data = [
   },
   {
     x: 1991,
-    ppdFrom: 53503211690,
-    ppdTo: 23503211690,
+    ppd: [ 23503211690, 53503211690 ],
     ltms: 8260373623,
-    bauFrom: 85360321169,
-    bauTo: 3069808420,
+    bau: [ 25360321169, 85360321169 ],
     yAllGhg: 34008494300,
     ghgInventory: 8260373623,
     yCo2: 24896694270,
@@ -92,11 +87,9 @@ export const data = [
   },
   {
     x: 1992,
-    ppdFrom: 53203211690,
-    ppdTo: 33203211690,
+    ppd: [ 33203211690, 53203211690 ],
     ltms: 9260373623,
-    bauFrom: 87360321169,
-    bauTo: 27676808420,
+    bau: [ 27360321169, 87360321169 ],
     yAllGhg: 33927955810,
     ghgInventory: 9260373623,
     yCo2: 24830355700,
@@ -106,11 +99,9 @@ export const data = [
   },
   {
     x: 1993,
-    ppdFrom: 63503211690,
-    ppdTo: 23503211690,
+    ppd: [ 23503211690, 63503211690 ],
     ltms: 10260353623,
-    bauFrom: 85360321169,
-    bauTo: 276739808420,
+    bau: [ 85360321169, 276739808420 ],
     yAllGhg: 34051213100,
     ghgInventory: 10260373623,
     yCo2: 24978277170,
@@ -120,11 +111,9 @@ export const data = [
   },
   {
     x: 1994,
-    ppdFrom: 83903211690,
-    ppdTo: 43903211690,
+    ppd: [ 43903211690, 83903211690 ],
     ltms: 2260373623,
-    bauFrom: 75360321169,
-    bauTo: 276469808420,
+    bau: [ 75360321169, 276469808420 ],
     yAllGhg: 34231542970.000004,
     ghgInventory: 11260373623,
     yCo2: 25119866250,
@@ -134,10 +123,8 @@ export const data = [
   },
   {
     x: 1995,
-    bauFrom: 65360321169,
-    bauTo: 25360321169,
-    ppdFrom: 43503211690,
-    ppdTo: 23503211690,
+    bau: [ 35360321169, 65360321169 ],
+    ppd: [ 23503211690, 43503211690 ],
     ltms: 3260373623,
     yAllGhg: 34922077380,
     ghgInventory: 12260373623,
@@ -148,10 +135,8 @@ export const data = [
   },
   {
     x: 1996,
-    bauFrom: 85360321169,
-    bauTo: 25360321169,
-    ppdFrom: 93503211690,
-    ppdTo: 63503211690,
+    bau: [ 45360321169, 85360321169 ],
+    ppd: [ 63503211690, 93503211690 ],
     ltms: 9260373623,
     yAllGhg: 35376050940,
     ghgInventory: 14260373623,
@@ -162,10 +147,8 @@ export const data = [
   },
   {
     x: 1997,
-    bauFrom: 65360321169,
-    bauTo: 25360321169,
-    ppdFrom: 53503211890,
-    ppdTo: 23503211890,
+    bau: [ 35360321169, 65360321169 ],
+    ppd: 53503211890,
     ltms: 100260373623,
     yAllGhg: 36626681840,
     yCo2: 27115778030,
@@ -175,10 +158,8 @@ export const data = [
   },
   {
     x: 1998,
-    bauFrom: 75360321169,
-    bauTo: 25360321169,
-    ppdFrom: 75303211690,
-    ppdTo: 35303211690,
+    bau: [ 45360321169, 75360321169 ],
+    ppd: 75303211690,
     ltms: 12260373623,
     yAllGhg: 36299089570,
     yCo2: 26782316460,
@@ -188,8 +169,7 @@ export const data = [
   },
   {
     x: 1999,
-    bauFrom: 75360321169,
-    bauTo: 25360321169,
+    bau: [ 25360321169, 75360321169 ],
     yAllGhg: 36212691180,
     yCo2: 26715922420,
     yCh4: 6403498821,
@@ -198,8 +178,7 @@ export const data = [
   },
   {
     x: 2000,
-    bauFrom: 75360321169,
-    bauTo: 25360321169,
+    bau: [ 25360321169, 75360321169 ],
     yAllGhg: 36855486840,
     yCo2: 27408957910,
     yCh4: 6370908476,
@@ -208,8 +187,7 @@ export const data = [
   },
   {
     x: 2001,
-    bauFrom: 85360321169,
-    bauTo: 25360321169,
+    bau: [ 25360321169, 85360321169 ],
     yAllGhg: 37585676240,
     yCo2: 28087523600,
     yCh4: 6384554058,
@@ -218,8 +196,7 @@ export const data = [
   },
   {
     x: 2002,
-    bauFrom: 71360321169,
-    bauTo: 21360321169,
+    bau: [ 21360321169, 71360321169 ],
     yAllGhg: 38771611510,
     yCo2: 28985616210,
     yCh4: 6605447805,
@@ -228,8 +205,7 @@ export const data = [
   },
   {
     x: 2003,
-    bauFrom: 72360321169,
-    bauTo: 72360321169,
+    bau: [ 32360321169, 72360321169 ],
     yAllGhg: 39805407340,
     yCo2: 29926187870,
     yCh4: 6643817885,
@@ -238,8 +214,7 @@ export const data = [
   },
   {
     x: 2004,
-    bauFrom: 73360321169,
-    bauTo: 22360321169,
+    bau: [ 22360321169, 73360321169 ],
     yAllGhg: 41392306790,
     yCo2: 31291664520,
     yCh4: 6779703100,
@@ -248,8 +223,7 @@ export const data = [
   },
   {
     x: 2005,
-    bauFrom: 72360321169,
-    bauTo: 22360321169,
+    bau: [ 22360321169, 72360321169 ],
     yAllGhg: 42504577890,
     yCo2: 32274925700,
     yCh4: 6860697097,
@@ -258,8 +232,7 @@ export const data = [
   },
   {
     x: 2006,
-    bauFrom: 75360321169,
-    bauTo: 25360321169,
+    bau: [ 25360321169, 75360321169 ],
     yAllGhg: 42805124640,
     yCo2: 32388853360,
     yCh4: 6991645106,
@@ -268,8 +241,7 @@ export const data = [
   },
   {
     x: 2007,
-    bauFrom: 75360321169,
-    bauTo: 75360321169,
+    bau: [ 35360321169, 75360321169 ],
     yAllGhg: 43822884510,
     yCo2: 33305178430,
     yCh4: 7027200531,
@@ -278,8 +250,7 @@ export const data = [
   },
   {
     x: 2008,
-    bauFrom: 75360321169,
-    bauTo: 25360321169,
+    bau: [ 25360321169, 75360321169 ],
     yAllGhg: 44206564140,
     yCo2: 33595045080.000004,
     yCh4: 7103481816,
@@ -288,8 +259,7 @@ export const data = [
   },
   {
     x: 2009,
-    bauFrom: 74360321169,
-    bauTo: 74360321169,
+    bau: [ 44360321169, 74360321169 ],
     yAllGhg: 44091446800,
     yCo2: 33400014629.999996,
     yCh4: 7174050799,
@@ -298,8 +268,7 @@ export const data = [
   },
   {
     x: 2010,
-    bauFrom: 73360321169,
-    bauTo: 23360321169,
+    bau: [ 23360321169, 73360321169 ],
     yAllGhg: 45760962720,
     yCo2: 34920893400,
     yCh4: 7248524098,
@@ -308,8 +277,7 @@ export const data = [
   },
   {
     x: 2011,
-    bauFrom: 75360321169,
-    bauTo: 25360321169,
+    bau: [ 25360321169, 75360321169 ],
     yAllGhg: 47025974310,
     yCo2: 36005515560,
     yCh4: 7316971360,
@@ -318,8 +286,7 @@ export const data = [
   },
   {
     x: 2012,
-    bauFrom: 75360321169,
-    bauTo: 25360321169,
+    bau: [ 25360321169, 75360321169 ],
     yAllGhg: 47583606990,
     yCo2: 36385689630,
     yCh4: 7406822224,
@@ -328,8 +295,7 @@ export const data = [
   },
   {
     x: 2013,
-    bauFrom: 75360321169,
-    bauTo: 25360321169,
+    bau: [ 25360321169, 75360321169 ],
     yAllGhg: 48257297040,
     yCo2: 37028982290,
     yCh4: 7413958719,
@@ -338,8 +304,7 @@ export const data = [
   },
   {
     x: 2014,
-    bauFrom: 71360321169,
-    bauTo: 21360321169,
+    bau: [ 21360321169, 71360321169 ],
     yAllGhg: 48892372860,
     yCo2: 37441527540,
     yCh4: 7526834317,
@@ -355,12 +320,18 @@ export const filters = [
   { value: 15, label: 'CH4' },
   { value: 14, label: 'CO2' },
   { value: 17, label: 'F-Gas' },
-  { value: 16, label: 'N2O' }
+  { value: 16, label: 'N2O' },
+  { value: 20, label: 'GHG Inventory' },
+  { value: 21, label: 'BaU' },
+  { value: 22, label: 'ppd' }
 ];
 
 export const filtersSelected = [
   { value: 13, label: 'All GHG' },
   { value: 15, label: 'CH4' },
   { value: 14, label: 'CO2' },
-  { value: 16, label: 'N2O' }
+  { value: 16, label: 'N2O' },
+  { value: 20, label: 'GHG Inventory' },
+  { value: 21, label: 'BaU' },
+  { value: 22, label: 'ppd' }
 ];
