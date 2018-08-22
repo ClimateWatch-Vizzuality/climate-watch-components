@@ -28,20 +28,23 @@ export const config = {
   animation: false,
   columns: {
     x: [ { label: 'year', value: 'x' } ],
-    y: [
+    lineWithDots: [
       { label: 'All GHG', value: 'yAllGhg' },
       { label: 'CO2', value: 'yCo2' },
       { label: 'CH4', value: 'yCh4' },
       { label: 'N2O', value: 'yN2O' },
       { label: 'F-Gas', value: 'yFGas' }
     ],
-    z: [ { label: 'GHG Inventory', value: 'ghgInventory' } ],
-    w: [ { label: 'ppd', value: 'ppd' }, { label: 'BaU', value: 'bau' } ],
-    t: [ { label: 'LTMs', value: 'ltms' } ]
+    dots: [ { label: 'GHG Inventory', value: 'ghgInventory' } ],
+    rangedArea: [
+      { label: 'ppd', value: 'ppd' },
+      { label: 'BaU', value: 'bau' }
+    ],
+    line: [ { label: 'LTMs', value: 'ltms' } ]
   }
 };
 
-export const initialYColumns = [
+export const initialLineWithDotsColumns = [
   { label: 'All GHG', value: 'yAllGhg' },
   { label: 'CO2', value: 'yCo2' },
   { label: 'CH4', value: 'yCh4' },
@@ -49,16 +52,16 @@ export const initialYColumns = [
   { label: 'F-Gas', value: 'yFGas' }
 ];
 
-export const initialWColumns = [
+export const initialRangedAreaColumns = [
   { label: 'ppd', value: 'ppd' },
   { label: 'BaU', value: 'bau' }
 ];
 
-export const initialZColumns = [
+export const initialDotsColumns = [
   { label: 'GHG Inventory', value: 'ghgInventory' }
 ];
 
-export const initialTColumns = [ { label: 'LTMs', value: 'ltms' } ];
+export const initialLineColumns = [ { label: 'LTMs', value: 'ltms' } ];
 
 export const data = [
   {
@@ -336,12 +339,20 @@ export const filters = [
   { value: 15, label: 'CH4' },
   { value: 14, label: 'CO2' },
   { value: 17, label: 'F-Gas' },
-  { value: 16, label: 'N2O' }
+  { value: 16, label: 'N2O' },
+  { value: 20, label: 'GHG Inventory' },
+  { value: 21, label: 'BaU' },
+  { value: 22, label: 'ppd' },
+  { value: 23, label: 'LTMs' }
 ];
 
 export const filtersSelected = [
   { value: 13, label: 'All GHG' },
   { value: 15, label: 'CH4' },
   { value: 14, label: 'CO2' },
-  { value: 16, label: 'N2O' }
+  { value: 16, label: 'N2O' },
+  { value: 20, label: 'GHG Inventory' },
+  { value: 21, label: 'BaU' },
+  { value: 22, label: 'ppd' },
+  { value: 23, label: 'LTMs' }
 ];

@@ -37,6 +37,20 @@ class TooltipChart extends PureComponent {
     return payload.sort(compare);
   };
 
+  renderValue = (y, unitIsCo2) => {
+    if (y.payload && y.payload[y.dataKey] !== undefined) {
+      if (Array.isArray(y.payload[y.dataKey])) {
+        return `${format(
+          this.getFormat()
+        )(y.payload[y.dataKey][0])} - ${format(this.getFormat())(y.payload[y.dataKey][1])} ${unitIsCo2 ? 't' : ''}`;
+      }
+      return `${format(
+        this.getFormat()
+      )(y.payload[y.dataKey])}${unitIsCo2 ? 't' : ''}`;
+    }
+    return 'n/a';
+  };
+
   render() {
     const { config, content, showTotal } = this.props;
     const unit = config &&
@@ -108,13 +122,7 @@ class TooltipChart extends PureComponent {
                         </p>
                       </div>
                       <p className={styles.labelValue}>
-                        {
-                        y.payload && y.payload[y.dataKey] !== undefined
-                          ? `${format(this.getFormat())(
-                            y.payload[y.dataKey]
-                          )}${unitIsCo2 ? 't' : ''}`
-                          : 'n/a'
-                      }
+                        {this.renderValue(y, unitIsCo2)}
                       </p>
                     </div>
 )
