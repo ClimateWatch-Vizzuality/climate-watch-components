@@ -30,7 +30,9 @@ class Switch extends Component {
               key={option.value}
               htmlFor={option.value}
               className={cx(styles.option, theme.option, styles.cursor, {
-                  [checkedStyle]: selectedOption === option.value
+                  [checkedStyle]: selectedOption === option.value,
+                  [styles.disabled]: option.disabled,
+                  [theme.disabled]: option.disabled
                 })}
             >
               <input
@@ -38,9 +40,7 @@ class Switch extends Component {
                 disabled={option.disabled}
                 id={option.value}
                 name={name}
-                className={cx(styles.radioInput, theme.radioInput, {
-                    [theme.disabled]: option.disabled
-                  })}
+                className={cx(styles.radioInput, theme.radioInput)}
                 onClick={() => this.handleOnClick(option)}
               />
               {option.name}
