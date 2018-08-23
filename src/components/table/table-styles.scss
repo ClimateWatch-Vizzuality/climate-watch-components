@@ -31,6 +31,14 @@
     box-sizing: border-box;
   }
 
+  .ReactVirtualized__Table__row:nth-child(even) {
+    background-color: $light-gray;
+  }
+
+  .ReactVirtualized__Table__row:nth-child(odd) {
+    background-color: $white;
+  }
+
   .ReactVirtualized__Table__headerTruncatedText {
     display: inline-block;
     max-width: 100%;
@@ -68,7 +76,8 @@
 
   .ReactVirtualized__Grid,
   .ReactVirtualized__Table__Grid {
-    background-color: $light-gray;
+    // background-color: $light-gray;
+
     border-top: solid 1px $theme-color-light;
 
     &:focus {
