@@ -3,7 +3,7 @@ Version with initially selected international tab
 const options = [
     { name: 'international', value: 'international' },
     { name: 'domestic', value: 'domestic' },
-    { name: 'non-monetized', value: 'non-monetized' }
+    { name: 'non-monetized', value: 'non-monetized', disabled: true }
 ];
 const onClick = (selectedOption) => { console.info('Selected option: ', selectedOption); };
 <Switch options={options} onClick={onClick} selectedOption='international' />

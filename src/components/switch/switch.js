@@ -35,9 +35,12 @@ class Switch extends Component {
             >
               <input
                 type="radio"
+                disabled={option.disabled}
                 id={option.value}
                 name={name}
-                className={cx(styles.radioInput, theme.radioInput)}
+                className={cx(styles.radioInput, theme.radioInput, {
+                    [theme.disabled]: option.disabled
+                  })}
                 onClick={() => this.handleOnClick(option)}
               />
               {option.name}
@@ -61,7 +64,8 @@ Switch.propTypes = {
     checkedOption: PropTypes.string,
     option: PropTypes.string,
     wrapper: PropTypes.string,
-    radioInput: PropTypes.string
+    radioInput: PropTypes.string,
+    disabled: PropTypes.string
   }),
   /** The onClick action occurring when user clicks on the option */
   onClick: PropTypes.func,
