@@ -530,7 +530,7 @@
     border-radius: 2px;
     color: #08c; }
 .cw__multiselect-styles_label {
-  display: block;
+  display: inline-block;
   font-size: 0.8125rem;
   font-weight: 600;
   color: #113750;
@@ -1143,6 +1143,13 @@ input:checked ~ .cw__check-input-styles_label {
   .cw__table-styles_tableWrapper.cw__table-styles_horizontalScroll {
     overflow-x: auto; }
 
+.cw__table-styles_headerRow,
+.cw__table-styles_evenRow {
+  background-color: #fff; }
+
+.cw__table-styles_oddRow {
+  background-color: #f5f6f7; }
+
 .cw__table-styles_table {
   position: relative; }
   .cw__table-styles_table .ReactVirtualized__Table__headerRow {
@@ -1183,7 +1190,6 @@ input:checked ~ .cw__check-input-styles_label {
     fill: currentColor; }
   .cw__table-styles_table .ReactVirtualized__Grid,
   .cw__table-styles_table .ReactVirtualized__Table__Grid {
-    background-color: #f5f6f7;
     border-top: solid 1px #25597c; }
     .cw__table-styles_table .ReactVirtualized__Grid:focus,
     .cw__table-styles_table .ReactVirtualized__Table__Grid:focus {
