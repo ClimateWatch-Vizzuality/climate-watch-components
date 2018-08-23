@@ -30,11 +30,14 @@ class Switch extends Component {
               key={option.value}
               htmlFor={option.value}
               className={cx(styles.option, theme.option, styles.cursor, {
-                  [checkedStyle]: selectedOption === option.value
+                  [checkedStyle]: selectedOption === option.value,
+                  [styles.disabled]: option.disabled,
+                  [theme.disabled]: option.disabled
                 })}
             >
               <input
                 type="radio"
+                disabled={option.disabled}
                 id={option.value}
                 name={name}
                 className={cx(styles.radioInput, theme.radioInput)}
@@ -61,7 +64,8 @@ Switch.propTypes = {
     checkedOption: PropTypes.string,
     option: PropTypes.string,
     wrapper: PropTypes.string,
-    radioInput: PropTypes.string
+    radioInput: PropTypes.string,
+    disabled: PropTypes.string
   }),
   /** The onClick action occurring when user clicks on the option */
   onClick: PropTypes.func,
