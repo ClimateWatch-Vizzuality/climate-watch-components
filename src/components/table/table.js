@@ -125,7 +125,6 @@ class Table extends PureComponent {
     const columnData = activeColumnNames
       .filter(c => firstColumnHeaders.includes(c))
       .concat(difference(activeColumnNames, firstColumnHeaders));
-
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -163,7 +162,7 @@ class Table extends PureComponent {
                 height={tableHeight}
                 headerHeight={headerHeight}
                 rowClassName={this.rowClassName}
-                rowHeight={setRowsHeight(activeColumns)}
+                rowHeight={({ index }) => setRowsHeight(data[index])}
                 rowCount={data.length}
                 sort={this.handleSortChange}
                 sortBy={sortBy}
