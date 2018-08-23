@@ -9,6 +9,15 @@
   }
 }
 
+.headerRow,
+.evenRow {
+  background-color: $white;
+}
+
+.oddRow {
+  background-color: $light-gray;
+}
+
 .table :global {
   position: relative;
 
@@ -29,14 +38,6 @@
   .ReactVirtualized__Table__row {
     display: flex;
     box-sizing: border-box;
-  }
-
-  .ReactVirtualized__Table__row:nth-child(even) {
-    background-color: $light-gray;
-  }
-
-  .ReactVirtualized__Table__row:nth-child(odd) {
-    background-color: $white;
   }
 
   .ReactVirtualized__Table__headerTruncatedText {
