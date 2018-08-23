@@ -22016,7 +22016,8 @@ module.exports = (function(e) {
       option: 'cw__switch-styles_option',
       radioInput: 'cw__switch-styles_radioInput',
       checkedOption: 'cw__switch-styles_checkedOption',
-      cursor: 'cw__switch-styles_cursor'
+      cursor: 'cw__switch-styles_cursor',
+      disabled: 'cw__switch-styles_disabled'
     };
   },
   c6wG: function(e, t, n) {
@@ -37973,7 +37974,17 @@ module.exports = (function(e) {
     function s(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var c = (function(e) {
+    function c(e, t, n) {
+      return t in e
+        ? Object.defineProperty(e, t, {
+          value: n,
+          enumerable: !0,
+          configurable: !0,
+          writable: !0
+        })
+        : e[t] = n, e;
+    }
+    var f = (function(e) {
       function t(e) {
         !(function(e, t) {
           if (!(e instanceof t))
@@ -38025,11 +38036,12 @@ module.exports = (function(e) {
               o = t.name,
               a = this.state.selectedOption,
               s = n && n.length > 1,
-              c = (0, l.default)(u.default.checkedOption, r.checkedOption);
+              f = (0, l.default)(u.default.checkedOption, r.checkedOption);
             return i.default.createElement(
               'ul',
               { className: (0, l.default)(u.default.wrapper, r.wrapper) },
               s && n.map(function(t) {
+                  var n;
                   return i.default.createElement(
                     'label',
                     {
@@ -38039,18 +38051,16 @@ module.exports = (function(e) {
                         u.default.option,
                         r.option,
                         u.default.cursor,
-                        (n = {}, s = c, f = a === t.value, s in n
-                          ? Object.defineProperty(n, s, {
-                            value: f,
-                            enumerable: !0,
-                            configurable: !0,
-                            writable: !0
-                          })
-                          : n[s] = f, n)
+                        (n = {}, c(n, f, a === t.value), c(
+                          n,
+                          u.default.disabled,
+                          t.disabled
+                        ), c(n, r.disabled, t.disabled), n)
                       )
                     },
                     i.default.createElement('input', {
                       type: 'radio',
+                      disabled: t.disabled,
                       id: t.value,
                       name: o,
                       className: (0, l.default)(
@@ -38063,14 +38073,13 @@ module.exports = (function(e) {
                     }),
                     t.name
                   );
-                  var n, s, f;
                 })
             );
           }
         }
       ]), t;
     })();
-    c.propTypes = {
+    f.propTypes = {
       name: a.default.string,
       options: a.default.arrayOf(
         a.default.shape({ name: a.default.string, value: a.default.string })
@@ -38079,18 +38088,19 @@ module.exports = (function(e) {
         checkedOption: a.default.string,
         option: a.default.string,
         wrapper: a.default.string,
-        radioInput: a.default.string
+        radioInput: a.default.string,
+        disabled: a.default.string
       }),
       onClick: a.default.func,
       selectedOption: a.default.string
-    }, c.defaultProps = {
+    }, f.defaultProps = {
       name: Math.random().toString(36).substring(2, 15),
       theme: {},
       onClick: function() {
       },
       options: {},
       selectedOption: ''
-    }, t.default = c;
+    }, t.default = f;
   },
   u461: function(e, t, n) {
     'use strict';
