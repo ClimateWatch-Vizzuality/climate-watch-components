@@ -94,6 +94,11 @@ class Table extends PureComponent {
     this.setState({ activeColumns: columns });
   };
 
+  rowClassName = ({ index }) => {
+    if (index < 0) return styles.headerRow;
+    return index % 2 === 0 ? styles.evenRow : styles.oddRow;
+  };
+
   render() {
     const {
       data,
@@ -120,6 +125,7 @@ class Table extends PureComponent {
     const columnData = activeColumnNames
       .filter(c => firstColumnHeaders.includes(c))
       .concat(difference(activeColumnNames, firstColumnHeaders));
+
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -156,6 +162,7 @@ class Table extends PureComponent {
                 width={this.getResponsiveWidth(activeColumns.length, width)}
                 height={tableHeight}
                 headerHeight={headerHeight}
+                rowClassName={this.rowClassName}
                 rowHeight={setRowsHeight(activeColumns)}
                 rowCount={data.length}
                 sort={this.handleSortChange}
