@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  Line,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -16,15 +14,14 @@ import cx from 'classnames';
 import TooltipChart from 'components/charts/tooltip-chart';
 import LegendChart from 'components/charts/legend-chart';
 import debounce from 'lodash/debounce';
-import isUndefined from 'lodash/isUndefined';
 import {
   CustomXAxisTick,
   CustomYAxisTick
 } from 'components/charts/line/axis-ticks';
 
-import styles from './line-dotted-line-area-composed-chart-styles.scss';
+import styles from './chart-composed-styles.scss';
 
-class LineDottedLineAreaComposedChart extends PureComponent {
+class ChartComposed extends PureComponent {
   debouncedMouseMove = debounce(
     year => {
       this.props.onMouseMove(year);
@@ -54,7 +51,8 @@ class LineDottedLineAreaComposedChart extends PureComponent {
       domain,
       showUnit,
       forceFixedFormatDecimals,
-      theme
+      theme,
+      children
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -120,78 +118,7 @@ class LineDottedLineAreaComposedChart extends PureComponent {
                 />
               )}
             />
-            {
-              config.columns && config.columns.rangedArea.map(column => {
-                  const color = config.theme[column.value].stroke || '';
-                  return (
-                    <Area
-                      key={column.value}
-                      dataKey={column.value}
-                      dot={false}
-                      stroke={color}
-                      strokeWidth={2}
-                      isAnimationActive={
-                        isUndefined(config.animation) ? true : config.animation
-                      }
-                      fill={config.theme[column.value].fill || ''}
-                      type="linear"
-                    />
-                  );
-                })
-            }
-            {
-              config.columns && config.columns.lineWithDots.map(column => {
-                  const color = config.theme[column.value].stroke || '';
-                  return (
-                    <Line
-                      key={column.value}
-                      isAnimationActive={
-                        isUndefined(config.animation) ? true : config.animation
-                      }
-                      dot={{ strokeWidth: 0, fill: color, radius: 0.5 }}
-                      dataKey={column.value}
-                      stroke={color}
-                      strokeWidth={2}
-                      type="monotone"
-                    />
-                  );
-                })
-            }
-            {
-              config.columns &&
-                config.columns.dots.map(column => (
-                  <Line
-                    key={column.value}
-                    isAnimationActive={
-                      isUndefined(config.animation) ? true : config.animation
-                    }
-                    dataKey={column.value}
-                    stroke="#000000"
-                    strokeDasharray="1,09"
-                    strokeWidth="5"
-                    strokeLinecap="round"
-                    type="monotone"
-                  />
-                ))
-            }
-            {
-              config.columns && config.columns.line.map(column => {
-                  const color = config.theme[column.value].stroke || '';
-                  return (
-                    <Line
-                      key={column.value}
-                      isAnimationActive={
-                        isUndefined(config.animation) ? true : config.animation
-                      }
-                      dot={false}
-                      dataKey={column.value}
-                      stroke={color}
-                      strokeWidth={2}
-                      type="monotone"
-                    />
-                  );
-                })
-            }
+            {children}
           </ComposedChart>
         </ResponsiveContainer>
         {
@@ -213,20 +140,8 @@ class LineDottedLineAreaComposedChart extends PureComponent {
   }
 }
 
-LineDottedLineAreaComposedChart.propTypes = {
-  config: PropTypes.shape({
-    columns: PropTypes.shape({
-      x: PropTypes.array,
-      /** Line with dots data */
-      y: PropTypes.array,
-      /** Dotted line data */
-      z: PropTypes.array,
-      /** Area data */
-      w: PropTypes.array,
-      /** Simple line data */
-      t: PropTypes.array
-    })
-  }).isRequired,
+ChartComposed.propTypes = {
+  config: PropTypes.shape({ columns: PropTypes.object }).isRequired,
   /** Data for the chart */
   data: PropTypes.array.isRequired,
   /** Data options for LegendChart */
@@ -242,10 +157,11 @@ LineDottedLineAreaComposedChart.propTypes = {
   forceFixedFormatDecimals: PropTypes.number,
   margin: PropTypes.object,
   domain: PropTypes.object,
-  theme: PropTypes.shape({ legend: PropTypes.string })
+  theme: PropTypes.shape({ legend: PropTypes.string }),
+  children: PropTypes.node.isRequired
 };
 
-LineDottedLineAreaComposedChart.defaultProps = {
+ChartComposed.defaultProps = {
   height: '100%',
   showUnit: false,
   onMouseMove: () => {
@@ -263,4 +179,4 @@ LineDottedLineAreaComposedChart.defaultProps = {
   theme: {}
 };
 
-export default LineDottedLineAreaComposedChart;
+export default ChartComposed;
