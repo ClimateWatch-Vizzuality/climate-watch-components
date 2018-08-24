@@ -10,9 +10,7 @@ export { default as Dropdown } from './components/dropdown';
 export { default as Icon } from './components/icon';
 export { default as Input } from './components/input';
 export { default as Intro } from './components/intro';
-export {
-  default as LineDottedLineAreaComposedChart
-} from './components/charts/line-dotted-line-area-composed-chart';
+export { default as ChartComposed } from './components/charts/chart-composed';
 export { default as Loading } from './components/loading';
 export { default as Modal } from './components/modal';
 export { default as ModalHeader } from './components/modal/modal-header';
