@@ -979,7 +979,7 @@ input:checked ~ .cw__check-input-styles_label {
   .cw__intro-styles_columns {
     max-width: 100%;
     column-count: 2; } }
-.cw__line-dotted-line-area-composed-chart-styles_legend {
+.cw__chart-composed-styles_legend {
   min-height: 30px; }
 .cw__modal-styles_modal {
   position: relative;
