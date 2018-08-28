@@ -40,7 +40,8 @@ class ChartLine extends PureComponent {
       margin,
       domain,
       showUnit,
-      forceFixedFormatDecimals
+      forceFixedFormatDecimals,
+      lineType
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -115,7 +116,7 @@ class ChartLine extends PureComponent {
                     dataKey={column.value}
                     stroke={color}
                     strokeWidth={2}
-                    type="monotone"
+                    type={lineType}
                   />
                 );
               })
@@ -135,7 +136,8 @@ ChartLine.propTypes = {
   onMouseMove: PropTypes.func,
   forceFixedFormatDecimals: PropTypes.number,
   margin: PropTypes.object,
-  domain: PropTypes.object
+  domain: PropTypes.object,
+  lineType: PropTypes.string
 };
 
 ChartLine.defaultProps = {
@@ -146,7 +148,8 @@ ChartLine.defaultProps = {
   },
   margin: { top: 0, right: 10, left: 10, bottom: 0 },
   domain: null,
-  forceFixedFormatDecimals: null
+  forceFixedFormatDecimals: null,
+  lineType: 'monotone'
 };
 
 export default ChartLine;

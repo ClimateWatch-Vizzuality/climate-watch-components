@@ -102,7 +102,9 @@ Chart.propTypes = {
   /** Data model url and image */
   model: PropTypes.shape({ url: PropTypes.string, logo: PropTypes.string }),
   /** Customization options */
-  theme: PropTypes.shape({ wrapper: PropTypes.string })
+  theme: PropTypes.shape({ wrapper: PropTypes.string }),
+  /** Type of the drawed line if the chart type is line. For example: monotone, linear */
+  lineType: PropTypes.string
 };
 
 Chart.defaultProps = {
@@ -116,7 +118,8 @@ Chart.defaultProps = {
   model: null,
   customMessage: '',
   onLegendChange: () => {
-  }
+  },
+  lineType: 'monotone'
 };
 
 export default Chart;
