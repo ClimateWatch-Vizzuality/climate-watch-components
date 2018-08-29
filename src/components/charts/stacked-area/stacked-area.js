@@ -103,7 +103,9 @@ class ChartStackedArea extends PureComponent {
       height,
       points,
       includeTotalLine,
-      stepped
+      stepped,
+      customXAxisTick,
+      customYAxisTick
     } = this.props;
     const stackedAreaState = { points, data, config };
     const dataWithTotal = getDataWithTotal(stackedAreaState);
@@ -134,7 +136,7 @@ class ChartStackedArea extends PureComponent {
             type="number"
             dataKey="x"
             padding={{ left: 30, right: 40 }}
-            tick={<CustomXAxisTick customstrokeWidth="0" />}
+            tick={customXAxisTick || <CustomXAxisTick customstrokeWidth="0" />}
             tickSize={8}
             allowDecimals={false}
             tickCount={dataWithTotal.length + points.length}
@@ -146,7 +148,10 @@ class ChartStackedArea extends PureComponent {
             axisLine={false}
             padding={{ top: 0, bottom: 0 }}
             tickLine={false}
-            tick={<CustomYAxisTick customstrokeWidth="0" unit="t" />}
+            tick={
+              customYAxisTick ||
+                <CustomYAxisTick customstrokeWidth="0" unit="t" />
+            }
             ticks={tickValues.ticks}
           />
           <CartesianGrid vertical={false} />
@@ -217,7 +222,9 @@ ChartStackedArea.propTypes = {
   ]),
   onMouseMove: PropTypes.func,
   includeTotalLine: PropTypes.bool,
-  stepped: PropTypes.bool
+  stepped: PropTypes.bool,
+  customYAxisTick: PropTypes.node,
+  customXAxisTick: PropTypes.node
 };
 
 ChartStackedArea.defaultProps = {
@@ -227,7 +234,9 @@ ChartStackedArea.defaultProps = {
   onMouseMove: () => {
   },
   includeTotalLine: true,
-  stepped: false
+  stepped: false,
+  customYAxisTick: null,
+  customXAxisTick: null
 };
 
 export default ChartStackedArea;

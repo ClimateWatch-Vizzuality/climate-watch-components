@@ -41,7 +41,9 @@ class ChartLine extends PureComponent {
       domain,
       showUnit,
       forceFixedFormatDecimals,
-      lineType
+      lineType,
+      customXAxisTick,
+      customYAxisTick
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -73,7 +75,7 @@ class ChartLine extends PureComponent {
             dataKey="x"
             scale="time"
             type="number"
-            tick={<CustomXAxisTick />}
+            tick={customXAxisTick || <CustomXAxisTick />}
             padding={{ left: 15, right: 20 }}
             tickSize={8}
             domain={domain && domain.x || [ 'auto', 'auto' ]}
@@ -84,7 +86,10 @@ class ChartLine extends PureComponent {
             tickLine={false}
             scale="linear"
             type="number"
-            tick={<CustomYAxisTick precision={config.precision} unit={unit} />}
+            tick={
+              customYAxisTick ||
+                <CustomYAxisTick precision={config.precision} unit={unit} />
+            }
             domain={domain && domain.y || [ 'auto', 'auto' ]}
             interval="preserveStartEnd"
           >
@@ -137,7 +142,9 @@ ChartLine.propTypes = {
   forceFixedFormatDecimals: PropTypes.number,
   margin: PropTypes.object,
   domain: PropTypes.object,
-  lineType: PropTypes.string
+  lineType: PropTypes.string,
+  customYAxisTick: PropTypes.node,
+  customXAxisTick: PropTypes.node
 };
 
 ChartLine.defaultProps = {
@@ -149,7 +156,9 @@ ChartLine.defaultProps = {
   margin: { top: 0, right: 10, left: 10, bottom: 0 },
   domain: null,
   forceFixedFormatDecimals: null,
-  lineType: 'monotone'
+  lineType: 'monotone',
+  customYAxisTick: null,
+  customXAxisTick: null
 };
 
 export default ChartLine;
