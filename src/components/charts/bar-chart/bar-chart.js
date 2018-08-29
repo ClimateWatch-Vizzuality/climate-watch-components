@@ -41,7 +41,8 @@ class SimpleBarChart extends PureComponent {
       showUnit,
       forceFixedFormatDecimals,
       customXAxisTick,
-      customYAxisTick
+      customYAxisTick,
+      customTooltip
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -99,16 +100,21 @@ class SimpleBarChart extends PureComponent {
               isAnimationActive={false}
               cursor={{ stroke: '#113750', strokeWidth: 2 }}
               filterNull={false}
-              content={content => (
-                <BarTooltipChart
-                  content={content}
-                  config={config}
-                  forceFixedFormatDecimals={forceFixedFormatDecimals}
-                />
-              )}
+              content={content =>
+                customTooltip ||
+                  (
+                    <BarTooltipChart
+                      content={content}
+                      config={config}
+                      forceFixedFormatDecimals={forceFixedFormatDecimals}
+                    />
+                  )}
             />
             {dataKeys.map(dataKey => (
-              <Bar dataKey={dataKey} fill={config.theme[dataKey].fill} />
+              <Bar
+                dataKey={dataKey}
+                fill={config.theme[dataKey] && config.theme[dataKey].fill}
+              />
             ))}
           </BarChart>
         </ResponsiveContainer>
@@ -127,7 +133,8 @@ SimpleBarChart.propTypes = {
   margin: PropTypes.object,
   domain: PropTypes.object,
   customXAxisTick: PropTypes.node,
-  customYAxisTick: PropTypes.node
+  customYAxisTick: PropTypes.node,
+  customTooltip: PropTypes.node
 };
 
 SimpleBarChart.defaultProps = {
@@ -141,7 +148,8 @@ SimpleBarChart.defaultProps = {
   config: {},
   data: [],
   customXAxisTick: null,
-  customYAxisTick: null
+  customYAxisTick: null,
+  customTooltip: null
 };
 
 export default SimpleBarChart;

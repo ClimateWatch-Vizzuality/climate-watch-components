@@ -45,7 +45,7 @@ class BarTooltipChart extends PureComponent {
           content &&
             content.payload &&
             content.payload.length > 0 &&
-            this.sortByValue(content.payload, config).map(
+            content.payload.map(
               y =>
                 y.payload &&
                   y.dataKey !== 'total' &&
