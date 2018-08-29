@@ -102,7 +102,13 @@ Chart.propTypes = {
   /** Data model url and image */
   model: PropTypes.shape({ url: PropTypes.string, logo: PropTypes.string }),
   /** Customization options */
-  theme: PropTypes.shape({ wrapper: PropTypes.string })
+  theme: PropTypes.shape({ wrapper: PropTypes.string }),
+  /** Type of the drawed line if the chart type is line. For example: monotone, linear */
+  lineType: PropTypes.string,
+  /** Custom X Axis Tick component to pass it down to chart */
+  customXAxisTick: PropTypes.node,
+  /** Custom Y Axis Tick component to pass it down to chart */
+  customYAxisTick: PropTypes.node
 };
 
 Chart.defaultProps = {
@@ -116,7 +122,10 @@ Chart.defaultProps = {
   model: null,
   customMessage: '',
   onLegendChange: () => {
-  }
+  },
+  lineType: 'monotone',
+  customXAxisTick: null,
+  customYAxisTick: null
 };
 
 export default Chart;
