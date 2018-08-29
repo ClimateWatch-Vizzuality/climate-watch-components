@@ -1,4 +1,5 @@
 export { default as Accordion } from './components/accordion';
+export { default as BarChart } from './components/charts/bar-chart';
 export { default as BottomBar } from './components/bottom-bar';
 export { default as Button } from './components/button';
 export { default as ButtonGroup } from './components/button-group';
