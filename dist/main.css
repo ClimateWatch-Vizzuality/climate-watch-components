@@ -264,6 +264,39 @@
 
 .cw__tooltip-chart-styles_notAvailable {
   color: #b1b1c1; }
+.cw__bar-tooltip-chart-styles_tooltip {
+  background: #fff;
+  min-width: 180px;
+  max-width: 300px;
+  padding: 15px;
+  box-shadow: 0 5px 15px 0 rgba(17, 55, 80, 0.15);
+  border-radius: 4px; }
+
+.cw__bar-tooltip-chart-styles_tooltipHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  font-size: 0.8125rem; }
+
+.cw__bar-tooltip-chart-styles_unit {
+  font-size: 0.8125rem; }
+
+.cw__bar-tooltip-chart-styles_label {
+  display: flex;
+  flex-direction: row;
+  padding-left: 10px;
+  font-size: 0.8125rem;
+  color: #77818c; }
+
+.cw__bar-tooltip-chart-styles_labelName {
+  color: #113750;
+  padding-left: 10px; }
+
+.cw__bar-tooltip-chart-styles_labelValue {
+  text-align: right;
+  min-width: 45px;
+  margin: 0; }
 .cw__loading-styles_container {
   position: relative;
   height: 100%;
