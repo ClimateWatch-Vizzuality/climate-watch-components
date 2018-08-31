@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ChartStackedArea from 'components/charts/stacked-area';
 import LineChart from 'components/charts/line';
+import SimpleBarChart from 'components/charts/bar-chart';
 import LegendChart from 'components/charts/legend-chart';
 import Loading from 'components/loading';
 import NoContent from 'components/no-content';
@@ -36,8 +37,13 @@ class Chart extends PureComponent {
       if (!dataSelected || !dataSelected.length > 0) return 'No data selected';
       return 'No data available';
     };
+    const chartType = {
+      line: LineChart,
+      area: ChartStackedArea,
+      bar: SimpleBarChart
+    };
+    const ChartComponent = chartType[type];
 
-    const ChartComponent = type === 'line' ? LineChart : ChartStackedArea;
     const hasError = !loading && (error || !hasData);
     const hasDataOptions = !loading && dataOptions;
     return (
@@ -108,7 +114,9 @@ Chart.propTypes = {
   /** Custom X Axis Tick component to pass it down to chart */
   customXAxisTick: PropTypes.node,
   /** Custom Y Axis Tick component to pass it down to chart */
-  customYAxisTick: PropTypes.node
+  customYAxisTick: PropTypes.node,
+  /** Custom tooltip to pass down to chart */
+  customTooltip: PropTypes.node
 };
 
 Chart.defaultProps = {
@@ -125,7 +133,8 @@ Chart.defaultProps = {
   },
   lineType: 'monotone',
   customXAxisTick: null,
-  customYAxisTick: null
+  customYAxisTick: null,
+  customTooltip: null
 };
 
 export default Chart;

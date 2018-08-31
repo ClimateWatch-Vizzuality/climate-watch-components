@@ -43,7 +43,8 @@ class ChartLine extends PureComponent {
       forceFixedFormatDecimals,
       lineType,
       customXAxisTick,
-      customYAxisTick
+      customYAxisTick,
+      customTooltip
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -100,13 +101,15 @@ class ChartLine extends PureComponent {
             isAnimationActive={false}
             cursor={{ stroke: '#113750', strokeWidth: 2 }}
             filterNull={false}
-            content={content => (
-              <TooltipChart
-                content={content}
-                config={config}
-                forceFixedFormatDecimals={forceFixedFormatDecimals}
-              />
-            )}
+            content={content =>
+              customTooltip ||
+                (
+                  <TooltipChart
+                    content={content}
+                    config={config}
+                    forceFixedFormatDecimals={forceFixedFormatDecimals}
+                  />
+                )}
           />
           {
             config.columns && config.columns.y.map(column => {
@@ -144,7 +147,8 @@ ChartLine.propTypes = {
   domain: PropTypes.object,
   lineType: PropTypes.string,
   customYAxisTick: PropTypes.node,
-  customXAxisTick: PropTypes.node
+  customXAxisTick: PropTypes.node,
+  customTooltip: PropTypes.node
 };
 
 ChartLine.defaultProps = {
@@ -158,7 +162,8 @@ ChartLine.defaultProps = {
   forceFixedFormatDecimals: null,
   lineType: 'monotone',
   customYAxisTick: null,
-  customXAxisTick: null
+  customXAxisTick: null,
+  customTooltip: null
 };
 
 export default ChartLine;
