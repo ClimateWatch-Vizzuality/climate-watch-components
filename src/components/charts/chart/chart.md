@@ -79,3 +79,23 @@ const toggleCharType = (filtersSelected) => {
   />
 </React.Fragment>
 ```
+
+Example with bar chart
+```js
+const data = require('../bar-chart/data.js');
+initialState = {
+  ...data,
+  type: 'bar',
+  loading: false
+};
+<React.Fragment>
+  <Chart
+    type={state.type}
+    config={state.config}
+    data={state.data}
+    domain={state.domain}
+    height={500}
+    loading={state.loading}
+  />
+</React.Fragment>
+```

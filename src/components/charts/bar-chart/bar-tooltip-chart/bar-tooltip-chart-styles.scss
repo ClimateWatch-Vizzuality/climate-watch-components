@@ -1,0 +1,41 @@
+@import '~styles/settings.scss';
+
+.tooltip {
+  background: $white;
+  min-width: 180px;
+  max-width: 300px;
+  padding: 15px;
+  box-shadow: 0 5px 15px 0 rgba(17, 55, 80, 0.15);
+  border-radius: 4px;
+}
+
+.tooltipHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  font-size: $font-size-s;
+}
+
+.unit {
+  font-size: $font-size-s;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  padding-left: 10px;
+  font-size: $font-size-s;
+  color: #77818c;
+}
+
+.labelName {
+  color: $theme-color;
+  padding-left: 10px;
+}
+
+.labelValue {
+  text-align: right;
+  min-width: 45px;
+  margin: 0;
+}

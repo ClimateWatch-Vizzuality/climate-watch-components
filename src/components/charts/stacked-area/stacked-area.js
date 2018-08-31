@@ -105,7 +105,8 @@ class ChartStackedArea extends PureComponent {
       includeTotalLine,
       stepped,
       customXAxisTick,
-      customYAxisTick
+      customYAxisTick,
+      customTooltip
     } = this.props;
     const stackedAreaState = { points, data, config };
     const dataWithTotal = getDataWithTotal(stackedAreaState);
@@ -166,9 +167,15 @@ class ChartStackedArea extends PureComponent {
                   viewBox={{ x: 0, y: 0, width: 100, height: 100 }}
                   isAnimationActive={false}
                   cursor={{ stroke: '#113750', strokeWidth: 2 }}
-                  content={content => (
-                    <TooltipChart content={content} config={config} showTotal />
-                  )}
+                  content={content =>
+                    customTooltip ||
+                      (
+                        <TooltipChart
+                          content={content}
+                          config={config}
+                          showTotal
+                        />
+                      )}
                   filterNull={false}
                 />
               )
@@ -224,7 +231,8 @@ ChartStackedArea.propTypes = {
   includeTotalLine: PropTypes.bool,
   stepped: PropTypes.bool,
   customYAxisTick: PropTypes.node,
-  customXAxisTick: PropTypes.node
+  customXAxisTick: PropTypes.node,
+  customTooltip: PropTypes.node
 };
 
 ChartStackedArea.defaultProps = {
@@ -236,7 +244,8 @@ ChartStackedArea.defaultProps = {
   includeTotalLine: true,
   stepped: false,
   customYAxisTick: null,
-  customXAxisTick: null
+  customXAxisTick: null,
+  customTooltip: null
 };
 
 export default ChartStackedArea;
