@@ -99,19 +99,6 @@ const lineWithDots = config.columns && config.columns.lineWithDots.map(column =>
                   );
                 });
 
-const greyArea = (
-  <Area 
-    key='greyArea'
-    dataKey='greyArea'
-    dot={false}
-    stroke="red"
-    strokeWidth="2"
-    isAnimationActive={true}
-    fill="red"
-    type='linear'
-  />
-);
-
 <ChartComposed
     config={state.config}
     data={state.data}
