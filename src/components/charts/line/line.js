@@ -102,7 +102,7 @@ class ChartLine extends PureComponent {
             cursor={{ stroke: '#113750', strokeWidth: 2 }}
             filterNull={false}
             content={content =>
-              customTooltip ||
+              customTooltip && React.cloneElement(customTooltip, { content }) ||
                 (
                   <TooltipChart
                     content={content}
