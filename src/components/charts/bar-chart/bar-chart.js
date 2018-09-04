@@ -102,7 +102,7 @@ class SimpleBarChart extends PureComponent {
               filterNull={false}
               content={content =>
                 customTooltip &&
-                  React.cloneElement(customTooltip, { content }) ||
+                  React.cloneElement(customTooltip, { content, config }) ||
                   (
                     <BarTooltipChart
                       content={content}
