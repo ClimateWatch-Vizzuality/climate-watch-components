@@ -1,0 +1,70 @@
+{
+  "config": {
+    "axes": {
+      "xBottom": { "name": "Year", "unit": "date", "format": "YYYY" },
+      "yLeft": {
+        "name": "GDP Growth",
+        "unit": "",
+        "format": "number"
+      }
+    },
+    "theme": {
+      "yG": { "stroke": "#0E9560", "fill": "#0E9560" },
+      "greyArea": {}
+    },
+    "tooltip": {
+      "yG": { "label": "GDP Growth" },
+      "greyArea": { "label": "" }
+    },
+    "animation": false,
+    "columns": {
+      "x": [{ "label": "year", "value": "x" }],
+      "y": [{ "label": "GDP Growth", "value": "yG" }]
+    }
+  },
+  "data": [
+    {
+      "x": 1980,
+      "yG": 0.65,
+      "greyArea": [-2, 0]
+    },
+    {
+      "x": 1990,
+      "yG": 0.85,
+      "greyArea": [-2, 0]
+    },
+    {
+      "x": 2000,
+      "yG": 0.7,
+      "greyArea": [-2, 0]
+    },
+    {
+      "x": 2005,
+      "yG": 0.9,
+      "greyArea": [-2, 0]
+    },
+    {
+      "x": 2007,
+      "yG": 0.85,
+      "greyArea": [-2, 0]
+    },
+    {
+      "x": 2010,
+      "yG": 0.3,
+      "greyArea": [-2, 0]
+    },
+    {
+      "x": 2011,
+      "yG": 0.6,
+      "greyArea": [-2, 0]
+    },
+    {
+      "x": 2012,
+      "yG": 0.7,
+      "greyArea": [-2, 0]
+    }
+  ],
+  "domain": { "x": ["auto", "auto"], "y": [0, "auto"] },
+  "dataSelected": [{ "value": 1, "label": "GDP Growth" }],
+  "dataOptions": [{ "value": 1, "label": "GDP Growth" }]
+}
