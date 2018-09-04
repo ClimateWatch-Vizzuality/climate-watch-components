@@ -3823,7 +3823,8 @@ module.exports = (function(e) {
                     isAnimationActive: !1,
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     content: function(e) {
-                      return M && i.default.cloneElement(M, { content: e }) ||
+                      return M &&
+                        i.default.cloneElement(M, { content: e, config: l }) ||
                         i.default.createElement(x.default, {
                           content: e,
                           config: l,
@@ -18886,7 +18887,8 @@ module.exports = (function(e) {
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     filterNull: !1,
                     content: function(e) {
-                      return x && i.default.cloneElement(x, { content: e }) ||
+                      return x &&
+                        i.default.cloneElement(x, { content: e, config: t }) ||
                         i.default.createElement(v.default, {
                           content: e,
                           config: t,
@@ -22489,7 +22491,8 @@ module.exports = (function(e) {
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     filterNull: !1,
                     content: function(e) {
-                      return j && i.default.cloneElement(j, { content: e }) ||
+                      return j &&
+                        i.default.cloneElement(j, { content: e, config: t }) ||
                         i.default.createElement(y.default, {
                           content: e,
                           config: t,
@@ -28089,7 +28092,8 @@ module.exports = (function(e) {
                   cursor: { stroke: '#113750', strokeWidth: 2 },
                   filterNull: !1,
                   content: function(e) {
-                    return S && i.default.cloneElement(S, { content: e }) ||
+                    return S &&
+                      i.default.cloneElement(S, { content: e, config: n }) ||
                       i.default.createElement(y.default, {
                         content: e,
                         config: n,
