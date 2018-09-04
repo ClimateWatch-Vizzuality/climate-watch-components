@@ -81,7 +81,7 @@ class Chart extends PureComponent {
 
 Chart.propTypes = {
   /** Type of the charts supported so far */
-  type: PropTypes.oneOf([ 'line', 'area' ]).isRequired,
+  type: PropTypes.oneOf([ 'line', 'area', 'bar' ]).isRequired,
   /** Custom dot for line visualization */
   // eslint-disable-next-line
   dots: PropTypes.bool,
