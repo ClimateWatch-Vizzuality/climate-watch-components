@@ -53,7 +53,10 @@ class ChartComposed extends PureComponent {
       forceFixedFormatDecimals,
       theme,
       children,
-      areaAsBackgroundForCartesianGrid
+      areaAsBackgroundForCartesianGrid,
+      customXAxisTick,
+      customYAxisTick,
+      customTooltip
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -88,7 +91,7 @@ class ChartComposed extends PureComponent {
               dataKey="x"
               scale="time"
               type="number"
-              tick={<CustomXAxisTick />}
+              tick={customXAxisTick || <CustomXAxisTick />}
               padding={{ left: 15, right: 20 }}
               tickSize={8}
               domain={domain && domain.x || [ 'auto', 'auto' ]}
@@ -100,7 +103,8 @@ class ChartComposed extends PureComponent {
               scale="linear"
               type="number"
               tick={
-                <CustomYAxisTick precision={config.precision} unit={unit} />
+                customYAxisTick ||
+                  <CustomYAxisTick precision={config.precision} unit={unit} />
               }
               domain={domain && domain.y || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
@@ -112,13 +116,15 @@ class ChartComposed extends PureComponent {
               isAnimationActive={false}
               cursor={{ stroke: '#113750', strokeWidth: 2 }}
               filterNull={false}
-              content={content => (
-                <TooltipChart
-                  content={content}
-                  config={config}
-                  forceFixedFormatDecimals={forceFixedFormatDecimals}
-                />
-              )}
+              content={content =>
+                customTooltip && <customTooltip content={content} /> ||
+                  (
+                    <TooltipChart
+                      content={content}
+                      config={config}
+                      forceFixedFormatDecimals={forceFixedFormatDecimals}
+                    />
+                  )}
             />
             {children}
           </ComposedChart>
@@ -161,7 +167,14 @@ ChartComposed.propTypes = {
   domain: PropTypes.object,
   theme: PropTypes.shape({ legend: PropTypes.string }),
   children: PropTypes.node.isRequired,
-  areaAsBackgroundForCartesianGrid: PropTypes.node
+  /** Area component used as a background for cartesian grid */
+  areaAsBackgroundForCartesianGrid: PropTypes.node,
+  /** Custom X Axis Tick component to pass it down to chart */
+  customXAxisTick: PropTypes.node,
+  /** Custom Y Axis Tick component to pass it down to chart */
+  customYAxisTick: PropTypes.node,
+  /** Custom tooltip to pass down to chart */
+  customTooltip: PropTypes.node
 };
 
 ChartComposed.defaultProps = {
@@ -180,7 +193,10 @@ ChartComposed.defaultProps = {
   domain: null,
   forceFixedFormatDecimals: null,
   theme: {},
-  areaAsBackgroundForCartesianGrid: null
+  areaAsBackgroundForCartesianGrid: null,
+  customXAxisTick: null,
+  customYAxisTick: null,
+  customTooltip: null
 };
 
 export default ChartComposed;
