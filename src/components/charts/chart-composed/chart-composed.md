@@ -109,9 +109,61 @@ const lineWithDots = config.columns && config.columns.lineWithDots.map(column =>
     loading={state.loading}
     onLegendChange={handleLegendChange}
 >
-  {rangedArea}
-  {lineWithDots}
   {lineChart}
-  {dotsLine}
+  {rangedArea}
 </ChartComposed>
+```
+
+Example with area as a background color for chart
+```js
+const data = require('../assets/data-with-grey-area.json');
+const Line = require('recharts').Line;
+const Area = require('recharts').Area;
+const isUndefined = require('lodash/isUndefined');
+
+initialState = {
+  ...data,
+  loading: false
+};
+
+const config = { ...state.config };
+
+const lineChart = (
+  <Line
+    key="yG"
+    dataKey="yG"
+    isAnimationActive={false}
+    dot={false}
+    stroke="#0E9560"
+    type="linear"
+    strokeWidth={2}
+  />
+);
+
+const greyArea = (
+  <Area
+    key='greyArea'
+    dataKey='greyArea'
+    dot={false}
+    stroke="#F6F8F8"
+    strokeWidth={2}
+    isAnimationActive={true}
+    fill="#F6F8F8"
+    type="linear"
+  />
+);
+
+<ChartComposed
+  config={state.config}
+  data={state.data}
+  domain={state.domain}
+  dataOptions={state.filters}
+  dataSelected={state.filtersSelected}
+  height={500}
+  loading={state.loading}
+  areaAsBackgroundForCartesianGrid={greyArea}
+>
+  {lineChart}
+</ChartComposed>
+
 ```
