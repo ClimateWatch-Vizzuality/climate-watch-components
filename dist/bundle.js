@@ -22424,18 +22424,21 @@ module.exports = (function(e) {
               E = e.theme,
               M = e.children,
               A = e.areaAsBackgroundForCartesianGrid,
-              k = T && t && t.axes && t.axes.yLeft && t.axes.yLeft.unit
+              k = e.customXAxisTick,
+              P = e.customYAxisTick,
+              j = e.customTooltip,
+              N = T && t && t.axes && t.axes.yLeft && t.axes.yLeft.unit
                 ? t.axes.yLeft.unit
                 : null,
-              P = !o && r,
-              j = i.default.createElement(u.default, {
+              R = !o && r,
+              I = i.default.createElement(u.default, {
                 position: 'top',
                 offset: 20,
                 content: function() {
                   return i.default.createElement(
                     'text',
                     { x: '8', y: '20' },
-                    k
+                    N
                   );
                 }
               });
@@ -22457,7 +22460,7 @@ module.exports = (function(e) {
                     dataKey: 'x',
                     scale: 'time',
                     type: 'number',
-                    tick: i.default.createElement(g.CustomXAxisTick, null),
+                    tick: k || i.default.createElement(g.CustomXAxisTick, null),
                     padding: { left: 15, right: 20 },
                     tickSize: 8,
                     domain: S && S.x || [ 'auto', 'auto' ],
@@ -22470,14 +22473,15 @@ module.exports = (function(e) {
                       tickLine: !1,
                       scale: 'linear',
                       type: 'number',
-                      tick: i.default.createElement(g.CustomYAxisTick, {
-                        precision: t.precision,
-                        unit: k
-                      }),
+                      tick: P ||
+                        i.default.createElement(g.CustomYAxisTick, {
+                          precision: t.precision,
+                          unit: N
+                        }),
                       domain: S && S.y || [ 'auto', 'auto' ],
                       interval: 'preserveStartEnd'
                     },
-                    j
+                    I
                   ),
                   i.default.createElement(f.default, { vertical: !1 }),
                   i.default.createElement(c.default, {
@@ -22485,17 +22489,21 @@ module.exports = (function(e) {
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     filterNull: !1,
                     content: function(e) {
-                      return i.default.createElement(y.default, {
-                        content: e,
-                        config: t,
-                        forceFixedFormatDecimals: C
-                      });
+                      return j &&
+                        i.default.createElement('customTooltip', {
+                          content: e
+                        }) ||
+                        i.default.createElement(y.default, {
+                          content: e,
+                          config: t,
+                          forceFixedFormatDecimals: C
+                        });
                     }
                   }),
                   M
                 )
               ),
-              P &&
+              R &&
                 i.default.createElement(m.default, {
                   theme: {
                     wrapper: (0, h.default)(b.default.legend, E.legend)
@@ -22529,7 +22537,10 @@ module.exports = (function(e) {
       domain: a.default.object,
       theme: a.default.shape({ legend: a.default.string }),
       children: a.default.node.isRequired,
-      areaAsBackgroundForCartesianGrid: a.default.node
+      areaAsBackgroundForCartesianGrid: a.default.node,
+      customXAxisTick: a.default.node,
+      customYAxisTick: a.default.node,
+      customTooltip: a.default.node
     }, w.defaultProps = {
       height: '100%',
       showUnit: !1,
@@ -22546,7 +22557,10 @@ module.exports = (function(e) {
       domain: null,
       forceFixedFormatDecimals: null,
       theme: {},
-      areaAsBackgroundForCartesianGrid: null
+      areaAsBackgroundForCartesianGrid: null,
+      customXAxisTick: null,
+      customYAxisTick: null,
+      customTooltip: null
     }, t.default = w;
   },
   c4Qx: function(e, t) {
