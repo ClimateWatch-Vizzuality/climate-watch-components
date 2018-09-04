@@ -22423,18 +22423,19 @@ module.exports = (function(e) {
               C = e.forceFixedFormatDecimals,
               E = e.theme,
               M = e.children,
-              A = T && t && t.axes && t.axes.yLeft && t.axes.yLeft.unit
+              A = e.areaAsBackgroundForCartesianGrid,
+              k = T && t && t.axes && t.axes.yLeft && t.axes.yLeft.unit
                 ? t.axes.yLeft.unit
                 : null,
-              k = !o && r,
-              P = i.default.createElement(u.default, {
+              P = !o && r,
+              j = i.default.createElement(u.default, {
                 position: 'top',
                 offset: 20,
                 content: function() {
                   return i.default.createElement(
                     'text',
                     { x: '8', y: '20' },
-                    A
+                    k
                   );
                 }
               });
@@ -22451,6 +22452,7 @@ module.exports = (function(e) {
                     margin: { top: 10, right: 0, left: -10, bottom: 0 },
                     onMouseMove: this.handleMouseMove
                   },
+                  A,
                   i.default.createElement(p.default, {
                     dataKey: 'x',
                     scale: 'time',
@@ -22470,12 +22472,12 @@ module.exports = (function(e) {
                       type: 'number',
                       tick: i.default.createElement(g.CustomYAxisTick, {
                         precision: t.precision,
-                        unit: A
+                        unit: k
                       }),
                       domain: S && S.y || [ 'auto', 'auto' ],
                       interval: 'preserveStartEnd'
                     },
-                    P
+                    j
                   ),
                   i.default.createElement(f.default, { vertical: !1 }),
                   i.default.createElement(c.default, {
@@ -22493,7 +22495,7 @@ module.exports = (function(e) {
                   M
                 )
               ),
-              k &&
+              P &&
                 i.default.createElement(m.default, {
                   theme: {
                     wrapper: (0, h.default)(b.default.legend, E.legend)
@@ -22526,7 +22528,8 @@ module.exports = (function(e) {
       margin: a.default.object,
       domain: a.default.object,
       theme: a.default.shape({ legend: a.default.string }),
-      children: a.default.node.isRequired
+      children: a.default.node.isRequired,
+      areaAsBackgroundForCartesianGrid: a.default.node
     }, w.defaultProps = {
       height: '100%',
       showUnit: !1,
@@ -22542,7 +22545,8 @@ module.exports = (function(e) {
       margin: { top: 0, right: 10, left: 10, bottom: 0 },
       domain: null,
       forceFixedFormatDecimals: null,
-      theme: {}
+      theme: {},
+      areaAsBackgroundForCartesianGrid: null
     }, t.default = w;
   },
   c4Qx: function(e, t) {
