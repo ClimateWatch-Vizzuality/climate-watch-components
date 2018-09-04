@@ -53,7 +53,7 @@ class ChartComposed extends PureComponent {
       forceFixedFormatDecimals,
       theme,
       children,
-      areaAsBackgroundColor
+      areaAsBackgroundForCartesianGrid
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -83,7 +83,7 @@ class ChartComposed extends PureComponent {
             margin={LineChartMargin}
             onMouseMove={this.handleMouseMove}
           >
-            {areaAsBackgroundColor}
+            {areaAsBackgroundForCartesianGrid}
             <XAxis
               dataKey="x"
               scale="time"
@@ -161,7 +161,7 @@ ChartComposed.propTypes = {
   domain: PropTypes.object,
   theme: PropTypes.shape({ legend: PropTypes.string }),
   children: PropTypes.node.isRequired,
-  areaAsBackgroundColor: PropTypes.node
+  areaAsBackgroundForCartesianGrid: PropTypes.node
 };
 
 ChartComposed.defaultProps = {
@@ -180,7 +180,7 @@ ChartComposed.defaultProps = {
   domain: null,
   forceFixedFormatDecimals: null,
   theme: {},
-  areaAsBackgroundColor: null
+  areaAsBackgroundForCartesianGrid: null
 };
 
 export default ChartComposed;

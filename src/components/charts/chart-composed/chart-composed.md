@@ -161,7 +161,7 @@ const greyArea = (
   dataSelected={state.filtersSelected}
   height={500}
   loading={state.loading}
-  areaAsBackgroundColor={greyArea}
+  areaAsBackgroundForCartesianGrid={greyArea}
 >
   {lineChart}
 </ChartComposed>
