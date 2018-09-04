@@ -169,7 +169,7 @@ class ChartStackedArea extends PureComponent {
                   cursor={{ stroke: '#113750', strokeWidth: 2 }}
                   content={content =>
                     customTooltip &&
-                      React.cloneElement(customTooltip, { content }) ||
+                      React.cloneElement(customTooltip, { content, config }) ||
                       (
                         <TooltipChart
                           content={content}
