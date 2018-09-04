@@ -118,7 +118,7 @@ class ChartComposed extends PureComponent {
               filterNull={false}
               content={content =>
                 customTooltip &&
-                  React.cloneElement(customTooltip, { content }) ||
+                  React.cloneElement(customTooltip, { content, config }) ||
                   (
                     <TooltipChart
                       content={content}
