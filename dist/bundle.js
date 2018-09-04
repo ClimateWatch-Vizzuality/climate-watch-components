@@ -3823,7 +3823,7 @@ module.exports = (function(e) {
                     isAnimationActive: !1,
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     content: function(e) {
-                      return M ||
+                      return M && i.default.cloneElement(M, { content: e }) ||
                         i.default.createElement(x.default, {
                           content: e,
                           config: l,
@@ -18886,7 +18886,7 @@ module.exports = (function(e) {
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     filterNull: !1,
                     content: function(e) {
-                      return x ||
+                      return x && i.default.cloneElement(x, { content: e }) ||
                         i.default.createElement(v.default, {
                           content: e,
                           config: t,
@@ -22265,7 +22265,7 @@ module.exports = (function(e) {
       ]), t;
     })();
     m.propTypes = {
-      type: a.default.oneOf([ 'line', 'area' ]).isRequired,
+      type: a.default.oneOf([ 'line', 'area', 'bar' ]).isRequired,
       dots: a.default.bool,
       error: a.default.bool,
       customMessage: a.default.string,
@@ -22489,10 +22489,7 @@ module.exports = (function(e) {
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     filterNull: !1,
                     content: function(e) {
-                      return j &&
-                        i.default.createElement('customTooltip', {
-                          content: e
-                        }) ||
+                      return j && i.default.cloneElement(j, { content: e }) ||
                         i.default.createElement(y.default, {
                           content: e,
                           config: t,
@@ -28092,7 +28089,7 @@ module.exports = (function(e) {
                   cursor: { stroke: '#113750', strokeWidth: 2 },
                   filterNull: !1,
                   content: function(e) {
-                    return S ||
+                    return S && i.default.cloneElement(S, { content: e }) ||
                       i.default.createElement(y.default, {
                         content: e,
                         config: n,
