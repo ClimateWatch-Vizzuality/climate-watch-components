@@ -25,26 +25,37 @@ const getYLabelformat = (unit, precision, value) => {
   return `${format(`.${2}${typeValue}`)(value)}${suffix}`;
 };
 
-export const CustomYAxisTick = ({ index, x, y, payload, unit, precision }) => (
-  <g transform={`translate(${x},${y})`}>
-    <text
-      x="0"
-      y="0"
-      dy="0"
-      textAnchor="end"
-      stroke="#b1b1c1"
-      strokeWidth="0.5"
-      fontSize="13px"
-    >
-      {
-        index === 0 &&
-          (payload.value === 0 || payload.value < 0 && payload.value > -0.001)
-          ? '0'
-          : getYLabelformat(unit, precision, payload.value)
-      }
-    </text>
-  </g>
-);
+export const CustomYAxisTick = (
+  { index, x, y, payload, unit, precision, getCustomYLabelFormat }
+) =>
+  {
+    const yLabelFormat = (_unit, _precision, value) =>
+      yLabelFormat
+        ? getCustomYLabelFormat(value)
+        : getYLabelformat(_unit, _precision, value);
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x="0"
+          y="0"
+          dy="0"
+          textAnchor="end"
+          stroke="#b1b1c1"
+          strokeWidth="0.5"
+          fontSize="13px"
+        >
+          {
+            index === 0 &&
+              (payload.value === 0 ||
+                payload.value < 0 && payload.value > -0.001)
+              ? '0'
+              : yLabelFormat(unit, precision, payload.value)
+          }
+        </text>
+      </g>
+    );
+  };
 
 CustomXAxisTick.propTypes = {
   x: PropTypes.number,
@@ -60,7 +71,8 @@ CustomYAxisTick.propTypes = {
   index: PropTypes.number,
   payload: PropTypes.object,
   unit: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
-  precision: PropTypes.number
+  precision: PropTypes.number,
+  getCustomYLabelFormat: PropTypes.func
 };
 
 CustomYAxisTick.defaultProps = {
@@ -69,7 +81,8 @@ CustomYAxisTick.defaultProps = {
   index: null,
   payload: {},
   unit: null,
-  precision: null
+  precision: null,
+  getCustomYLabelFormat: null
 };
 
 CustomYAxisTick.defaultProps = { precision: null, unit: false };

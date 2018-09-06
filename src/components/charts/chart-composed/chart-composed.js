@@ -56,7 +56,8 @@ class ChartComposed extends PureComponent {
       areaAsBackgroundForCartesianGrid,
       customXAxisTick,
       customYAxisTick,
-      customTooltip
+      customTooltip,
+      getCustomYLabelFormat
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -104,7 +105,13 @@ class ChartComposed extends PureComponent {
               type="number"
               tick={
                 customYAxisTick ||
-                  <CustomYAxisTick precision={config.precision} unit={unit} />
+                  (
+                    <CustomYAxisTick
+                      precision={config.precision}
+                      unit={unit}
+                      getCustomYLabelFormat={getCustomYLabelFormat}
+                    />
+                  )
               }
               domain={domain && domain.y || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
@@ -175,7 +182,9 @@ ChartComposed.propTypes = {
   /** Custom Y Axis Tick component to pass it down to chart */
   customYAxisTick: PropTypes.node,
   /** Custom tooltip to pass down to chart */
-  customTooltip: PropTypes.node
+  customTooltip: PropTypes.node,
+  /** Function transforming y axis value */
+  getCustomYLabelFormat: PropTypes.func
 };
 
 ChartComposed.defaultProps = {
@@ -197,7 +206,8 @@ ChartComposed.defaultProps = {
   areaAsBackgroundForCartesianGrid: null,
   customXAxisTick: null,
   customYAxisTick: null,
-  customTooltip: null
+  customTooltip: null,
+  getCustomYLabelFormat: null
 };
 
 export default ChartComposed;
