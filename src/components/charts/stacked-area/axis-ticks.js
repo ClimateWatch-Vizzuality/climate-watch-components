@@ -18,21 +18,32 @@ export const CustomXAxisTick = ({ x, y, payload, customStrokeWidth }) => (
   </g>
 );
 
-export const CustomYAxisTick = ({ x, y, payload, customStrokeWidth, unit }) => (
-  <g transform={`translate(${x},${y})`}>
-    <text
-      x="5"
-      y="4"
-      dy="0"
-      textAnchor="end"
-      stroke="#b1b1c1"
-      strokeWidth={customStrokeWidth || '0.5'}
-      fontSize="13px"
-    >
-      {payload.value === 0 ? '0' : `${format('.2s')(payload.value)}${unit}`}
-    </text>
-  </g>
-);
+const getYLabelformat = (value, unit) => `${format('.2s')(value)}${unit}`;
+
+export const CustomYAxisTick = (
+  { x, y, payload, customStrokeWidth, unit, getCustomYLabelFormat }
+) =>
+  {
+    const yLabelFormat = (value, _unit) =>
+      yLabelFormat
+        ? getCustomYLabelFormat(value)
+        : getYLabelformat(value, _unit);
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x="5"
+          y="4"
+          dy="0"
+          textAnchor="end"
+          stroke="#b1b1c1"
+          strokeWidth={customStrokeWidth || '0.5'}
+          fontSize="13px"
+        >
+          {payload.value === 0 ? '0' : yLabelFormat(payload.value, unit)}
+        </text>
+      </g>
+    );
+  };
 
 CustomXAxisTick.propTypes = {
   x: PropTypes.number,
@@ -53,7 +64,8 @@ CustomYAxisTick.propTypes = {
   y: PropTypes.number,
   payload: PropTypes.object,
   customStrokeWidth: PropTypes.string,
-  unit: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ])
+  unit: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
+  getCustomYLabelFormat: PropTypes.func
 };
 
 CustomYAxisTick.defaultProps = {
@@ -61,5 +73,6 @@ CustomYAxisTick.defaultProps = {
   y: null,
   payload: {},
   unit: null,
-  customStrokeWidth: null
+  customStrokeWidth: null,
+  getCustomYLabelFormat: null
 };
