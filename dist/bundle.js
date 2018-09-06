@@ -1457,6 +1457,27 @@ module.exports = (function(e) {
       return n.set(e, t), this.size = n.size, this;
     };
   },
+  '0JQy': function(e, t) {
+    var n = '[\\ud800-\\udfff]',
+      r = '[\\u0300-\\u036f\\ufe20-\\ufe2f\\u20d0-\\u20ff]',
+      o = '\\ud83c[\\udffb-\\udfff]',
+      i = '[^\\ud800-\\udfff]',
+      a = '(?:\\ud83c[\\udde6-\\uddff]){2}',
+      l = '[\\ud800-\\udbff][\\udc00-\\udfff]',
+      u = '(?:' + r + '|' + o + ')' + '?',
+      s = '[\\ufe0e\\ufe0f]?' +
+        u +
+        ('(?:\\u200d(?:' +
+          [ i, a, l ].join('|') +
+          ')[\\ufe0e\\ufe0f]?' +
+          u +
+          ')*'),
+      c = '(?:' + [ i + r + '?', r, a, l, n ].join('|') + ')',
+      f = RegExp(o + '(?=' + o + ')|' + c + s, 'g');
+    e.exports = function(e) {
+      return e.match(f) || [];
+    };
+  },
   '0XPj': function(e, t, n) {
     var r = n('eUgh'),
       o = n('s+kx'),
@@ -1467,6 +1488,18 @@ module.exports = (function(e) {
         return t.length && t[0] === e[0] ? o(t) : [];
       });
     e.exports = l;
+  },
+  '0ZTe': function(e, t, n) {
+    var r = n('wy8a'), o = n('quyA'), i = n('Em2t'), a = n('dt0z');
+    e.exports = function(e) {
+      return function(t) {
+        t = a(t);
+        var n = o(t) ? i(t) : void 0,
+          l = n ? n[0] : t.charAt(0),
+          u = n ? r(n, 1).join('') : t.slice(1);
+        return l[e]() + u;
+      };
+    };
   },
   '0jFL': function(e, t, n) {
     !(function(e, t) {
@@ -5022,6 +5055,12 @@ module.exports = (function(e) {
         }, t;
       })(t.Component);
     }).call(this);
+  },
+  '6acW': function(e, t, n) {
+    var r = n('dt0z'), o = n('gQMU');
+    e.exports = function(e) {
+      return o(r(e).toLowerCase());
+    };
   },
   '6ajc': function(e, t, n) {
     var r = n('XGnz'), o = n('3WF5');
@@ -10329,6 +10368,12 @@ module.exports = (function(e) {
     }, o);
     t.default = h;
   },
+  Em2t: function(e, t, n) {
+    var r = n('bahg'), o = n('quyA'), i = n('0JQy');
+    e.exports = function(e) {
+      return o(e) ? i(e) : r(e);
+    };
+  },
   EpBk: function(e, t) {
     e.exports = function(e) {
       var t = typeof e;
@@ -12732,22 +12777,23 @@ module.exports = (function(e) {
       };
     })(),
       o = n('cDcd'),
-      i = v(o),
-      a = v(n('rf6O')),
-      l = v(n('xweI')),
-      u = v(n('USjQ')),
-      s = n('9bdd'),
-      c = v(n('QWsV')),
-      f = v(n('K2gz')),
-      d = v(n('zqxM')),
-      p = n('oZ1F'),
-      h = v(n('6V4F')),
-      y = v(n('/Kx+')),
-      m = v(n('A4w7'));
-    function v(e) {
+      i = g(o),
+      a = g(n('rf6O')),
+      l = g(n('xweI')),
+      u = g(n('USjQ')),
+      s = g(n('6acW')),
+      c = n('9bdd'),
+      f = g(n('QWsV')),
+      d = g(n('K2gz')),
+      p = g(n('zqxM')),
+      h = n('oZ1F'),
+      y = g(n('6V4F')),
+      m = g(n('/Kx+')),
+      v = g(n('A4w7'));
+    function g(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function g(e, t, n) {
+    function b(e, t, n) {
       return t in e
         ? Object.defineProperty(e, t, {
           value: n,
@@ -12757,7 +12803,7 @@ module.exports = (function(e) {
         })
         : e[t] = n, e;
     }
-    var b = (function(e) {
+    var _ = (function(e) {
       function t(e) {
         !(function(e, t) {
           if (!(e instanceof t))
@@ -12770,7 +12816,7 @@ module.exports = (function(e) {
             );
           return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
         })(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));
-        _.call(n);
+        x.call(n);
         var r = e.data,
           o = e.defaultColumns,
           i = e.sortBy,
@@ -12779,7 +12825,7 @@ module.exports = (function(e) {
           data: r,
           optionsOpen: !1,
           sortBy: i || Object.keys(r[0])[0],
-          sortDirection: s.SortDirection.ASC,
+          sortDirection: c.SortDirection.ASC,
           activeColumns: a.map(function(e) {
             return { label: e, value: e };
           }),
@@ -12824,42 +12870,42 @@ module.exports = (function(e) {
               a = t.activeColumns,
               l = t.columnsOptions,
               u = t.optionsOpen,
-              p = this.props,
-              v = p.hasColumnSelect,
-              b = p.tableHeight,
-              _ = p.headerHeight,
-              x = p.setRowsHeight,
-              w = p.setColumnWidth,
-              O = p.ellipsisColumns,
-              S = p.horizontalScroll,
-              T = p.firstColumnHeaders;
+              h = this.props,
+              g = h.hasColumnSelect,
+              _ = h.tableHeight,
+              x = h.headerHeight,
+              w = h.setRowsHeight,
+              O = h.setColumnWidth,
+              S = h.ellipsisColumns,
+              T = h.horizontalScroll,
+              C = h.firstColumnHeaders;
             if (!n.length) return null;
-            var C = v && l,
-              E = a.map(function(e) {
+            var E = g && l,
+              M = a.map(function(e) {
                 return e.value;
               }),
-              M = E.filter(function(e) {
-                return T.includes(e);
-              }).concat((0, d.default)(E, T));
+              A = M.filter(function(e) {
+                return C.includes(e);
+              }).concat((0, p.default)(M, C));
             return i.default.createElement(
               'div',
               {
-                className: (0, f.default)(g({}, m.default.hasColumnSelect, v))
+                className: (0, d.default)(b({}, v.default.hasColumnSelect, g))
               },
-              C &&
+              E &&
                 i.default.createElement(
                   'div',
                   {
                     role: 'button',
                     tabIndex: 0,
-                    className: m.default.columnSelectorWrapper,
+                    className: v.default.columnSelectorWrapper,
                     onMouseEnter: this.setOptionsOpen,
                     onMouseLeave: this.setOptionsClose
                   },
                   i.default.createElement(
-                    h.default,
+                    y.default,
                     {
-                      theme: { dropdown: m.default.columnSelector },
+                      theme: { dropdown: v.default.columnSelector },
                       values: a || [],
                       options: l || [],
                       onValueChange: this.handleColumnChange,
@@ -12868,7 +12914,7 @@ module.exports = (function(e) {
                     },
                     i.default.createElement(
                       'span',
-                      { className: m.default.selectorValue },
+                      { className: v.default.selectorValue },
                       '...'
                     )
                   )
@@ -12876,27 +12922,27 @@ module.exports = (function(e) {
               i.default.createElement(
                 'div',
                 {
-                  className: (0, f.default)(
-                    m.default.tableWrapper,
-                    g({}, m.default.horizontalScroll, S)
+                  className: (0, d.default)(
+                    v.default.tableWrapper,
+                    b({}, v.default.horizontalScroll, T)
                   )
                 },
                 i.default.createElement(
-                  c.default,
+                  f.default,
                   { disableHeight: !0 },
                   function(t) {
                     var l = t.width;
                     return i.default.createElement(
-                      s.Table,
+                      c.Table,
                       {
-                        className: m.default.table,
+                        className: v.default.table,
                         width: e.getResponsiveWidth(a.length, l),
-                        height: b,
-                        headerHeight: _,
+                        height: _,
+                        headerHeight: x,
                         rowClassName: e.rowClassName,
                         rowHeight: function(e) {
                           var t = e.index;
-                          return x(n[t]);
+                          return w(n[t]);
                         },
                         rowCount: n.length,
                         sort: e.handleSortChange,
@@ -12907,21 +12953,22 @@ module.exports = (function(e) {
                           return n[t];
                         }
                       },
-                      M.map(function(t) {
-                        return i.default.createElement(s.Column, {
-                          className: (0, f.default)(
-                            m.default.column,
-                            g({}, m.default.ellipsis, O && O.indexOf(t) > -1)
+                      A.map(function(t) {
+                        return i.default.createElement(c.Column, {
+                          className: (0, d.default)(
+                            v.default.column,
+                            b({}, v.default.ellipsis, S && S.indexOf(t) > -1)
                           ),
                           key: t,
-                          label: t,
+                          label: (n = t, (0, s.default)(n.replace(/_/g, ' '))),
                           dataKey: t,
-                          width: w(t),
+                          width: O(t),
                           flexGrow: 1,
                           cellRenderer: function(t) {
-                            return (0, y.default)({ props: e.props, cell: t });
+                            return (0, m.default)({ props: e.props, cell: t });
                           }
                         });
+                        var n;
                       })
                     );
                   }
@@ -12932,7 +12979,7 @@ module.exports = (function(e) {
         }
       ]), t;
     })(),
-      _ = function() {
+      x = function() {
         var e = this;
         this.setOptionsClose = function() {
           e.setState(function(e) {
@@ -12945,14 +12992,14 @@ module.exports = (function(e) {
         }, this.getResponsiveWidth = function(t, n) {
           if (1 === t.length) return n;
           var r = n / t < e.minColumnWidth, o = 1.4, i = .2;
-          return n > p.pixelBreakpoints.portrait &&
-            n < p.pixelBreakpoints.landscape
+          return n > h.pixelBreakpoints.portrait &&
+            n < h.pixelBreakpoints.landscape
             ? (i = .1, o = 1.2)
-            : n > p.pixelBreakpoints.landscape &&
+            : n > h.pixelBreakpoints.landscape &&
               (i = .1, o = 1), n * o * (1 + (r ? i : 0) * t);
         }, this.getDataSorted = function(e, t, n) {
           var r = (0, l.default)(e, t);
-          return n === s.SortDirection.DESC ? (0, u.default)(r) : r;
+          return n === c.SortDirection.DESC ? (0, u.default)(r) : r;
         }, this.handleSortChange = function(t) {
           var n = t.sortBy,
             r = t.sortDirection,
@@ -12964,11 +13011,11 @@ module.exports = (function(e) {
         }, this.rowClassName = function(e) {
           var t = e.index;
           return t < 0
-            ? m.default.headerRow
-            : t % 2 == 0 ? m.default.evenRow : m.default.oddRow;
+            ? v.default.headerRow
+            : t % 2 == 0 ? v.default.evenRow : v.default.oddRow;
         };
       };
-    b.propTypes = {
+    _.propTypes = {
       data: a.default.array.isRequired,
       defaultColumns: a.default.array,
       sortBy: a.default.string,
@@ -12980,7 +13027,7 @@ module.exports = (function(e) {
       ellipsisColumns: a.default.array,
       horizontalScroll: a.default.bool.isRequired,
       firstColumnHeaders: a.default.array
-    }, b.defaultProps = {
+    }, _.defaultProps = {
       sortBy: 'value',
       tableHeight: 460,
       headerHeight: 30,
@@ -12994,7 +13041,7 @@ module.exports = (function(e) {
       },
       ellipsisColumns: [],
       firstColumnHeaders: []
-    }, t.default = b;
+    }, t.default = _;
   },
   KMkd: function(e, t) {
     e.exports = function() {
@@ -22320,6 +22367,11 @@ module.exports = (function(e) {
       }
     );
   },
+  bahg: function(e, t) {
+    e.exports = function(e) {
+      return e.split('');
+    };
+  },
   bzzt: function(e, t, n) {
     'use strict';
     Object.defineProperty(t, '__esModule', { value: !0 });
@@ -26863,6 +26915,10 @@ module.exports = (function(e) {
     e.exports = function(e, t) {
       return e && e.length ? r(e, o(t, 2), i) : void 0;
     };
+  },
+  gQMU: function(e, t, n) {
+    var r = n('0ZTe')('toUpperCase');
+    e.exports = r;
   },
   gcKQ: function(e, t, n) {
     'use strict';
@@ -35301,6 +35357,14 @@ module.exports = (function(e) {
     }
     a.propTypes = null;
   },
+  quyA: function(e, t) {
+    var n = RegExp(
+      '[\\u200d\\ud800-\\udfff\\u0300-\\u036f\\ufe20-\\ufe2f\\u20d0-\\u20ff\\ufe0e\\ufe0f]'
+    );
+    e.exports = function(e) {
+      return n.test(e);
+    };
+  },
   qywY: function(e, t, n) {
     'use strict';
     Object.defineProperty(t, '__esModule', { value: !0 });
@@ -40279,6 +40343,13 @@ module.exports = (function(e) {
       interpolateNumber: u,
       uninterpolateNumber: s,
       uninterpolateTruncation: c
+    };
+  },
+  wy8a: function(e, t, n) {
+    var r = n('KxBF');
+    e.exports = function(e, t, n) {
+      var o = e.length;
+      return n = void 0 === n ? o : n, !t && n >= o ? e : r(e, t, n);
     };
   },
   x44Z: function(e, t, n) {
