@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import _sortBy from 'lodash/sortBy';
 import reverse from 'lodash/reverse';
+import capitalize from 'lodash/capitalize';
 import {
   Table as VirtualizedTable,
   Column,
@@ -125,6 +126,7 @@ class Table extends PureComponent {
     const columnData = activeColumnNames
       .filter(c => firstColumnHeaders.includes(c))
       .concat(difference(activeColumnNames, firstColumnHeaders));
+    const columnLabel = columnSlug => capitalize(columnSlug.replace(/_/g, ' '));
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -176,7 +178,7 @@ class Table extends PureComponent {
                         ellipsisColumns.indexOf(column) > -1
                     })}
                     key={column}
-                    label={column}
+                    label={columnLabel(column)}
                     dataKey={column}
                     width={setColumnWidth(column)}
                     flexGrow={1}
