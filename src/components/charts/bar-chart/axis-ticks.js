@@ -25,7 +25,9 @@ export const CustomYAxisTick = (
 ) =>
   {
     const yLabelFormat = value =>
-      yLabelFormat ? getCustomYLabelFormat(value) : getYLabelformat(value);
+      getCustomYLabelFormat
+        ? getCustomYLabelFormat(value)
+        : getYLabelformat(value);
     return (
       <g transform={`translate(${x},${y})`}>
         <text
