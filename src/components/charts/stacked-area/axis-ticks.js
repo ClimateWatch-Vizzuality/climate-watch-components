@@ -25,7 +25,7 @@ export const CustomYAxisTick = (
 ) =>
   {
     const yLabelFormat = (value, _unit) =>
-      yLabelFormat
+      getCustomYLabelFormat
         ? getCustomYLabelFormat(value)
         : getYLabelformat(value, _unit);
     return (
