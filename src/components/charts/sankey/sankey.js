@@ -54,7 +54,7 @@ SankeyChart.propTypes = {
   /** Height of the chart */
   height: PropTypes.number,
   /** Data of the chart */
-  data: PropTypes.object,
+  data: PropTypes.shape,
   /** Width of every node */
   nodeWidth: PropTypes.number,
   /** Padding of every node */
