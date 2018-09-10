@@ -175,6 +175,8 @@
   .cw__button-group-styles_button:hover {
     box-shadow: none;
     fill: #113750; }
+.cw__bubble-chart-styles_circle {
+  cursor: pointer; }
 .cw__card-styles_card {
   display: flex;
   flex-direction: column;
