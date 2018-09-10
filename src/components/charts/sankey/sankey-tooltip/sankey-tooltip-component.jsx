@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import styles from './sankey-tooltip-styles.scss';
 
@@ -71,13 +71,13 @@ class SankeyTooltip extends PureComponent {
 }
 
 SankeyTooltip.propTypes = {
-  content: Proptypes.shape({
-    payload: Proptypes.array
+  content: PropTypes.shape({
+    payload: PropTypes.array
   }),
-  config: Proptypes.shape({
-    unit: Proptypes.string
+  config: PropTypes.shape({
+    unit: PropTypes.string
   }),
-  tooltipChildren: Proptypes.node
+  tooltipChildren: PropTypes.node
 };
 
 SankeyTooltip.defaultProps = { content: null, config: {}, tooltipChildren: null };
