@@ -44,7 +44,8 @@ class ChartLine extends PureComponent {
       lineType,
       customXAxisTick,
       customYAxisTick,
-      customTooltip
+      customTooltip,
+      getCustomYLabelFormat
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -89,7 +90,13 @@ class ChartLine extends PureComponent {
             type="number"
             tick={
               customYAxisTick ||
-                <CustomYAxisTick precision={config.precision} unit={unit} />
+                (
+                  <CustomYAxisTick
+                    precision={config.precision}
+                    unit={unit}
+                    getCustomYLabelFormat={getCustomYLabelFormat}
+                  />
+                )
             }
             domain={domain && domain.y || [ 'auto', 'auto' ]}
             interval="preserveStartEnd"
@@ -149,7 +156,8 @@ ChartLine.propTypes = {
   lineType: PropTypes.string,
   customYAxisTick: PropTypes.node,
   customXAxisTick: PropTypes.node,
-  customTooltip: PropTypes.node
+  customTooltip: PropTypes.node,
+  getCustomYLabelFormat: PropTypes.func
 };
 
 ChartLine.defaultProps = {
@@ -164,7 +172,8 @@ ChartLine.defaultProps = {
   lineType: 'monotone',
   customYAxisTick: null,
   customXAxisTick: null,
-  customTooltip: null
+  customTooltip: null,
+  getCustomYLabelFormat: null
 };
 
 export default ChartLine;

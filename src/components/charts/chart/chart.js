@@ -116,7 +116,9 @@ Chart.propTypes = {
   /** Custom Y Axis Tick component to pass it down to chart */
   customYAxisTick: PropTypes.node,
   /** Custom tooltip to pass down to chart */
-  customTooltip: PropTypes.node
+  customTooltip: PropTypes.node,
+  /** Function transforming y axis value */
+  getCustomYLabelFormat: PropTypes.func
 };
 
 Chart.defaultProps = {
@@ -134,7 +136,8 @@ Chart.defaultProps = {
   lineType: 'monotone',
   customXAxisTick: null,
   customYAxisTick: null,
-  customTooltip: null
+  customTooltip: null,
+  getCustomYLabelFormat: null
 };
 
 export default Chart;
