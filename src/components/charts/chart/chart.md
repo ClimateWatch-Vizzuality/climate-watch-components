@@ -80,14 +80,16 @@ const toggleCharType = (filtersSelected) => {
 </React.Fragment>
 ```
 
-Example with bar chart
+Example with bar chart and passing callback formatting y axis labels
 ```js
 const data = require('../bar-chart/data.js');
+const format = require('d3-format').format;
 initialState = {
   ...data,
   type: 'bar',
   loading: false
 };
+const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
 <React.Fragment>
   <Chart
     type={state.type}
@@ -96,6 +98,7 @@ initialState = {
     domain={state.domain}
     height={500}
     loading={state.loading}
+    getCustomYLabelFormat={getCustomYLabelFormat}
   />
 </React.Fragment>
 ```
