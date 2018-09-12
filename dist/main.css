@@ -1072,6 +1072,65 @@ input:checked ~ .cw__check-input-styles_label {
 
 .ReactModal__Body--open {
   overflow: hidden; }
+.cw__sankey-tooltip-styles_tooltip {
+  background: #fff;
+  min-width: 180px;
+  max-width: 300px;
+  padding: 15px;
+  box-shadow: 0 5px 15px 0 rgba(17, 55, 80, 0.15);
+  border-radius: 4px; }
+
+.cw__sankey-tooltip-styles_tooltipHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; }
+
+.cw__sankey-tooltip-styles_unit {
+  color: #8f8fa1;
+  font-size: 0.8125rem; }
+
+.cw__sankey-tooltip-styles_label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 0.875rem; }
+
+.cw__sankey-tooltip-styles_legend {
+  display: flex;
+  justify-content: flex-start; }
+
+.cw__sankey-tooltip-styles_labelDot {
+  border-radius: 50%;
+  width: 10px;
+  min-width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  margin-top: 3px;
+  display: block; }
+
+.cw__sankey-tooltip-styles_labelName {
+  margin-right: 30px;
+  color: #113750; }
+
+.cw__sankey-tooltip-styles_labelValue, .cw__sankey-tooltip-styles_focus {
+  color: #8f8fa1;
+  text-align: right;
+  min-width: 45px; }
+
+.cw__sankey-tooltip-styles_targetName {
+  color: #8f8fa1;
+  font-weight: bold;
+  font-size: 0.8125rem; }
+
+.cw__sankey-tooltip-styles_focus {
+  margin-top: 10px;
+  font-size: 0.8125rem; }
+.cw__sankey-node-styles_nodeText {
+  font-size: 0.8125rem;
+  font-weight: 300;
+  padding: 0 10px; }
 .cw__section-styles_row {
   width: 100%; }
 
