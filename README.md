@@ -25,11 +25,13 @@ To make it easier with our workflow it is using a custom fork where it only take
 ## How to
 
 So to make a new release follow the next steps:
-1. Make sure you want to put in production everything that it is in develop.
-2. Merge develop to master and sync with origin all of the other branches.
-3. Run the command ```npx release major|minor|patch```.
-4. You will be prompted with a list of commits where you select what time of change it includes. Normally `feature/*` branches go to `minor` and `fix/*` to `patches`
-5. When finished you will have:
+1. Make sure you want to put in production everything that it is in master.
+2. Merge all the approved PRs to master
+3. Checkout to ```build``` branch and merge ```master``` into build.
+4. Run ```yarn compile``` to compile js and css.
+5. Run the command ```npx release major|minor|patch```. Remember this has to be run on ```build``` branch after yarn compile.
+6. You will be prompted with a list of commits where you select what time of change it includes. Normally `feature/*` branches go to `minor` and `fix/*` to `patches`
+7. When finished you will have:
     - The new version number.
     - The package.json version updated.
     - A new tag committed
