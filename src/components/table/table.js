@@ -37,6 +37,7 @@ class Table extends PureComponent {
     this.minColumnWidth = 50;
     this.maxColumnWidth = 300;
     this.lengthWidthRatio = 4;
+    this.columnWidthSamples = 5;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -132,8 +133,20 @@ class Table extends PureComponent {
     const columnLabel = columnSlug => capitalize(columnSlug.replace(/_/g, ' '));
 
     const getColumnLength = column => {
-      if (!data[0][column]) return this.standardColumnWidth;
-      const length = data[0][column].length * this.lengthWidthRatio;
+      let samples = 0;
+      let aggregatedLenght = 0;
+      const sampleNumbersArray = Array
+        .from(Array(this.columnWidthSamples))
+        .map((a, index) => index);
+      sampleNumbersArray.forEach(n => {
+        if (data[n][column].length) {
+          aggregatedLenght += data[n][column].length;
+          samples += 1;
+        }
+      });
+      if (samples < 1) return this.standardColumnWidth;
+      const meanLenght = aggregatedLenght / samples;
+      const length = meanLenght * this.lengthWidthRatio;
       if (length < this.minColumnWidth) return this.minColumnWidth;
       if (length > this.maxColumnWidth) return this.maxColumnWidth;
       return length;
@@ -142,12 +155,13 @@ class Table extends PureComponent {
     const columnWidthProps = column => {
       if (setColumnWidth) {
         return {
+          width: setColumnWidth(column),
           minWidth: setColumnWidth(column),
           maxWidth: setColumnWidth(column)
         };
       }
       const length = getColumnLength(column, data);
-      return { minWidth: length, maxWidth: length };
+      return { width: length, minWidth: length, maxWidth: length };
     };
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
