@@ -104,6 +104,50 @@ class Table extends PureComponent {
     return index % 2 === 0 ? styles.evenRow : styles.oddRow;
   };
 
+  getMeanLength = (columnWidthSamples, data, column) => {
+    const sampleNumbersArray = [ ...Array(columnWidthSamples).keys() ];
+    let samples = 0;
+    let aggregatedLenght = 0;
+    sampleNumbersArray.forEach(n => {
+      if (data[n][column].length) {
+        aggregatedLenght += data[n][column].length;
+        samples += 1;
+      }
+    });
+    if (samples < 1) return this.standardColumnWidth;
+    return aggregatedLenght / samples;
+  };
+
+  getColumnLength = (data, column) => {
+    const meanLenght = this.getMeanLength(
+      this.columnWidthSamples,
+      data,
+      column
+    );
+    const length = meanLenght * this.lengthWidthRatio;
+    if (length < this.minColumnWidth) return this.minColumnWidth;
+    if (length > this.maxColumnWidth) return this.maxColumnWidth;
+    return length;
+  };
+
+  columnWidthProps = column => {
+    const { setColumnWidth, data } = this.props;
+    const length = setColumnWidth
+      ? setColumnWidth(column)
+      : this.getColumnLength(data, column);
+    return { width: length, minWidth: length, maxWidth: length };
+  };
+
+  getColumnData = () => {
+    const { activeColumns } = this.state;
+    const { firstColumnHeaders } = this.props;
+    const activeColumnNames = activeColumns.map(c => c.value);
+
+    return activeColumnNames
+      .filter(c => firstColumnHeaders.includes(c))
+      .concat(difference(activeColumnNames, firstColumnHeaders));
+  };
+
   render() {
     const {
       data,
@@ -118,51 +162,14 @@ class Table extends PureComponent {
       tableHeight,
       headerHeight,
       setRowsHeight,
-      setColumnWidth,
       ellipsisColumns,
-      horizontalScroll,
-      firstColumnHeaders
+      horizontalScroll
     } = this.props;
 
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
-    const activeColumnNames = activeColumns.map(c => c.value);
-    const columnData = activeColumnNames
-      .filter(c => firstColumnHeaders.includes(c))
-      .concat(difference(activeColumnNames, firstColumnHeaders));
     const columnLabel = columnSlug => capitalize(columnSlug.replace(/_/g, ' '));
 
-    const getColumnLength = column => {
-      let samples = 0;
-      let aggregatedLenght = 0;
-      const sampleNumbersArray = Array
-        .from(Array(this.columnWidthSamples))
-        .map((a, index) => index);
-      sampleNumbersArray.forEach(n => {
-        if (data[n][column].length) {
-          aggregatedLenght += data[n][column].length;
-          samples += 1;
-        }
-      });
-      if (samples < 1) return this.standardColumnWidth;
-      const meanLenght = aggregatedLenght / samples;
-      const length = meanLenght * this.lengthWidthRatio;
-      if (length < this.minColumnWidth) return this.minColumnWidth;
-      if (length > this.maxColumnWidth) return this.maxColumnWidth;
-      return length;
-    };
-
-    const columnWidthProps = column => {
-      if (setColumnWidth) {
-        return {
-          width: setColumnWidth(column),
-          minWidth: setColumnWidth(column),
-          maxWidth: setColumnWidth(column)
-        };
-      }
-      const length = getColumnLength(column, data);
-      return { width: length, minWidth: length, maxWidth: length };
-    };
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -207,21 +214,23 @@ class Table extends PureComponent {
                 sortDirection={sortDirection}
                 rowGetter={({ index }) => data[index]}
               >
-                {columnData.map(column => (
-                  <Column
-                    className={cx(styles.column, {
-                      [styles.ellipsis]: ellipsisColumns &&
-                        ellipsisColumns.indexOf(column) > -1
-                    })}
-                    key={column}
-                    label={columnLabel(column)}
-                    dataKey={column}
-                    flexGrow={0}
-                    cellRenderer={cell =>
-                      cellRenderer({ props: this.props, cell })}
-                    {...columnWidthProps(column, data)}
-                  />
-                ))}
+                {this
+                  .getColumnData()
+                  .map(column => (
+                    <Column
+                      className={cx(styles.column, {
+                        [styles.ellipsis]: ellipsisColumns &&
+                          ellipsisColumns.indexOf(column) > -1
+                      })}
+                      key={column}
+                      label={columnLabel(column)}
+                      dataKey={column}
+                      flexGrow={0}
+                      cellRenderer={cell =>
+                        cellRenderer({ props: this.props, cell })}
+                      {...this.columnWidthProps(column, data)}
+                    />
+                  ))}
               </VirtualizedTable>
             )}
           </AutoSizer>
