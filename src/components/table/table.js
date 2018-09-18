@@ -33,7 +33,10 @@ class Table extends PureComponent {
         Object.keys(data[0]).map(d => ({ label: d, value: d })) ||
         []
     };
-    this.minColumnWidth = 180;
+    this.standardColumnWidth = 180;
+    this.minColumnWidth = 50;
+    this.maxColumnWidth = 300;
+    this.lengthWidthRatio = 4;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,7 +61,7 @@ class Table extends PureComponent {
   getResponsiveWidth = (columns, width) => {
     if (columns.length === 1) return width;
 
-    const isMinColumSized = width / columns < this.minColumnWidth;
+    const isMinColumSized = width / columns < this.standardColumnWidth;
 
     let responsiveRatio = 1.4;
     // Mobile
@@ -127,6 +130,25 @@ class Table extends PureComponent {
       .filter(c => firstColumnHeaders.includes(c))
       .concat(difference(activeColumnNames, firstColumnHeaders));
     const columnLabel = columnSlug => capitalize(columnSlug.replace(/_/g, ' '));
+
+    const getColumnLength = column => {
+      if (!data[0][column]) return this.standardColumnWidth;
+      const length = data[0][column].length * this.lengthWidthRatio;
+      if (length < this.minColumnWidth) return this.minColumnWidth;
+      if (length > this.maxColumnWidth) return this.maxColumnWidth;
+      return length;
+    };
+
+    const columnWidthProps = column => {
+      if (setColumnWidth) {
+        return {
+          minWidth: setColumnWidth(column),
+          maxWidth: setColumnWidth(column)
+        };
+      }
+      const length = getColumnLength(column, data);
+      return { minWidth: length, maxWidth: length };
+    };
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -180,10 +202,10 @@ class Table extends PureComponent {
                     key={column}
                     label={columnLabel(column)}
                     dataKey={column}
-                    width={setColumnWidth(column)}
-                    flexGrow={1}
+                    flexGrow={0}
                     cellRenderer={cell =>
                       cellRenderer({ props: this.props, cell })}
+                    {...columnWidthProps(column, data)}
                   />
                 ))}
               </VirtualizedTable>
@@ -226,7 +248,7 @@ Table.defaultProps = {
   headerHeight: 30,
   defaultColumns: [],
   hasColumnSelect: false,
-  setColumnWidth: () => 60,
+  setColumnWidth: null,
   setRowsHeight: () => 80,
   ellipsisColumns: [],
   firstColumnHeaders: []
