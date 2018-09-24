@@ -36,7 +36,7 @@ SankeyNode.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   index: PropTypes.number,
-  payload: PropTypes.shape,
+  payload: PropTypes.object,
   config: PropTypes.shape({
     unit: PropTypes.string,
     suffix: PropTypes.string
