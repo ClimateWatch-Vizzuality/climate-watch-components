@@ -14162,7 +14162,7 @@ module.exports = (function(e) {
               return Array.from(e);
             })(Array(t).keys())
           ).forEach(function(e) {
-            n[e][r].length && (i += n[e][r].length, o += 1);
+            n[e] && n[e][r] && n[e][r].length && (i += n[e][r].length, o += 1);
           }), o < 1 ? e.standardColumnWidth : i / o;
         }, this.getColumnLength = function(t, n) {
           var r = e.getMeanLength(e.columnWidthSamples, t, n) *
