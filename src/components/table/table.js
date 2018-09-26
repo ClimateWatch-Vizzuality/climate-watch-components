@@ -109,7 +109,7 @@ class Table extends PureComponent {
     let samples = 0;
     let aggregatedLenght = 0;
     sampleNumbersArray.forEach(n => {
-      if (data[n][column].length) {
+      if (data[n] && data[n][column] && data[n][column].length) {
         aggregatedLenght += data[n][column].length;
         samples += 1;
       }
