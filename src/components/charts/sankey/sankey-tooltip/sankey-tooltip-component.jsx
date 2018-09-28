@@ -41,19 +41,19 @@ class SankeyTooltip extends PureComponent {
                             node.payload.payload.source.color
                         }}
                       />
-                      <p className={styles.labelName}>
+                      <div className={styles.labelName}>
                         {
                           node.payload.payload &&
                             node.payload.payload.source &&
                             node.payload.payload.source.name
                         }
-                      </p>
+                      </div>
                     </div>
-                    <p className={styles.labelValue}>
+                    <div className={styles.labelValue}>
                       {node.value}
-                    </p>
+                    </div>
                   </div>
-                  {tooltipChildren}
+                  {tooltipChildren && tooltipChildren(node)}
                 </div>
               ) : null
             )
@@ -77,7 +77,7 @@ SankeyTooltip.propTypes = {
   config: PropTypes.shape({
     unit: PropTypes.string
   }),
-  tooltipChildren: PropTypes.node
+  tooltipChildren: PropTypes.func
 };
 
 SankeyTooltip.defaultProps = { content: null, config: {}, tooltipChildren: null };
