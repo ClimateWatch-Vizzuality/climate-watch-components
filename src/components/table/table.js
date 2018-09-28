@@ -244,11 +244,11 @@ class Table extends PureComponent {
 
 Table.propTypes = {
   /* Array of any kind of data you want to display */
+  // eslint-disable-next-line react/forbid-prop-types
   data: PropTypes.array.isRequired,
-  // eslint-disable-line react/forbid-prop-types
   /* Initial columns active in the table */
+  // eslint-disable-next-line react/forbid-prop-types
   defaultColumns: PropTypes.array,
-  // eslint-disable-line react/forbid-prop-types
   /* Initial column to sort by */
   sortBy: PropTypes.string,
   /* Include top right dropdown to filter active columns */
@@ -262,12 +262,12 @@ Table.propTypes = {
   /* Initial table header height */
   headerHeight: PropTypes.number,
   /* Trim line to include ... */
+  // eslint-disable-next-line react/forbid-prop-types
   ellipsisColumns: PropTypes.array,
-  // eslint-disable-line react/forbid-prop-types
   /* Boolean to allow scroll in the horizontal direction */
   horizontalScroll: PropTypes.bool.isRequired,
   /* Array to order the column headers */
-  // eslint-disable-line react/forbid-prop-types
+  // eslint-disable-next-line react/forbid-prop-types
   firstColumnHeaders: PropTypes.array
 };
 
