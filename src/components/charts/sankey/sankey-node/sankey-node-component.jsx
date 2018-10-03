@@ -36,7 +36,20 @@ SankeyNode.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   index: PropTypes.number,
-  payload: PropTypes.object,
+  payload: PropTypes.shape({
+    color: PropTypes.string,
+    depth: PropTypes.number,
+    dx: PropTypes.number,
+    dy: PropTypes.number,
+    name: PropTypes.string,
+    SourceLinks: PropTypes.array,
+    SourceNodes: PropTypes.array,
+    targetLinks: PropTypes.array,
+    targetNodes: PropTypes.array,
+    value: PropTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number
+  }),
   config: PropTypes.shape({
     unit: PropTypes.string,
     suffix: PropTypes.string

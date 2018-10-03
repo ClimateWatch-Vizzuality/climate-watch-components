@@ -63,8 +63,8 @@ SankeyChart.propTypes = {
   containerWidth: PropTypes.number,
   /** Custom tooltip component. Will replace the default */
   customTooltip: PropTypes.node,
-  /** Components that will be added at the bottom of the tooltip */
-  tooltipChildren: PropTypes.node,
+  /** Function that takes the node info and returns the components to add at the bottom of the tooltip */
+  tooltipChildren: PropTypes.func,
   /** Configuration */
   config: PropTypes.shape({
     /** Configuration for the tooltip */

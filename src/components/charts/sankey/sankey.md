@@ -32,5 +32,5 @@ initialState = {
   loading: false
 };
 
-<SankeyChart data={data} />
+<SankeyChart data={data} tooltipChildren={node => <div>Tooltip Extra Info: {node.name}</div>} />
 ```
