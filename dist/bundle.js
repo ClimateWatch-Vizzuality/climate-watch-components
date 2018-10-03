@@ -5338,7 +5338,7 @@ module.exports = (function(e) {
                             }
                           }),
                           i.default.createElement(
-                            'p',
+                            'div',
                             { className: l.default.labelName },
                             e.payload.payload &&
                               e.payload.payload.source &&
@@ -5346,12 +5346,12 @@ module.exports = (function(e) {
                           )
                         ),
                         i.default.createElement(
-                          'p',
+                          'div',
                           { className: l.default.labelValue },
                           e.value
                         )
                       ),
-                      r
+                      r && r(e)
                     )
                     : null;
                 }),
@@ -5364,7 +5364,7 @@ module.exports = (function(e) {
     s.propTypes = {
       content: a.default.shape({ payload: a.default.array }),
       config: a.default.shape({ unit: a.default.string }),
-      tooltipChildren: a.default.node
+      tooltipChildren: a.default.func
     }, s.defaultProps = { content: null, config: {}, tooltipChildren: null }, t.default = s;
   },
   '6sVZ': function(e, t) {
@@ -15069,7 +15069,20 @@ module.exports = (function(e) {
       width: a.PropTypes.number,
       height: a.PropTypes.number,
       index: a.PropTypes.number,
-      payload: a.PropTypes.object,
+      payload: a.PropTypes.shape({
+        color: a.PropTypes.string,
+        depth: a.PropTypes.number,
+        dx: a.PropTypes.number,
+        dy: a.PropTypes.number,
+        name: a.PropTypes.string,
+        SourceLinks: a.PropTypes.array,
+        SourceNodes: a.PropTypes.array,
+        targetLinks: a.PropTypes.array,
+        targetNodes: a.PropTypes.array,
+        value: a.PropTypes.number,
+        x: a.PropTypes.number,
+        y: a.PropTypes.number
+      }),
       config: a.PropTypes.shape({
         unit: a.PropTypes.string,
         suffix: a.PropTypes.string
@@ -18249,9 +18262,9 @@ module.exports = (function(e) {
   'Rd+V': function(e, t, n) {
     'use strict';
     Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = c(n('cDcd')),
-      o = n('rf6O'),
-      i = c(n('FehL')),
+    var r = c(n('cDcd')), o = n('rf6O');
+    n('adkz');
+    var i = c(n('FehL')),
       a = c(n('GlS/')),
       l = c(n('QVpu')),
       u = c(n('3nzE')),
@@ -18308,7 +18321,7 @@ module.exports = (function(e) {
       nodePadding: o.PropTypes.number,
       containerWidth: o.PropTypes.number,
       customTooltip: o.PropTypes.node,
-      tooltipChildren: o.PropTypes.node,
+      tooltipChildren: o.PropTypes.func,
       config: o.PropTypes.shape({
         tooltip: o.PropTypes.object,
         node: o.PropTypes.object,
@@ -24397,9 +24410,8 @@ module.exports = (function(e) {
     })(),
       o = n('cDcd'),
       i = _(o),
-      a = _(n('rf6O'));
-    n('adkz');
-    var l = _(n('JVao')),
+      a = _(n('rf6O')),
+      l = _(n('JVao')),
       u = _(n('vVLp')),
       s = _(n('FehL')),
       c = _(n('GlS/')),
