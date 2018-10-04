@@ -1,6 +1,7 @@
 import React from 'react';
 import { Rectangle, Layer } from 'recharts';
 import { PropTypes } from 'prop-types';
+import { format } from 'd3-format';
 import styles from './sankey-node-styles.scss';
 
 function SankeyNode({ x, y, width, height, index, payload, config, containerWidth }) {
@@ -8,6 +9,8 @@ function SankeyNode({ x, y, width, height, index, payload, config, containerWidt
   const isOut = x + width + padding > containerWidth;
   const unit = config.unit ? `${config.unit} ` : '';
   const suffix = config.suffix ? ` ${config.suffix}` : '';
+  const scale = config.scale || 1;
+  const valueFormat = config.format || '~r';
   return (
     <Layer key={`CustomNode${index}`}>
       <Rectangle
@@ -24,7 +27,7 @@ function SankeyNode({ x, y, width, height, index, payload, config, containerWidt
         y={y + height / 2}
         className={styles.nodeText}
       >
-        {`${payload.name}: ${unit}${payload.value}${suffix}`}
+        {`${payload.name}: ${unit}${format(valueFormat)(payload.value * scale)}${suffix}`}
       </text>
     </Layer>
   );
