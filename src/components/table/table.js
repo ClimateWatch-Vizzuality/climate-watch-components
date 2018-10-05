@@ -34,7 +34,7 @@ class Table extends PureComponent {
         []
     };
     this.standardColumnWidth = 180;
-    this.minColumnWidth = 50;
+    this.minColumnWidth = 80;
     this.maxColumnWidth = 300;
     this.lengthWidthRatio = 4;
     this.columnWidthSamples = 5;
@@ -125,7 +125,13 @@ class Table extends PureComponent {
       column
     );
     const length = meanLenght * this.lengthWidthRatio;
+    const arrowPadding = 8;
+    const columnTitleLength = (column.length + arrowPadding) *
+      this.lengthWidthRatio;
+
     if (length < this.minColumnWidth) return this.minColumnWidth;
+    if (columnTitleLength > this.minColumnWidth && length < columnTitleLength)
+      return columnTitleLength;
     if (length > this.maxColumnWidth) return this.maxColumnWidth;
     return length;
   };
