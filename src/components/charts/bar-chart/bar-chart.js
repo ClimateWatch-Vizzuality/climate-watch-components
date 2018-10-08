@@ -121,6 +121,7 @@ class SimpleBarChart extends PureComponent {
             />
             {dataKeys.map(dataKey => (
               <Bar
+                key={dataKey}
                 dataKey={dataKey}
                 fill={config.theme[dataKey] && config.theme[dataKey].fill}
               />

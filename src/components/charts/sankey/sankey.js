@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Sankey, Tooltip, ResponsiveContainer } from 'recharts';
 import SankeyTooltip from './sankey-tooltip';
+import SankeyLink from './sankey-link';
 import SankeyNode from './sankey-node';
 
 function SankeyChart(
@@ -14,6 +15,8 @@ function SankeyChart(
     data,
     config,
     customTooltip,
+    customLink,
+    customNode,
     tooltipChildren
   }
 ) {
@@ -25,8 +28,10 @@ function SankeyChart(
         data={data}
         nodeWidth={nodeWidth}
         nodePadding={nodePadding}
+        link={customLink || <SankeyLink />}
         node={
-          <SankeyNode containerWidth={containerWidth} config={config.node} />
+          customNode ||
+            <SankeyNode containerWidth={containerWidth} config={config.node} />
         }
       >
         {
@@ -63,6 +68,10 @@ SankeyChart.propTypes = {
   containerWidth: PropTypes.number,
   /** Custom tooltip component. Will replace the default */
   customTooltip: PropTypes.node,
+  /** Custom link component. Will replace the default */
+  customLink: PropTypes.node,
+  /** Custom node component. Will replace the default */
+  customNode: PropTypes.node,
   /** Function that takes the node info and returns the components to add at the bottom of the tooltip */
   tooltipChildren: PropTypes.func,
   /** Configuration */
@@ -85,6 +94,8 @@ SankeyChart.defaultProps = {
   containerWidth: 800,
   config: {},
   customTooltip: null,
+  customLink: null,
+  customNode: null,
   tooltipChildren: null
 };
 
