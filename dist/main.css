@@ -1127,6 +1127,10 @@ input:checked ~ .cw__check-input-styles_label {
 .cw__sankey-tooltip-styles_focus {
   margin-top: 10px;
   font-size: 0.8125rem; }
+.cw__sankey-link-styles_link {
+  cursor: pointer; }
+  .cw__sankey-link-styles_link:hover {
+    stroke-opacity: 0.3; }
 .cw__sankey-node-styles_nodeText {
   font-size: 0.8125rem;
   font-weight: 300;
@@ -1289,7 +1293,6 @@ input:checked ~ .cw__check-input-styles_label {
     .cw__table-styles_table .ReactVirtualized__Table__Grid:focus {
       outline: none; }
   .cw__table-styles_table .ReactVirtualized__Table__row {
-    border-bottom: solid 1px #e5e5eb;
     align-items: flex-start;
     padding: 10px 0; }
   .cw__table-styles_table .ReactVirtualized__Table__rowColumn {
