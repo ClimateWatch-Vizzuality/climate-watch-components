@@ -1,0 +1,9 @@
+@import '~styles/settings.scss';
+
+.link {
+  cursor: pointer;
+
+  &:hover {
+    stroke-opacity: 0.3;
+  }
+}

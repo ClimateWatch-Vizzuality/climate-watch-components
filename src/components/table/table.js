@@ -34,10 +34,12 @@ class Table extends PureComponent {
         []
     };
     this.standardColumnWidth = 180;
-    this.minColumnWidth = 50;
+    this.minColumnWidth = 80;
     this.maxColumnWidth = 300;
     this.lengthWidthRatio = 4;
     this.columnWidthSamples = 5;
+    this.minRowHeight = 80;
+    this.rowHeightWithEllipsis = 150;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -125,7 +127,13 @@ class Table extends PureComponent {
       column
     );
     const length = meanLenght * this.lengthWidthRatio;
+    const arrowPadding = 8;
+    const columnTitleLength = (column.length + arrowPadding) *
+      this.lengthWidthRatio;
+
     if (length < this.minColumnWidth) return this.minColumnWidth;
+    if (columnTitleLength > this.minColumnWidth && length < columnTitleLength)
+      return columnTitleLength;
     if (length > this.maxColumnWidth) return this.maxColumnWidth;
     return length;
   };
@@ -169,7 +177,11 @@ class Table extends PureComponent {
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
     const columnLabel = columnSlug => capitalize(columnSlug.replace(/_/g, ' '));
-
+    const rowsHeight = d => {
+      if (setRowsHeight) return setRowsHeight(d);
+      if (ellipsisColumns.length > 0) return this.rowHeightWithEllipsis;
+      return this.minRowHeight;
+    };
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -209,7 +221,7 @@ class Table extends PureComponent {
                 height={tableHeight}
                 headerHeight={headerHeight}
                 rowClassName={this.rowClassName}
-                rowHeight={({ index }) => setRowsHeight(data[index])}
+                rowHeight={({ index }) => rowsHeight(data[index])}
                 rowCount={data.length}
                 sort={this.handleSortChange}
                 sortBy={sortBy}
@@ -278,7 +290,7 @@ Table.defaultProps = {
   defaultColumns: [],
   hasColumnSelect: false,
   setColumnWidth: null,
-  setRowsHeight: () => 80,
+  setRowsHeight: null,
   ellipsisColumns: [],
   firstColumnHeaders: []
 };

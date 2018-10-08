@@ -1,11 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
+import { format } from 'd3-format';
 import styles from './sankey-tooltip-styles.scss';
 
 class SankeyTooltip extends PureComponent {
   render() {
     const { config, content, tooltipChildren } = this.props;
+    const suffix = config.suffix ? ` ${config.suffix}` : '';
+    const scale = config.scale || 1;
+    const valueFormat = config.format || '~r';
     return (
       <div className={styles.tooltip}>
         {
@@ -50,7 +53,7 @@ class SankeyTooltip extends PureComponent {
                       </div>
                     </div>
                     <div className={styles.labelValue}>
-                      {node.value}
+                      {`${format(valueFormat)(node.value * scale)}${suffix}`}
                     </div>
                   </div>
                   {tooltipChildren && tooltipChildren(node)}
