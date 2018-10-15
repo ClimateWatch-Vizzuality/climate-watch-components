@@ -4022,7 +4022,8 @@ module.exports = (function(e) {
                         i.default.createElement(x.default, {
                           content: e,
                           config: l,
-                          showTotal: !0
+                          showTotal: !0,
+                          getCustomYLabelFormat: k
                         });
                     },
                     filterNull: !1
@@ -5471,7 +5472,8 @@ module.exports = (function(e) {
           s = e.payload,
           c = e.unit,
           f = e.precision,
-          d = e.getCustomYLabelFormat;
+          d = e.getCustomYLabelFormat,
+          p = e.suffix;
         return r.default.createElement(
           'g',
           { transform: 'translate(' + l + ',' + u + ')' },
@@ -5488,12 +5490,10 @@ module.exports = (function(e) {
             },
             0 === a && (0 === s.value || s.value < 0 && s.value > -.001)
               ? '0'
-              : (t = c, n = f, o = s.value, d ? d(o) : (function(e, t, n) {
-                  var r = e ? 'r' : 's';
-                  t && (r = 'f');
-                  var o = e ? '' : 't';
-                  return '' + (0, i.format)('.2' + r)(n) + o;
-                })(t, n, o))
+              : '' + (t = c, n = f, o = s.value, d ? d(o) : (function(e, t, n) {
+                    var r = e ? 'r' : 's';
+                    return t && (r = 'f'), '' + (0, i.format)('.2' + r)(n);
+                  })(t, n, o)) + (p || '')
           )
         );
       };
@@ -5501,7 +5501,7 @@ module.exports = (function(e) {
       x: o.default.number,
       y: o.default.number,
       payload: o.default.object
-    }, l.defaultProps = { x: null, y: null, payload: {} }, u.propTypes = { x: o.default.number, y: o.default.number, index: o.default.number, payload: o.default.object, unit: o.default.oneOfType([ o.default.string, o.default.bool ]), precision: o.default.number, getCustomYLabelFormat: o.default.func }, u.defaultProps = { x: null, y: null, index: null, payload: {}, unit: null, precision: null, getCustomYLabelFormat: null }, u.defaultProps = { precision: null, unit: !1 };
+    }, l.defaultProps = { x: null, y: null, payload: {} }, u.propTypes = { x: o.default.number, y: o.default.number, index: o.default.number, payload: o.default.object, unit: o.default.oneOfType([ o.default.string, o.default.bool ]), suffix: o.default.string, precision: o.default.number, getCustomYLabelFormat: o.default.func }, u.defaultProps = { x: null, y: null, index: null, payload: {}, unit: null, suffix: null, precision: null, getCustomYLabelFormat: null }, u.defaultProps = { precision: null, unit: !1 };
   },
   '7GkX': function(e, t, n) {
     var r = n('b80T'), o = n('A90E'), i = n('MMmD');
@@ -15374,6 +15374,12 @@ module.exports = (function(e) {
         };
     t.raf = o, t.caf = i;
   },
+  OFL0: function(e, t, n) {
+    var r = n('lvO4'), o = n('4sDh');
+    e.exports = function(e, t) {
+      return null != e && o(e, t, r);
+    };
+  },
   OY0l: function(e, t, n) {
     e.exports = !n('qN3Q') && !n('YvHU')(function() {
         return 7 != Object.defineProperty(n('EZEv')('div'), 'a', {
@@ -18259,9 +18265,9 @@ module.exports = (function(e) {
   'Rd+V': function(e, t, n) {
     'use strict';
     Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = f(n('cDcd')), o = n('rf6O');
-    n('adkz');
-    var i = f(n('FehL')),
+    var r = f(n('cDcd')),
+      o = n('rf6O'),
+      i = f(n('FehL')),
       a = f(n('GlS/')),
       l = f(n('QVpu')),
       u = f(n('3nzE')),
@@ -20953,7 +20959,8 @@ module.exports = (function(e) {
                         i.default.createElement(v.default, {
                           content: e,
                           config: t,
-                          forceFixedFormatDecimals: g
+                          forceFixedFormatDecimals: g,
+                          getCustomYLabelFormat: w
                         });
                     }
                   }),
@@ -24397,7 +24404,37 @@ module.exports = (function(e) {
       dataSelected: a.default.array,
       onLegendChange: a.default.func,
       data: a.default.array.isRequired,
-      config: a.default.object.isRequired,
+      config: a.default.shape({
+        animation: a.default.bool,
+        axes: a.default.shape({
+          xBottom: a.default.shape({
+            name: a.default.string,
+            unit: a.default.string,
+            format: a.default.string,
+            suffix: a.default.string
+          }),
+          yLeft: a.default.shape({
+            name: a.default.string,
+            unit: a.default.string,
+            format: a.default.string,
+            suffix: a.default.string
+          })
+        }),
+        columns: a.default.objectOf(
+          a.default.arrayOf(
+            a.default.shape({
+              label: a.default.string,
+              value: a.default.string
+            })
+          )
+        ),
+        theme: a.default.objectOf(
+          a.default.shape({ stroke: a.default.string, fill: a.default.string })
+        ),
+        tooltip: a.default.objectOf(
+          a.default.shape({ label: a.default.string })
+        )
+      }).isRequired,
       height: a.default.oneOfType([ a.default.string, a.default.number ]),
       model: a.default.shape({ url: a.default.string, logo: a.default.string }),
       theme: a.default.shape({ wrapper: a.default.string }),
@@ -24464,32 +24501,34 @@ module.exports = (function(e) {
       };
     })(),
       o = n('cDcd'),
-      i = _(o),
-      a = _(n('rf6O')),
-      l = _(n('JVao')),
-      u = _(n('vVLp')),
-      s = _(n('FehL')),
-      c = _(n('GlS/')),
-      f = _(n('ukY8')),
-      d = _(n('nyGZ')),
-      p = _(n('NbxL')),
-      h = _(n('K2gz')),
-      y = _(n('qCFj')),
-      m = _(n('k80J')),
-      v = _(n('sEfC')),
-      g = n('7C9U'),
-      b = _(n('Np/e'));
-    function _(e) {
+      i = x(o),
+      a = x(n('rf6O')),
+      l = x(n('OFL0'));
+    n('adkz');
+    var u = x(n('JVao')),
+      s = x(n('vVLp')),
+      c = x(n('FehL')),
+      f = x(n('GlS/')),
+      d = x(n('ukY8')),
+      p = x(n('nyGZ')),
+      h = x(n('NbxL')),
+      y = x(n('K2gz')),
+      m = x(n('qCFj')),
+      v = x(n('k80J')),
+      g = x(n('sEfC')),
+      b = n('7C9U'),
+      _ = x(n('Np/e'));
+    function x(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function x(e, t) {
+    function w(e, t) {
       if (!e)
         throw new ReferenceError(
           "this hasn't been initialised - super() hasn't been called"
         );
       return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
     }
-    var w = (function(e) {
+    var O = (function(e) {
       function t() {
         var e, n, r;
         !(function(e, t) {
@@ -24498,13 +24537,13 @@ module.exports = (function(e) {
         })(this, t);
         for (var o = arguments.length, i = Array(o), a = 0; a < o; a++)
           i[a] = arguments[a];
-        return n = r = x(
+        return n = r = w(
           this,
           (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(
             e,
             [ this ].concat(i)
           )
-        ), r.debouncedMouseMove = (0, v.default)(
+        ), r.debouncedMouseMove = (0, g.default)(
           function(e) {
             r.props.onMouseMove(e);
           },
@@ -24512,7 +24551,7 @@ module.exports = (function(e) {
         ), r.handleMouseMove = function(e) {
           var t = e && e.activeLabel;
           t && r.debouncedMouseMove(t);
-        }, x(r, n);
+        }, w(r, n);
       }
       return (function(e, t) {
         if ('function' != typeof t && null !== t)
@@ -24541,33 +24580,39 @@ module.exports = (function(e) {
               r = e.dataOptions,
               o = e.loading,
               a = e.onLegendChange,
-              v = e.model,
-              _ = e.hideRemoveOptions,
-              x = e.dataSelected,
-              w = e.height,
-              O = e.margin,
-              S = e.domain,
-              T = e.showUnit,
-              C = e.forceFixedFormatDecimals,
-              E = e.theme,
-              M = e.children,
-              k = e.areaAsBackgroundForCartesianGrid,
-              A = e.customXAxisTick,
-              P = e.customYAxisTick,
-              j = e.customTooltip,
-              N = e.getCustomYLabelFormat,
-              R = T && t && t.axes && t.axes.yLeft && t.axes.yLeft.unit
-                ? t.axes.yLeft.unit
-                : null,
-              I = !o && r,
-              D = i.default.createElement(u.default, {
+              g = e.model,
+              x = e.hideRemoveOptions,
+              w = e.dataSelected,
+              O = e.height,
+              S = e.margin,
+              T = e.domain,
+              C = e.showUnit,
+              E = e.forceFixedFormatDecimals,
+              M = e.theme,
+              k = e.children,
+              A = e.areaAsBackgroundForCartesianGrid,
+              P = e.customXAxisTick,
+              j = e.customYAxisTick,
+              N = e.customTooltip,
+              R = e.getCustomYLabelFormat,
+              I = C &&
+                t &&
+                (0, l.default)(t, 'axes.yLeft.unit') &&
+                t.axes.yLeft.unit ||
+                null,
+              D = t &&
+                (0, l.default)(t, 'axes.yLeft.suffix') &&
+                t.axes.yLeft.suffix ||
+                null,
+              L = !o && r,
+              z = i.default.createElement(s.default, {
                 position: 'top',
                 offset: 20,
                 content: function() {
                   return i.default.createElement(
                     'text',
                     { x: '8', y: '20' },
-                    R
+                    I
                   );
                 }
               });
@@ -24575,80 +24620,82 @@ module.exports = (function(e) {
               'div',
               null,
               i.default.createElement(
-                s.default,
-                { height: w, margin: O },
+                c.default,
+                { height: O, margin: S },
                 i.default.createElement(
-                  l.default,
+                  u.default,
                   {
                     data: n,
                     margin: { top: 10, right: 0, left: -10, bottom: 0 },
                     onMouseMove: this.handleMouseMove
                   },
-                  k,
-                  i.default.createElement(p.default, {
+                  A,
+                  i.default.createElement(h.default, {
                     dataKey: 'x',
                     scale: 'time',
                     type: 'number',
-                    tick: A || i.default.createElement(g.CustomXAxisTick, null),
+                    tick: P || i.default.createElement(b.CustomXAxisTick, null),
                     padding: { left: 15, right: 20 },
                     tickSize: 8,
-                    domain: S && S.x || [ 'auto', 'auto' ],
+                    domain: T && T.x || [ 'auto', 'auto' ],
                     interval: 'preserveStartEnd'
                   }),
                   i.default.createElement(
-                    d.default,
+                    p.default,
                     {
                       axisLine: !1,
                       tickLine: !1,
                       scale: 'linear',
                       type: 'number',
-                      tick: P ||
-                        i.default.createElement(g.CustomYAxisTick, {
+                      tick: j ||
+                        i.default.createElement(b.CustomYAxisTick, {
                           precision: t.precision,
-                          unit: R,
-                          getCustomYLabelFormat: N
+                          unit: I,
+                          suffix: D,
+                          getCustomYLabelFormat: R
                         }),
-                      domain: S && S.y || [ 'auto', 'auto' ],
+                      domain: T && T.y || [ 'auto', 'auto' ],
                       interval: 'preserveStartEnd'
                     },
-                    D
+                    z
                   ),
-                  i.default.createElement(f.default, { vertical: !1 }),
-                  i.default.createElement(c.default, {
+                  i.default.createElement(d.default, { vertical: !1 }),
+                  i.default.createElement(f.default, {
                     isAnimationActive: !1,
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     filterNull: !1,
                     content: function(e) {
-                      return j &&
-                        i.default.cloneElement(j, { content: e, config: t }) ||
-                        i.default.createElement(y.default, {
+                      return N &&
+                        i.default.cloneElement(N, { content: e, config: t }) ||
+                        i.default.createElement(m.default, {
                           content: e,
                           config: t,
-                          forceFixedFormatDecimals: C
+                          forceFixedFormatDecimals: E,
+                          getCustomYLabelFormat: R
                         });
                     }
                   }),
-                  M
+                  k
                 )
               ),
-              I &&
-                i.default.createElement(m.default, {
+              L &&
+                i.default.createElement(v.default, {
                   theme: {
-                    wrapper: (0, h.default)(b.default.legend, E.legend)
+                    wrapper: (0, y.default)(_.default.legend, M.legend)
                   },
                   config: t,
                   dataOptions: r,
-                  dataSelected: x,
-                  hideRemoveOptions: _,
+                  dataSelected: w,
+                  hideRemoveOptions: x,
                   onChange: a,
-                  model: v
+                  model: g
                 })
             );
           }
         }
       ]), t;
     })();
-    w.propTypes = {
+    O.propTypes = {
       config: a.default.shape({ columns: a.default.object }).isRequired,
       data: a.default.array.isRequired,
       dataOptions: a.default.array,
@@ -24670,7 +24717,7 @@ module.exports = (function(e) {
       customYAxisTick: a.default.node,
       customTooltip: a.default.node,
       getCustomYLabelFormat: a.default.func
-    }, w.defaultProps = {
+    }, O.defaultProps = {
       height: '100%',
       showUnit: !1,
       onMouseMove: function() {
@@ -24691,7 +24738,7 @@ module.exports = (function(e) {
       customYAxisTick: null,
       customTooltip: null,
       getCustomYLabelFormat: null
-    }, t.default = w;
+    }, t.default = O;
   },
   c4Qx: function(e, t) {
     e.exports = {
@@ -30089,31 +30136,32 @@ module.exports = (function(e) {
       };
     })(),
       o = n('cDcd'),
-      i = b(o),
-      a = b(n('rf6O')),
-      l = b(n('vVLp')),
-      u = b(n('FehL')),
-      s = b(n('GlS/')),
-      c = b(n('ukY8')),
-      f = b(n('nyGZ')),
-      d = b(n('NbxL')),
-      p = b(n('SCd1')),
-      h = b(n('qbDl')),
-      y = b(n('qCFj')),
-      m = b(n('sEfC')),
-      v = b(n('TP7S')),
-      g = n('7C9U');
-    function b(e) {
+      i = _(o),
+      a = _(n('rf6O')),
+      l = _(n('OFL0')),
+      u = _(n('vVLp')),
+      s = _(n('FehL')),
+      c = _(n('GlS/')),
+      f = _(n('ukY8')),
+      d = _(n('nyGZ')),
+      p = _(n('NbxL')),
+      h = _(n('SCd1')),
+      y = _(n('qbDl')),
+      m = _(n('qCFj')),
+      v = _(n('sEfC')),
+      g = _(n('TP7S')),
+      b = n('7C9U');
+    function _(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function _(e, t) {
+    function x(e, t) {
       if (!e)
         throw new ReferenceError(
           "this hasn't been initialised - super() hasn't been called"
         );
       return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
     }
-    var x = (function(e) {
+    var w = (function(e) {
       function t() {
         var e, n, r;
         !(function(e, t) {
@@ -30122,13 +30170,13 @@ module.exports = (function(e) {
         })(this, t);
         for (var o = arguments.length, i = Array(o), a = 0; a < o; a++)
           i[a] = arguments[a];
-        return n = r = _(
+        return n = r = x(
           this,
           (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(
             e,
             [ this ].concat(i)
           )
-        ), r.debouncedMouseMove = (0, m.default)(
+        ), r.debouncedMouseMove = (0, v.default)(
           function(e) {
             r.props.onMouseMove(e);
           },
@@ -30136,7 +30184,7 @@ module.exports = (function(e) {
         ), r.handleMouseMove = function(e) {
           var t = e && e.activeLabel;
           t && r.debouncedMouseMove(t);
-        }, _(r, n);
+        }, x(r, n);
       }
       return (function(e, t) {
         if ('function' != typeof t && null !== t)
@@ -30165,92 +30213,97 @@ module.exports = (function(e) {
               r = e.data,
               o = e.height,
               a = e.margin,
-              m = e.domain,
-              b = e.showUnit,
-              _ = e.forceFixedFormatDecimals,
-              x = e.lineType,
-              w = e.customXAxisTick,
-              O = e.customYAxisTick,
-              S = e.customTooltip,
-              T = e.getCustomYLabelFormat,
-              C = b && n && n.axes && n.axes.yLeft && n.axes.yLeft.unit
+              v = e.domain,
+              _ = e.showUnit,
+              x = e.forceFixedFormatDecimals,
+              w = e.lineType,
+              O = e.customXAxisTick,
+              S = e.customYAxisTick,
+              T = e.customTooltip,
+              C = e.getCustomYLabelFormat,
+              E = _ && (0, l.default)(n, 'axes.yLeft.unit')
                 ? n.axes.yLeft.unit
                 : null,
-              E = i.default.createElement(l.default, {
+              M = (0, l.default)(n, 'axes.yLeft.suffix')
+                ? n.axes.yLeft.suffix
+                : null,
+              k = i.default.createElement(u.default, {
                 position: 'top',
                 offset: 20,
                 content: function() {
                   return i.default.createElement(
                     'text',
                     { x: '8', y: '20' },
-                    C
+                    E
                   );
                 }
               });
             return i.default.createElement(
-              u.default,
+              s.default,
               { height: o, margin: a },
               i.default.createElement(
-                h.default,
+                y.default,
                 {
                   data: r,
                   margin: { top: 10, right: 0, left: -10, bottom: 0 },
                   onMouseMove: this.handleMouseMove
                 },
-                i.default.createElement(d.default, {
+                i.default.createElement(p.default, {
                   dataKey: 'x',
                   scale: 'time',
                   type: 'number',
-                  tick: w || i.default.createElement(g.CustomXAxisTick, null),
+                  tick: O || i.default.createElement(b.CustomXAxisTick, null),
                   padding: { left: 15, right: 20 },
                   tickSize: 8,
-                  domain: m && m.x || [ 'auto', 'auto' ],
+                  domain: v && v.x || [ 'auto', 'auto' ],
                   interval: 'preserveStartEnd'
                 }),
                 i.default.createElement(
-                  f.default,
+                  d.default,
                   {
                     axisLine: !1,
                     tickLine: !1,
                     scale: 'linear',
                     type: 'number',
-                    tick: O ||
-                      i.default.createElement(g.CustomYAxisTick, {
+                    tick: S ||
+                      i.default.createElement(b.CustomYAxisTick, {
                         precision: n.precision,
-                        unit: C,
-                        getCustomYLabelFormat: T
+                        unit: E,
+                        suffix: M,
+                        getCustomYLabelFormat: C
                       }),
-                    domain: m && m.y || [ 'auto', 'auto' ],
+                    domain: v && v.y || [ 'auto', 'auto' ],
                     interval: 'preserveStartEnd'
                   },
-                  E
+                  k
                 ),
-                i.default.createElement(c.default, { vertical: !1 }),
-                i.default.createElement(s.default, {
+                i.default.createElement(f.default, { vertical: !1 }),
+                i.default.createElement(c.default, {
                   isAnimationActive: !1,
                   cursor: { stroke: '#113750', strokeWidth: 2 },
                   filterNull: !1,
                   content: function(e) {
-                    return S &&
-                      i.default.cloneElement(S, { content: e, config: n }) ||
-                      i.default.createElement(y.default, {
+                    return T &&
+                      i.default.cloneElement(T, { content: e, config: n }) ||
+                      i.default.createElement(m.default, {
                         content: e,
                         config: n,
-                        forceFixedFormatDecimals: _
+                        forceFixedFormatDecimals: x,
+                        getCustomYLabelFormat: C
                       });
                   }
                 }),
                 n.columns && n.columns.y.map(function(e) {
                     var r = n.theme[e.value].stroke || '';
-                    return i.default.createElement(p.default, {
+                    return i.default.createElement(h.default, {
                       key: e.value,
-                      isAnimationActive: !!(0, v.default)(n.animation) ||
+                      isAnimationActive: !!(0, g.default)(n.animation) ||
                         n.animation,
                       dot: t && { strokeWidth: 0, fill: r, radius: .5 },
                       dataKey: e.value,
                       stroke: r,
                       strokeWidth: 2,
-                      type: x
+                      type: w
                     });
                   })
               )
@@ -30259,7 +30312,7 @@ module.exports = (function(e) {
         }
       ]), t;
     })();
-    x.propTypes = {
+    w.propTypes = {
       dots: a.default.bool,
       config: a.default.object.isRequired,
       data: a.default.array.isRequired,
@@ -30274,7 +30327,7 @@ module.exports = (function(e) {
       customXAxisTick: a.default.node,
       customTooltip: a.default.node,
       getCustomYLabelFormat: a.default.func
-    }, x.defaultProps = {
+    }, w.defaultProps = {
       dots: !0,
       height: '100%',
       showUnit: !1,
@@ -30288,7 +30341,7 @@ module.exports = (function(e) {
       customXAxisTick: null,
       customTooltip: null,
       getCustomYLabelFormat: null
-    }, t.default = x;
+    }, t.default = w;
   },
   kb7i: function(e, t, n) {
     'use strict';
@@ -31841,6 +31894,12 @@ module.exports = (function(e) {
         );
       return r > a ? (0, i.reverse)(m) : m;
     });
+  },
+  lvO4: function(e, t) {
+    var n = Object.prototype.hasOwnProperty;
+    e.exports = function(e, t) {
+      return null != e && n.call(e, t);
+    };
   },
   mEWj: function(e, t, n) {
     'use strict';
@@ -35151,7 +35210,7 @@ module.exports = (function(e) {
           return e.forEach(function(e) {
             (t.payload[e.value] || 0 === t.payload[e.value]) &&
               (i = !0, o += t.payload[e.value]);
-          }), i ? (0, l.format)(r.getFormat())(o) + (n ? 't' : '') : 'n/a';
+          }), i ? '' + r.formatValue(o) + (n || '') : 'n/a';
         }, r.sortByValue = function(e) {
           var t = e[0].payload;
           return e.sort(function(e, n) {
@@ -35162,13 +35221,11 @@ module.exports = (function(e) {
         }, r.renderValue = function(e, t) {
           return e.payload && void 0 !== e.payload[e.dataKey]
             ? Array.isArray(e.payload[e.dataKey])
-              ? (0, l.format)(r.getFormat())(e.payload[e.dataKey][0]) +
+              ? r.formatValue(e.payload[e.dataKey][0]) +
                 ' - ' +
-                (0, l.format)(r.getFormat())(e.payload[e.dataKey][1]) +
-                ' ' +
-                (t ? 't' : '')
-              : (0, l.format)(r.getFormat())(e.payload[e.dataKey]) +
-                (t ? 't' : '')
+                r.formatValue(e.payload[e.dataKey][1]) +
+                (t || '')
+              : '' + r.formatValue(e.payload[e.dataKey]) + (t || '')
             : 'n/a';
         }, d(r, n);
       }
@@ -35191,10 +35248,12 @@ module.exports = (function(e) {
             : e.__proto__ = t);
       })(t, o.PureComponent), r(t, [
         {
-          key: 'getFormat',
-          value: function() {
-            var e = this.props.forceFixedFormatDecimals;
-            return e ? '.' + e + 'f' : '.2s';
+          key: 'formatValue',
+          value: function(e) {
+            var t = this.props,
+              n = t.forceFixedFormatDecimals,
+              r = t.getCustomYLabelFormat;
+            return r ? r(e) : (0, l.format)(n ? '.' + n + 'f' : '.2s')(e);
           }
         },
         {
@@ -35206,7 +35265,7 @@ module.exports = (function(e) {
               r = t.content,
               o = t.showTotal,
               a = n && n.axes && n.axes.yLeft && n.axes.yLeft.unit,
-              l = 'CO<sub>2</sub>e' === a;
+              l = n && n.axes && n.axes.yLeft && n.axes.yLeft.suffix;
             return i.default.createElement(
               'div',
               { className: c.default.tooltip },
@@ -35296,9 +35355,7 @@ module.exports = (function(e) {
                     : null;
                   var r, o, a;
                 }),
-              r &&
-                !r.payload &&
-                i.default.createElement('div', null, 'No data fool')
+              r && !r.payload && i.default.createElement('div', null, 'No data')
             );
           }
         }
@@ -35308,8 +35365,9 @@ module.exports = (function(e) {
       content: a.default.object.isRequired,
       config: a.default.object.isRequired,
       showTotal: a.default.bool,
-      forceFixedFormatDecimals: a.default.number
-    }, p.defaultProps = { showTotal: !1, forceFixedFormatDecimals: null }, t.default = p;
+      forceFixedFormatDecimals: a.default.number,
+      getCustomYLabelFormat: a.default.func
+    }, p.defaultProps = { showTotal: !1, forceFixedFormatDecimals: null, getCustomYLabelFormat: null }, t.default = p;
   },
   qFS3: function(e, t, n) {
     'use strict';
