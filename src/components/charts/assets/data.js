@@ -1,7 +1,12 @@
 export const config = {
   axes: {
     xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
-    yLeft: { name: 'Emissions', unit: 'CO<sub>2</sub>e', format: 'number' }
+    yLeft: {
+      name: 'Emissions',
+      unit: 'CO<sub>2</sub>e',
+      format: 'number',
+      suffix: 't'
+    }
   },
   theme: {
     yAllGhg: { stroke: '#9854b1', fill: '#9854b1' },

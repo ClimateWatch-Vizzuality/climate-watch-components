@@ -182,6 +182,7 @@ class ChartStackedArea extends PureComponent {
                           content={content}
                           config={config}
                           showTotal
+                          getCustomYLabelFormat={getCustomYLabelFormat}
                         />
                       )}
                   filterNull={false}

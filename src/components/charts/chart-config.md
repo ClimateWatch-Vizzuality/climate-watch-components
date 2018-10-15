@@ -29,7 +29,7 @@
     label: ''
     prefix: '' // optional
     format: // just in case you want to show it in a different axes way
-    sufix: '' // optional
+    suffix: '' // optional
     type: number | date ...
   }
 }
