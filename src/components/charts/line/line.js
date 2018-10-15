@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
+import has from 'lodash/has';
 import {
   LineChart,
   Line,
@@ -47,12 +47,11 @@ class ChartLine extends PureComponent {
       customTooltip,
       getCustomYLabelFormat
     } = this.props;
-    const unit = showUnit &&
-      config &&
-      config.axes &&
-      config.axes.yLeft &&
-      config.axes.yLeft.unit
+    const unit = showUnit && has(config, 'axes.yLeft.unit')
       ? config.axes.yLeft.unit
+      : null;
+    const suffix = has(config, 'axes.yLeft.suffix')
+      ? config.axes.yLeft.suffix
       : null;
     const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
     const yAxisLabel = (
@@ -94,6 +93,7 @@ class ChartLine extends PureComponent {
                   <CustomYAxisTick
                     precision={config.precision}
                     unit={unit}
+                    suffix={suffix}
                     getCustomYLabelFormat={getCustomYLabelFormat}
                   />
                 )
@@ -116,6 +116,7 @@ class ChartLine extends PureComponent {
                     content={content}
                     config={config}
                     forceFixedFormatDecimals={forceFixedFormatDecimals}
+                    getCustomYLabelFormat={getCustomYLabelFormat}
                   />
                 )}
           />

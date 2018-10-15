@@ -7,12 +7,15 @@ import Icon from 'components/icon';
 import styles from './tooltip-chart-styles.scss';
 
 class TooltipChart extends PureComponent {
-  getFormat() {
-    const { forceFixedFormatDecimals } = this.props;
-    return forceFixedFormatDecimals ? `.${forceFixedFormatDecimals}f` : '.2s';
+  formatValue(value) {
+    const { forceFixedFormatDecimals, getCustomYLabelFormat } = this.props;
+    if (getCustomYLabelFormat) return getCustomYLabelFormat(value);
+    return format(
+      forceFixedFormatDecimals ? `.${forceFixedFormatDecimals}f` : '.2s'
+    )(value);
   }
 
-  getTotal = (keys, data, unitIsCo2) => {
+  getTotal = (keys, data, suffix) => {
     if (!keys || !data) return '';
     let total = 0;
     let hasData = false;
@@ -22,9 +25,7 @@ class TooltipChart extends PureComponent {
         total += data.payload[key.value];
       }
     });
-    return hasData
-      ? `${format(this.getFormat())(total)}${unitIsCo2 ? 't' : ''}`
-      : 'n/a';
+    return hasData ? `${this.formatValue(total)}${suffix || ''}` : 'n/a';
   };
 
   sortByValue = payload => {
@@ -37,16 +38,14 @@ class TooltipChart extends PureComponent {
     return payload.sort(compare);
   };
 
-  renderValue = (y, unitIsCo2) => {
+  renderValue = (y, suffix) => {
     if (y.payload && y.payload[y.dataKey] !== undefined) {
       if (Array.isArray(y.payload[y.dataKey])) {
-        return `${format(
-          this.getFormat()
-        )(y.payload[y.dataKey][0])} - ${format(this.getFormat())(y.payload[y.dataKey][1])} ${unitIsCo2 ? 't' : ''}`;
+        return `${this.formatValue(
+          y.payload[y.dataKey][0]
+        )} - ${this.formatValue(y.payload[y.dataKey][1])}${suffix || ''}`;
       }
-      return `${format(
-        this.getFormat()
-      )(y.payload[y.dataKey])}${unitIsCo2 ? 't' : ''}`;
+      return `${this.formatValue(y.payload[y.dataKey])}${suffix || ''}`;
     }
     return 'n/a';
   };
@@ -57,7 +56,10 @@ class TooltipChart extends PureComponent {
       config.axes &&
       config.axes.yLeft &&
       config.axes.yLeft.unit;
-    const unitIsCo2 = unit === 'CO<sub>2</sub>e';
+    const suffix = config &&
+      config.axes &&
+      config.axes.yLeft &&
+      config.axes.yLeft.suffix;
     return (
       <div className={styles.tooltip}>
         <div className={styles.tooltipHeader}>
@@ -73,13 +75,11 @@ class TooltipChart extends PureComponent {
         {
           showTotal && (
           <div className={cx(styles.label, styles.labelTotal)}>
-            <p>TOTAL</p>
             <p>
-              {this.getTotal(
-                    config.columns.y,
-                    content.payload[0],
-                    unitIsCo2
-                  )}
+                  TOTAL
+            </p>
+            <p>
+              {this.getTotal(config.columns.y, content.payload[0], suffix)}
             </p>
           </div>
             )
@@ -122,14 +122,20 @@ class TooltipChart extends PureComponent {
                         </p>
                       </div>
                       <p className={styles.labelValue}>
-                        {this.renderValue(y, unitIsCo2)}
+                        {this.renderValue(y, suffix)}
                       </p>
                     </div>
 )
                   : null
             )
         }
-        {content && !content.payload && <div>No data fool</div>}
+        {
+          content && !content.payload && (
+          <div>
+                No data
+          </div>
+            )
+        }
       </div>
     );
   }
@@ -139,12 +145,14 @@ TooltipChart.propTypes = {
   content: Proptypes.object.isRequired,
   config: Proptypes.object.isRequired,
   showTotal: Proptypes.bool,
-  forceFixedFormatDecimals: Proptypes.number
+  forceFixedFormatDecimals: Proptypes.number,
+  getCustomYLabelFormat: Proptypes.func
 };
 
 TooltipChart.defaultProps = {
   showTotal: false,
-  forceFixedFormatDecimals: null
+  forceFixedFormatDecimals: null,
+  getCustomYLabelFormat: null
 };
 
 export default TooltipChart;

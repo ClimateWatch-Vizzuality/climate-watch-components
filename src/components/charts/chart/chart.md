@@ -1,5 +1,7 @@
 ```js
+const format = require('d3-format').format;
 const data = require('../assets/data.js');
+
 initialState = {
   ...data,
   type: 'line',
@@ -17,6 +19,7 @@ const handleLegendChange = (filtersSelected) => {
     }
   })
 }
+const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
 const toggleCharType = (filtersSelected) => {
   setState(state => ({ type: state.type === 'line' ? 'area' : 'line' }))
 }
@@ -34,6 +37,7 @@ const toggleCharType = (filtersSelected) => {
     height={500}
     loading={state.loading}
     onLegendChange={handleLegendChange}
+    getCustomYLabelFormat={getCustomYLabelFormat}
   />
 </React.Fragment>
 ```

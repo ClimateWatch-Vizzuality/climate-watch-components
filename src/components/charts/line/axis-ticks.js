@@ -21,19 +21,17 @@ export const CustomXAxisTick = ({ x, y, payload }) => (
 const getYLabelformat = (unit, precision, value) => {
   let typeValue = unit ? 'r' : 's';
   if (precision) typeValue = 'f';
-  const suffix = unit ? '' : 't';
-  return `${format(`.${2}${typeValue}`)(value)}${suffix}`;
+  return `${format(`.${2}${typeValue}`)(value)}`;
 };
 
 export const CustomYAxisTick = (
-  { index, x, y, payload, unit, precision, getCustomYLabelFormat }
+  { index, x, y, payload, unit, precision, getCustomYLabelFormat, suffix }
 ) =>
   {
     const yLabelFormat = (_unit, _precision, value) =>
       getCustomYLabelFormat
         ? getCustomYLabelFormat(value)
         : getYLabelformat(_unit, _precision, value);
-
     return (
       <g transform={`translate(${x},${y})`}>
         <text
@@ -50,7 +48,7 @@ export const CustomYAxisTick = (
               (payload.value === 0 ||
                 payload.value < 0 && payload.value > -0.001)
               ? '0'
-              : yLabelFormat(unit, precision, payload.value)
+              : `${yLabelFormat(unit, precision, payload.value)}${suffix || ''}`
           }
         </text>
       </g>
@@ -71,6 +69,7 @@ CustomYAxisTick.propTypes = {
   index: PropTypes.number,
   payload: PropTypes.object,
   unit: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
+  suffix: PropTypes.string,
   precision: PropTypes.number,
   getCustomYLabelFormat: PropTypes.func
 };
@@ -81,6 +80,7 @@ CustomYAxisTick.defaultProps = {
   index: null,
   payload: {},
   unit: null,
+  suffix: null,
   precision: null,
   getCustomYLabelFormat: null
 };
