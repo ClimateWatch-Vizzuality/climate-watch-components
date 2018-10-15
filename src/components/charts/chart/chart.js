@@ -101,8 +101,35 @@ Chart.propTypes = {
   onLegendChange: PropTypes.func,
   /** Array of chart data */
   data: PropTypes.array.isRequired,
-  /** Array of chart data */
-  config: PropTypes.object.isRequired,
+  /** Array of chart data -
+   * Axes.yLeft has name, unit, format, suffix
+   * */
+  config: PropTypes.shape({
+    animation: PropTypes.bool,
+    axes: PropTypes.shape({
+      xBottom: PropTypes.shape({
+        name: PropTypes.string,
+        unit: PropTypes.string,
+        format: PropTypes.string,
+        suffix: PropTypes.string
+      }),
+      yLeft: PropTypes.shape({
+        name: PropTypes.string,
+        unit: PropTypes.string,
+        format: PropTypes.string,
+        suffix: PropTypes.string
+      })
+    }),
+    columns: PropTypes.objectOf(
+      PropTypes.arrayOf(
+        PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
+      )
+    ),
+    theme: PropTypes.objectOf(
+      PropTypes.shape({ stroke: PropTypes.string, fill: PropTypes.string })
+    ),
+    tooltip: PropTypes.objectOf(PropTypes.shape({ label: PropTypes.string }))
+  }).isRequired,
   /** Initial height of the chart in number or % */
   height: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   /** Data model url and image */

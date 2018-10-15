@@ -116,6 +116,7 @@ class SimpleBarChart extends PureComponent {
                       content={content}
                       config={config}
                       forceFixedFormatDecimals={forceFixedFormatDecimals}
+                      getCustomYLabelFormat={getCustomYLabelFormat}
                     />
                   )}
             />
