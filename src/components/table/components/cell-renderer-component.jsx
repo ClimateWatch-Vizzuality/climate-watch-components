@@ -22,7 +22,9 @@ const cellRenderer = ({
         {cellData}
       </a>
     ) : (
-      <a href={titleLink.url}>{cellData}</a>
+      <a href={titleLink.url}>
+        {cellData}
+      </a>
     );
   }
   // render Html or finally cellData
@@ -32,7 +34,9 @@ const cellRenderer = ({
   ) : (
     cellData ||
     (emptyValueLabel ? (
-      <div className={styles.emptyValue}>{emptyValueLabel}</div>
+      <div className={styles.emptyValue}>
+        {emptyValueLabel}
+      </div>
     ) : (
       ''
     ))

@@ -1,5 +1,9 @@
 @import '~styles/settings.scss';
 
+:global .recharts-tooltip-wrapper {
+  z-index: 1;
+}
+
 .tooltip {
   background: $white;
   min-width: 180px;

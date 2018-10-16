@@ -19,7 +19,8 @@ import BarTooltipChart from './bar-tooltip-chart';
 class SimpleBarChart extends PureComponent {
   debouncedMouseMove = debounce(
     year => {
-      this.props.onMouseMove(year);
+      const { onMouseMove } = this.props;
+      onMouseMove(year);
     },
     80
   );

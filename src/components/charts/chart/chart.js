@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ChartStackedArea from 'components/charts/stacked-area';
+import PercentageChart from 'components/charts/percentage';
 import LineChart from 'components/charts/line';
 import SimpleBarChart from 'components/charts/bar-chart';
 import LegendChart from 'components/charts/legend-chart';
@@ -40,7 +41,8 @@ class Chart extends PureComponent {
     const chartType = {
       line: LineChart,
       area: ChartStackedArea,
-      bar: SimpleBarChart
+      bar: SimpleBarChart,
+      percentage: PercentageChart
     };
     const ChartComponent = chartType[type];
 
@@ -81,7 +83,7 @@ class Chart extends PureComponent {
 
 Chart.propTypes = {
   /** Type of the charts supported so far */
-  type: PropTypes.oneOf([ 'line', 'area', 'bar' ]).isRequired,
+  type: PropTypes.oneOf([ 'line', 'area', 'bar', 'percentage' ]).isRequired,
   /** Custom dot for line visualization */
   // eslint-disable-next-line
   dots: PropTypes.bool,
@@ -100,7 +102,7 @@ Chart.propTypes = {
   /** Callback on legend active values change */
   onLegendChange: PropTypes.func,
   /** Array of chart data */
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   /** Array of chart data -
    * Axes.yLeft has name, unit, format, suffix
    * */
@@ -129,7 +131,7 @@ Chart.propTypes = {
       PropTypes.shape({ stroke: PropTypes.string, fill: PropTypes.string })
     ),
     tooltip: PropTypes.objectOf(PropTypes.shape({ label: PropTypes.string }))
-  }).isRequired,
+  }),
   /** Initial height of the chart in number or % */
   height: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   /** Data model url and image */
@@ -156,6 +158,8 @@ Chart.defaultProps = {
   dataSelected: [],
   hideRemoveOptions: false,
   theme: {},
+  data: [],
+  config: {},
   model: null,
   customMessage: '',
   onLegendChange: () => {
