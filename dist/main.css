@@ -209,6 +209,9 @@
 .cw__card-styles_subtitle {
   color: #113750;
   line-height: 1.62; }
+.recharts-tooltip-wrapper {
+  z-index: 1; }
+
 .cw__tooltip-chart-styles_tooltip {
   background: #fff;
   min-width: 180px;

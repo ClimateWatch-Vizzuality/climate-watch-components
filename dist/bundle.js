@@ -3778,6 +3778,212 @@ module.exports = (function(e) {
       }, e.exports = n();
     }).call(this, n('yLpj'));
   },
+  '4OR/': function(e, t, n) {
+    'use strict';
+    Object.defineProperty(t, '__esModule', { value: !0 });
+    var r = Object.assign || function(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var n = arguments[t];
+          for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+        }
+        return e;
+      },
+      o = (function() {
+        function e(e, t) {
+          for (var n = 0; n < t.length; n++) {
+            var r = t[n];
+            r.enumerable = r.enumerable || !1, r.configurable = !0, 'value' in
+              r &&
+              (r.writable = !0), Object.defineProperty(e, r.key, r);
+          }
+        }
+        return function(t, n, r) {
+          return n && e(t.prototype, n), r && e(t, r), t;
+        };
+      })(),
+      i = n('cDcd'),
+      a = x(i),
+      l = x(n('rf6O')),
+      u = x(n('sEfC')),
+      s = x(n('TP7S')),
+      c = x(n('FehL')),
+      f = x(n('GlS/')),
+      d = x(n('ukY8')),
+      p = x(n('nyGZ')),
+      h = x(n('NbxL')),
+      y = x(n('lAjj')),
+      m = x(n('JVao')),
+      v = x(n('qCFj')),
+      g = n('8R4q'),
+      b = n('GEMb'),
+      _ = n('Xmj5');
+    function x(e) {
+      return e && e.__esModule ? e : { default: e };
+    }
+    var w = (function(e) {
+      function t() {
+        !(function(e, t) {
+          if (!(e instanceof t))
+            throw new TypeError('Cannot call a class as a function');
+        })(this, t);
+        var e = (function(e, t) {
+          if (!e)
+            throw new ReferenceError(
+              "this hasn't been initialised - super() hasn't been called"
+            );
+          return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
+        })(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this));
+        return e.debouncedMouseMove = (0, u.default)(
+          function(t) {
+            e.props.onMouseMove(t);
+          },
+          80
+        ), e.handleMouseMove = function(t) {
+          var n = (t && t.activeCoordinate && t.activeCoordinate.x) >=
+            (t && t.chartX || 0) - 30;
+          e.state.tooltipVisibility !== n &&
+            e.setState({ tooltipVisibility: n }, function() {
+              return e.props.onMouseMove(t);
+            });
+          var r = t && t.activeLabel;
+          r && e.debouncedMouseMove(r);
+        }, e.state = {}, e;
+      }
+      return (function(e, t) {
+        if ('function' != typeof t && null !== t)
+          throw new TypeError(
+            'Super expression must either be null or a function, not ' +
+              typeof t
+          );
+        e.prototype = Object.create(t && t.prototype, {
+          constructor: {
+            value: e,
+            enumerable: !1,
+            writable: !0,
+            configurable: !0
+          }
+        }), t &&
+          (Object.setPrototypeOf
+            ? Object.setPrototypeOf(e, t)
+            : e.__proto__ = t);
+      })(t, i.PureComponent), o(t, [
+        {
+          key: 'render',
+          value: function() {
+            var e = this.state.tooltipVisibility,
+              t = this.props,
+              n = t.data,
+              o = t.config,
+              i = t.height,
+              l = t.stepped,
+              u = t.customXAxisTick,
+              x = t.customYAxisTick,
+              w = t.customTooltip,
+              O = { data: n, config: o },
+              S = (0, b.getData)(O),
+              T = r({}, o, {
+                axes: r({}, o.axes, {
+                  yLeft: r({}, o.axes.yLeft, { unit: '', suffix: '' })
+                })
+              });
+            if (!S.length) return null;
+            var C = function(e) {
+              return (0, g.format)('.2r')(e) + '%';
+            };
+            return a.default.createElement(
+              c.default,
+              { height: i },
+              a.default.createElement(
+                m.default,
+                {
+                  data: S,
+                  margin: { top: 45, right: 20, left: -10, bottom: 0 },
+                  onMouseMove: this.handleMouseMove,
+                  stackOffset: 'sign'
+                },
+                a.default.createElement(h.default, {
+                  domain: [ 'dataMin', 'dataMax' ],
+                  type: 'number',
+                  dataKey: 'x',
+                  padding: { left: 30, right: 40 },
+                  tick: u ||
+                    a.default.createElement(_.CustomXAxisTick, {
+                      customstrokeWidth: '0'
+                    }),
+                  tickSize: 8,
+                  allowDecimals: !1,
+                  tickCount: S.length
+                }),
+                a.default.createElement(p.default, {
+                  type: 'number',
+                  domain: [ 'dataMin', 100 ],
+                  interval: 'preserveStartEnd',
+                  axisLine: !1,
+                  padding: { top: 0, bottom: 0 },
+                  tickLine: !1,
+                  tick: x ||
+                    a.default.createElement(_.CustomYAxisTick, {
+                      customstrokeWidth: '0'
+                    }),
+                  ticks: [ 0, 25, 50, 75, 100 ]
+                }),
+                a.default.createElement(d.default, { vertical: !1 }),
+                e && a.default.createElement(f.default, {
+                    viewBox: { x: 0, y: 0, width: 100, height: 100 },
+                    isAnimationActive: !1,
+                    cursor: { stroke: '#113750', strokeWidth: 2 },
+                    content: function(e) {
+                      return w &&
+                        a.default.cloneElement(w, { content: e, config: T }) ||
+                        a.default.createElement(v.default, {
+                          content: e,
+                          config: T,
+                          showTotal: !0,
+                          getCustomYLabelFormat: C
+                        });
+                    },
+                    filterNull: !1
+                  }),
+                o.columns && o.columns.y.map(function(e) {
+                    return a.default.createElement(y.default, {
+                      key: e.value,
+                      dataKey: e.value,
+                      dot: !1,
+                      stackId: 1,
+                      stroke: 'transparent',
+                      strokeWidth: 0,
+                      isAnimationActive: !!(0, s.default)(o.animation) ||
+                        o.animation,
+                      fill: o.theme[e.value].fill || '',
+                      type: l ? 'step' : 'linear'
+                    });
+                  })
+              )
+            );
+          }
+        }
+      ]), t;
+    })();
+    w.propTypes = {
+      config: l.default.object.isRequired,
+      data: l.default.array,
+      height: l.default.oneOfType([ l.default.number, l.default.string ]),
+      onMouseMove: l.default.func,
+      stepped: l.default.bool,
+      customYAxisTick: l.default.node,
+      customXAxisTick: l.default.node,
+      customTooltip: l.default.node
+    }, w.defaultProps = {
+      height: 500,
+      data: [],
+      onMouseMove: function() {
+      },
+      stepped: !1,
+      customYAxisTick: null,
+      customXAxisTick: null,
+      customTooltip: null
+    }, t.default = w;
+  },
   '4d7F': function(e, t, n) {
     e.exports = { default: n('aW7e'), __esModule: !0 };
   },
@@ -3821,30 +4027,31 @@ module.exports = (function(e) {
       };
     })(),
       o = n('cDcd'),
-      i = T(o),
-      a = T(n('rf6O')),
-      l = T(n('sEfC')),
+      i = C(o),
+      a = C(n('rf6O')),
+      l = C(n('sEfC')),
       u = n('+n12'),
-      s = T(n('TP7S')),
-      c = T(n('FehL')),
-      f = T(n('vVLp')),
-      d = T(n('pIUp')),
-      p = T(n('r5xj')),
-      h = T(n('GlS/')),
-      y = T(n('ukY8')),
-      m = T(n('nyGZ')),
-      v = T(n('NbxL')),
-      g = T(n('SCd1')),
-      b = T(n('lAjj')),
-      _ = T(n('JVao')),
-      x = T(n('qCFj')),
-      w = n('8R4q'),
-      O = n('1TsI'),
-      S = n('CJaM');
-    function T(e) {
+      s = C(n('TP7S')),
+      c = C(n('OFL0')),
+      f = C(n('FehL')),
+      d = C(n('vVLp')),
+      p = C(n('pIUp')),
+      h = C(n('r5xj')),
+      y = C(n('GlS/')),
+      m = C(n('ukY8')),
+      v = C(n('nyGZ')),
+      g = C(n('NbxL')),
+      b = C(n('SCd1')),
+      _ = C(n('lAjj')),
+      x = C(n('JVao')),
+      w = C(n('qCFj')),
+      O = n('8R4q'),
+      S = n('1TsI'),
+      T = n('CJaM');
+    function C(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var C = (function(e) {
+    var E = (function(e) {
       function t() {
         !(function(e, t) {
           if (!(e instanceof t))
@@ -3901,10 +4108,10 @@ module.exports = (function(e) {
               n = (function(e) {
                 var t = e[e.length - 1];
                 return { x: t.x, y: t.total };
-              })((0, O.getDataWithTotal)(t)),
+              })((0, S.getDataWithTotal)(t)),
               r = (0, u.isMicrosoftBrowser)();
             return i.default.createElement(
-              p.default,
+              h.default,
               {
                 x: n.x,
                 y: n.y,
@@ -3913,7 +4120,7 @@ module.exports = (function(e) {
                 strokeWidth: 2,
                 r: 6
               },
-              i.default.createElement(f.default, {
+              i.default.createElement(d.default, {
                 value: n.x,
                 position: 'top',
                 fill: '#8f8fa1',
@@ -3923,8 +4130,8 @@ module.exports = (function(e) {
                 strokeWidth: r ? 0 : 8,
                 style: { paintOrder: 'stroke' }
               }),
-              i.default.createElement(f.default, {
-                value: (0, w.format)('.3s')(n.y) + 't',
+              i.default.createElement(d.default, {
+                value: (0, O.format)('.3s')(n.y) + 't',
                 position: 'top',
                 fill: '#113750',
                 fontSize: '18px',
@@ -3945,27 +4152,30 @@ module.exports = (function(e) {
               o = this.props,
               a = o.data,
               l = o.config,
-              f = o.height,
-              p = o.points,
-              w = o.includeTotalLine,
-              T = o.stepped,
-              C = o.customXAxisTick,
-              E = o.customYAxisTick,
-              M = o.customTooltip,
-              k = o.getCustomYLabelFormat,
-              A = { points: p, data: a, config: l },
-              P = (0, O.getDataWithTotal)(A),
-              j = (0, O.getDomain)(A);
-            if (!P.length) return null;
-            var N = { x: l.columns.x, y: l.columns.y.concat({ value: 'y' }) },
-              R = (0, u.getCustomTicks)(N, P.concat(p), 5);
+              d = o.height,
+              h = o.points,
+              O = o.includeTotalLine,
+              C = o.stepped,
+              E = o.customXAxisTick,
+              M = o.customYAxisTick,
+              k = o.customTooltip,
+              A = o.getCustomYLabelFormat,
+              P = { points: h, data: a, config: l },
+              j = (0, S.getDataWithTotal)(P),
+              N = (0, S.getDomain)(P);
+            if (!j.length) return null;
+            var R = { x: l.columns.x, y: l.columns.y.concat({ value: 'y' }) },
+              I = (0, u.getCustomTicks)(R, j.concat(h), 5),
+              D = (0, c.default)(l, 'axes.yLeft.suffix')
+                ? l.axes.yLeft.suffix
+                : null;
             return i.default.createElement(
-              c.default,
-              { height: f },
+              f.default,
+              { height: d },
               i.default.createElement(
-                _.default,
+                x.default,
                 {
-                  data: P,
+                  data: j,
                   margin: { top: 45, right: 20, left: -10, bottom: 0 },
                   onMouseMove: this.handleMouseMove,
                   onMouseLeave: function() {
@@ -3976,60 +4186,60 @@ module.exports = (function(e) {
                   },
                   stackOffset: 'sign'
                 },
-                i.default.createElement(v.default, {
-                  domain: j.x,
+                i.default.createElement(g.default, {
+                  domain: N.x,
                   type: 'number',
                   dataKey: 'x',
                   padding: { left: 30, right: 40 },
-                  tick: C ||
-                    i.default.createElement(S.CustomXAxisTick, {
+                  tick: E ||
+                    i.default.createElement(T.CustomXAxisTick, {
                       customstrokeWidth: '0'
                     }),
                   tickSize: 8,
                   allowDecimals: !1,
-                  tickCount: P.length + p.length
+                  tickCount: j.length + h.length
                 }),
-                i.default.createElement(m.default, {
+                i.default.createElement(v.default, {
                   type: 'number',
-                  domain: j.y,
+                  domain: N.y,
                   interval: 0,
                   axisLine: !1,
                   padding: { top: 0, bottom: 0 },
                   tickLine: !1,
-                  tick: E ||
-                    i.default.createElement(S.CustomYAxisTick, {
+                  tick: M ||
+                    i.default.createElement(T.CustomYAxisTick, {
                       customstrokeWidth: '0',
-                      unit: 't',
-                      getCustomYLabelFormat: k
+                      suffix: D,
+                      getCustomYLabelFormat: A
                     }),
-                  ticks: R.ticks
+                  ticks: I.ticks
                 }),
-                i.default.createElement(y.default, { vertical: !1 }),
-                R.min < 0 &&
-                  i.default.createElement(d.default, {
+                i.default.createElement(m.default, { vertical: !1 }),
+                I.min < 0 &&
+                  i.default.createElement(p.default, {
                     y: 0,
                     strokeWidth: '2',
                     stroke: '#666',
                     fill: ''
                   }),
-                n && i.default.createElement(h.default, {
+                n && i.default.createElement(y.default, {
                     viewBox: { x: 0, y: 0, width: 100, height: 100 },
                     isAnimationActive: !1,
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     content: function(e) {
-                      return M &&
-                        i.default.cloneElement(M, { content: e, config: l }) ||
-                        i.default.createElement(x.default, {
+                      return k &&
+                        i.default.cloneElement(k, { content: e, config: l }) ||
+                        i.default.createElement(w.default, {
                           content: e,
                           config: l,
                           showTotal: !0,
-                          getCustomYLabelFormat: k
+                          getCustomYLabelFormat: A
                         });
                     },
                     filterNull: !1
                   }),
                 l.columns && l.columns.y.map(function(e) {
-                    return i.default.createElement(b.default, {
+                    return i.default.createElement(_.default, {
                       key: e.value,
                       dataKey: e.value,
                       dot: !1,
@@ -4039,17 +4249,17 @@ module.exports = (function(e) {
                       isAnimationActive: !!(0, s.default)(l.animation) ||
                         l.animation,
                       fill: l.theme[e.value].fill || '',
-                      type: T ? 'step' : 'linear'
+                      type: C ? 'step' : 'linear'
                     });
                   }),
-                w &&
-                  i.default.createElement(g.default, {
+                O &&
+                  i.default.createElement(b.default, {
                     key: 'total',
                     dataKey: 'total',
                     dot: !1,
                     stroke: '#113750',
                     strokeWidth: 2,
-                    type: T ? 'step' : 'linear'
+                    type: C ? 'step' : 'linear'
                   }),
                 r && this.renderLastPoint()
               )
@@ -4058,7 +4268,7 @@ module.exports = (function(e) {
         }
       ]), t;
     })();
-    C.propTypes = {
+    E.propTypes = {
       config: a.default.object.isRequired,
       points: a.default.array,
       data: a.default.array,
@@ -4070,7 +4280,7 @@ module.exports = (function(e) {
       customXAxisTick: a.default.node,
       customTooltip: a.default.node,
       getCustomYLabelFormat: a.default.func
-    }, C.defaultProps = {
+    }, E.defaultProps = {
       height: 500,
       data: [],
       points: [],
@@ -4082,7 +4292,7 @@ module.exports = (function(e) {
       customXAxisTick: null,
       customTooltip: null,
       getCustomYLabelFormat: null
-    }, t.default = C;
+    }, t.default = E;
   },
   '4qC0': function(e, t, n) {
     var r = n('NykK'), o = n('Z0cm'), i = n('ExA7'), a = '[object String]';
@@ -10325,16 +10535,15 @@ module.exports = (function(e) {
     },
       u = t.CustomYAxisTick = function(e) {
         var t,
-          n,
-          o = e.x,
-          a = e.y,
-          l = e.payload,
-          u = e.customStrokeWidth,
-          s = e.unit,
-          c = e.getCustomYLabelFormat;
+          n = e.x,
+          o = e.y,
+          a = e.payload,
+          l = e.customStrokeWidth,
+          u = e.getCustomYLabelFormat,
+          s = e.suffix;
         return r.default.createElement(
           'g',
-          { transform: 'translate(' + o + ',' + a + ')' },
+          { transform: 'translate(' + n + ',' + o + ')' },
           r.default.createElement(
             'text',
             {
@@ -10343,14 +10552,12 @@ module.exports = (function(e) {
               dy: '0',
               textAnchor: 'end',
               stroke: '#b1b1c1',
-              strokeWidth: u || '0.5',
+              strokeWidth: l || '0.5',
               fontSize: '13px'
             },
-            0 === l.value
-              ? '0'
-              : (t = l.value, n = s, c ? c(t) : (function(e, t) {
-                  return '' + (0, i.format)('.2s')(e) + t;
-                })(t, n))
+            0 === a.value ? '0' : '' + (t = a.value, u ? u(t) : (function(e) {
+                    return '' + (0, i.format)('.2s')(e);
+                  })(t)) + (s || '')
           )
         );
       };
@@ -10359,7 +10566,7 @@ module.exports = (function(e) {
       y: o.default.number,
       payload: o.default.object,
       customStrokeWidth: o.default.string
-    }, l.defaultProps = { x: null, y: null, payload: {}, customStrokeWidth: null }, u.propTypes = { x: o.default.number, y: o.default.number, payload: o.default.object, customStrokeWidth: o.default.string, unit: o.default.oneOfType([ o.default.string, o.default.bool ]), getCustomYLabelFormat: o.default.func }, u.defaultProps = { x: null, y: null, payload: {}, unit: null, customStrokeWidth: null, getCustomYLabelFormat: null };
+    }, l.defaultProps = { x: null, y: null, payload: {}, customStrokeWidth: null }, u.propTypes = { x: o.default.number, y: o.default.number, payload: o.default.object, customStrokeWidth: o.default.string, suffix: o.default.string, getCustomYLabelFormat: o.default.func }, u.defaultProps = { x: null, y: null, payload: {}, suffix: null, customStrokeWidth: null, getCustomYLabelFormat: null };
   },
   CMye: function(e, t, n) {
     var r = n('GoyQ');
@@ -12044,6 +12251,35 @@ module.exports = (function(e) {
           return void 0 === a && a === t ? i(n, e) : r(t, a, c | f);
         });
     };
+  },
+  GEMb: function(e, t, n) {
+    'use strict';
+    Object.defineProperty(t, '__esModule', { value: !0 }), t.getData = void 0;
+    var r = Object.assign || function(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var n = arguments[t];
+          for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+        }
+        return e;
+      },
+      o = n('peh1');
+    t.getData = (0, o.createSelector)([
+      function(e) {
+        return e.data || null;
+      },
+      function(e) {
+        return e.config;
+      }
+    ], function(e, t) {
+      return e && t ? e.map(function(e) {
+          var n = r({}, e), o = 0;
+          return t.columns.y.forEach(function(t) {
+            o += e[t.value];
+          }), t.columns.y.map(function(t) {
+            return n[t.value] = o ? e[t.value] / o * 100 : null, n[t.value];
+          }), n;
+        }) : null;
+    });
   },
   GHvC: function(e, t, n) {
     'use strict';
@@ -20851,7 +21087,7 @@ module.exports = (function(e) {
           )
         ), r.debouncedMouseMove = (0, y.default)(
           function(e) {
-            r.props.onMouseMove(e);
+            (0, r.props.onMouseMove)(e);
           },
           80
         ), r.handleMouseMove = function(e) {
@@ -22939,6 +23175,68 @@ module.exports = (function(e) {
     }
     u.prototype.clear = r, u.prototype.delete = o, u.prototype.get = i, u.prototype.has = a, u.prototype.set = l, e.exports = u;
   },
+  Xmj5: function(e, t, n) {
+    'use strict';
+    Object.defineProperty(t, '__esModule', {
+      value: !0
+    }), t.CustomYAxisTick = t.CustomXAxisTick = void 0;
+    var r = i(n('cDcd')), o = i(n('rf6O'));
+    function i(e) {
+      return e && e.__esModule ? e : { default: e };
+    }
+    var a = t.CustomXAxisTick = function(e) {
+      var t = e.x, n = e.y, o = e.payload, i = e.customStrokeWidth;
+      return r.default.createElement(
+        'g',
+        { transform: 'translate(' + t + ',' + n + ')' },
+        r.default.createElement(
+          'text',
+          {
+            x: '15',
+            y: '0',
+            dy: '16',
+            textAnchor: 'end',
+            stroke: '#b1b1c1',
+            strokeWidth: i || '0.5',
+            fontSize: '13px'
+          },
+          o.value
+        )
+      );
+    },
+      l = t.CustomYAxisTick = function(e) {
+        var t = e.x, n = e.y, o = e.payload, i = e.customStrokeWidth;
+        return r.default.createElement(
+          'g',
+          { transform: 'translate(' + t + ',' + n + ')' },
+          r.default.createElement(
+            'text',
+            {
+              x: '5',
+              y: '4',
+              dy: '0',
+              textAnchor: 'end',
+              stroke: '#b1b1c1',
+              strokeWidth: i || '0.5',
+              fontSize: '13px'
+            },
+            o.value + '%'
+          )
+        );
+      };
+    a.propTypes = {
+      x: o.default.number,
+      y: o.default.number,
+      payload: o.default.shape({
+        coordinate: o.default.number,
+        isShow: o.default.bool,
+        offset: o.default.number,
+        tickCoord: o.default.number,
+        value: o.default.number
+      }),
+      customStrokeWidth: o.default.string
+    }, a.defaultProps = { x: null, y: null, payload: {}, customStrokeWidth: null }, l.propTypes = { x: o.default.number, y: o.default.number, payload: o.default.shape({ coordinate: o.default.number, isShow: o.default.bool, offset: o.default.number, tickCoord: o.default.number, value: o.default.number }), customStrokeWidth: o.default.string }, l.defaultProps = { x: null, y: null, payload: {}, customStrokeWidth: null };
+  },
   'Xt/L': function(e, t) {
     e.exports = function(e, t, n) {
       for (
@@ -24289,20 +24587,21 @@ module.exports = (function(e) {
       };
     })(),
       o = n('cDcd'),
-      i = y(o),
-      a = y(n('rf6O')),
-      l = y(n('4o4n')),
-      u = y(n('kZnI')),
-      s = y(n('WorF')),
-      c = y(n('k80J')),
-      f = y(n('XGPw')),
-      d = y(n('qywY')),
-      p = y(n('K2gz')),
-      h = y(n('GJLS'));
-    function y(e) {
+      i = m(o),
+      a = m(n('rf6O')),
+      l = m(n('4o4n')),
+      u = m(n('4OR/')),
+      s = m(n('kZnI')),
+      c = m(n('WorF')),
+      f = m(n('k80J')),
+      d = m(n('XGPw')),
+      p = m(n('qywY')),
+      h = m(n('K2gz')),
+      y = m(n('GJLS'));
+    function m(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var m = (function(e) {
+    var v = (function(e) {
       function t() {
         return (function(e, t) {
           if (!(e instanceof t))
@@ -24345,56 +24644,61 @@ module.exports = (function(e) {
               r = e.error,
               o = e.loading,
               a = e.dataOptions,
-              y = e.dataSelected,
-              m = e.data,
-              v = e.config,
-              g = e.height,
-              b = e.model,
-              _ = e.customMessage,
-              x = e.hideRemoveOptions,
-              w = e.onLegendChange,
-              O = m && m.length > 0,
-              S = ({ line: u.default, area: l.default, bar: s.default })[n],
-              T = !o && (r || !O),
-              C = !o && a;
+              m = e.dataSelected,
+              v = e.data,
+              g = e.config,
+              b = e.height,
+              _ = e.model,
+              x = e.customMessage,
+              w = e.hideRemoveOptions,
+              O = e.onLegendChange,
+              S = v && v.length > 0,
+              T = ({
+                line: s.default,
+                area: l.default,
+                bar: c.default,
+                percentage: u.default
+              })[n],
+              C = !o && (r || !S),
+              E = !o && a;
             return i.default.createElement(
               'div',
-              { className: (0, p.default)(h.default.wrapper, t.wrapper) },
+              { className: (0, h.default)(y.default.wrapper, t.wrapper) },
               o &&
-                i.default.createElement(f.default, {
-                  height: g,
-                  light: !0,
-                  className: h.default.loader
-                }),
-              T &&
                 i.default.createElement(d.default, {
+                  height: b,
+                  light: !0,
+                  className: y.default.loader
+                }),
+              C &&
+                i.default.createElement(p.default, {
                   message: r
                     ? 'Something went wrong'
-                    : _ ||
-                      (!y || !y.length > 0
+                    : x ||
+                      (!m || !m.length > 0
                         ? 'No data selected'
                         : 'No data available'),
-                  className: h.default.noContent,
-                  minHeight: g
+                  className: y.default.noContent,
+                  minHeight: b
                 }),
-              !o && O && v && i.default.createElement(S, this.props),
-              C &&
-                i.default.createElement(c.default, {
-                  theme: { wrapper: h.default.legend },
-                  config: v,
+              !o && S && g && i.default.createElement(T, this.props),
+              E &&
+                i.default.createElement(f.default, {
+                  theme: { wrapper: y.default.legend },
+                  config: g,
                   dataOptions: a,
-                  dataSelected: y,
-                  hideRemoveOptions: x,
-                  onChange: w,
-                  model: b
+                  dataSelected: m,
+                  hideRemoveOptions: w,
+                  onChange: O,
+                  model: _
                 })
             );
           }
         }
       ]), t;
     })();
-    m.propTypes = {
-      type: a.default.oneOf([ 'line', 'area', 'bar' ]).isRequired,
+    v.propTypes = {
+      type: a.default.oneOf([ 'line', 'area', 'bar', 'percentage' ]).isRequired,
       dots: a.default.bool,
       error: a.default.bool,
       customMessage: a.default.string,
@@ -24403,7 +24707,7 @@ module.exports = (function(e) {
       dataOptions: a.default.array,
       dataSelected: a.default.array,
       onLegendChange: a.default.func,
-      data: a.default.array.isRequired,
+      data: a.default.array,
       config: a.default.shape({
         animation: a.default.bool,
         axes: a.default.shape({
@@ -24434,7 +24738,7 @@ module.exports = (function(e) {
         tooltip: a.default.objectOf(
           a.default.shape({ label: a.default.string })
         )
-      }).isRequired,
+      }),
       height: a.default.oneOfType([ a.default.string, a.default.number ]),
       model: a.default.shape({ url: a.default.string, logo: a.default.string }),
       theme: a.default.shape({ wrapper: a.default.string }),
@@ -24443,7 +24747,7 @@ module.exports = (function(e) {
       customYAxisTick: a.default.node,
       customTooltip: a.default.node,
       getCustomYLabelFormat: a.default.func
-    }, m.defaultProps = {
+    }, v.defaultProps = {
       dots: !0,
       height: 300,
       error: !1,
@@ -24451,6 +24755,8 @@ module.exports = (function(e) {
       dataSelected: [],
       hideRemoveOptions: !1,
       theme: {},
+      data: [],
+      config: {},
       model: null,
       customMessage: '',
       onLegendChange: function() {
@@ -24460,7 +24766,7 @@ module.exports = (function(e) {
       customYAxisTick: null,
       customTooltip: null,
       getCustomYLabelFormat: null
-    }, t.default = m;
+    }, t.default = v;
   },
   bZ1Q: function(e, t, n) {
     var r = n('Tmn5'), o = Math.imul;
@@ -24545,7 +24851,7 @@ module.exports = (function(e) {
           )
         ), r.debouncedMouseMove = (0, g.default)(
           function(e) {
-            r.props.onMouseMove(e);
+            (0, r.props.onMouseMove)(e);
           },
           80
         ), r.handleMouseMove = function(e) {
