@@ -25,7 +25,8 @@ import styles from './chart-composed-styles.scss';
 class ChartComposed extends PureComponent {
   debouncedMouseMove = debounce(
     year => {
-      this.props.onMouseMove(year);
+      const { onMouseMove } = this.props;
+      onMouseMove(year);
     },
     80
   );
