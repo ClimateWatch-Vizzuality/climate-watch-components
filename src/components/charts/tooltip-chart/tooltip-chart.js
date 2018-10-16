@@ -68,7 +68,7 @@ class TooltipChart extends PureComponent {
           </span>
           <span
             className={styles.unit}
-            // eslint-disable-line
+            // eslint-disable-next-line
             dangerouslySetInnerHTML={{ __html: unit }}
           />
         </div>
