@@ -102,7 +102,7 @@ Chart.propTypes = {
   /** Callback on legend active values change */
   onLegendChange: PropTypes.func,
   /** Array of chart data */
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   /** Array of chart data -
    * Axes.yLeft has name, unit, format, suffix
    * */
@@ -131,7 +131,7 @@ Chart.propTypes = {
       PropTypes.shape({ stroke: PropTypes.string, fill: PropTypes.string })
     ),
     tooltip: PropTypes.objectOf(PropTypes.shape({ label: PropTypes.string }))
-  }).isRequired,
+  }),
   /** Initial height of the chart in number or % */
   height: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   /** Data model url and image */
@@ -158,6 +158,8 @@ Chart.defaultProps = {
   dataSelected: [],
   hideRemoveOptions: false,
   theme: {},
+  data: [],
+  config: {},
   model: null,
   customMessage: '',
   onLegendChange: () => {
