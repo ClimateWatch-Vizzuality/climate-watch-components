@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import { isMicrosoftBrowser, getCustomTicks } from 'utils';
 import isUndefined from 'lodash/isUndefined';
+import has from 'lodash/has';
 
 import {
   ComposedChart,
@@ -123,6 +124,10 @@ class ChartStackedArea extends PureComponent {
       dataWithTotal.concat(points),
       5
     );
+    const unit = has(config, 'axes.yLeft.unit') ? config.axes.yLeft.unit : null;
+    const suffix = has(config, 'axes.yLeft.suffix')
+      ? config.axes.yLeft.suffix
+      : null;
     return (
       <ResponsiveContainer height={height}>
         <ComposedChart
@@ -155,7 +160,8 @@ class ChartStackedArea extends PureComponent {
                 (
                   <CustomYAxisTick
                     customstrokeWidth="0"
-                    unit="t"
+                    unit={unit}
+                    suffix={suffix}
                     getCustomYLabelFormat={getCustomYLabelFormat}
                   />
                 )
