@@ -20,11 +20,19 @@ const handleLegendChange = (filtersSelected) => {
   })
 }
 const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
-const toggleCharType = (filtersSelected) => {
-  setState(state => ({ type: state.type === 'line' ? 'area' : 'line' }))
+const chartTypes = ['line', 'area', 'percentage'];
+const toggleChartType = (filtersSelected) => {
+  setState(state => {
+    const chartTypeIndex = chartTypes.indexOf(state.type);
+    let type = chartTypes[0];
+    if (chartTypeIndex + 1 < chartTypes.length) {
+      type = chartTypes[chartTypeIndex + 1]
+    }
+    return { type };
+  });
 }
 <React.Fragment>
-  <Button onClick={toggleCharType} >
+  <Button onClick={toggleChartType} >
     Toggle type
   </Button>
   <Chart
@@ -50,6 +58,7 @@ initialState = {
   type: 'line',
   loading: false
 };
+const chartTypes = ['line', 'area', 'percentage'];
 const handleLegendChange = (filtersSelected) => {
   setState(state => {
     const filterIds = filtersSelected.map(f => f.label);
@@ -62,11 +71,18 @@ const handleLegendChange = (filtersSelected) => {
     }
   })
 }
-const toggleCharType = (filtersSelected) => {
-  setState(state => ({ type: state.type === 'line' ? 'area' : 'line' }))
+const toggleChartType = (filtersSelected) => {
+  setState(state => {
+    const chartTypeIndex = chartTypes.indexOf(state.type);
+    let type = chartTypes[0];
+    if (chartTypeIndex + 1 < chartTypes.length) {
+      type = chartTypes[chartTypeIndex + 1]
+    }
+    return { type };
+  });
 }
 <React.Fragment>
-  <Button onClick={toggleCharType} >
+  <Button onClick={toggleChartType} >
     Toggle type
   </Button>
   <Chart
