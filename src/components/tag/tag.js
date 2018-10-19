@@ -22,14 +22,27 @@ class Tag extends PureComponent {
       label,
       canRemove,
       tooltipId,
-      icon
+      icon,
+      coloredIcon
     } = this.props;
-    const hasIcon = icon && icon.id && !color;
+    const hasIcon = icon && (!color || coloredIcon);
+    const renderIcon = close => {
+      const iconColorProp = coloredIcon && { style: { fill: color } };
+      let updatedIcon = icon;
+      if (close) updatedIcon = closeIcon;
+      return (
+        <Icon
+          icon={updatedIcon}
+          theme={{ icon: cx(styles.icon, theme.icon) }}
+          {...iconColorProp}
+        />
+      );
+    };
     const tagContent = (
       <React.Fragment>
         {
           hasIcon
-            ? <Icon icon={icon} theme={{ icon: cx(styles.icon, theme.icon) }} />
+            ? renderIcon()
             : (
               <span
                 className={cx(styles.dot, theme.dot)}
@@ -48,7 +61,11 @@ class Tag extends PureComponent {
                 {label}
               </p>
 )
-            : <p className={cx(styles.label, theme.label)}>{label}</p>
+            : (
+              <p className={cx(styles.label, theme.label)}>
+                {label}
+              </p>
+)
         }
         {
           canRemove && (
@@ -57,10 +74,7 @@ class Tag extends PureComponent {
             className={cx(styles.closeButton, theme.closeButton)}
             onClick={this.handleClick}
           >
-            <Icon
-              icon={closeIcon}
-              theme={{ icon: cx(styles.icon, theme.icon) }}
-            />
+            {renderIcon(true)}
           </button>
             )
         }
@@ -102,6 +116,8 @@ Tag.propTypes = {
   label: Proptypes.string,
   /** Tag color */
   color: Proptypes.string,
+  /** Boolean for a colored icon. Will take the color from the color prop */
+  coloredIcon: Proptypes.bool,
   /** Can remove tag option */
   canRemove: Proptypes.bool,
   /** Theming options */
@@ -123,6 +139,7 @@ Tag.defaultProps = {
   },
   label: '',
   color: '',
+  coloredIcon: null,
   theme: {}
 };
 

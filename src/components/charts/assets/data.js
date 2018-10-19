@@ -9,7 +9,7 @@ export const config = {
     }
   },
   theme: {
-    yAllGhg: { stroke: '#9854b1', fill: '#9854b1' },
+    yAllGhg: { stroke: '#9854b1', fill: '#9854b1', icon: 'lineAndDot' },
     ghgInventory: { stroke: '#000000', fill: '#000000' },
     yCo2: { stroke: '#00955f', fill: '#00955f' },
     yCh4: { stroke: '#3498db', fill: '#3498db' },

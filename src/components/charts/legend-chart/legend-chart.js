@@ -4,6 +4,10 @@ import MultiSelect from 'components/multiselect';
 import Tag from 'components/tag';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
+import wideLineIcon from './assets/wide-line.svg';
+import strippedLineIcon from './assets/stripped-line.svg';
+import rangeCircleIcon from './assets/range-circle.svg';
+import lineAndDotIcon from './assets/line-and-dot.svg';
 
 import styles from './legend-chart-styles.scss';
 import plusIcon from '../assets/plus.svg';
@@ -60,7 +64,21 @@ class LegendChart extends PureComponent {
     const hasLegendNote = config && config.legendNote;
 
     const columnsLength = filteredColumns.length;
-
+    const legendIcon = column => {
+      const configIcon = config.theme[column.value].icon;
+      switch (configIcon) {
+        case 'wideLine':
+          return wideLineIcon;
+        case 'strippedLine':
+          return strippedLineIcon;
+        case 'range':
+          return rangeCircleIcon;
+        case 'lineAndDot':
+          return lineAndDotIcon;
+        default:
+          return null;
+      }
+    };
     return (
       <div className={cx(styles.legendChart, theme.wrapper)}>
         <div className={styles.legendContainer}>
@@ -78,7 +96,7 @@ class LegendChart extends PureComponent {
                     }}
                     label={column.label}
                     color={config.theme[column.value].stroke}
-                    icon={config.theme[column.value].icon}
+                    icon={legendIcon(column)}
                     tooltipId="legend-tooltip"
                     onRemove={this.handleRemove}
                     canRemove={hideRemoveOptions ? false : columnsLength > 1}
@@ -116,7 +134,9 @@ class LegendChart extends PureComponent {
         {
           model && (
           <div className={styles.legendLogo}>
-            <div className={styles.legendLogoTitle}>Data provided by:</div>
+            <div className={styles.legendLogoTitle}>
+                  Data provided by:
+            </div>
             <a href={model.url} target="_blank" rel="noopener noreferrer">
               <img src={`https:${model.logo}`} alt="Data provider logo" />
             </a>

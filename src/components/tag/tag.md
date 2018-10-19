@@ -68,6 +68,21 @@ const handleRemove = (target) => { console.info('Remove this tag', target); };
         canRemove={false}
         onRemove={handleRemove}
     />
+    <Tag
+        key='PT'
+        label='Portugal'
+        theme={theme}
+        data={{
+          id: 'PT',
+            title: 'Portugal',
+            value: 'Portugal'
+        }}
+        tooltipId='tooltip-id'
+        canRemove={false}
+        onRemove={handleRemove}
+        color='green'
+        coloredIcon
+    />
     <ReactTooltip id='tooltip-id' />
 </div>
 ```

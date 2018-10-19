@@ -7,11 +7,16 @@ import infoIcon from './assets/info.svg';
 /**
  * Icon component for displaying an icon
  */
-const Icon = ({ icon, theme, onClick }) => {
+const Icon = ({ icon, theme, onClick, style }) => {
   const classNames = cx(styles.icon, theme.icon, onClick ? styles.cursor : '');
 
   return (
-    <svg className={classNames} viewBox={icon.viewBox} onClick={onClick}>
+    <svg
+      className={classNames}
+      viewBox={icon.viewBox}
+      onClick={onClick}
+      style={style}
+    >
       <use xlinkHref={`#${icon.id}`} />
     </svg>
   );
@@ -29,14 +34,19 @@ Icon.propTypes = {
   /**
    * The onClick action occurring when user clicks on the icon
    */
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  /**
+   * Style prop for the color
+   */
+  style: PropTypes.string
 };
 
 Icon.defaultProps = {
   theme: {},
   onClick: () => {
   },
-  icon: infoIcon
+  icon: infoIcon,
+  style: null
 };
 
 export default Icon;
