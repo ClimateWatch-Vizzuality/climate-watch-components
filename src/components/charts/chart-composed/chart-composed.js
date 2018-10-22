@@ -163,9 +163,28 @@ class ChartComposed extends PureComponent {
 }
 
 ChartComposed.propTypes = {
-  config: PropTypes.shape({ columns: PropTypes.object }).isRequired,
+  config: PropTypes.shape({
+    animation: PropTypes.bool,
+    columns: PropTypes.object,
+    /** Custom icons might be passed with the stroke and fill */
+    theme: PropTypes.object,
+    axes: PropTypes.shape({
+      xBottom: PropTypes.shape({
+        name: PropTypes.string,
+        unit: PropTypes.string,
+        format: PropTypes.string,
+        suffix: PropTypes.string
+      }),
+      yLeft: PropTypes.shape({
+        name: PropTypes.string,
+        unit: PropTypes.string,
+        format: PropTypes.string,
+        suffix: PropTypes.string
+      })
+    })
+  }),
   /** Data for the chart */
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   /** Data options for LegendChart */
   dataOptions: PropTypes.array,
   loading: PropTypes.bool,
@@ -195,6 +214,8 @@ ChartComposed.propTypes = {
 
 ChartComposed.defaultProps = {
   height: '100%',
+  config: {},
+  data: {},
   showUnit: false,
   onMouseMove: () => {
   },

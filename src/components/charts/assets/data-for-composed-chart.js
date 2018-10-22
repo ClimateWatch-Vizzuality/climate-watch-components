@@ -1,3 +1,5 @@
+import rangeCircleIcon from './range-circle.svg';
+
 export const config = {
   axes: {
     xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
@@ -15,8 +17,8 @@ export const config = {
     yCh4: { stroke: '#3498db', fill: '#3498db' },
     yN2O: { stroke: '#FFB400', fill: '#FFB400' },
     yFGas: { stroke: '#FF7800', fill: '#FF7800' },
-    ppd: { stroke: '#3498db', fill: '#d6eaf8' },
-    bau: { stroke: '#f5b335', fill: '#fdf0d7' },
+    ppd: { stroke: '#3498db', fill: '#d6eaf8', icon: rangeCircleIcon },
+    bau: { stroke: '#f5b335', fill: '#fdf0d7', icon: rangeCircleIcon },
     ltms: { stroke: '#f97da1', fill: '#f97da1' }
   },
   tooltip: {

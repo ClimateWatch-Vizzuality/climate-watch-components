@@ -60,6 +60,10 @@ class TooltipChart extends PureComponent {
       config.axes &&
       config.axes.yLeft &&
       config.axes.yLeft.suffix;
+    const iconColorProp = column => {
+      const { fill, stroke } = config.theme[column];
+      return { style: { fill: fill || stroke, stroke } };
+    };
     return (
       <div className={styles.tooltip}>
         <div className={styles.tooltipHeader}>
@@ -98,7 +102,14 @@ class TooltipChart extends PureComponent {
                       <div className={styles.legend}>
                         {
                         config.theme[y.dataKey].icon
-                          ? <Icon icon={config.theme[y.dataKey].icon} />
+                          ? (
+                            <span className={styles.labelIcon}>
+                              <Icon
+                                icon={config.theme[y.dataKey].icon}
+                                {...iconColorProp(y.dataKey)}
+                              />
+                            </span>
+)
                           : (
                             <span
                               className={styles.labelDot}
