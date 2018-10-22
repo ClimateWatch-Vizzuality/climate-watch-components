@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import styles from './sankey-link-styles.scss';
 
 function SankeyLink({ sourceX, sourceY, sourceControlX, targetX, targetY, targetControlX, linkWidth }) {
+  const minLinkWidth = 2;
   return (
     <path
       className={styles.link}
@@ -12,7 +13,7 @@ function SankeyLink({ sourceX, sourceY, sourceControlX, targetX, targetY, target
       `}
       fill="none"
       stroke="#333"
-      strokeWidth={linkWidth}
+      strokeWidth={linkWidth < minLinkWidth ? minLinkWidth : linkWidth}
       strokeOpacity="0.2"
     />
   );

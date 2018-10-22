@@ -20,8 +20,8 @@ const data = {
     }
   ],
   links: [
-    { source: 0, target: 2, value: 240000 },
-    { source: 0, target: 2, value: 940000 },
+    { source: 0, target: 2, value: 1000 },
+    { source: 0, target: 3, value: 940000 },
     { source: 1, target: 3, value: 150000 },
     { source: 1, target: 3, value: 190000 },
     { source: 0, target: 3, value: 5700000 }
