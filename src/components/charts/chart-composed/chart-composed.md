@@ -111,6 +111,8 @@ const lineWithDots = config.columns && config.columns.lineWithDots.map(column =>
 >
   {lineChart}
   {rangedArea}
+  {lineWithDots}
+  {dotsLine}
 </ChartComposed>
 ```
 
