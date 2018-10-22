@@ -171,17 +171,30 @@ class Table extends PureComponent {
       headerHeight,
       setRowsHeight,
       ellipsisColumns,
-      horizontalScroll
+      horizontalScroll,
+      dynamicRowsHeight
     } = this.props;
 
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
     const columnLabel = columnSlug => capitalize(columnSlug.replace(/_/g, ' '));
+
     const rowsHeight = d => {
       if (setRowsHeight) return setRowsHeight(d);
       if (ellipsisColumns.length > 0) return this.rowHeightWithEllipsis;
       return this.minRowHeight;
     };
+
+    const getDatum = (dataD, index) => dataD[index];
+
+    const getDynamicRowHeight = index => {
+      const considerableMargin = 100;
+      return getDatum(data, index).definition &&
+        getDatum(data, index).definition.split(' ').length +
+          considerableMargin ||
+        120;
+    };
+
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -221,7 +234,10 @@ class Table extends PureComponent {
                 height={tableHeight}
                 headerHeight={headerHeight}
                 rowClassName={this.rowClassName}
-                rowHeight={({ index }) => rowsHeight(data[index])}
+                rowHeight={({ index }) =>
+                  dynamicRowsHeight
+                    ? getDynamicRowHeight(index)
+                    : rowsHeight(index)}
                 rowCount={data.length}
                 sort={this.handleSortChange}
                 sortBy={sortBy}
@@ -280,7 +296,9 @@ Table.propTypes = {
   horizontalScroll: PropTypes.bool.isRequired,
   /* Array to order the column headers */
   // eslint-disable-next-line react/forbid-prop-types
-  firstColumnHeaders: PropTypes.array
+  firstColumnHeaders: PropTypes.array,
+  /* Boolean value to calculate dynamic rows */
+  dynamicRowsHeight: PropTypes.bool
 };
 
 Table.defaultProps = {
@@ -292,7 +310,8 @@ Table.defaultProps = {
   setColumnWidth: null,
   setRowsHeight: null,
   ellipsisColumns: [],
-  firstColumnHeaders: []
+  firstColumnHeaders: [],
+  dynamicRowsHeight: false
 };
 
 export default Table;
