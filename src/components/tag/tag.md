@@ -37,6 +37,7 @@ const handleRemove = (target) => { console.info('Remove this tag', target); };
 
 Tag with icon passed
 ```js
+const dotsIcon = require('./assets/dots.svg');
 const theme = require('./tag-theme.scss');
 const ReactTooltip = require('react-tooltip');
 const handleRemove = (target) => { console.info('Remove this tag', target); };
@@ -65,23 +66,10 @@ const handleRemove = (target) => { console.info('Remove this tag', target); };
             value: 'Portugal'
         }}
         tooltipId='tooltip-id'
-        canRemove={false}
+        canRemove
+        icon={dotsIcon.default}
+        color='red'
         onRemove={handleRemove}
-    />
-    <Tag
-        key='PT'
-        label='Portugal'
-        theme={theme}
-        data={{
-          id: 'PT',
-            title: 'Portugal',
-            value: 'Portugal'
-        }}
-        tooltipId='tooltip-id'
-        canRemove={false}
-        onRemove={handleRemove}
-        color='green'
-        coloredIcon
     />
     <ReactTooltip id='tooltip-id' />
 </div>

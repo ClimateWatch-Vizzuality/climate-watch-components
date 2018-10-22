@@ -5,7 +5,6 @@ import cx from 'classnames';
 import closeIcon from './assets/legend-close.svg';
 import styles from './tag-styles.scss';
 import Icon from '../icon/icon';
-import dotsIcon from './assets/dots.svg';
 
 class Tag extends PureComponent {
   handleClick = e => {
@@ -19,15 +18,16 @@ class Tag extends PureComponent {
       data,
       theme,
       color,
+      fill,
       label,
       canRemove,
       tooltipId,
-      icon,
-      coloredIcon
+      icon
     } = this.props;
-    const hasIcon = icon && (!color || coloredIcon);
+
+    const hasIcon = icon && icon.id;
     const renderIcon = close => {
-      const iconColorProp = coloredIcon && { style: { fill: color } };
+      const iconColorProp = !close && { style: { fill, stroke: color } };
       let updatedIcon = icon;
       if (close) updatedIcon = closeIcon;
       return (
@@ -114,10 +114,10 @@ Tag.propTypes = {
   tooltipId: Proptypes.string,
   /** Label name */
   label: Proptypes.string,
-  /** Tag color */
+  /** Tag color (stroke) */
   color: Proptypes.string,
-  /** Boolean for a colored icon. Will take the color from the color prop */
-  coloredIcon: Proptypes.bool,
+  /** Tag fill */
+  fill: Proptypes.string,
   /** Can remove tag option */
   canRemove: Proptypes.bool,
   /** Theming options */
@@ -125,7 +125,7 @@ Tag.propTypes = {
     dot: Proptypes.string,
     label: Proptypes.string,
     closeButton: Proptypes.string,
-    icon: Proptypes.string,
+    icon: Proptypes.object,
     tag: Proptypes.string
   })
 };
@@ -134,12 +134,12 @@ Tag.defaultProps = {
   canRemove: false,
   data: {},
   tooltipId: '',
-  icon: dotsIcon,
+  icon: null,
   onRemove: () => {
   },
   label: '',
   color: '',
-  coloredIcon: null,
+  fill: '',
   theme: {}
 };
 

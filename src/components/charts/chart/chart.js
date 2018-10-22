@@ -127,6 +127,7 @@ Chart.propTypes = {
         PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
       )
     ),
+    /** Custom icons might be passed with the stroke and fill */
     theme: PropTypes.objectOf(
       PropTypes.shape({ stroke: PropTypes.string, fill: PropTypes.string })
     ),

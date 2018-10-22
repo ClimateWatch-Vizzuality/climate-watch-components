@@ -4,10 +4,6 @@ import MultiSelect from 'components/multiselect';
 import Tag from 'components/tag';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
-import wideLineIcon from './assets/wide-line.svg';
-import strippedLineIcon from './assets/stripped-line.svg';
-import rangeCircleIcon from './assets/range-circle.svg';
-import lineAndDotIcon from './assets/line-and-dot.svg';
 
 import styles from './legend-chart-styles.scss';
 import plusIcon from '../assets/plus.svg';
@@ -64,21 +60,6 @@ class LegendChart extends PureComponent {
     const hasLegendNote = config && config.legendNote;
 
     const columnsLength = filteredColumns.length;
-    const legendIcon = column => {
-      const configIcon = config.theme[column.value].icon;
-      switch (configIcon) {
-        case 'wideLine':
-          return wideLineIcon;
-        case 'strippedLine':
-          return strippedLineIcon;
-        case 'range':
-          return rangeCircleIcon;
-        case 'lineAndDot':
-          return lineAndDotIcon;
-        default:
-          return null;
-      }
-    };
     return (
       <div className={cx(styles.legendChart, theme.wrapper)}>
         <div className={styles.legendContainer}>
@@ -96,7 +77,8 @@ class LegendChart extends PureComponent {
                     }}
                     label={column.label}
                     color={config.theme[column.value].stroke}
-                    icon={legendIcon(column)}
+                    fill={config.theme[column.value].fill}
+                    icon={config.theme[column.value].icon}
                     tooltipId="legend-tooltip"
                     onRemove={this.handleRemove}
                     canRemove={hideRemoveOptions ? false : columnsLength > 1}
