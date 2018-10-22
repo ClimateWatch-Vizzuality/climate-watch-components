@@ -27,7 +27,8 @@ class Tag extends PureComponent {
 
     const hasIcon = icon && icon.id;
     const renderIcon = close => {
-      const iconColorProp = !close && { style: { fill, stroke: color } };
+      const iconColorProp = !close &&
+        { style: { fill: fill || color, stroke: color } };
       let updatedIcon = icon;
       if (close) updatedIcon = closeIcon;
       return (
