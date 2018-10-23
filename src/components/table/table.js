@@ -103,6 +103,7 @@ class Table extends PureComponent {
 
   rowClassName = ({ index }) => {
     if (index < 0) return styles.headerRow;
+
     return index % 2 === 0 ? styles.evenRow : styles.oddRow;
   };
 
@@ -190,7 +191,7 @@ class Table extends PureComponent {
     const getDynamicRowHeight = index => {
       const considerableMargin = 100;
       return getDatum(data, index).definition &&
-        getDatum(data, index).definition.split(' ').length +
+        getDatum(data, index).definition.split(' ').length * 2 +
           considerableMargin ||
         120;
     };
@@ -250,7 +251,8 @@ class Table extends PureComponent {
                     <Column
                       className={cx(styles.column, {
                         [styles.ellipsis]: ellipsisColumns &&
-                          ellipsisColumns.indexOf(column) > -1
+                          ellipsisColumns.indexOf(column) > -1,
+                        [styles.overflowVisible]: dynamicRowsHeight
                       })}
                       key={column}
                       label={columnLabel(column)}
