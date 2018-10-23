@@ -18,8 +18,8 @@
   background-color: $light-gray;
 }
 
-.overflowVisible {
-  overflow: visible !important;
+.allTextVisible {
+  display: inherit !important;
 }
 
 .table :global {

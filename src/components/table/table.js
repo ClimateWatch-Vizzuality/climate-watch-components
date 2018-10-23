@@ -252,7 +252,7 @@ class Table extends PureComponent {
                       className={cx(styles.column, {
                         [styles.ellipsis]: ellipsisColumns &&
                           ellipsisColumns.indexOf(column) > -1,
-                        [styles.overflowVisible]: dynamicRowsHeight
+                        [styles.allTextVisible]: dynamicRowsHeight
                       })}
                       key={column}
                       label={columnLabel(column)}
