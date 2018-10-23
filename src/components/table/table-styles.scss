@@ -18,6 +18,10 @@
   background-color: $light-gray;
 }
 
+.overflowVisible {
+  overflow: visible !important;
+}
+
 .table :global {
   position: relative;
 
