@@ -1,5 +1,9 @@
 @import '~styles/settings.scss';
 
+.sankey > svg {
+  padding-bottom: 1em;
+}
+
 .link {
   cursor: pointer;
 

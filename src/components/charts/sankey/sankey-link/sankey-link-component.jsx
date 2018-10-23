@@ -10,15 +10,16 @@ class SankeyLink extends PureComponent {
   }
 
   render() {
-    const { sourceX, sourceY, sourceControlX, targetX, targetY, targetControlX, linkWidth } = this.props;
+    const { sourceX, sourceY, sourceControlX, targetX, targetY, targetControlX, linkWidth, config } = this.props;
     const { hover } = this.state;
     const updatedLinkWidth = linkWidth < this.minLinkWidth ? this.minLinkWidth : linkWidth;
+    const linkStart = config.titlePadding || 140;
     return (
       <path
         className={styles.link}
         d={`
-          M${sourceX},${sourceY}
-          C${sourceControlX},${sourceY} ${targetControlX},${targetY} ${targetX},${targetY}
+          M${sourceX + linkStart},${sourceY}
+          C${sourceControlX},${sourceY} ${targetControlX},${targetY} ${targetX - linkStart},${targetY}
         `}
         fill="none"
         stroke="#333"
@@ -38,7 +39,8 @@ SankeyLink.propTypes = {
   targetY: PropTypes.number,
   sourceControlX: PropTypes.number,
   targetControlX: PropTypes.number,
-  linkWidth: PropTypes.number
+  linkWidth: PropTypes.number,
+  config: PropTypes.object
 };
 
 SankeyLink.defaultProps = {
@@ -48,7 +50,8 @@ SankeyLink.defaultProps = {
   targetY: null,
   sourceControlX: null,
   targetControlX: null,
-  linkWidth: null
+  linkWidth: null,
+  config: null
 };
 
 export default SankeyLink;
