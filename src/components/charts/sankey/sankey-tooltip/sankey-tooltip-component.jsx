@@ -56,7 +56,9 @@ class SankeyTooltip extends PureComponent {
                       {`${format(valueFormat)(node.value * scale)}${suffix}`}
                     </div>
                   </div>
-                  {tooltipChildren && tooltipChildren(node)}
+                  <div className={styles.tooltipChildren}>
+                    {tooltipChildren && tooltipChildren(node)}
+                  </div>
                 </div>
               ) : null
             )
