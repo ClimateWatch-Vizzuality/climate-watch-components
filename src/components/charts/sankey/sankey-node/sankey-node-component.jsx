@@ -2,32 +2,61 @@ import React from 'react';
 import { Rectangle, Layer } from 'recharts';
 import { PropTypes } from 'prop-types';
 import { format } from 'd3-format';
+import { splitSVGText } from 'utils/utils';
 import styles from './sankey-node-styles.scss';
 
 function SankeyNode({ x, y, width, height, index, payload, config }) {
-  const padding = 20;
   const isOut = x > width;
-  const unit = config.unit ? `${config.unit} ` : '';
-  const suffix = config.suffix ? ` ${config.suffix}` : '';
+  const padding = config.padding || 20;
+  const rectangleStart = config.titlePadding || 140;
   const scale = config.scale || 1;
   const valueFormat = config.format || '~r';
+  const unit = config.unit ? `${config.unit} ` : '';
+  const suffix = config.suffix ? ` ${config.suffix}` : '';
+  const minHeight = 2;
+
+  const tSpans = (text) => {
+    const fontSize = config.fontSize || 13;
+    const lineHeight = config.lineHeigth || 1.2;
+    const textHeight = config.textHeight || 20;
+    const tspanLineHeight = config.tspanLineHeight || 10;
+    const startX = isOut ? x - rectangleStart + padding : x + width + rectangleStart - padding / 2;
+    const startY = y + (height / 2) - fontSize || 0;
+    const charactersPerLine = (rectangleStart / 6) - 3; // -3 for the ellipsis
+    const maxLines = 2;
+    return splitSVGText(text, textHeight, tspanLineHeight, charactersPerLine, maxLines).map((t, i) => (
+      `<tspan
+        x="${startX}"
+        y="${startY + fontSize * lineHeight + i * fontSize * lineHeight}"
+      >
+        ${t}
+      </tspan>`
+    )).join('\n');
+  }
   return (
     <Layer key={`CustomNode${index}`}>
+      <text
+        textAnchor={isOut ? 'start' : 'end'}
+        textLength={rectangleStart}
+        className={styles.nodeText}
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: tSpans(payload.name) }}
+      />
       <Rectangle
-        x={x}
+        x={isOut ? x - rectangleStart : x + width + rectangleStart}
         y={y}
         width={width}
-        height={height}
+        height={height < minHeight ? minHeight : height}
         fill={payload.color}
         fillOpacity="1"
       />
       <text
         textAnchor={isOut ? 'end' : 'start'}
-        x={isOut ? x - padding : x + width + padding}
+        x={isOut ? x - (rectangleStart + padding) : x + width + (rectangleStart + padding)}
         y={y + height / 2}
         className={styles.nodeText}
       >
-        {`${payload.name}: ${unit}${format(valueFormat)(payload.value * scale)}${suffix}`}
+        {`${unit}${format(valueFormat)(payload.value * scale)}${suffix}`}
       </text>
     </Layer>
   );
@@ -55,7 +84,9 @@ SankeyNode.propTypes = {
   }),
   config: PropTypes.shape({
     unit: PropTypes.string,
-    suffix: PropTypes.string
+    suffix: PropTypes.string,
+    // Padding for the titles, before and after the chart
+    titlePadding: PropTypes.number
   })
 };
 

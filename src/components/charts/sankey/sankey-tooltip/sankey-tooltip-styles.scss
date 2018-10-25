@@ -2,6 +2,9 @@
 
 .tooltip {
   background: $white;
+  font-family: $font-family-2;
+  letter-spacing: -0.1px;
+  font-size: $font-size-xs;
   min-width: 180px;
   max-width: 300px;
   padding: 15px;
@@ -18,7 +21,6 @@
 
 .unit {
   color: $dark-gray;
-  font-size: $font-size-s;
 }
 
 .label {
@@ -26,7 +28,6 @@
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 5px;
-  font-size: $font-size-sm;
 }
 
 .legend {
@@ -56,14 +57,15 @@
 }
 
 .targetName {
-  color: $dark-gray;
-  font-weight: bold;
-  font-size: $font-size-s;
+  color: $theme-color;
 }
 
 .focus {
   @extend .labelValue;
 
   margin-top: 10px;
-  font-size: $font-size-s;
+}
+
+.tooltipChildren {
+  color: $dark-gray;
 }
