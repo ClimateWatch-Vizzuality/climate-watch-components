@@ -4,6 +4,7 @@ import { Sankey, Tooltip, ResponsiveContainer } from 'recharts';
 import SankeyTooltip from './sankey-tooltip';
 import SankeyLink from './sankey-link';
 import SankeyNode from './sankey-node';
+import styles from './sankey-styles.scss';
 
 function SankeyChart(
   {
@@ -21,17 +22,25 @@ function SankeyChart(
   }
 ) {
   return (
-    <ResponsiveContainer width="100%" aspect={config.aspect || 16 / 9}>
+    <ResponsiveContainer width="100%" height={height}>
       <Sankey
         width={width}
-        height={height}
         data={data}
+        className={styles.sankey}
         nodeWidth={nodeWidth}
         nodePadding={nodePadding}
-        link={customLink || <SankeyLink />}
+        link={
+          customLink ||
+            <SankeyLink config={{ titlePadding: config.titlePadding }} />
+        }
         node={
           customNode ||
-            <SankeyNode containerWidth={containerWidth} config={config.node} />
+            (
+              <SankeyNode
+                containerWidth={containerWidth}
+                config={{ ...config.node, titlePadding: config.titlePadding }}
+              />
+            )
         }
       >
         {
