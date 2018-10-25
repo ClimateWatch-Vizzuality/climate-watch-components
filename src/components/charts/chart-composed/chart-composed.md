@@ -3,6 +3,7 @@ const data = require('../assets/data-for-composed-chart.js');
 const Line = require('recharts').Line;
 const Area = require('recharts').Area;
 const isUndefined = require('lodash/isUndefined');
+const format = require('d3-format').format;
 
 initialState = {
   ...data,
@@ -30,7 +31,6 @@ const handleLegendChange = (filtersSelected) => {
     }
   })
 }
-
 const rangedArea = config.columns && config.columns.rangedArea.map(column => {
                   const color = config.theme[column.value].stroke || '';
                   return (
@@ -111,6 +111,8 @@ const lineWithDots = config.columns && config.columns.lineWithDots.map(column =>
 >
   {lineChart}
   {rangedArea}
+  {lineWithDots}
+  {dotsLine}
 </ChartComposed>
 ```
 
@@ -126,7 +128,6 @@ initialState = {
   loading: false
 };
 
-const config = { ...state.config };
 
 const lineChart = (
   <Line

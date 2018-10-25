@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import has from 'lodash/has';
 
 import {
   XAxis,
@@ -24,7 +25,8 @@ import styles from './chart-composed-styles.scss';
 class ChartComposed extends PureComponent {
   debouncedMouseMove = debounce(
     year => {
-      this.props.onMouseMove(year);
+      const { onMouseMove } = this.props;
+      onMouseMove(year);
     },
     80
   );
@@ -56,15 +58,18 @@ class ChartComposed extends PureComponent {
       areaAsBackgroundForCartesianGrid,
       customXAxisTick,
       customYAxisTick,
-      customTooltip
+      customTooltip,
+      getCustomYLabelFormat
     } = this.props;
     const unit = showUnit &&
       config &&
-      config.axes &&
-      config.axes.yLeft &&
-      config.axes.yLeft.unit
-      ? config.axes.yLeft.unit
-      : null;
+      has(config, 'axes.yLeft.unit') &&
+      config.axes.yLeft.unit ||
+      null;
+    const suffix = config &&
+      has(config, 'axes.yLeft.suffix') &&
+      config.axes.yLeft.suffix ||
+      null;
     const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
     const hasDataOptions = !loading && dataOptions;
     const yAxisLabel = (
@@ -104,7 +109,14 @@ class ChartComposed extends PureComponent {
               type="number"
               tick={
                 customYAxisTick ||
-                  <CustomYAxisTick precision={config.precision} unit={unit} />
+                  (
+                    <CustomYAxisTick
+                      precision={config.precision}
+                      unit={unit}
+                      suffix={suffix}
+                      getCustomYLabelFormat={getCustomYLabelFormat}
+                    />
+                  )
               }
               domain={domain && domain.y || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
@@ -124,6 +136,7 @@ class ChartComposed extends PureComponent {
                       content={content}
                       config={config}
                       forceFixedFormatDecimals={forceFixedFormatDecimals}
+                      getCustomYLabelFormat={getCustomYLabelFormat}
                     />
                   )}
             />
@@ -150,9 +163,28 @@ class ChartComposed extends PureComponent {
 }
 
 ChartComposed.propTypes = {
-  config: PropTypes.shape({ columns: PropTypes.object }).isRequired,
+  config: PropTypes.shape({
+    animation: PropTypes.bool,
+    columns: PropTypes.object,
+    /** Custom icons might be passed with the stroke and fill */
+    theme: PropTypes.object,
+    axes: PropTypes.shape({
+      xBottom: PropTypes.shape({
+        name: PropTypes.string,
+        unit: PropTypes.string,
+        format: PropTypes.string,
+        suffix: PropTypes.string
+      }),
+      yLeft: PropTypes.shape({
+        name: PropTypes.string,
+        unit: PropTypes.string,
+        format: PropTypes.string,
+        suffix: PropTypes.string
+      })
+    })
+  }),
   /** Data for the chart */
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   /** Data options for LegendChart */
   dataOptions: PropTypes.array,
   loading: PropTypes.bool,
@@ -175,11 +207,15 @@ ChartComposed.propTypes = {
   /** Custom Y Axis Tick component to pass it down to chart */
   customYAxisTick: PropTypes.node,
   /** Custom tooltip to pass down to chart */
-  customTooltip: PropTypes.node
+  customTooltip: PropTypes.node,
+  /** Function transforming y axis value */
+  getCustomYLabelFormat: PropTypes.func
 };
 
 ChartComposed.defaultProps = {
   height: '100%',
+  config: {},
+  data: {},
   showUnit: false,
   onMouseMove: () => {
   },
@@ -197,7 +233,8 @@ ChartComposed.defaultProps = {
   areaAsBackgroundForCartesianGrid: null,
   customXAxisTick: null,
   customYAxisTick: null,
-  customTooltip: null
+  customTooltip: null,
+  getCustomYLabelFormat: null
 };
 
 export default ChartComposed;

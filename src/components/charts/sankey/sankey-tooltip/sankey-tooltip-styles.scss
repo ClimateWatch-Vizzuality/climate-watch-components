@@ -1,11 +1,10 @@
 @import '~styles/settings.scss';
 
-:global .recharts-tooltip-wrapper {
-  z-index: 1;
-}
-
 .tooltip {
   background: $white;
+  font-family: $font-family-2;
+  letter-spacing: -0.1px;
+  font-size: $font-size-xs;
   min-width: 180px;
   max-width: 300px;
   padding: 15px;
@@ -22,20 +21,13 @@
 
 .unit {
   color: $dark-gray;
-  font-size: $font-size-s;
-}
-
-.labelTotal {
-  color: #0e4762;
-  font-weight: $font-weight-bold;
 }
 
 .label {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 8px;
-  font-size: $font-size-sm;
+  margin-bottom: 5px;
 }
 
 .legend {
@@ -53,28 +45,27 @@
   display: block;
 }
 
-.labelIcon {
-  margin-left: -3px;
-  margin-right: 9px;
-  width: 10px;
-}
-
 .labelName {
+  margin-right: 30px;
   color: $theme-color;
-  margin: 0 30px 0 0;
-}
-
-.labelNameBold {
-  font-weight: $font-weight-bold;
 }
 
 .labelValue {
   color: $dark-gray;
   text-align: right;
   min-width: 45px;
-  margin: 0;
 }
 
-.notAvailable {
-  color: $gray;
+.targetName {
+  color: $theme-color;
+}
+
+.focus {
+  @extend .labelValue;
+
+  margin-top: 10px;
+}
+
+.tooltipChildren {
+  color: $dark-gray;
 }

@@ -1,7 +1,14 @@
+import rangeCircleIcon from './range-circle.svg';
+
 export const config = {
   axes: {
     xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
-    yLeft: { name: 'Emissions', unit: 'CO<sub>2</sub>e', format: 'number' }
+    yLeft: {
+      name: 'Emissions',
+      unit: 'CO<sub>2</sub>e',
+      format: 'number',
+      suffix: 't'
+    }
   },
   theme: {
     yAllGhg: { stroke: '#9854b1', fill: '#9854b1' },
@@ -10,8 +17,8 @@ export const config = {
     yCh4: { stroke: '#3498db', fill: '#3498db' },
     yN2O: { stroke: '#FFB400', fill: '#FFB400' },
     yFGas: { stroke: '#FF7800', fill: '#FF7800' },
-    ppd: { stroke: '#3498db', fill: '#d6eaf8' },
-    bau: { stroke: '#f5b335', fill: '#fdf0d7' },
+    ppd: { stroke: '#3498db', fill: '#d6eaf8', icon: rangeCircleIcon },
+    bau: { stroke: '#f5b335', fill: '#fdf0d7', icon: rangeCircleIcon },
     ltms: { stroke: '#f97da1', fill: '#f97da1' }
   },
   tooltip: {

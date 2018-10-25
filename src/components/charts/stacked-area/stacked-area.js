@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import { isMicrosoftBrowser, getCustomTicks } from 'utils';
 import isUndefined from 'lodash/isUndefined';
+import has from 'lodash/has';
 
 import {
   ComposedChart,
@@ -106,7 +107,8 @@ class ChartStackedArea extends PureComponent {
       stepped,
       customXAxisTick,
       customYAxisTick,
-      customTooltip
+      customTooltip,
+      getCustomYLabelFormat
     } = this.props;
     const stackedAreaState = { points, data, config };
     const dataWithTotal = getDataWithTotal(stackedAreaState);
@@ -122,6 +124,9 @@ class ChartStackedArea extends PureComponent {
       dataWithTotal.concat(points),
       5
     );
+    const suffix = has(config, 'axes.yLeft.suffix')
+      ? config.axes.yLeft.suffix
+      : null;
     return (
       <ResponsiveContainer height={height}>
         <ComposedChart
@@ -151,7 +156,13 @@ class ChartStackedArea extends PureComponent {
             tickLine={false}
             tick={
               customYAxisTick ||
-                <CustomYAxisTick customstrokeWidth="0" unit="t" />
+                (
+                  <CustomYAxisTick
+                    customstrokeWidth="0"
+                    suffix={suffix}
+                    getCustomYLabelFormat={getCustomYLabelFormat}
+                  />
+                )
             }
             ticks={tickValues.ticks}
           />
@@ -175,6 +186,7 @@ class ChartStackedArea extends PureComponent {
                           content={content}
                           config={config}
                           showTotal
+                          getCustomYLabelFormat={getCustomYLabelFormat}
                         />
                       )}
                   filterNull={false}
@@ -233,7 +245,8 @@ ChartStackedArea.propTypes = {
   stepped: PropTypes.bool,
   customYAxisTick: PropTypes.node,
   customXAxisTick: PropTypes.node,
-  customTooltip: PropTypes.node
+  customTooltip: PropTypes.node,
+  getCustomYLabelFormat: PropTypes.func
 };
 
 ChartStackedArea.defaultProps = {
@@ -246,7 +259,8 @@ ChartStackedArea.defaultProps = {
   stepped: false,
   customYAxisTick: null,
   customXAxisTick: null,
-  customTooltip: null
+  customTooltip: null,
+  getCustomYLabelFormat: null
 };
 
 export default ChartStackedArea;

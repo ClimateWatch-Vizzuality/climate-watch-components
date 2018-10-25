@@ -19,7 +19,8 @@ import BarTooltipChart from './bar-tooltip-chart';
 class SimpleBarChart extends PureComponent {
   debouncedMouseMove = debounce(
     year => {
-      this.props.onMouseMove(year);
+      const { onMouseMove } = this.props;
+      onMouseMove(year);
     },
     80
   );
@@ -42,7 +43,8 @@ class SimpleBarChart extends PureComponent {
       forceFixedFormatDecimals,
       customXAxisTick,
       customYAxisTick,
-      customTooltip
+      customTooltip,
+      getCustomYLabelFormat
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -89,7 +91,14 @@ class SimpleBarChart extends PureComponent {
               tickLine={false}
               scale="linear"
               type="number"
-              tick={customYAxisTick || <CustomYAxisTick />}
+              tick={
+                customYAxisTick ||
+                  (
+                    <CustomYAxisTick
+                      getCustomYLabelFormat={getCustomYLabelFormat}
+                    />
+                  )
+              }
               domain={domain && domain.y || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
             >
@@ -108,11 +117,13 @@ class SimpleBarChart extends PureComponent {
                       content={content}
                       config={config}
                       forceFixedFormatDecimals={forceFixedFormatDecimals}
+                      getCustomYLabelFormat={getCustomYLabelFormat}
                     />
                   )}
             />
             {dataKeys.map(dataKey => (
               <Bar
+                key={dataKey}
                 dataKey={dataKey}
                 fill={config.theme[dataKey] && config.theme[dataKey].fill}
               />
@@ -135,7 +146,8 @@ SimpleBarChart.propTypes = {
   domain: PropTypes.object,
   customXAxisTick: PropTypes.node,
   customYAxisTick: PropTypes.node,
-  customTooltip: PropTypes.node
+  customTooltip: PropTypes.node,
+  getCustomYLabelFormat: PropTypes.func
 };
 
 SimpleBarChart.defaultProps = {
@@ -150,7 +162,8 @@ SimpleBarChart.defaultProps = {
   data: [],
   customXAxisTick: null,
   customYAxisTick: null,
-  customTooltip: null
+  customTooltip: null,
+  getCustomYLabelFormat: null
 };
 
 export default SimpleBarChart;

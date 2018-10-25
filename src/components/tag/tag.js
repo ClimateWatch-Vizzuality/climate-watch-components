@@ -5,7 +5,6 @@ import cx from 'classnames';
 import closeIcon from './assets/legend-close.svg';
 import styles from './tag-styles.scss';
 import Icon from '../icon/icon';
-import dotsIcon from './assets/dots.svg';
 
 class Tag extends PureComponent {
   handleClick = e => {
@@ -19,17 +18,32 @@ class Tag extends PureComponent {
       data,
       theme,
       color,
+      fill,
       label,
       canRemove,
       tooltipId,
       icon
     } = this.props;
-    const hasIcon = icon && icon.id && !color;
+
+    const hasIcon = icon && icon.id;
+    const renderIcon = close => {
+      const iconColorProp = !close &&
+        { style: { fill: fill || color, stroke: color } };
+      let updatedIcon = icon;
+      if (close) updatedIcon = closeIcon;
+      return (
+        <Icon
+          icon={updatedIcon}
+          theme={{ icon: cx(styles.icon, theme.icon) }}
+          {...iconColorProp}
+        />
+      );
+    };
     const tagContent = (
       <React.Fragment>
         {
           hasIcon
-            ? <Icon icon={icon} theme={{ icon: cx(styles.icon, theme.icon) }} />
+            ? renderIcon()
             : (
               <span
                 className={cx(styles.dot, theme.dot)}
@@ -48,7 +62,11 @@ class Tag extends PureComponent {
                 {label}
               </p>
 )
-            : <p className={cx(styles.label, theme.label)}>{label}</p>
+            : (
+              <p className={cx(styles.label, theme.label)}>
+                {label}
+              </p>
+)
         }
         {
           canRemove && (
@@ -57,10 +75,7 @@ class Tag extends PureComponent {
             className={cx(styles.closeButton, theme.closeButton)}
             onClick={this.handleClick}
           >
-            <Icon
-              icon={closeIcon}
-              theme={{ icon: cx(styles.icon, theme.icon) }}
-            />
+            {renderIcon(true)}
           </button>
             )
         }
@@ -100,8 +115,10 @@ Tag.propTypes = {
   tooltipId: Proptypes.string,
   /** Label name */
   label: Proptypes.string,
-  /** Tag color */
+  /** Tag color (stroke) */
   color: Proptypes.string,
+  /** Tag fill */
+  fill: Proptypes.string,
   /** Can remove tag option */
   canRemove: Proptypes.bool,
   /** Theming options */
@@ -109,7 +126,7 @@ Tag.propTypes = {
     dot: Proptypes.string,
     label: Proptypes.string,
     closeButton: Proptypes.string,
-    icon: Proptypes.string,
+    icon: Proptypes.object,
     tag: Proptypes.string
   })
 };
@@ -118,11 +135,12 @@ Tag.defaultProps = {
   canRemove: false,
   data: {},
   tooltipId: '',
-  icon: dotsIcon,
+  icon: null,
   onRemove: () => {
   },
   label: '',
   color: '',
+  fill: '',
   theme: {}
 };
 

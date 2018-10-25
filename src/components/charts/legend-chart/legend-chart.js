@@ -60,7 +60,6 @@ class LegendChart extends PureComponent {
     const hasLegendNote = config && config.legendNote;
 
     const columnsLength = filteredColumns.length;
-
     return (
       <div className={cx(styles.legendChart, theme.wrapper)}>
         <div className={styles.legendContainer}>
@@ -78,6 +77,7 @@ class LegendChart extends PureComponent {
                     }}
                     label={column.label}
                     color={config.theme[column.value].stroke}
+                    fill={config.theme[column.value].fill}
                     icon={config.theme[column.value].icon}
                     tooltipId="legend-tooltip"
                     onRemove={this.handleRemove}
@@ -116,7 +116,9 @@ class LegendChart extends PureComponent {
         {
           model && (
           <div className={styles.legendLogo}>
-            <div className={styles.legendLogoTitle}>Data provided by:</div>
+            <div className={styles.legendLogoTitle}>
+                  Data provided by:
+            </div>
             <a href={model.url} target="_blank" rel="noopener noreferrer">
               <img src={`https:${model.logo}`} alt="Data provider logo" />
             </a>

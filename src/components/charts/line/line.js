@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
+import has from 'lodash/has';
 import {
   LineChart,
   Line,
@@ -44,14 +44,14 @@ class ChartLine extends PureComponent {
       lineType,
       customXAxisTick,
       customYAxisTick,
-      customTooltip
+      customTooltip,
+      getCustomYLabelFormat
     } = this.props;
-    const unit = showUnit &&
-      config &&
-      config.axes &&
-      config.axes.yLeft &&
-      config.axes.yLeft.unit
+    const unit = showUnit && has(config, 'axes.yLeft.unit')
       ? config.axes.yLeft.unit
+      : null;
+    const suffix = has(config, 'axes.yLeft.suffix')
+      ? config.axes.yLeft.suffix
       : null;
     const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
     const yAxisLabel = (
@@ -89,7 +89,14 @@ class ChartLine extends PureComponent {
             type="number"
             tick={
               customYAxisTick ||
-                <CustomYAxisTick precision={config.precision} unit={unit} />
+                (
+                  <CustomYAxisTick
+                    precision={config.precision}
+                    unit={unit}
+                    suffix={suffix}
+                    getCustomYLabelFormat={getCustomYLabelFormat}
+                  />
+                )
             }
             domain={domain && domain.y || [ 'auto', 'auto' ]}
             interval="preserveStartEnd"
@@ -109,6 +116,7 @@ class ChartLine extends PureComponent {
                     content={content}
                     config={config}
                     forceFixedFormatDecimals={forceFixedFormatDecimals}
+                    getCustomYLabelFormat={getCustomYLabelFormat}
                   />
                 )}
           />
@@ -149,7 +157,8 @@ ChartLine.propTypes = {
   lineType: PropTypes.string,
   customYAxisTick: PropTypes.node,
   customXAxisTick: PropTypes.node,
-  customTooltip: PropTypes.node
+  customTooltip: PropTypes.node,
+  getCustomYLabelFormat: PropTypes.func
 };
 
 ChartLine.defaultProps = {
@@ -164,7 +173,8 @@ ChartLine.defaultProps = {
   lineType: 'monotone',
   customYAxisTick: null,
   customXAxisTick: null,
-  customTooltip: null
+  customTooltip: null,
+  getCustomYLabelFormat: null
 };
 
 export default ChartLine;
