@@ -130,7 +130,7 @@ class Table extends PureComponent {
       const keys = data[n] && Object.keys(data[n]);
       const columnsTextLength = {};
       keys.forEach(column => {
-        columnsTextLength[column] = data[n][column].length;
+        columnsTextLength[column] = data[n][column] && data[n][column].length;
       });
       columnsTextLengthSamples.push(columnsTextLength);
     });
