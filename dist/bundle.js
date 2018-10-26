@@ -14432,7 +14432,7 @@ module.exports = (function(e) {
             .forEach(function(e) {
               var r = {};
               (t[e] && Object.keys(t[e])).forEach(function(n) {
-                r[n] = t[e][n].length;
+                r[n] = t[e][n] && t[e][n].length;
               }), n.push(r);
             });
           var r = {};
