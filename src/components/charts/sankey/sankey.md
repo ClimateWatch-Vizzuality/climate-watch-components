@@ -37,7 +37,11 @@ const data = {
     {
       name: 'Grants are non-repayable funds or products disbursed or given by one party (grant makers), often a government department, corporation, foundation or trust',
       color: '#FF73D0'
-    }
+    },
+    {
+      name: 'Empty',
+      color: '#FF7800'
+    },
   ],
   links: [
     { source: 0, target: 5, value: 1000 },
