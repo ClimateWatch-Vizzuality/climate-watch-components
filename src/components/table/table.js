@@ -38,6 +38,7 @@ class Table extends PureComponent {
     this.maxColumnWidth = 300;
     this.lengthWidthRatio = 4;
     this.columnWidthSamples = 5;
+    this.columnHeightSamples = 10;
     this.minRowHeight = 80;
     this.rowHeightWithEllipsis = 150;
   }
@@ -121,6 +122,35 @@ class Table extends PureComponent {
     return aggregatedLenght / samples;
   };
 
+  getLongestTextColumnName = () => {
+    const { data } = this.props;
+
+    const columnsTextLengthSamples = [];
+    [ ...Array(this.columnHeightSamples).keys() ].forEach(n => {
+      const keys = data[n] && Object.keys(data[n]);
+      const columnsTextLength = {};
+      keys.forEach(column => {
+        columnsTextLength[column] = data[n][column].length;
+      });
+      columnsTextLengthSamples.push(columnsTextLength);
+    });
+
+    const aggregatedLength = {};
+    columnsTextLengthSamples.forEach(sample => {
+      Object.keys(sample).forEach(key => {
+        if (!aggregatedLength[key]) aggregatedLength[key] = 0;
+        if (sample[key]) aggregatedLength[key] += sample[key];
+        else aggregatedLength[key] += 0;
+      });
+    });
+
+    const greatestLength = Math.max(...Object.values(aggregatedLength));
+    const columnName = Object
+      .keys(aggregatedLength)
+      .find(column => aggregatedLength[column] === greatestLength);
+    return columnName;
+  };
+
   getColumnLength = (data, column) => {
     const meanLenght = this.getMeanLength(
       this.columnWidthSamples,
@@ -190,8 +220,9 @@ class Table extends PureComponent {
 
     const getDynamicRowHeight = index => {
       const considerableMargin = 100;
+      const greatestColumnName = this.getLongestTextColumnName();
       return getDatum(data, index).definition &&
-        getDatum(data, index).definition.split(' ').length * 2 +
+        getDatum(data, index)[greatestColumnName].split(' ').length * 2 +
           considerableMargin ||
         120;
     };
