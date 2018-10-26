@@ -18,6 +18,10 @@
   background-color: $light-gray;
 }
 
+.allTextVisible {
+  display: inherit !important;
+}
+
 .table :global {
   position: relative;
 
