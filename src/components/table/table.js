@@ -38,6 +38,7 @@ class Table extends PureComponent {
     this.maxColumnWidth = 300;
     this.lengthWidthRatio = 4;
     this.columnWidthSamples = 5;
+    this.columnHeightSamples = 10;
     this.minRowHeight = 80;
     this.rowHeightWithEllipsis = 150;
   }
@@ -103,6 +104,7 @@ class Table extends PureComponent {
 
   rowClassName = ({ index }) => {
     if (index < 0) return styles.headerRow;
+
     return index % 2 === 0 ? styles.evenRow : styles.oddRow;
   };
 
@@ -118,6 +120,34 @@ class Table extends PureComponent {
     });
     if (samples < 1) return this.standardColumnWidth;
     return aggregatedLenght / samples;
+  };
+
+  getLongestTextColumnName = () => {
+    const { data } = this.props;
+
+    const columnsTextLengthSamples = [];
+    [ ...Array(this.columnHeightSamples).keys() ].forEach(n => {
+      const keys = data[n] && Object.keys(data[n]);
+      const columnsTextLength = {};
+      keys.forEach(column => {
+        columnsTextLength[column] = data[n][column].length;
+      });
+      columnsTextLengthSamples.push(columnsTextLength);
+    });
+
+    const aggregatedLength = {};
+    columnsTextLengthSamples.forEach(sample => {
+      Object.keys(sample).forEach(key => {
+        if (!aggregatedLength[key]) aggregatedLength[key] = 0;
+        if (sample[key]) aggregatedLength[key] += sample[key];
+        else aggregatedLength[key] += 0;
+      });
+    });
+    const greatestLength = Math.max(...Object.values(aggregatedLength));
+    const columnName = Object
+      .keys(aggregatedLength)
+      .find(column => aggregatedLength[column] === greatestLength);
+    return columnName;
   };
 
   getColumnLength = (data, column) => {
@@ -171,17 +201,31 @@ class Table extends PureComponent {
       headerHeight,
       setRowsHeight,
       ellipsisColumns,
-      horizontalScroll
+      horizontalScroll,
+      dynamicRowsHeight
     } = this.props;
 
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
     const columnLabel = columnSlug => capitalize(columnSlug.replace(/_/g, ' '));
+
     const rowsHeight = d => {
       if (setRowsHeight) return setRowsHeight(d);
       if (ellipsisColumns.length > 0) return this.rowHeightWithEllipsis;
       return this.minRowHeight;
     };
+
+    const getDatum = (dataD, index) => dataD[index];
+
+    const getDynamicRowHeight = index => {
+      const considerableMargin = 100;
+      const greatestColumnName = this.getLongestTextColumnName();
+      return getDatum(data, index)[greatestColumnName] &&
+        getDatum(data, index)[greatestColumnName].length / 3 +
+          considerableMargin ||
+        120;
+    };
+
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -221,7 +265,10 @@ class Table extends PureComponent {
                 height={tableHeight}
                 headerHeight={headerHeight}
                 rowClassName={this.rowClassName}
-                rowHeight={({ index }) => rowsHeight(data[index])}
+                rowHeight={({ index }) =>
+                  dynamicRowsHeight
+                    ? getDynamicRowHeight(index)
+                    : rowsHeight(index)}
                 rowCount={data.length}
                 sort={this.handleSortChange}
                 sortBy={sortBy}
@@ -234,7 +281,8 @@ class Table extends PureComponent {
                     <Column
                       className={cx(styles.column, {
                         [styles.ellipsis]: ellipsisColumns &&
-                          ellipsisColumns.indexOf(column) > -1
+                          ellipsisColumns.indexOf(column) > -1,
+                        [styles.allTextVisible]: dynamicRowsHeight
                       })}
                       key={column}
                       label={columnLabel(column)}
@@ -280,7 +328,9 @@ Table.propTypes = {
   horizontalScroll: PropTypes.bool.isRequired,
   /* Array to order the column headers */
   // eslint-disable-next-line react/forbid-prop-types
-  firstColumnHeaders: PropTypes.array
+  firstColumnHeaders: PropTypes.array,
+  /* Boolean value to calculate dynamic rows */
+  dynamicRowsHeight: PropTypes.bool
 };
 
 Table.defaultProps = {
@@ -292,7 +342,8 @@ Table.defaultProps = {
   setColumnWidth: null,
   setRowsHeight: null,
   ellipsisColumns: [],
-  firstColumnHeaders: []
+  firstColumnHeaders: [],
+  dynamicRowsHeight: false
 };
 
 export default Table;

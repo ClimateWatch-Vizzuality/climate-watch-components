@@ -11,5 +11,6 @@ const ellipsisColumns = ["composite_name"];
   ellipsisColumns={ellipsisColumns}
   emptyValueLabel={'Not specified'}
   horizontalScroll
+  dynamicRowsHeight={true}
 />
 ```
