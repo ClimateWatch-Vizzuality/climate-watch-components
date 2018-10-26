@@ -33,7 +33,7 @@ function SankeyNode({ x, y, width, height, index, payload, config }) {
       </tspan>`
     )).join('\n');
   }
-  return (
+  return payload && payload.value && (
     <Layer key={`CustomNode${index}`}>
       <text
         textAnchor={isOut ? 'start' : 'end'}
