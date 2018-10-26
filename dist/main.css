@@ -1265,6 +1265,9 @@ input:checked ~ .cw__check-input-styles_label {
 .cw__table-styles_oddRow {
   background-color: #f5f6f7; }
 
+.cw__table-styles_allTextVisible {
+  display: inherit !important; }
+
 .cw__table-styles_table {
   position: relative; }
   .cw__table-styles_table .ReactVirtualized__Table__headerRow {
