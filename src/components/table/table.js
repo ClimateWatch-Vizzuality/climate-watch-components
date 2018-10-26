@@ -143,7 +143,6 @@ class Table extends PureComponent {
         else aggregatedLength[key] += 0;
       });
     });
-
     const greatestLength = Math.max(...Object.values(aggregatedLength));
     const columnName = Object
       .keys(aggregatedLength)
@@ -221,8 +220,8 @@ class Table extends PureComponent {
     const getDynamicRowHeight = index => {
       const considerableMargin = 100;
       const greatestColumnName = this.getLongestTextColumnName();
-      return getDatum(data, index).definition &&
-        getDatum(data, index)[greatestColumnName].split(' ').length * 2 +
+      return getDatum(data, index)[greatestColumnName] &&
+        getDatum(data, index)[greatestColumnName].length / 3 +
           considerableMargin ||
         120;
     };
