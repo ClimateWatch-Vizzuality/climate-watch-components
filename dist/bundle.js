@@ -15327,48 +15327,48 @@ module.exports = (function(e) {
         C = x.format || '~r',
         E = x.unit ? x.unit + ' ' : '',
         k = x.suffix ? ' ' + x.suffix : '';
-      return r.default.createElement(
-        o.default,
-        { key: 'CustomNode' + b },
-        r.default.createElement('text', {
-          textAnchor: w ? 'start' : 'end',
-          textLength: S,
-          className: s.default.nodeText,
-          dangerouslySetInnerHTML: {
-            __html: (t = _.name, n = x.fontSize || 13, a = x.lineHeigth ||
-              1.2, c = x.textHeight || 20, f = x.tspanLineHeight || 10, d = w
-              ? y - S + O
-              : y + v + S - O / 2, p = m + g / 2 - n || 0, h = S / 6 -
-              3, (0, u.splitSVGText)(t, c, f, h, 2).map(function(e, t) {
-              return '<tspan\n        x="' +
-                d +
-                '"\n        y="' +
-                (p + n * a + t * n * a) +
-                '"\n      >\n        ' +
-                e +
-                '\n      </tspan>';
-            }).join('\n'))
-          }
-        }),
-        r.default.createElement(i.default, {
-          x: w ? y - S : y + v + S,
-          y: m,
-          width: v,
-          height: g < 2 ? 2 : g,
-          fill: _.color,
-          fillOpacity: '1'
-        }),
-        r.default.createElement(
-          'text',
-          {
-            textAnchor: w ? 'end' : 'start',
-            x: w ? y - (S + O) : y + v + (S + O),
-            y: m + g / 2,
-            className: s.default.nodeText
-          },
-          '' + E + (0, l.format)(C)(_.value * T) + k
-        )
-      );
+      return _ && _.value && r.default.createElement(
+          o.default,
+          { key: 'CustomNode' + b },
+          r.default.createElement('text', {
+            textAnchor: w ? 'start' : 'end',
+            textLength: S,
+            className: s.default.nodeText,
+            dangerouslySetInnerHTML: {
+              __html: (t = _.name, n = x.fontSize || 13, a = x.lineHeigth ||
+                1.2, c = x.textHeight || 20, f = x.tspanLineHeight || 10, d = w
+                ? y - S + O
+                : y + v + S - O / 2, p = m + g / 2 - n || 0, h = S / 6 -
+                3, (0, u.splitSVGText)(t, c, f, h, 2).map(function(e, t) {
+                return '<tspan\n        x="' +
+                  d +
+                  '"\n        y="' +
+                  (p + n * a + t * n * a) +
+                  '"\n      >\n        ' +
+                  e +
+                  '\n      </tspan>';
+              }).join('\n'))
+            }
+          }),
+          r.default.createElement(i.default, {
+            x: w ? y - S : y + v + S,
+            y: m,
+            width: v,
+            height: g < 2 ? 2 : g,
+            fill: _.color,
+            fillOpacity: '1'
+          }),
+          r.default.createElement(
+            'text',
+            {
+              textAnchor: w ? 'end' : 'start',
+              x: w ? y - (S + O) : y + v + (S + O),
+              y: m + g / 2,
+              className: s.default.nodeText
+            },
+            '' + E + (0, l.format)(C)(_.value * T) + k
+          )
+        );
     }
     f.propTypes = {
       x: a.PropTypes.number,
