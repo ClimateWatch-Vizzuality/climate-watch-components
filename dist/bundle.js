@@ -14430,10 +14430,10 @@ module.exports = (function(e) {
           []
             .concat(_(Array(e.columnHeightSamples).keys()))
             .forEach(function(e) {
-              var r = {};
-              (t[e] && Object.keys(t[e])).forEach(function(n) {
-                r[n] = t[e][n] && t[e][n].length;
-              }), n.push(r);
+              var r = t[e] && Object.keys(t[e]), o = {};
+              r && r.forEach(function(n) {
+                  o[n] = t[e][n] && t[e][n].length;
+                }), n.push(o);
             });
           var r = {};
           n.forEach(function(e) {
@@ -18592,9 +18592,8 @@ module.exports = (function(e) {
         return e;
       },
       o = p(n('cDcd')),
-      i = n('rf6O');
-    n('adkz');
-    var a = p(n('FehL')),
+      i = n('rf6O'),
+      a = p(n('FehL')),
       l = p(n('GlS/')),
       u = p(n('QVpu')),
       s = p(n('3nzE')),
@@ -24972,8 +24971,9 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = x(o),
       a = x(n('rf6O')),
-      l = x(n('OFL0')),
-      u = x(n('JVao')),
+      l = x(n('OFL0'));
+    n('adkz');
+    var u = x(n('JVao')),
       s = x(n('vVLp')),
       c = x(n('FehL')),
       f = x(n('GlS/')),
