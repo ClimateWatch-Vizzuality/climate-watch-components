@@ -1,6 +1,8 @@
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isFinite from 'lodash/isFinite';
+import deburr from 'lodash/deburr';
+import toUpper from 'lodash/toUpper';
 import minBy from 'lodash/minBy';
 import maxBy from 'lodash/maxBy';
 import { getNiceTickValues } from 'recharts-scale';
@@ -98,3 +100,5 @@ export const splitSVGText = (
     lines.push(currentLine);
     return lines;
   };
+
+export const deburrUpper = string => toUpper(deburr(string));
