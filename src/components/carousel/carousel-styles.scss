@@ -1,0 +1,13 @@
+.carouselWrapper {
+  font-family: 'Lato', sans-serif;
+  display: flex !important;
+  flex-direction: column !important;
+  align-content: center !important;
+
+  :global .slick-list {
+    overflow: hidden;
+  }
+  :global .slick-track {
+    display: flex;
+  }
+}

@@ -4,6 +4,7 @@ export { default as Button } from './components/button';
 export { default as ButtonGroup } from './components/button-group';
 export { default as BubbleChart } from './components/charts/bubble-chart';
 export { default as Card } from './components/card';
+export { default as Carousel } from './components/carousel';
 export { default as Chart } from './components/charts/chart';
 export { default as CheckInput } from './components/check-input';
 export { default as Contact } from './components/contact';
