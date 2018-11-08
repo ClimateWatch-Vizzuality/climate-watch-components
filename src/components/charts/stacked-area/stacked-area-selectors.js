@@ -51,31 +51,31 @@ export const getDomain = createSelector(
   [
     getData,
     state => state.config,
-    state => state.points,
+    state => state.projectedData,
     getDataMin,
     getDataMax
   ],
-  (data, config, points, dataMin, dataMax) => {
+  (data, config, projectedData, dataMin, dataMax) => {
     if (!data || !config) return null;
     const domain = { x: [ 'dataMin', 'dataMax' ], y: [ 'auto', 'auto' ] };
-    if (!points || points.length === 0) return domain;
-    const pointsMax = max(
-      points
+    if (!projectedData || projectedData.length === 0) return domain;
+    const projectedDataMax = max(
+      projectedData
         .filter(p => p.y)
         .map(p => isArray(p.y) ? max(p.y) : p.y)
     );
-    const pointsMin = min(
-      points
+    const projectedDataMin = min(
+      projectedData
         .filter(p => p.y)
         .map(p => isArray(p.y) ? min(p.y) : p.y)
     );
     domain.x[1] = max(
-      points
+      projectedData
         .filter(p => p.x)
         .map(p => p.x)
     ) + 1;
-    domain.y[0] = pointsMin || dataMin;
-    domain.y[1] = pointsMax || dataMax;
+    domain.y[0] = projectedDataMin || dataMin;
+    domain.y[1] = projectedDataMax || dataMax;
     return domain;
   }
 );

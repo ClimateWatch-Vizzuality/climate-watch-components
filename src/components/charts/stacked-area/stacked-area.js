@@ -21,8 +21,13 @@ import {
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
 import DividerLine from '../divider-line';
+import ProjectedData from '../projected-data';
 
-import { getDataWithTotal, getDomain } from './stacked-area-selectors';
+import {
+  getDataWithTotal,
+  getDomain,
+  getDataMaxMin
+} from './stacked-area-selectors';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 
 const getMaxValue = data => {
@@ -67,7 +72,12 @@ const renderLastPoint = lastData => {
 class ChartStackedArea extends PureComponent {
   constructor() {
     super();
-    this.state = { showLastPoint: true };
+    this.state = { activePoint: null, showLastPoint: true };
+    this.handleProjectedDataHover = this.handleProjectedDataHover.bind(this);
+  }
+
+  handleProjectedDataHover(activePoint) {
+    this.setState({ activePoint });
   }
 
   setLastPoint = showLastPoint => {
@@ -82,11 +92,13 @@ class ChartStackedArea extends PureComponent {
   );
 
   handleMouseMove = e => {
+    const { tooltipVisibility: currentTooltipVisibility } = this.state;
+    const { onMouseMove } = this.props;
     const activeCoordinateX = e && e.activeCoordinate && e.activeCoordinate.x;
     const chartX = e && e.chartX || 0;
     const tooltipVisibility = activeCoordinateX >= chartX - 30;
-    if (this.state.tooltipVisibility !== tooltipVisibility) {
-      this.setState({ tooltipVisibility }, () => this.props.onMouseMove(e));
+    if (currentTooltipVisibility !== tooltipVisibility) {
+      this.setState({ tooltipVisibility }, () => onMouseMove(e));
     }
     const year = e && e.activeLabel;
     if (year) {
@@ -95,12 +107,12 @@ class ChartStackedArea extends PureComponent {
   };
 
   render() {
-    const { tooltipVisibility, showLastPoint } = this.state;
+    const { tooltipVisibility, showLastPoint, activePoint } = this.state;
     const {
       data,
       config,
       height,
-      points,
+      projectedData,
       includeTotalLine,
       stepped,
       customXAxisTick,
@@ -109,10 +121,11 @@ class ChartStackedArea extends PureComponent {
       getCustomYLabelFormat
     } = this.props;
 
-    const stackedAreaState = { points, data, config };
+    const stackedAreaState = { projectedData, data, config };
     const dataWithTotal = getDataWithTotal(stackedAreaState);
     const domain = getDomain(stackedAreaState);
     const lastData = getMaxValue(getDataWithTotal(stackedAreaState));
+    const dataMaxMin = getDataMaxMin(stackedAreaState);
 
     if (!dataWithTotal.length) return null;
     const tickColumns = {
@@ -121,7 +134,7 @@ class ChartStackedArea extends PureComponent {
     };
     const tickValues = getCustomTicks(
       tickColumns,
-      dataWithTotal.concat(points),
+      dataWithTotal.concat(projectedData),
       5
     );
     const suffix = has(config, 'axes.yLeft.suffix')
@@ -145,7 +158,7 @@ class ChartStackedArea extends PureComponent {
             tick={customXAxisTick || <CustomXAxisTick customstrokeWidth="0" />}
             tickSize={8}
             allowDecimals={false}
-            tickCount={dataWithTotal.length + points.length}
+            tickCount={dataWithTotal.length + projectedData.length}
           />
           <YAxis
             type="number"
@@ -225,10 +238,19 @@ class ChartStackedArea extends PureComponent {
               )
           }
           {
-            points.length &&
+            projectedData.length &&
               DividerLine({ x: lastData.x, labels: config.dividerLine })
           }
           {showLastPoint && renderLastPoint(lastData)}
+          {
+            projectedData.length &&
+              ProjectedData({
+                data: projectedData,
+                dataMaxMin,
+                activePoint,
+                handleProjectedDataHover: this.handleProjectedDataHover
+              })
+          }
         </ComposedChart>
       </ResponsiveContainer>
     );
@@ -237,7 +259,7 @@ class ChartStackedArea extends PureComponent {
 
 ChartStackedArea.propTypes = {
   config: PropTypes.object.isRequired,
-  points: PropTypes.array,
+  projectedData: PropTypes.array,
   data: PropTypes.array,
   height: PropTypes.oneOfType([
     PropTypes.number,
@@ -256,7 +278,7 @@ ChartStackedArea.propTypes = {
 ChartStackedArea.defaultProps = {
   height: 500,
   data: [],
-  points: [],
+  projectedData: [],
   onMouseMove: () => {
   },
   includeTotalLine: true,

@@ -108,11 +108,10 @@ const projectedData = require('../assets/projected-data.js');
 initialState = {
   ...data,
   config: { ...data.config, ...projectedData.config },
-  points: projectedData.points,
+  projectedData: projectedData.data,
   type: 'line',
   loading: false
 };
-console.log(projectedData, initialState)
 const chartTypes = ['line', 'area', 'percentage'];
 const handleLegendChange = (filtersSelected) => {
   setState(state => {
@@ -144,7 +143,7 @@ const toggleChartType = (filtersSelected) => {
     type={state.type}
     config={state.config}
     data={state.data}
-    points={state.points}
+    projectedData={state.projectedData}
     domain={state.domain}
     dataOptions={state.filters}
     dataSelected={state.filtersSelected}
