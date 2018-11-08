@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce';
 import { isMicrosoftBrowser, getCustomTicks } from 'utils';
 import isUndefined from 'lodash/isUndefined';
 import has from 'lodash/has';
+import { format } from 'd3-format';
 
 import {
   ComposedChart,
@@ -19,15 +20,49 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
-import { format } from 'd3-format';
+import DividerLine from '../divider-line';
 
 import { getDataWithTotal, getDomain } from './stacked-area-selectors';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 
-function getMaxValue(data) {
+const getMaxValue = data => {
   const lastData = data[data.length - 1];
   return { x: lastData.x, y: lastData.total };
-}
+};
+
+const renderLastPoint = lastData => {
+  const isEdgeOrExplorer = isMicrosoftBrowser();
+  return (
+    <ReferenceDot
+      x={lastData.x}
+      y={lastData.y}
+      fill="#113750"
+      stroke="#fff"
+      strokeWidth={2}
+      r={6}
+    >
+      <Label
+        value={lastData.x}
+        position="top"
+        fill="#8f8fa1"
+        fontSize="13px"
+        offset={25}
+        stroke="#fff"
+        strokeWidth={isEdgeOrExplorer ? 0 : 8}
+        style={{ paintOrder: 'stroke' }}
+      />
+      <Label
+        value={`${format('.3s')(lastData.y)}t`}
+        position="top"
+        fill="#113750"
+        fontSize="18px"
+        stroke="#fff"
+        strokeWidth={isEdgeOrExplorer ? 0 : 8}
+        style={{ paintOrder: 'stroke' }}
+      />
+    </ReferenceDot>
+  );
+};
 
 class ChartStackedArea extends PureComponent {
   constructor() {
@@ -59,43 +94,6 @@ class ChartStackedArea extends PureComponent {
     }
   };
 
-  renderLastPoint() {
-    const { points, data, config } = this.props;
-    const stackedAreaState = { points, data, config };
-    const lastData = getMaxValue(getDataWithTotal(stackedAreaState));
-    const isEdgeOrExplorer = isMicrosoftBrowser();
-    return (
-      <ReferenceDot
-        x={lastData.x}
-        y={lastData.y}
-        fill="#113750"
-        stroke="#fff"
-        strokeWidth={2}
-        r={6}
-      >
-        <Label
-          value={lastData.x}
-          position="top"
-          fill="#8f8fa1"
-          fontSize="13px"
-          offset={25}
-          stroke="#fff"
-          strokeWidth={isEdgeOrExplorer ? 0 : 8}
-          style={{ paintOrder: 'stroke' }}
-        />
-        <Label
-          value={`${format('.3s')(lastData.y)}t`}
-          position="top"
-          fill="#113750"
-          fontSize="18px"
-          stroke="#fff"
-          strokeWidth={isEdgeOrExplorer ? 0 : 8}
-          style={{ paintOrder: 'stroke' }}
-        />
-      </ReferenceDot>
-    );
-  }
-
   render() {
     const { tooltipVisibility, showLastPoint } = this.state;
     const {
@@ -110,9 +108,11 @@ class ChartStackedArea extends PureComponent {
       customTooltip,
       getCustomYLabelFormat
     } = this.props;
+
     const stackedAreaState = { points, data, config };
     const dataWithTotal = getDataWithTotal(stackedAreaState);
     const domain = getDomain(stackedAreaState);
+    const lastData = getMaxValue(getDataWithTotal(stackedAreaState));
 
     if (!dataWithTotal.length) return null;
     const tickColumns = {
@@ -224,7 +224,11 @@ class ChartStackedArea extends PureComponent {
                 />
               )
           }
-          {showLastPoint && this.renderLastPoint()}
+          {
+            points.length &&
+              DividerLine({ x: lastData.x, labels: config.dividerLine })
+          }
+          {showLastPoint && renderLastPoint(lastData)}
         </ComposedChart>
       </ResponsiveContainer>
     );
