@@ -20,14 +20,14 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
-import DividerLine from '../divider-line';
+import DividerLine from '../projected-data/divider-line';
 import ProjectedData from '../projected-data';
 
 import {
   getDataWithTotal,
   getDomain,
   getDataMaxMin
-} from './stacked-area-selectors';
+} from '../selectors/chart-selectors';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 
 const renderLastPoint = lastData => {

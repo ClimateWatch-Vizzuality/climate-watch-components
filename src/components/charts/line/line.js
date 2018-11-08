@@ -16,10 +16,14 @@ import { getMaxValue } from 'utils';
 import TooltipChart from 'components/charts/tooltip-chart';
 import debounce from 'lodash/debounce';
 import isUndefined from 'lodash/isUndefined';
-import DividerLine from '../divider-line';
+import DividerLine from '../projected-data/divider-line';
 import ProjectedData from '../projected-data';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
-import { getDataMaxMin, getDataWithTotal, getDomain } from './line-selectors';
+import {
+  getDataMaxMin,
+  getDataWithTotal,
+  getDomain
+} from '../selectors/chart-selectors';
 
 class ChartLine extends PureComponent {
   constructor() {

@@ -26,8 +26,6 @@ DividerLine.propTypes = {
   labels: PropTypes.object
 };
 
-DividerLine.defaultProps = {
-  labels: null
-};
+DividerLine.defaultProps = { labels: null };
 
 export default DividerLine;
