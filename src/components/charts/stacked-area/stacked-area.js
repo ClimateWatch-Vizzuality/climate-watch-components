@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import { isMicrosoftBrowser, getCustomTicks } from 'utils';
+import { isMicrosoftBrowser, getCustomTicks, getMaxValue } from 'utils';
 import isUndefined from 'lodash/isUndefined';
 import has from 'lodash/has';
 import { format } from 'd3-format';
@@ -29,11 +29,6 @@ import {
   getDataMaxMin
 } from './stacked-area-selectors';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
-
-const getMaxValue = data => {
-  const lastData = data[data.length - 1];
-  return { x: lastData.x, y: lastData.total };
-};
 
 const renderLastPoint = lastData => {
   const isEdgeOrExplorer = isMicrosoftBrowser();
@@ -237,11 +232,11 @@ class ChartStackedArea extends PureComponent {
                 />
               )
           }
+          {showLastPoint && renderLastPoint(lastData)}
           {
             projectedData.length &&
               DividerLine({ x: lastData.x, labels: config.dividerLine })
           }
-          {showLastPoint && renderLastPoint(lastData)}
           {
             projectedData.length &&
               ProjectedData({

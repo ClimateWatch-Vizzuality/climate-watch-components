@@ -131,3 +131,8 @@ export const splitSVGText = (
     lines.push(currentLine);
     return lines;
   };
+
+export const getMaxValue = data => {
+  const lastData = data[data.length - 1];
+  return { x: lastData.x, y: lastData.total };
+};

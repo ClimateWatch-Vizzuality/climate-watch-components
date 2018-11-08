@@ -12,7 +12,6 @@ const QUANTIFICATION_COLORS = {
 
 const ProjectedData = ({ data, dataMaxMin, activePoint, handleProjectedDataHover }) => {
   const isEdgeOrExplorer = isMicrosoftBrowser();
-
   return (
     data &&
     data.length > 0 &&
