@@ -1,26 +1,45 @@
 ```js
-
-const margin = 10;
 const height = 400;
 
 const data = [
-  { name: 'Group A', value: 400, fill: 'red' },
-  { name: 'Group B', value: 300, fill: 'blue' },
-  { name: 'Group C', value: 300,  fill: 'yellow' },
-  { name: 'Group D', value: 200,  fill: 'orange' },
-  { name: 'Group E', value: 278,  fill: 'maroon' },
-  { name: 'Group F', value: 189, fill: 'fuchsia' }
+  { name: 'GroupA', value: 400, fill: 'red' },
+  { name: 'GroupB', value: 300, fill: 'blue' },
+  { name: 'GroupC', value: 300, fill: 'yellow' },
+  { name: 'GroupD', value: 200, fill: 'orange' },
+  { name: 'GroupE', value: 278, fill: 'maroon' },
+  { name: 'GroupF', value: 189, fill: 'fuchsia' }
 ];
 
 const config = {
-  tooltip: { y: { label: 'people' } },
+  tooltip: {
+    GroupA: { label: 'Group A' },
+    GroupB: { label: 'Group B' },
+    GroupC: { label: 'Group C' },
+    GroupD: { label: 'Group D' },
+    GroupE: { label: 'Group E' },
+    GroupF: { label: 'Group F' },
+  },
   animation: false,
-  // theme: { stroke: '', fill: '#f5b335' } Only for data without colors
+  axes: {
+    yLeft: {
+      unit: 'MtCO2e',
+      label: '2010'
+    }
+  },
+  theme: {
+    stroke: '',
+    fill: '#f5b335',
+    GroupA: { label: 'Group A', stroke: 'red' },
+    GroupB: { label: 'Group B', stroke: 'blue' },
+    GroupC: { label: 'Group C', stroke: 'yellow' },
+    GroupD: { label: 'Group D', stroke: 'orange' },
+    GroupE: { label: 'Group E', stroke: 'maroon' },
+    GroupF: { label: 'Group F', stroke: 'fuchsia' },
+  }
 };
 
 <PieChart
   data={data}
-  margin={margin}
   height={height}
   config={config}
 />

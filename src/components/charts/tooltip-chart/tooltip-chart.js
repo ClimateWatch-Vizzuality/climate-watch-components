@@ -38,20 +38,55 @@ class TooltipChart extends PureComponent {
     return payload.sort(compare);
   };
 
-  renderValue = (y, suffix) => {
-    if (y.payload && y.payload[y.dataKey] !== undefined) {
-      if (Array.isArray(y.payload[y.dataKey])) {
+  renderValue = (y, labelName, suffix) => {
+    if (y.payload && (y.payload[labelName] !== undefined || y.payload.value)) {
+      if (Array.isArray(y.payload[labelName])) {
         return `${this.formatValue(
-          y.payload[y.dataKey][0]
-        )} - ${this.formatValue(y.payload[y.dataKey][1])}${suffix || ''}`;
+          y.payload[labelName][0]
+        )} - ${this.formatValue(y.payload[labelName][1])}${suffix || ''}`;
       }
-      return `${this.formatValue(y.payload[y.dataKey])}${suffix || ''}`;
+      return `${this.formatValue(
+        y.payload[labelName] || y.payload.value
+      )}${suffix || ''}`;
     }
     return 'n/a';
   };
 
-  render() {
+  renderTotal(suffix) {
     const { config, content, showTotal } = this.props;
+    return showTotal && (
+    <div className={cx(styles.label, styles.labelTotal)}>
+      <p>
+            TOTAL
+      </p>
+      <p>
+        {this.getTotal(config.columns.y, content.payload[0], suffix)}
+      </p>
+    </div>
+      );
+  }
+
+  renderIconOrDot(labelName) {
+    const { config } = this.props;
+    const iconColorProp = column => {
+      const { fill, stroke } = config.theme[column];
+      return { style: { fill: fill || stroke, stroke } };
+    };
+    const labelConfig = config.theme[labelName];
+    return labelConfig.icon ? (
+      <span className={styles.labelIcon}>
+        <Icon icon={labelConfig.icon} {...iconColorProp(labelName)} />
+      </span>
+) : (
+  <span
+    className={styles.labelDot}
+    style={{ backgroundColor: labelConfig && labelConfig.stroke }}
+  />
+);
+  }
+
+  render() {
+    const { config, content } = this.props;
     const unit = config &&
       config.axes &&
       config.axes.yLeft &&
@@ -60,15 +95,15 @@ class TooltipChart extends PureComponent {
       config.axes &&
       config.axes.yLeft &&
       config.axes.yLeft.suffix;
-    const iconColorProp = column => {
-      const { fill, stroke } = config.theme[column];
-      return { style: { fill: fill || stroke, stroke } };
-    };
+    const title = config &&
+      config.axes &&
+      config.axes.yLeft &&
+      config.axes.yLeft.label;
     return (
       <div className={styles.tooltip}>
         <div className={styles.tooltipHeader}>
           <span className={cx(styles.labelName, styles.labelNameBold)}>
-            {content.label}
+            {content.label || title}
           </span>
           <span
             className={styles.unit}
@@ -76,69 +111,42 @@ class TooltipChart extends PureComponent {
             dangerouslySetInnerHTML={{ __html: unit }}
           />
         </div>
-        {
-          showTotal && (
-          <div className={cx(styles.label, styles.labelTotal)}>
-            <p>
-                  TOTAL
-            </p>
-            <p>
-              {this.getTotal(config.columns.y, content.payload[0], suffix)}
-            </p>
-          </div>
-            )
-        }
+        {this.renderTotal(suffix)}
         {
           content &&
             content.payload &&
             content.payload.length > 0 &&
-            this.sortByValue(content.payload, config).map(
-              y =>
-                y.payload &&
-                  y.dataKey !== 'total' &&
-                  config.tooltip[y.dataKey].label
-                  ? (
-                    <div key={`${y.dataKey}`} className={styles.label}>
-                      <div className={styles.legend}>
+            this.sortByValue(content.payload, config).map(y => {
+              const hasDataKey = !!y.dataKey;
+              const labelName = y.dataKey || y.name;
+              return y.payload &&
+                y.dataKey !== 'total' &&
+                (hasDataKey
+                  ? config.tooltip[labelName].label
+                  : config.tooltip[labelName])
+                ? (
+                  <div key={`${labelName}`} className={styles.label}>
+                    <div className={styles.legend}>
+                      {this.renderIconOrDot(labelName)}
+                      <p
+                        className={cx(styles.labelName, {
+                        [styles.notAvailable]: !(y.payload &&
+                          y.payload[labelName])
+                      })}
+                      >
                         {
-                        config.theme[y.dataKey].icon
-                          ? (
-                            <span className={styles.labelIcon}>
-                              <Icon
-                                icon={config.theme[y.dataKey].icon}
-                                {...iconColorProp(y.dataKey)}
-                              />
-                            </span>
-)
-                          : (
-                            <span
-                              className={styles.labelDot}
-                              style={{
-                              backgroundColor: config.theme[y.dataKey] &&
-                                config.theme[y.dataKey].stroke
-                            }}
-                            />
-)
+                        config.theme[labelName] &&
+                          config.tooltip[labelName].label
                       }
-                        <p
-                          className={cx(styles.labelName, {
-                          [styles.notAvailable]: !(y.payload &&
-                            y.payload[y.dataKey])
-                        })}
-                        >
-                          {
-                          config.theme[y.dataKey] &&
-                            config.tooltip[y.dataKey].label
-                        }
-                        </p>
-                      </div>
-                      <p className={styles.labelValue}>
-                        {this.renderValue(y, suffix)}
                       </p>
                     </div>
+                    <p className={styles.labelValue}>
+                      {this.renderValue(y, labelName, suffix)}
+                    </p>
+                  </div>
 )
-                  : null
-            )
+                : null;
+            })
         }
         {
           content && !content.payload && (
