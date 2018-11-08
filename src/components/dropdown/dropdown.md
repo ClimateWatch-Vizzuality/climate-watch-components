@@ -53,12 +53,12 @@ const infoIcon = require('./assets/info.svg');
 const data = [
   { label: 'line', value: 'line' },
   { label: 'area', value: 'area' },
-  { label: 'buble', value: 'buble '}
+  { label: 'bubble', value: 'bubble '}
 ]
 const icons = {
 'line': areaIcon.default,
 'area': arrowIcon.default,
-'buble': infoIcon.default
+'bubble': infoIcon.default
 }
 
 initialState = {

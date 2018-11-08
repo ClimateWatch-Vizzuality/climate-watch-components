@@ -32,7 +32,6 @@ class Dropdown extends PureComponent {
       optional,
       value,
       options,
-      iconsDropdown,
       icons
     } = this.props;
     const hasNoValue = value && !value.value;
@@ -45,7 +44,7 @@ class Dropdown extends PureComponent {
           styles.dropdownWrapper,
           {
             [styles.flex]: withDot,
-            [styles.iconDropdown]: iconsDropdown,
+            [styles.iconDropdown]: icons,
             [styles.requiredError]: required && hasNoValue
           },
           theme.wrapper
@@ -68,7 +67,7 @@ class Dropdown extends PureComponent {
         <div className={cx(styles.dropdown, theme.dropdown)}>
           {loading && <Loading className={styles.loader} mini />}
           {
-            iconsDropdown ? (
+            icons ? (
               <SimpleSelect
                 ref={el => {
                   this.selectorElement = el;
@@ -130,7 +129,6 @@ Dropdown.propTypes = {
   withDot: PropTypes.bool,
   required: PropTypes.bool,
   optional: PropTypes.bool,
-  iconsDropdown: PropTypes.bool,
   theme: PropTypes.shape({
     wrapper: PropTypes.string,
     dot: PropTypes.string,
@@ -153,7 +151,6 @@ Dropdown.defaultProps = {
   withDot: false,
   required: false,
   optional: false,
-  iconsDropdown: false,
   value: null,
   icons: null
 };
