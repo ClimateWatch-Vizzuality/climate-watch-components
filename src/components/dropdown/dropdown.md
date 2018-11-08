@@ -56,9 +56,9 @@ const data = [
   { label: 'buble', value: 'buble '}
 ]
 const icons = {
-'line': areaIcon,
-'area': arrowIcon,
-'buble': infoIcon
+'line': areaIcon.default,
+'area': arrowIcon.default,
+'buble': infoIcon.default
 }
 
 initialState = {

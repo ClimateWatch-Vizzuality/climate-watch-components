@@ -84,13 +84,13 @@ class Dropdown extends PureComponent {
                 options={options}
                 renderOption={item => (
                   <Icon
-                    icon={icons[item.label].default}
+                    icon={icons[item.label]}
                     theme={{ icon: styles.iconOption }}
                   />
                 )}
                 renderValue={item => (
                   <Icon
-                    icon={icons[item.label].default}
+                    icon={icons[item.label]}
                     theme={{ icon: styles.iconValue }}
                   />
                 )}
