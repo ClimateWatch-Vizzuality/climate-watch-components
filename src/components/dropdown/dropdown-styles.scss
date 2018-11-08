@@ -34,6 +34,27 @@
   margin-right: 4px;
 }
 
+.iconOption {
+  padding-left: 10px;
+  width: 20px;
+  height: 30px;
+
+  .icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.iconValue {
+  width: 20px;
+  height: 30px;
+
+  .icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
 .requiredError {
   font-size: $font-size-s;
   font-weight: $font-weight;
@@ -56,6 +77,12 @@
 .withDot {
   :global .react-selectize-control {
     margin-left: 2em;
+  }
+}
+
+.iconDropdown {
+  :global .react-selectize-search-field-and-selected-values {
+    align-items: center;
   }
 }
 
