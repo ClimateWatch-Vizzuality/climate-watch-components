@@ -11,7 +11,7 @@ $bottom-padding: 16px;
     justify-content: center;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    color: #0A1941;
+    color: #0a1941;
     padding: 0;
 
     li {
@@ -28,12 +28,13 @@ $bottom-padding: 16px;
         padding-right: 0;
       }
     }
+
     .slick-active {
       position: relative;
       font-weight: 600;
 
-      >div::after {
-        background-color: #0A1941;
+      > div::after {
+        background-color: #0a1941;
       }
     }
   }
@@ -41,6 +42,7 @@ $bottom-padding: 16px;
   :global .slick-list {
     overflow: hidden;
   }
+
   :global .slick-track {
     display: flex;
   }
