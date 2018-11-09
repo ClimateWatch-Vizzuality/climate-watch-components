@@ -25,6 +25,11 @@ class BubbleChart extends PureComponent {
     return bubble(root);
   };
 
+  getTooltipText = ({ tooltipContent, value, unit }) =>
+    tooltipContent && tooltipContent.length
+      ? tooltipContent.join('<br>')
+      : `${value} ${unit}`;
+
   render() {
     const {
       width,
@@ -48,7 +53,7 @@ class BubbleChart extends PureComponent {
                 <circle
                   r={d.r}
                   data-for="chartTooltip"
-                  data-tip={`${d.data.value} ${d.data.unit}`}
+                  data-tip={this.getTooltipText(d.data)}
                   fill={d.data.color}
                   className={cx(styles.circle, theme.circle)}
                 />
@@ -59,7 +64,8 @@ class BubbleChart extends PureComponent {
         <ReactTooltip
           place="left"
           id="chartTooltip"
-          className={tooltipClassName}
+          className={cx(styles.tooltip, tooltipClassName)}
+          multiline
         />
       </Fragment>
     );
@@ -79,6 +85,7 @@ BubbleChart.propTypes = {
       value: PropTypes.number,
       unit: PropTypes.string,
       id: PropTypes.number,
+      tooltipContent: PropTypes.arrayOf(PropTypes.string),
       /** Color prop accepts any valid color string on the svg spec
        * (HEX, RGB, RGBa, HSL, HSLa, named colors) */
       color: PropTypes.string
