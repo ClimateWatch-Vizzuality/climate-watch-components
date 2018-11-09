@@ -1,8 +1,42 @@
+$bottom-padding: 16px;
+
 .carouselWrapper {
   font-family: 'Lato', sans-serif;
   display: flex !important;
-  flex-direction: column !important;
+  flex-direction: column-reverse !important;
   align-content: center !important;
+
+  :global .cwCarouselPaging {
+    display: flex !important;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: #0A1941;
+    padding: 0;
+
+    li {
+      list-style: none;
+      cursor: pointer;
+      padding: 0 30px $bottom-padding;
+      border-bottom: 3px solid rgba(10, 25, 65, 0.2);
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+    .slick-active {
+      position: relative;
+      font-weight: 600;
+
+      >div::after {
+        background-color: #0A1941;
+      }
+    }
+  }
 
   :global .slick-list {
     overflow: hidden;
@@ -10,4 +44,18 @@
   :global .slick-track {
     display: flex;
   }
+}
+
+.pagingTitle {
+  position: relative;
+}
+
+.pagingTitle::after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  bottom: calc(-#{$bottom-padding} - 2px);
+  left: 0;
+  background-color: transparent;
 }
