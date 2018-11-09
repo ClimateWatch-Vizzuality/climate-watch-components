@@ -177,6 +177,9 @@
     fill: #113750; }
 .cw__bubble-chart-styles_circle {
   cursor: pointer; }
+
+.cw__bubble-chart-styles_tooltip span {
+  text-align: left !important; }
 .cw__card-styles_card {
   display: flex;
   flex-direction: column;

@@ -881,6 +881,9 @@ module.exports = (function(e) {
                 return t.value - e.value;
               })
           );
+        }, r.getTooltipText = function(e) {
+          var t = e.tooltipContent, n = e.value, r = e.unit;
+          return t && t.length ? t.join('<br>') : n + ' ' + r;
         }, d(r, n);
       }
       return (function(e, t) {
@@ -915,36 +918,37 @@ module.exports = (function(e) {
         {
           key: 'render',
           value: function() {
-            var e = this.props,
-              t = e.width,
-              n = e.height,
-              r = e.handleNodeClick,
-              a = e.data,
-              u = e.tooltipClassName,
-              f = e.theme,
-              d = a && this.chartDataCalculation(t, a);
+            var e = this,
+              t = this.props,
+              n = t.width,
+              r = t.height,
+              a = t.handleNodeClick,
+              u = t.data,
+              f = t.tooltipClassName,
+              d = t.theme,
+              p = u && this.chartDataCalculation(n, u);
             return i.default.createElement(
               o.Fragment,
               null,
               i.default.createElement(
                 'svg',
-                { width: t, height: n, viewBox: '0 0 ' + t + ' ' + n },
-                d && d.children.map(function(e) {
+                { width: n, height: r, viewBox: '0 0 ' + n + ' ' + r },
+                p && p.children.map(function(t) {
                     return i.default.createElement(
                       'g',
                       {
-                        key: e.value,
-                        transform: 'translate(' + e.x + ',' + e.y + ')',
-                        onClick: function(t) {
-                          return r(t, e.data.id);
+                        key: t.value,
+                        transform: 'translate(' + t.x + ',' + t.y + ')',
+                        onClick: function(e) {
+                          return a(e, t.data.id);
                         }
                       },
                       i.default.createElement('circle', {
-                        r: e.r,
+                        r: t.r,
                         'data-for': 'chartTooltip',
-                        'data-tip': e.data.value + ' ' + e.data.unit,
-                        fill: e.data.color,
-                        className: (0, s.default)(c.default.circle, f.circle)
+                        'data-tip': e.getTooltipText(t.data),
+                        fill: t.data.color,
+                        className: (0, s.default)(c.default.circle, d.circle)
                       })
                     );
                   })
@@ -952,7 +956,8 @@ module.exports = (function(e) {
               i.default.createElement(l.default, {
                 place: 'left',
                 id: 'chartTooltip',
-                className: u
+                className: (0, s.default)(c.default.tooltip, f),
+                multiline: !0
               })
             );
           }
@@ -968,6 +973,7 @@ module.exports = (function(e) {
           value: a.default.number,
           unit: a.default.string,
           id: a.default.number,
+          tooltipContent: a.default.arrayOf(a.default.string),
           color: a.default.string
         })
       ).isRequired,
@@ -20087,7 +20093,10 @@ module.exports = (function(e) {
     };
   },
   TvHs: function(e, t) {
-    e.exports = { circle: 'cw__bubble-chart-styles_circle' };
+    e.exports = {
+      circle: 'cw__bubble-chart-styles_circle',
+      tooltip: 'cw__bubble-chart-styles_tooltip'
+    };
   },
   'U+KD': function(e, t, n) {
     var r = n('B+OT'),

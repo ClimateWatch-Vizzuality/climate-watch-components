@@ -1,6 +1,6 @@
 {
   "name": "cw-components",
-  "version": "1.9.4",
+  "version": "1.10.0",
   "private": true,
   "main": "dist/bundle.js",
   "scripts": {
