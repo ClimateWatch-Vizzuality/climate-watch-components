@@ -1742,8 +1742,8 @@ module.exports = (function(e) {
             e: R,
             f: B,
             H: I,
-            I: L,
-            j: D,
+            I: D,
+            j: L,
             L: z,
             m: W,
             M: F,
@@ -2042,10 +2042,10 @@ module.exports = (function(e) {
       function I(e, t) {
         return f(e.getHours(), t, 2);
       }
-      function L(e, t) {
+      function D(e, t) {
         return f(e.getHours() % 12 || 12, t, 2);
       }
-      function D(e, n) {
+      function L(e, n) {
         return f(1 + t.timeDay.count(t.timeYear(e), e), n, 3);
       }
       function z(e, t) {
@@ -4197,7 +4197,7 @@ module.exports = (function(e) {
             if (!j.length) return null;
             var R = { x: l.columns.x, y: l.columns.y.concat({ value: 'y' }) },
               I = (0, u.getCustomTicks)(R, j.concat(h), 5),
-              L = (0, c.default)(l, 'axes.yLeft.suffix')
+              D = (0, c.default)(l, 'axes.yLeft.suffix')
                 ? l.axes.yLeft.suffix
                 : null;
             return i.default.createElement(
@@ -4240,7 +4240,7 @@ module.exports = (function(e) {
                   tick: k ||
                     i.default.createElement(T.CustomYAxisTick, {
                       customstrokeWidth: '0',
-                      suffix: L,
+                      suffix: D,
                       getCustomYLabelFormat: A
                     }),
                   ticks: I.ticks
@@ -6769,10 +6769,10 @@ module.exports = (function(e) {
         ) (i = a[l]).y0 = n, i.y1 = o, i.x0 = t, i.x1 = t += i.value * s;
       }
       var N = '$', R = { depth: -1 }, I = {};
-      function L(e) {
+      function D(e) {
         return e.id;
       }
-      function D(e) {
+      function L(e) {
         return e.parentId;
       }
       function z(e, t) {
@@ -6984,7 +6984,7 @@ module.exports = (function(e) {
           return arguments.length ? (n = +e, o) : n;
         }, o;
       }, e.stratify = function() {
-        var e = L, t = D;
+        var e = D, t = L;
         function n(n) {
           var r, o, i, a, l, c, f, d = n.length, p = new Array(d), h = {};
           for (
@@ -7523,8 +7523,8 @@ module.exports = (function(e) {
       }
       return Array.from(e);
     }
-    var L = { xAxis: [ 'bottom', 'top' ], yAxis: [ 'left', 'right' ] },
-      D = { x: 0, y: 0 };
+    var D = { xAxis: [ 'bottom', 'top' ], yAxis: [ 'left', 'right' ] },
+      L = { x: 0, y: 0 };
     t.default = function(e) {
       var t,
         n,
@@ -7859,7 +7859,7 @@ module.exports = (function(e) {
                           g,
                           v,
                           o
-                        )), u({}, e, R({}, v, u({ axisType: o }, r.defaultProps, { hide: !0, orientation: L[o] && L[o][m % 2], domain: g, originalDomain: r.defaultProps.domain, isCategorial: y, layout: f })));
+                        )), u({}, e, R({}, v, u({ axisType: o }, r.defaultProps, { hide: !0, orientation: D[o] && D[o][m % 2], domain: g, originalDomain: r.defaultProps.domain, isCategorial: y, layout: f })));
                   }
                   return e;
                 },
@@ -7890,7 +7890,7 @@ module.exports = (function(e) {
                   radius: l
                 });
               }
-              return D;
+              return L;
             }
           },
           {
@@ -8026,14 +8026,14 @@ module.exports = (function(e) {
                     o[E].hasStack &&
                     (0, k.getStackedDataOfItem)(r, o[E].stackGroups),
                   I = (0, k.getBandSizeOfAxis)(P, j),
-                  L = (0, l.default)(C) ? y : C,
-                  D = b &&
+                  D = (0, l.default)(C) ? y : C,
+                  L = b &&
                     (0, k.getBarPosition)({
                       barGap: p,
                       barCategoryGap: h,
                       bandSize: I,
                       sizeList: _[M],
-                      maxBarSize: L
+                      maxBarSize: D
                     }),
                   z = r && r.type && r.type.getComposedData;
                 z &&
@@ -8047,7 +8047,7 @@ module.exports = (function(e) {
                           dataKey: T,
                           item: r,
                           bandSize: I,
-                          barPosition: D,
+                          barPosition: L,
                           offset: i,
                           stackedData: N,
                           layout: d,
@@ -8685,7 +8685,7 @@ module.exports = (function(e) {
                       x: 'horizontal' === a ? v[h].coordinate : b,
                       y: 'horizontal' === a ? _ : v[h].coordinate
                     }
-                    : D;
+                    : L;
                 e.setState(
                   u({}, r, {
                     activeLabel: x,
@@ -9342,8 +9342,8 @@ module.exports = (function(e) {
             return e.getUTCMinutes();
           }
         ),
-        L = I.range,
-        D = r(
+        D = I.range,
+        L = r(
           function(e) {
             e.setUTCMinutes(0, 0, 0);
           },
@@ -9357,7 +9357,7 @@ module.exports = (function(e) {
             return e.getUTCHours();
           }
         ),
-        z = D.range,
+        z = L.range,
         B = r(
           function(e) {
             e.setUTCHours(0, 0, 0, 0);
@@ -9443,7 +9443,7 @@ module.exports = (function(e) {
           }) : null;
       };
       var ie = oe.range;
-      e.timeInterval = r, e.timeMillisecond = o, e.timeMilliseconds = i, e.utcMillisecond = o, e.utcMilliseconds = i, e.timeSecond = u, e.timeSeconds = s, e.utcSecond = u, e.utcSeconds = s, e.timeMinute = c, e.timeMinutes = f, e.timeHour = d, e.timeHours = p, e.timeDay = h, e.timeDays = y, e.timeWeek = v, e.timeWeeks = S, e.timeSunday = v, e.timeSundays = S, e.timeMonday = g, e.timeMondays = T, e.timeTuesday = b, e.timeTuesdays = C, e.timeWednesday = _, e.timeWednesdays = E, e.timeThursday = x, e.timeThursdays = k, e.timeFriday = w, e.timeFridays = M, e.timeSaturday = O, e.timeSaturdays = A, e.timeMonth = P, e.timeMonths = j, e.timeYear = N, e.timeYears = R, e.utcMinute = I, e.utcMinutes = L, e.utcHour = D, e.utcHours = z, e.utcDay = B, e.utcDays = W, e.utcWeek = U, e.utcWeeks = X, e.utcSunday = U, e.utcSundays = X, e.utcMonday = H, e.utcMondays = Z, e.utcTuesday = G, e.utcTuesdays = Q, e.utcWednesday = V, e.utcWednesdays = J, e.utcThursday = q, e.utcThursdays = $, e.utcFriday = Y, e.utcFridays = ee, e.utcSaturday = K, e.utcSaturdays = te, e.utcMonth = ne, e.utcMonths = re, e.utcYear = oe, e.utcYears = ie, Object.defineProperty(e, '__esModule', { value: !0 });
+      e.timeInterval = r, e.timeMillisecond = o, e.timeMilliseconds = i, e.utcMillisecond = o, e.utcMilliseconds = i, e.timeSecond = u, e.timeSeconds = s, e.utcSecond = u, e.utcSeconds = s, e.timeMinute = c, e.timeMinutes = f, e.timeHour = d, e.timeHours = p, e.timeDay = h, e.timeDays = y, e.timeWeek = v, e.timeWeeks = S, e.timeSunday = v, e.timeSundays = S, e.timeMonday = g, e.timeMondays = T, e.timeTuesday = b, e.timeTuesdays = C, e.timeWednesday = _, e.timeWednesdays = E, e.timeThursday = x, e.timeThursdays = k, e.timeFriday = w, e.timeFridays = M, e.timeSaturday = O, e.timeSaturdays = A, e.timeMonth = P, e.timeMonths = j, e.timeYear = N, e.timeYears = R, e.utcMinute = I, e.utcMinutes = D, e.utcHour = L, e.utcHours = z, e.utcDay = B, e.utcDays = W, e.utcWeek = U, e.utcWeeks = X, e.utcSunday = U, e.utcSundays = X, e.utcMonday = H, e.utcMondays = Z, e.utcTuesday = G, e.utcTuesdays = Q, e.utcWednesday = V, e.utcWednesdays = J, e.utcThursday = q, e.utcThursdays = $, e.utcFriday = Y, e.utcFridays = ee, e.utcSaturday = K, e.utcSaturdays = te, e.utcMonth = ne, e.utcMonths = re, e.utcYear = oe, e.utcYears = ie, Object.defineProperty(e, '__esModule', { value: !0 });
     })(t);
   },
   '9bdd': function(e, t, n) {
@@ -9805,8 +9805,8 @@ module.exports = (function(e) {
       N = j && j.stringify,
       R = p('_hidden'),
       I = p('toPrimitive'),
-      L = ({}).propertyIsEnumerable,
-      D = c('symbol-registry'),
+      D = ({}).propertyIsEnumerable,
+      L = c('symbol-registry'),
       z = c('symbols'),
       B = c('op-symbols'),
       W = Object.prototype,
@@ -9850,7 +9850,7 @@ module.exports = (function(e) {
         return e;
       },
       X = function(e) {
-        var t = L.call(this, e = x(e, !0));
+        var t = D.call(this, e = x(e, !0));
         return !(this === W && o(z, e) && !o(B, e)) &&
           (!(t || !o(this, e) || !o(z, e) || o(this, R) && this[R][e]) || t);
       },
@@ -9899,11 +9899,11 @@ module.exports = (function(e) {
     for (var te = E(p.store), ne = 0; te.length > ne; ) y(te[ne++]);
     a(a.S + a.F * !F, 'Symbol', {
       for: function(e) {
-        return o(D, e += '') ? D[e] : D[e] = P(e);
+        return o(L, e += '') ? L[e] : L[e] = P(e);
       },
       keyFor: function(e) {
         if (!q(e)) throw TypeError(e + ' is not a symbol!');
-        for (var t in D) if (D[t] === e) return t;
+        for (var t in L) if (L[t] === e) return t;
       },
       useSetter: function() {
         H = !0;
@@ -13762,7 +13762,7 @@ module.exports = (function(e) {
                     c = t.domain;
                   try {
                     l
-                      ? (o || (2 == e._h && L(e), e._h = 1), !0 === l
+                      ? (o || (2 == e._h && D(e), e._h = 1), !0 === l
                         ? n = r
                         : (c && c.enter(), n = l(r), c &&
                           (c.exit(), a = !0)), n === t.promise
@@ -13796,7 +13796,7 @@ module.exports = (function(e) {
       I = function(e) {
         return 1 !== e._h && 0 === (e._a || e._c).length;
       },
-      L = function(e) {
+      D = function(e) {
         v.call(u, function() {
           var t;
           k
@@ -13804,7 +13804,7 @@ module.exports = (function(e) {
             : (t = u.onrejectionhandled) && t({ promise: e, reason: e._v });
         });
       },
-      D = function(e) {
+      L = function(e) {
         var t = this;
         t._d ||
           (t._d = !0, (t = t._w || t)._v = e, t._s = 2, t._a ||
@@ -13819,22 +13819,22 @@ module.exports = (function(e) {
             (t = j(e)) ? g(function() {
                 var r = { _w: n, _d: !1 };
                 try {
-                  t.call(e, s(z, r, 1), s(D, r, 1));
+                  t.call(e, s(z, r, 1), s(L, r, 1));
                 } catch (e) {
-                  D.call(r, e);
+                  L.call(r, e);
                 }
               }) : (n._v = e, n._s = 1, N(n, !1));
           } catch (e) {
-            D.call({ _w: n, _d: !1 }, e);
+            L.call({ _w: n, _d: !1 }, e);
           }
         }
       };
     P || (E = function(e) {
         h(this, E, 'Promise', '_h'), p(e), r.call(this);
         try {
-          e(s(z, this, 1), s(D, this, 1));
+          e(s(z, this, 1), s(L, this, 1));
         } catch (e) {
-          D.call(this, e);
+          L.call(this, e);
         }
       }, (r = function(e) {
         this._c = [], this._a = void 0, this._s = 0, this._d = !1, this._v = void 0, this._h = 0, this._n = !1;
@@ -13849,7 +13849,7 @@ module.exports = (function(e) {
         }
       }), i = function() {
         var e = new r();
-        this.promise = e, this.resolve = s(z, e, 1), this.reject = s(D, e, 1);
+        this.promise = e, this.resolve = s(z, e, 1), this.reject = s(L, e, 1);
       }, b.f = A = function(e) {
         return e === E || e === a ? new i(e) : o(e);
       }), f(f.G + f.W + f.F * !P, {
@@ -16269,8 +16269,8 @@ module.exports = (function(e) {
       N,
       R,
       I,
-      L,
       D,
+      L,
       z,
       B,
       W,
@@ -16487,11 +16487,11 @@ module.exports = (function(e) {
       var n, r;
       for (n = 0, r = t.length; n < r; ++n) if (e(t[n])) return !0;
       return !1;
-    }), L = be(function(e, t) {
+    }), D = be(function(e, t) {
       var n, r;
       for (n = 0, r = t.length; n < r; ++n) if (!e(t[n])) return !1;
       return !0;
-    }), D = function(e) {
+    }), L = function(e) {
       return e.concat().sort(function(e, t) {
         return e > t ? 1 : e < t ? -1 : 0;
       });
@@ -16687,10 +16687,10 @@ module.exports = (function(e) {
       andList: N,
       orList: R,
       any: I,
-      all: L,
+      all: D,
       unique: m,
       uniqueBy: v,
-      sort: D,
+      sort: L,
       sortWith: z,
       sortBy: B,
       sum: W,
@@ -17052,8 +17052,8 @@ module.exports = (function(e) {
           };
         };
       }
-      var I = R(l), L = R(s);
-      function D(e) {
+      var I = R(l), D = R(s);
+      function L(e) {
         return function(n, r) {
           var o = e((n = t.hcl(n)).h, (r = t.hcl(r)).h),
             i = s(n.c, r.c),
@@ -17064,7 +17064,7 @@ module.exports = (function(e) {
           };
         };
       }
-      var z = D(l), B = D(s);
+      var z = L(l), B = L(s);
       function W(e) {
         return (function n(r) {
           function o(n, o) {
@@ -17121,7 +17121,7 @@ module.exports = (function(e) {
           };
         }
         return n.duration = 1e3 * r, n;
-      }, e.interpolateRgb = c, e.interpolateRgbBasis = m, e.interpolateRgbBasisClosed = v, e.interpolateHsl = I, e.interpolateHslLong = L, e.interpolateLab = function(e, n) {
+      }, e.interpolateRgb = c, e.interpolateRgbBasis = m, e.interpolateRgbBasisClosed = v, e.interpolateHsl = I, e.interpolateHslLong = D, e.interpolateLab = function(e, n) {
         var r = s((e = t.lab(e)).l, (n = t.lab(n)).l),
           o = s(e.a, n.a),
           i = s(e.b, n.b),
@@ -17805,7 +17805,7 @@ module.exports = (function(e) {
             }
           }
       },
-      L = function(e, t, n, r) {
+      D = function(e, t, n, r) {
         for (var o = t.length - 1; o >= 0; o--)
           for (var i = t[o], a = 0, l = i.length; a < l; a++) {
             var u = i[a];
@@ -17815,7 +17815,7 @@ module.exports = (function(e) {
             }
           }
       },
-      D = function(e) {
+      L = function(e) {
         var t = e.data,
           n = e.width,
           r = e.height,
@@ -17891,7 +17891,7 @@ module.exports = (function(e) {
           })(p, r, a, c);
         R(p, r, a);
         for (var y = 1, m = 1; m <= o; m++)
-          L(d, p, h, y *= .99), R(p, r, a), I(d, p, h, y), R(p, r, a);
+          D(d, p, h, y *= .99), R(p, r, a), I(d, p, h, y), R(p, r, a);
         return (function(e, t) {
           for (var n = 0, r = e.length; n < r; n++) {
             var o = e[n], i = 0, a = 0;
@@ -18210,7 +18210,7 @@ module.exports = (function(e) {
                   l = e.nodePadding,
                   u = n - (o && o.left || 0) - (o && o.right || 0),
                   s = r - (o && o.top || 0) - (o && o.bottom || 0),
-                  c = D({
+                  c = L({
                     data: t,
                     width: u,
                     height: s,
@@ -18598,8 +18598,9 @@ module.exports = (function(e) {
         return e;
       },
       o = p(n('cDcd')),
-      i = n('rf6O'),
-      a = p(n('FehL')),
+      i = n('rf6O');
+    n('adkz');
+    var a = p(n('FehL')),
       l = p(n('GlS/')),
       u = p(n('QVpu')),
       s = p(n('3nzE')),
@@ -18947,13 +18948,13 @@ module.exports = (function(e) {
             N,
             R,
             I,
-            L,
             D,
+            L,
             z,
             B,
             W,
             F = this;
-          return t = (e = this.getComputedState()).anchor, e.filteredOptions, n = e.highlightedUid, r = e.onAnchorChange, o = e.onOpenChange, i = e.onHighlightedUidChange, a = e.onSearchChange, l = e.onValuesChange, s = e.search, c = e.open, f = e.options, d = e.values, null != (e = this.props) && (y = e.autofocus, v = e.autosize, g = e.cancelKeyboardEventOnSelection, b = e.delimiters, _ = e.disabled, x = e.dropdownDirection, w = e.groupId, O = e.groups, S = e.groupsAsColumns, T = e.hideResetButton, C = e.inputProps, E = e.name, k = e.onKeyboardSelectionFailed, M = e.renderToggleButton, A = e.renderGroupTitle, P = e.renderResetButton, j = e.serialize, N = e.tether, R = e.tetherProps, I = e.theme, L = e.transitionEnter, D = e.transitionLeave, z = e.transitionEnterTimeout, B = e.transitionLeaveTimeout, W = e.uid), p(
+          return t = (e = this.getComputedState()).anchor, e.filteredOptions, n = e.highlightedUid, r = e.onAnchorChange, o = e.onOpenChange, i = e.onHighlightedUidChange, a = e.onSearchChange, l = e.onValuesChange, s = e.search, c = e.open, f = e.options, d = e.values, null != (e = this.props) && (y = e.autofocus, v = e.autosize, g = e.cancelKeyboardEventOnSelection, b = e.delimiters, _ = e.disabled, x = e.dropdownDirection, w = e.groupId, O = e.groups, S = e.groupsAsColumns, T = e.hideResetButton, C = e.inputProps, E = e.name, k = e.onKeyboardSelectionFailed, M = e.renderToggleButton, A = e.renderGroupTitle, P = e.renderResetButton, j = e.serialize, N = e.tether, R = e.tetherProps, I = e.theme, D = e.transitionEnter, L = e.transitionLeave, z = e.transitionEnterTimeout, B = e.transitionLeaveTimeout, W = e.uid), p(
             m(
               m(
                 {
@@ -18983,9 +18984,9 @@ module.exports = (function(e) {
                   tether: N,
                   tetherProps: R,
                   theme: I,
-                  transitionEnter: L,
+                  transitionEnter: D,
                   transitionEnterTimeout: z,
-                  transitionLeave: D,
+                  transitionLeave: L,
                   transitionLeaveTimeout: B,
                   uid: W,
                   ref: 'select',
@@ -19916,9 +19917,13 @@ module.exports = (function(e) {
       requiredError: 'cw__dropdown-styles_requiredError',
       dot: 'cw__dropdown-styles_dot',
       label: 'cw__dropdown-styles_label',
+      iconOption: 'cw__dropdown-styles_iconOption',
+      icon: 'cw__dropdown-styles_icon',
+      iconValue: 'cw__dropdown-styles_iconValue',
       optional: 'cw__dropdown-styles_optional',
       loader: 'cw__dropdown-styles_loader',
       withDot: 'cw__dropdown-styles_withDot',
+      iconDropdown: 'cw__dropdown-styles_iconDropdown',
       infoContainer: 'cw__dropdown-styles_infoContainer',
       infoIcon: 'cw__dropdown-styles_infoIcon',
       white: 'cw__dropdown-styles_white'
@@ -22075,18 +22080,18 @@ module.exports = (function(e) {
         I = function(e, t) {
           return [ (t = +t) * Math.cos(e -= Math.PI / 2), t * Math.sin(e) ];
         },
-        L = Array.prototype.slice;
-      function D(e) {
+        D = Array.prototype.slice;
+      function L(e) {
         return e.source;
       }
       function z(e) {
         return e.target;
       }
       function B(e) {
-        var r = D, o = z, i = O, a = S, l = null;
+        var r = L, o = z, i = O, a = S, l = null;
         function u() {
           var n,
-            u = L.call(arguments),
+            u = D.call(arguments),
             s = r.apply(this, u),
             c = o.apply(this, u);
           if (
@@ -22745,10 +22750,10 @@ module.exports = (function(e) {
       function Ie(e) {
         this._context = e;
       }
-      function Le(e) {
+      function De(e) {
         this._context = e;
       }
-      function De(e) {
+      function Le(e) {
         var t,
           n,
           r = e.length - 1,
@@ -22847,7 +22852,7 @@ module.exports = (function(e) {
         bezierCurveTo: function(e, t, n, r, o, i) {
           this._context.bezierCurveTo(t, e, r, n, i, o);
         }
-      }, Le.prototype = {
+      }, De.prototype = {
         areaStart: function() {
           this._line = 0;
         },
@@ -22867,7 +22872,7 @@ module.exports = (function(e) {
             )
               this._context.lineTo(e[1], t[1]);
             else
-              for (var r = De(e), o = De(t), i = 0, a = 1; a < n; ++i, ++a)
+              for (var r = Le(e), o = Le(t), i = 0, a = 1; a < n; ++i, ++a)
                 this._context.bezierCurveTo(
                   r[0][i],
                   o[0][i],
@@ -22970,8 +22975,8 @@ module.exports = (function(e) {
                 N = E,
                 R = b,
                 I = E,
-                L = k,
                 D = k,
+                L = k,
                 z = T.apply(this, arguments) / 2,
                 B = z > c && (w ? +w.apply(this, arguments) : s(v * v + g * g)),
                 W = l(r(g - v) / 2, +x.apply(this, arguments)),
@@ -22979,16 +22984,16 @@ module.exports = (function(e) {
                 U = W;
               if (B > c) {
                 var H = h(B / v * u(z)), G = h(B / g * u(z));
-                (L -= 2 * H) > c
+                (D -= 2 * H) > c
                   ? (R += H *= M ? 1 : -1, I -= H)
-                  : (L = 0, R = I = (b + E) /
-                    2), (D -= 2 * G) > c ? (j += G *= M ? 1 : -1, N -= G) : (D = 0, j = N = (b + E) / 2);
+                  : (D = 0, R = I = (b + E) /
+                    2), (L -= 2 * G) > c ? (j += G *= M ? 1 : -1, N -= G) : (L = 0, j = N = (b + E) / 2);
               }
               var V = g * i(j), q = g * u(j), Y = v * i(I), K = v * u(I);
               if (W > c) {
                 var X = g * i(N), Z = g * u(N), Q = v * i(R), J = v * u(R);
                 if (k < f) {
-                  var $ = L > c ? (function(e, t, n, r, o, i, a, l) {
+                  var $ = D > c ? (function(e, t, n, r, o, i, a, l) {
                       var u = n - e,
                         s = r - t,
                         c = a - o,
@@ -23013,7 +23018,7 @@ module.exports = (function(e) {
                   F = l(W, (v - ie) / (oe - 1)), U = l(W, (g - ie) / (oe + 1));
                 }
               }
-              D > c
+              L > c
                 ? U > c
                   ? (A = _(Q, J, V, q, g, U, M), P = _(
                     X,
@@ -23048,7 +23053,7 @@ module.exports = (function(e) {
                       !M
                     )))
                   : (C.moveTo(V, q), C.arc(0, 0, g, j, N, !M))
-                : C.moveTo(V, q), v > c && L > c
+                : C.moveTo(V, q), v > c && D > c
                 ? F > c
                   ? (A = _(Y, K, X, Z, v, -F, M), P = _(
                     V,
@@ -23216,7 +23221,7 @@ module.exports = (function(e) {
       }, e.curveMonotoneY = function(e) {
         return new Re(e);
       }, e.curveNatural = function(e) {
-        return new Le(e);
+        return new De(e);
       }, e.curveStep = function(e) {
         return new ze(e, .5);
       }, e.curveStepAfter = function(e) {
@@ -23245,7 +23250,7 @@ module.exports = (function(e) {
         }
         return i.keys = function(t) {
           return arguments.length
-            ? (e = 'function' == typeof t ? t : n(L.call(t)), i)
+            ? (e = 'function' == typeof t ? t : n(D.call(t)), i)
             : e;
         }, i.value = function(e) {
           return arguments.length
@@ -23255,7 +23260,7 @@ module.exports = (function(e) {
           return arguments.length
             ? (t = null == e
               ? We
-              : 'function' == typeof e ? e : n(L.call(e)), i)
+              : 'function' == typeof e ? e : n(D.call(e)), i)
             : t;
         }, i.offset = function(e) {
           return arguments.length ? (r = null == e ? Be : e, i) : r;
@@ -23886,15 +23891,15 @@ module.exports = (function(e) {
           var t = S[e].t;
           return O + t + E;
         },
-        L = function(e) {
+        D = function(e) {
           var t = S[e].b;
           return O + t + E;
         },
-        D = function() {
+        L = function() {
           var e = !1, t = void 0;
-          return I('left') < 0 && L('left') <= M && L('bottom') <= M
+          return I('left') < 0 && D('left') <= M && D('bottom') <= M
             ? (e = !0, t = 'bottom')
-            : L('left') > M &&
+            : D('left') > M &&
               I('left') >= 0 &&
               I('top') >= 0 &&
               (e = !0, t = 'top'), { result: e, newPlace: t };
@@ -23908,14 +23913,14 @@ module.exports = (function(e) {
               N('left') >= 0 &&
               (e = !0, t = 'left'), { result: e, newPlace: t };
         },
-        B = (d = D(), p = d.result, h = d.newPlace, p && z().result
+        B = (d = L(), p = d.result, h = d.newPlace, p && z().result
           ? { result: !1 }
           : (!p && N('left') < 0 && R('right') <= k && (p = !0, h = 'right'), {
             result: p,
             newPlace: h
           })),
         W = (function() {
-          var e = D(), t = e.result, n = e.newPlace;
+          var e = L(), t = e.result, n = e.newPlace;
           return t && z().result
             ? { result: !1 }
             : (!t && R('right') > k && N('left') >= 0 && (t = !0, n = 'left'), {
@@ -23925,18 +23930,18 @@ module.exports = (function(e) {
         })(),
         F = (function() {
           var e = z(), t = e.result, n = e.newPlace;
-          return t && D().result
+          return t && L().result
             ? { result: !1 }
             : (!t &&
               I('top') < 0 &&
-              L('bottom') <= M &&
+              D('bottom') <= M &&
               (t = !0, n = 'bottom'), { result: t, newPlace: n });
         })(),
         U = (function() {
           var e = z(), t = e.result, n = e.newPlace;
-          return t && D().result
+          return t && L().result
             ? { result: !1 }
-            : (!t && L('bottom') > M && I('top') >= 0 && (t = !0, n = 'top'), {
+            : (!t && D('bottom') > M && I('top') >= 0 && (t = !0, n = 'top'), {
               result: t,
               newPlace: n
             });
@@ -24980,9 +24985,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = x(o),
       a = x(n('rf6O')),
-      l = x(n('OFL0'));
-    n('adkz');
-    var u = x(n('JVao')),
+      l = x(n('OFL0')),
+      u = x(n('JVao')),
       s = x(n('vVLp')),
       c = x(n('FehL')),
       f = x(n('GlS/')),
@@ -25077,11 +25081,11 @@ module.exports = (function(e) {
                 (0, l.default)(t, 'axes.yLeft.unit') &&
                 t.axes.yLeft.unit ||
                 null,
-              L = t &&
+              D = t &&
                 (0, l.default)(t, 'axes.yLeft.suffix') &&
                 t.axes.yLeft.suffix ||
                 null,
-              D = !o && r,
+              L = !o && r,
               z = i.default.createElement(s.default, {
                 position: 'top',
                 offset: 20,
@@ -25128,7 +25132,7 @@ module.exports = (function(e) {
                         i.default.createElement(b.CustomYAxisTick, {
                           precision: t.precision,
                           unit: I,
-                          suffix: L,
+                          suffix: D,
                           getCustomYLabelFormat: R
                         }),
                       domain: T && T.y || [ 'auto', 'auto' ],
@@ -25155,7 +25159,7 @@ module.exports = (function(e) {
                   M
                 )
               ),
-              D &&
+              L &&
                 i.default.createElement(v.default, {
                   theme: {
                     wrapper: (0, y.default)(_.default.legend, k.legend)
@@ -26502,10 +26506,10 @@ module.exports = (function(e) {
       var N = 1e3,
         R = 60 * N,
         I = 60 * R,
-        L = 24 * I,
-        D = 7 * L,
-        z = 30 * L,
-        B = 365 * L;
+        D = 24 * I,
+        L = 7 * D,
+        z = 30 * D,
+        B = 365 * D;
       function W(e) {
         return new Date(e);
       }
@@ -26537,9 +26541,9 @@ module.exports = (function(e) {
             [ a, 3, 3 * I ],
             [ a, 6, 6 * I ],
             [ a, 12, 12 * I ],
-            [ i, 1, L ],
-            [ i, 2, 2 * L ],
-            [ o, 1, D ],
+            [ i, 1, D ],
+            [ i, 2, 2 * D ],
+            [ o, 1, L ],
             [ n, 1, z ],
             [ n, 3, 3 * z ],
             [ e, 1, B ]
@@ -27359,12 +27363,12 @@ module.exports = (function(e) {
             N = u[A],
             R = s[j],
             I = l[A],
-            L = x[x.length - 1];
+            D = x[x.length - 1];
           for (
-            D = w.length;
-            D--;
+            L = w.length;
+            L--;
             
-          ) if (0 === w[D] && -1 !== [ 0, 2, 3, 5, 9, 11, 12, 13 ].indexOf(j)) {
+          ) if (0 === w[L] && -1 !== [ 0, 2, 3, 5, 9, 11, 12, 13 ].indexOf(j)) {
               if (!0 !== T[j])
                 throw new r.exception(n + ' is not allowed after ' + k);
               x.push({
@@ -27392,7 +27396,7 @@ module.exports = (function(e) {
               show: '('
             });
           else if (1 === j)
-            1 === L.type ? (L.value += N, o(w, 1)) : x.push(M), T = d, E = p;
+            1 === D.type ? (D.value += N, o(w, 1)) : x.push(M), T = d, E = p;
           else if (2 === j) T = f, E = h, o(w, 2), x.push(M);
           else if (3 === j) x.push(M), T = d, E = m;
           else if (4 === j) S += w.length, w = [], C++, T = f, E = h, x.push(M);
@@ -27404,15 +27408,15 @@ module.exports = (function(e) {
             for (; S--; ) x.push({ value: ')', type: 5, pre: 0, show: ')' });
             S = 0, C--, T = d, E = m, x.push(M);
           } else if (6 === j) {
-            if (L.hasDec)
+            if (D.hasDec)
               throw new r.exception(
                 'Two decimals are not allowed in one number'
               );
-            1 !== L.type &&
-              (L = { value: 0, type: 1, pre: 0 }, x.push(L), o(
+            1 !== D.type &&
+              (D = { value: 0, type: 1, pre: 0 }, x.push(D), o(
                 w,
                 -1
-              )), T = v, o(w, 1), E = h, L.value += N, L.hasDec = !0;
+              )), T = v, o(w, 1), E = h, D.value += N, D.hasDec = !0;
           } else 7 === j && (T = d, E = m, o(w, 1), x.push(M));
           8 === j
             ? (T = f, E = h, o(w, 4).push(4), x.push(M), x.push({
@@ -27422,17 +27426,17 @@ module.exports = (function(e) {
               show: '('
             }))
             : 9 === j
-              ? (9 === L.type
-                ? L.value === r.math.add
-                  ? (L.value = N, L.show = I, o(w, 1))
-                  : L.value === r.math.sub &&
+              ? (9 === D.type
+                ? D.value === r.math.add
+                  ? (D.value = N, D.show = I, o(w, 1))
+                  : D.value === r.math.sub &&
                     '-' === I &&
-                    (L.value = r.math.add, L.show = '+', o(w, 1))
-                : 5 !== L.type &&
-                  7 !== L.type &&
-                  1 !== L.type &&
-                  3 !== L.type &&
-                  13 !== L.type
+                    (D.value = r.math.add, D.show = '+', o(w, 1))
+                : 5 !== D.type &&
+                  7 !== D.type &&
+                  1 !== D.type &&
+                  3 !== D.type &&
+                  13 !== D.type
                   ? '-' === P &&
                     (T = f, E = h, o(w, 2).push(2), x.push({
                       value: r.math.changeSign,
@@ -27454,10 +27458,10 @@ module.exports = (function(e) {
                     : 13 === j && (T = d, E = m, x.push(M)), o(w, -1), k = n;
         }
       for (
-        var D = w.length;
-        D--;
+        var L = w.length;
+        L--;
         
-      ) 0 === w[D] && (x.push({ value: ')', show: ')', type: 5, pre: 3 }), o(w, -1).pop());
+      ) 0 === w[L] && (x.push({ value: ')', show: ')', type: 5, pre: 3 }), o(w, -1).pop());
       if (!0 !== T[5]) throw new r.exception('complete the expression');
       for (; C--; ) x.push({ value: ')', show: ')', type: 5, pre: 3 });
       return x.push({ type: 5, value: ')', show: ')', pre: 0 }), new r(x);
@@ -32470,21 +32474,31 @@ module.exports = (function(e) {
         })
         : e[t] = n, e;
     }
-    var g = (function(e) {
+    function g(e, t) {
+      if (!e)
+        throw new ReferenceError(
+          "this hasn't been initialised - super() hasn't been called"
+        );
+      return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
+    }
+    var b = (function(e) {
       function t() {
-        return (function(e, t) {
+        var e, n, r;
+        !(function(e, t) {
           if (!(e instanceof t))
             throw new TypeError('Cannot call a class as a function');
-        })(this, t), (function(e, t) {
-          if (!e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
-        })(
+        })(this, t);
+        for (var o = arguments.length, i = Array(o), l = 0; l < o; l++)
+          i[l] = arguments[l];
+        return n = r = g(
           this,
-          (t.__proto__ || Object.getPrototypeOf(t)).apply(this, arguments)
-        );
+          (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(
+            e,
+            [ this ].concat(i)
+          )
+        ), r.renderOptionIcon = function(e, t) {
+          return a.default.createElement(c.default, { icon: t[e.label] });
+        }, g(r, n);
       }
       return (function(e, t) {
         if ('function' != typeof t && null !== t)
@@ -32526,8 +32540,10 @@ module.exports = (function(e) {
               x = n.required,
               w = n.optional,
               O = n.value,
-              S = O && !O.value,
-              T = S && x;
+              S = n.options,
+              T = n.icons,
+              C = O && !O.value,
+              E = C && x;
             return a.default.createElement(
               'div',
               {
@@ -32536,9 +32552,9 @@ module.exports = (function(e) {
                   y.default.dropdownWrapper,
                   (e = {}, v(e, y.default.flex, g), v(
                     e,
-                    y.default.requiredError,
-                    x && S
-                  ), e),
+                    y.default.iconDropdown,
+                    T
+                  ), v(e, y.default.requiredError, x && C), e),
                   u.wrapper
                 )
               },
@@ -32552,7 +32568,7 @@ module.exports = (function(e) {
                   { className: y.default.label },
                   i
                 ),
-              T &&
+              E &&
                 a.default.createElement(
                   'span',
                   { className: y.default.requiredError },
@@ -32581,36 +32597,65 @@ module.exports = (function(e) {
                     className: y.default.loader,
                     mini: !0
                   }),
-                a.default.createElement(
-                  l.SimpleSelect,
-                  r(
-                    {
-                      ref: function(e) {
-                        t.selectorElement = e;
-                      },
-                      className: (0, s.default)(
-                        m,
-                        v({}, y.default.withDot, g),
-                        u.select
-                      ),
-                      renderToggleButton: function() {
-                        return a.default.createElement(c.default, {
-                          icon: d.default,
-                          theme: { icon: u.icon }
-                        });
-                      }
+                T ? a.default.createElement(l.SimpleSelect, {
+                    ref: function(e) {
+                      t.selectorElement = e;
                     },
-                    this.props
+                    className: (0, s.default)(
+                      m,
+                      v({}, y.default.withDot, g),
+                      u.select
+                    ),
+                    renderToggleButton: function() {
+                      return a.default.createElement(c.default, {
+                        icon: d.default,
+                        theme: { icon: u.icon }
+                      });
+                    },
+                    options: S,
+                    renderOption: function(e) {
+                      return a.default.createElement(c.default, {
+                        icon: T[e.label],
+                        theme: { icon: y.default.iconOption }
+                      });
+                    },
+                    renderValue: function(e) {
+                      return a.default.createElement(c.default, {
+                        icon: T[e.label],
+                        theme: { icon: y.default.iconValue }
+                      });
+                    }
+                  }) : a.default.createElement(
+                    l.SimpleSelect,
+                    r(
+                      {
+                        ref: function(e) {
+                          t.selectorElement = e;
+                        },
+                        className: (0, s.default)(
+                          m,
+                          v({}, y.default.withDot, g),
+                          u.select
+                        ),
+                        renderToggleButton: function() {
+                          return a.default.createElement(c.default, {
+                            icon: d.default,
+                            theme: { icon: u.icon }
+                          });
+                        }
+                      },
+                      this.props
+                    )
                   )
-                )
               )
             );
           }
         }
       ]), t;
     })(),
-      b = { label: u.default.string, value: u.default.string };
-    g.propTypes = {
+      _ = { label: u.default.string, value: u.default.string },
+      x = { valueLabel: u.default.node };
+    b.propTypes = {
       label: u.default.string,
       info: u.default.bool,
       infoText: u.default.string,
@@ -32626,9 +32671,10 @@ module.exports = (function(e) {
         select: u.default.string,
         icon: u.default.string
       }),
-      value: u.default.shape(b),
-      options: u.default.arrayOf(u.default.shape(b)).isRequired
-    }, g.defaultProps = { label: '', info: !1, infoText: '', theme: {}, loading: !1, disabled: !1, withDot: !1, required: !1, optional: !1, value: null }, t.default = g;
+      icons: u.default.shape(x),
+      value: u.default.shape(_),
+      options: u.default.arrayOf(u.default.shape(_)).isRequired
+    }, b.defaultProps = { label: '', info: !1, infoText: '', theme: {}, loading: !1, disabled: !1, withDot: !1, required: !1, optional: !1, value: null, icons: null }, t.default = b;
   },
   mRg0: function(e, t, n) {
     'use strict';
@@ -33485,7 +33531,7 @@ module.exports = (function(e) {
                 e.position(!1);
               }), S();
             };
-          function L() {
+          function D() {
             return 'object' == typeof performance &&
               'function' == typeof performance.now
               ? performance.now()
@@ -33494,15 +33540,15 @@ module.exports = (function(e) {
           M = null, A = null, P = null, j = function e() {
             if (void 0 !== A && A > 16)
               return A = Math.min(A - 16, 250), void (P = setTimeout(e, 250));
-            void 0 !== M && L() - M < 10 ||
-              (null != P && (clearTimeout(P), P = null), M = L(), I(), A = L() -
+            void 0 !== M && D() - M < 10 ||
+              (null != P && (clearTimeout(P), P = null), M = D(), I(), A = D() -
                 M);
           }, 'undefined' != typeof window &&
             void 0 !== window.addEventListener &&
             [ 'resize', 'scroll', 'touchmove' ].forEach(function(e) {
               window.addEventListener(e, j);
             });
-          var D = { center: 'center', left: 'right', right: 'left' },
+          var L = { center: 'center', left: 'right', right: 'left' },
             z = { middle: 'middle', top: 'bottom', bottom: 'top' },
             B = {
               top: 0,
@@ -33812,7 +33858,7 @@ module.exports = (function(e) {
                       this.clearCache();
                       var r = (function(e, t) {
                         var n = e.left, r = e.top;
-                        return 'auto' === n && (n = D[t.left]), 'auto' === r &&
+                        return 'auto' === n && (n = L[t.left]), 'auto' === r &&
                           (r = z[t.top]), { left: n, top: r };
                       })(this.targetAttachment, this.attachment);
                       this.updateAttachClasses(this.attachment, r);
@@ -36825,8 +36871,8 @@ module.exports = (function(e) {
         N = 4 / 29,
         R = 6 / 29,
         I = 3 * R * R,
-        L = R * R * R;
-      function D(e) {
+        D = R * R * R;
+      function L(e) {
         if (e instanceof B) return new B(e.l, e.a, e.b, e.opacity);
         if (e instanceof q) {
           if (isNaN(e.h)) return new B(e.l, 0, 0, e.opacity);
@@ -36848,14 +36894,14 @@ module.exports = (function(e) {
       }
       function z(e, t, n, r) {
         return 1 === arguments.length
-          ? D(e)
+          ? L(e)
           : new B(e, t, n, (null == r ? 1 : r));
       }
       function B(e, t, n, r) {
         this.l = +e, this.a = +t, this.b = +n, this.opacity = +r;
       }
       function W(e) {
-        return e > L ? Math.pow(e, 1 / 3) : e / I + N;
+        return e > D ? Math.pow(e, 1 / 3) : e / I + N;
       }
       function F(e) {
         return e > R ? e * e * e : I * (e - N);
@@ -36871,7 +36917,7 @@ module.exports = (function(e) {
       }
       function G(e) {
         if (e instanceof q) return new q(e.h, e.c, e.l, e.opacity);
-        if ((e instanceof B || (e = D(e)), 0 === e.a && 0 === e.b))
+        if ((e instanceof B || (e = L(e)), 0 === e.a && 0 === e.b))
           return new q(NaN, 0, e.l, e.opacity);
         var t = Math.atan2(e.b, e.a) * M;
         return new q(
@@ -36940,7 +36986,7 @@ module.exports = (function(e) {
             );
           },
           rgb: function() {
-            return D(this).rgb();
+            return L(this).rgb();
           }
         })
       );
@@ -37736,7 +37782,7 @@ module.exports = (function(e) {
           ? [ Math.min.apply(null, e), Math.max.apply(null, e) ]
           : e;
       }),
-      L = (t.getTicksOfScale = function(e, t) {
+      D = (t.getTicksOfScale = function(e, t) {
         var n = t.realScaleType,
           r = t.type,
           o = t.tickCount,
@@ -37789,7 +37835,7 @@ module.exports = (function(e) {
         var n = e.alwaysShow, r = e.ifOverflow;
         return n && (r = 'extendDomain'), r === t;
       }),
-      D = (t.detectReferenceElementsDomain = function(e, t, n, r, o) {
+      L = (t.detectReferenceElementsDomain = function(e, t, n, r, o) {
         var i = (0, S.findAllByType)(e, _.default),
           a = (0, S.findAllByType)(e, b.default),
           l = i.concat(a),
@@ -37801,7 +37847,7 @@ module.exports = (function(e) {
               function(e, t) {
                 if (
                   t.props[s] === n &&
-                    L(t.props, 'extendDomain') &&
+                    D(t.props, 'extendDomain') &&
                     (0, g.isNumber)(t.props[c])
                 ) {
                   var r = t.props[c];
@@ -37816,7 +37862,7 @@ module.exports = (function(e) {
             function(e, t) {
               if (
                 t.props[s] === n &&
-                  L(t.props, 'extendDomain') &&
+                  D(t.props, 'extendDomain') &&
                   (0, g.isNumber)(t.props[d]) &&
                   (0, g.isNumber)(t.props[p])
               ) {
@@ -37889,8 +37935,8 @@ module.exports = (function(e) {
       if (!(0, s.default)(e)) return t;
       var r = [];
       if ((0, g.isNumber)(e[0])) r[0] = n ? e[0] : Math.min(e[0], t[0]);
-      else if (D.test(e[0])) {
-        var o = +D.exec(e[0])[1];
+      else if (L.test(e[0])) {
+        var o = +L.exec(e[0])[1];
         r[0] = t[0] - o;
       } else (0, f.default)(e[0]) ? r[0] = e[0](t[0]) : r[0] = t[0];
       if ((0, g.isNumber)(e[1])) r[1] = n ? e[1] : Math.max(e[1], t[1]);
@@ -42617,12 +42663,12 @@ module.exports = (function(e) {
             N,
             R,
             I,
-            L,
             D,
+            L,
             z,
             B,
             W = this;
-          return (e = this.getComputedState()).filteredOptions, t = e.highlightedUid, n = e.onHighlightedUidChange, r = e.onOpenChange, o = e.onSearchChange, i = e.onValueChange, a = e.open, l = e.options, u = e.search, c = e.value, d = e.values, null != (e = this.props) && (p = e.autofocus, h = e.autosize, y = e.cancelKeyboardEventOnSelection, g = e.delimiters, _ = e.disabled, x = e.dropdownDirection, w = e.groupId, O = e.groups, S = e.groupsAsColumns, T = e.hideResetButton, C = e.name, E = e.inputProps, k = e.onBlurResetsInput, M = e.renderToggleButton, A = e.renderGroupTitle, P = e.renderResetButton, j = e.serialize, N = e.tether, R = e.tetherProps, I = e.theme, L = e.transitionEnter, D = e.transitionLeave, z = e.transitionEnterTimeout, B = e.transitionLeaveTimeout, e.uid), m(
+          return (e = this.getComputedState()).filteredOptions, t = e.highlightedUid, n = e.onHighlightedUidChange, r = e.onOpenChange, o = e.onSearchChange, i = e.onValueChange, a = e.open, l = e.options, u = e.search, c = e.value, d = e.values, null != (e = this.props) && (p = e.autofocus, h = e.autosize, y = e.cancelKeyboardEventOnSelection, g = e.delimiters, _ = e.disabled, x = e.dropdownDirection, w = e.groupId, O = e.groups, S = e.groupsAsColumns, T = e.hideResetButton, C = e.name, E = e.inputProps, k = e.onBlurResetsInput, M = e.renderToggleButton, A = e.renderGroupTitle, P = e.renderResetButton, j = e.serialize, N = e.tether, R = e.tetherProps, I = e.theme, D = e.transitionEnter, L = e.transitionLeave, z = e.transitionEnterTimeout, B = e.transitionLeaveTimeout, e.uid), m(
             b(
               b(
                 {
@@ -42653,9 +42699,9 @@ module.exports = (function(e) {
                   tether: N,
                   tetherProps: R,
                   theme: I,
-                  transitionEnter: L,
+                  transitionEnter: D,
                   transitionEnterTimeout: z,
-                  transitionLeave: D,
+                  transitionLeave: L,
                   transitionLeaveTimeout: B,
                   ref: 'select',
                   anchor: s(d),

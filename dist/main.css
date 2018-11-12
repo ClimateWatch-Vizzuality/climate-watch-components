@@ -924,6 +924,21 @@ input:checked ~ .cw__check-input-styles_label {
   margin-bottom: 4px;
   margin-right: 4px; }
 
+.cw__dropdown-styles_iconOption {
+  padding-left: 10px;
+  width: 20px;
+  height: 30px; }
+  .cw__dropdown-styles_iconOption .cw__dropdown-styles_icon {
+    width: 26px;
+    height: 26px; }
+
+.cw__dropdown-styles_iconValue {
+  width: 20px;
+  height: 30px; }
+  .cw__dropdown-styles_iconValue .cw__dropdown-styles_icon {
+    width: 26px;
+    height: 26px; }
+
 .cw__dropdown-styles_requiredError {
   font-size: 0.8125rem;
   font-weight: 400;
@@ -942,6 +957,9 @@ input:checked ~ .cw__check-input-styles_label {
 
 .cw__dropdown-styles_withDot .react-selectize-control {
   margin-left: 2em; }
+
+.cw__dropdown-styles_iconDropdown .react-selectize-search-field-and-selected-values {
+  align-items: center; }
 
 .cw__dropdown-styles_infoContainer {
   position: absolute;
