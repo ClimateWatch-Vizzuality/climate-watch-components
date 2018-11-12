@@ -10,10 +10,10 @@ const DividerLine = ({ labels, x }) => (
       content={content => (
         <g fill="#b1b1c1" style={{ fontSize: '0.9rem' }}>
           <text x={content.viewBox.x - 140} y="35">
-            {labels && labels.pre || 'Historical emissions'}
+            {labels && labels.pre || 'Recorded emissions'}
           </text>
           <text x={content.viewBox.x + 12} y="35">
-            {labels && labels.post || 'Emissions targets'}
+            {labels && labels.post || 'Emission targets'}
           </text>
         </g>
       )}
