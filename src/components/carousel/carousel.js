@@ -48,11 +48,11 @@ const Carousel = props => {
 };
 
 Carousel.propTypes = {
-  /** Wether or not to autoplay */
+  /** Whether or not to autoplay */
   autoplay: PropTypes.bool,
   /** Speed of the carousel */
   autoplaySpeed: PropTypes.number,
-  /** Wether or not to display pagination */
+  /** Whether or not to display pagination */
   hasPaging: PropTypes.bool,
   /** Array of strings containing slides titles to display on the pagination element.
    * Each string index belongs to the slide with the same index
