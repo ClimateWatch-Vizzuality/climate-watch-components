@@ -15,10 +15,12 @@ import styles from './pie-chart-styles.scss';
 
 const RADIAN = Math.PI / 180;
 const CustomizedLabel = (
-  { cx, cy, midAngle, innerRadius, outerRadius, percent }
+  { cx, cy, midAngle, innerRadius, outerRadius, percent },
+  { labelPositionRatio }
 ) =>
   {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const radius = innerRadius +
+      (outerRadius - innerRadius) * (labelPositionRatio || 0.6);
     const x = cx + radius * Math.cos((-midAngle) * RADIAN);
     const y = cy + radius * Math.sin((-midAngle) * RADIAN);
 
@@ -44,20 +46,15 @@ CustomizedLabel.propTypes = {
   percent: PropTypes.number.isRequired
 };
 
+const getColor = (d, config) => {
+  const configD = config.theme[camelCase(d.name)];
+  return configD && configD.stroke || d.fill;
+};
+
 class PieChart extends PureComponent {
   render() {
-    const {
-      config,
-      data,
-      width,
-      margin,
-      customTooltip,
-      legendPositionRatio
-    } = this.props;
-    const getColor = d => {
-      const configD = config.theme[camelCase(d.name)];
-      return configD && configD.stroke || d.fill;
-    };
+    const { config, data, width, margin, customTooltip } = this.props;
+
     return (
       <div className={styles.pieChart}>
         <ResponsiveContainer width={width} aspect={4 / 3} margin={margin}>
@@ -74,12 +71,12 @@ class PieChart extends PureComponent {
               data={data}
               dataKey="value"
               fill={config.theme && config.theme.fill}
-              label={CustomizedLabel}
+              label={content => CustomizedLabel(content, config)}
               labelLine={false}
               isAnimationActive={config.animation || false}
               legendType="circle"
             >
-              {data.map(d => <Cell fill={getColor(d)} />)}
+              {data.map(d => <Cell fill={getColor(d, config)} />)}
             </Pie>
           </RechartsPieChart>
         </ResponsiveContainer>
@@ -87,7 +84,9 @@ class PieChart extends PureComponent {
           Object.keys(config.theme) && (
           <div
             className={styles.legend}
-            style={{ marginLeft: width / legendPositionRatio }}
+            style={{
+                  marginLeft: width / (config.legendPositionRatio || 4.75)
+                }}
           >
             {Object
                   .keys(config.theme)
@@ -110,6 +109,10 @@ class PieChart extends PureComponent {
 
 PieChart.propTypes = {
   config: PropTypes.shape({
+    /** Position ratio of the legend to the chart, default: 4.75 */
+    legendPositionRatio: PropTypes.number,
+    /** Position ratio of the label to the chart, default: 0.6 */
+    labelPositionRatio: PropTypes.number,
     columns: PropTypes.object,
     /** Color of the slices is in the stroke attribute:
      * columnName: { stroke: 'red'}.
@@ -133,8 +136,7 @@ PieChart.propTypes = {
     left: PropTypes.number,
     bottom: PropTypes.number
   }),
-  customTooltip: PropTypes.node,
-  legendPositionRatio: PropTypes.number
+  customTooltip: PropTypes.node
 };
 
 PieChart.defaultProps = {
@@ -142,8 +144,7 @@ PieChart.defaultProps = {
   margin: { top: 0, right: 10, left: 10, bottom: 0 },
   config: {},
   data: [],
-  customTooltip: null,
-  legendPositionRatio: 4.75
+  customTooltip: null
 };
 
 export default PieChart;
