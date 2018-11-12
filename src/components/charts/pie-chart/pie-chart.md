@@ -1,23 +1,23 @@
 ```js
-const height = 400;
+const width = 400;
 
 const data = [
-  { name: 'GroupA', value: 400, fill: 'red' },
-  { name: 'GroupB', value: 300, fill: 'blue' },
-  { name: 'GroupC', value: 300, fill: 'yellow' },
-  { name: 'GroupD', value: 200, fill: 'orange' },
-  { name: 'GroupE', value: 278, fill: 'maroon' },
-  { name: 'GroupF', value: 189, fill: 'fuchsia' }
+  { name: 'groupA', value: 400 },
+  { name: 'groupB', value: 300 },
+  { name: 'groupC', value: 300 },
+  { name: 'groupD', value: 200 },
+  { name: 'groupE', value: 278 },
+  { name: 'groupF', value: 189 }
 ];
 
 const config = {
   tooltip: {
-    GroupA: { label: 'Group A' },
-    GroupB: { label: 'Group B' },
-    GroupC: { label: 'Group C' },
-    GroupD: { label: 'Group D' },
-    GroupE: { label: 'Group E' },
-    GroupF: { label: 'Group F' },
+    groupA: { label: 'Group A' },
+    groupB: { label: 'Group B' },
+    groupC: { label: 'Group C' },
+    groupD: { label: 'Group D' },
+    groupE: { label: 'Group E' },
+    groupF: { label: 'Group F' },
   },
   animation: false,
   axes: {
@@ -26,21 +26,20 @@ const config = {
       label: '2010'
     }
   },
-  theme: {
-    stroke: '',
-    fill: '#f5b335',
-    GroupA: { label: 'Group A', stroke: 'red' },
-    GroupB: { label: 'Group B', stroke: 'blue' },
-    GroupC: { label: 'Group C', stroke: 'yellow' },
-    GroupD: { label: 'Group D', stroke: 'orange' },
-    GroupE: { label: 'Group E', stroke: 'maroon' },
-    GroupF: { label: 'Group F', stroke: 'fuchsia' },
+  theme: { // Color of the slices is in the stroke attribute:
+    // fill: '#f5b335', // Optional -just if monochrome
+    groupA: { label: 'Group A', stroke: 'red' },
+    groupB: { label: 'Group B', stroke: 'blue' },
+    groupC: { label: 'Group C', stroke: 'teal' },
+    groupD: { label: 'Group D', stroke: 'orange' },
+    groupE: { label: 'Group E', stroke: 'maroon' },
+    groupF: { label: 'Group F', stroke: 'fuchsia' },
   }
 };
 
 <PieChart
   data={data}
-  height={height}
+  width={width}
   config={config}
 />
 ```
