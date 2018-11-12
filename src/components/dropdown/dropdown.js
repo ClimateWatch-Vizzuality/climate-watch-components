@@ -17,6 +17,8 @@ class Dropdown extends PureComponent {
     this.selectorElement.highlightFirstSelectableOption();
   }
 
+  renderOptionIcon = (item, icons) => <Icon icon={icons[item.label]} />;
+
   render() {
     const {
       loading,
@@ -28,10 +30,13 @@ class Dropdown extends PureComponent {
       infoText,
       required,
       optional,
-      value
+      value,
+      options,
+      icons
     } = this.props;
     const hasNoValue = value && !value.value;
     const isRequired = hasNoValue && required;
+
     return (
       <div
         className={cx(
@@ -39,6 +44,7 @@ class Dropdown extends PureComponent {
           styles.dropdownWrapper,
           {
             [styles.flex]: withDot,
+            [styles.iconDropdown]: icons,
             [styles.requiredError]: required && hasNoValue
           },
           theme.wrapper
@@ -60,20 +66,51 @@ class Dropdown extends PureComponent {
         }
         <div className={cx(styles.dropdown, theme.dropdown)}>
           {loading && <Loading className={styles.loader} mini />}
-          <SimpleSelect
-            ref={el => {
-              this.selectorElement = el;
-            }}
-            className={cx(
-              disabled,
-              { [styles.withDot]: withDot },
-              theme.select
-            )}
-            renderToggleButton={() => (
-              <Icon icon={dropdownArrow} theme={{ icon: theme.icon }} />
-            )}
-            {...this.props}
-          />
+          {
+            icons ? (
+              <SimpleSelect
+                ref={el => {
+                  this.selectorElement = el;
+                }}
+                className={cx(
+                  disabled,
+                  { [styles.withDot]: withDot },
+                  theme.select
+                )}
+                renderToggleButton={() => (
+                  <Icon icon={dropdownArrow} theme={{ icon: theme.icon }} />
+                )}
+                options={options}
+                renderOption={item => (
+                  <Icon
+                    icon={icons[item.label]}
+                    theme={{ icon: styles.iconOption }}
+                  />
+                )}
+                renderValue={item => (
+                  <Icon
+                    icon={icons[item.label]}
+                    theme={{ icon: styles.iconValue }}
+                  />
+                )}
+              />
+) : (
+  <SimpleSelect
+    ref={el => {
+                  this.selectorElement = el;
+                }}
+    className={cx(
+                  disabled,
+                  { [styles.withDot]: withDot },
+                  theme.select
+                )}
+    renderToggleButton={() => (
+      <Icon icon={dropdownArrow} theme={{ icon: theme.icon }} />
+                )}
+    {...this.props}
+  />
+)
+          }
         </div>
       </div>
     );
@@ -81,6 +118,7 @@ class Dropdown extends PureComponent {
 }
 
 const valueShape = { label: PropTypes.string, value: PropTypes.string };
+const iconsShape = { valueLabel: PropTypes.node };
 
 Dropdown.propTypes = {
   label: PropTypes.string,
@@ -98,6 +136,7 @@ Dropdown.propTypes = {
     select: PropTypes.string,
     icon: PropTypes.string
   }),
+  icons: PropTypes.shape(iconsShape),
   value: PropTypes.shape(valueShape),
   options: PropTypes.arrayOf(PropTypes.shape(valueShape)).isRequired
 };
@@ -112,7 +151,8 @@ Dropdown.defaultProps = {
   withDot: false,
   required: false,
   optional: false,
-  value: null
+  value: null,
+  icons: null
 };
 
 export default Dropdown;
