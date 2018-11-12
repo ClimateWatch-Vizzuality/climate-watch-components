@@ -101,11 +101,26 @@ Chart.propTypes = {
   dataSelected: PropTypes.array,
   /** Callback on legend active values change */
   onLegendChange: PropTypes.func,
-  /** Array of chart data */
+  /** Array of chart data
+  * Axes.yLeft has name, unit, format, suffix
+  * */
   data: PropTypes.array,
-  /** Array of chart data -
-   * Axes.yLeft has name, unit, format, suffix
-   * */
+  /** Array of projected chart data - Will be shown in the right part of the chart with a divider line */
+  projectedData: PropTypes.arrayOf(
+    PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          x: PropTypes.number,
+          y: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.arrayOf(PropTypes.number)
+          ])
+        })
+      ),
+      label: PropTypes.string,
+      isRange: PropTypes.bool
+    })
+  ),
   config: PropTypes.shape({
     animation: PropTypes.bool,
     axes: PropTypes.shape({
@@ -160,6 +175,7 @@ Chart.defaultProps = {
   hideRemoveOptions: false,
   theme: {},
   data: [],
+  projectedData: [],
   config: {},
   model: null,
   customMessage: '',
