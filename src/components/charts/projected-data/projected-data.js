@@ -4,30 +4,35 @@ import { ReferenceDot, ReferenceArea, Label } from 'recharts';
 import { isMicrosoftBrowser, wordWrap } from 'utils';
 import { format } from 'd3-format';
 
-const QUANTIFICATION_COLORS = {
+const DEFAULT_PROJECTED_COLORS = {
   BAU: '#113750',
   QUANTIFIED: '#ffc735',
   NOT_QUANTIFIABLE: '#b1b1c1'
 };
 
 const ProjectedData = (
-  { data, dataMaxMin, activePoint, handleProjectedDataHover }
+  { data, dataMaxMin, activePoint, handleProjectedDataHover, config }
 ) =>
   {
     const isEdgeOrExplorer = isMicrosoftBrowser();
     return data && data.length > 0 && data.map(point => {
+        const columnConfig = config &&
+          config.projectedColumns.find(c => c.label === point.label);
+        const color = columnConfig && columnConfig.color;
         const isActivePoint = activePoint &&
           (point.x === activePoint.x && point.y === activePoint.y);
-        let colorPoint = point.label.includes('BAU')
-          ? QUANTIFICATION_COLORS.BAU
-          : QUANTIFICATION_COLORS.QUANTIFIED;
-        if (point.y === null) {
-          colorPoint = QUANTIFICATION_COLORS.NOT_QUANTIFIABLE;
+        let colorPoint = point.y === null
+          ? DEFAULT_PROJECTED_COLORS.NOT_QUANTIFIABLE
+          : color;
+        if (!color) {
+          colorPoint = point.label.includes('BAU')
+            ? DEFAULT_PROJECTED_COLORS.BAU
+            : DEFAULT_PROJECTED_COLORS.QUANTIFIED;
         }
 
         // LABELS
         // yearLabel
-        const LENGHT_LIMIT = 15;
+        const LENGHT_LIMIT = config.projectedLabel.lengthLimit || 10;
         const isLongLabel = point.label.length > LENGHT_LIMIT;
         const yearLabel = (
           <Label
@@ -43,9 +48,8 @@ const ProjectedData = (
         );
 
         // extraLabelLine - For long labels
-        const MAX_LINE_LENGHT = 15;
-        const LABEL_OFFSET = 10;
-        const DY = 20;
+        const LABEL_OFFSET = config.projectedLabel.labelOffset || 10;
+        const DY = config.projectedLabel.dY || 20;
         const extraLabelLine = (text, offset) => (
           <Label
             key={text}
@@ -59,7 +63,7 @@ const ProjectedData = (
             offset={offset}
           />
         );
-        const extraLabel = wordWrap(point.label, MAX_LINE_LENGHT).map(
+        const extraLabel = wordWrap(point.label, LENGHT_LIMIT).map(
           (l, i) => extraLabelLine(l, LABEL_OFFSET + i * DY)
         );
 

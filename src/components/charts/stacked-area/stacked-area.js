@@ -243,7 +243,8 @@ class ChartStackedArea extends PureComponent {
                 data: projectedData,
                 dataMaxMin,
                 activePoint,
-                handleProjectedDataHover: this.handleProjectedDataHover
+                handleProjectedDataHover: this.handleProjectedDataHover,
+                config
               })
           }
         </ComposedChart>

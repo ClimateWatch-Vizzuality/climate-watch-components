@@ -25,9 +25,11 @@ $margin-container: 10px;
   }
 
   @media #{$tablet-landscape} {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    .legendContainer {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
 
     .legendLogoTitle {
       position: absolute;
@@ -40,6 +42,13 @@ $margin-container: 10px;
       padding-left: 130px;
     }
   }
+}
+
+.projectedLegend {
+  width: fit-content;
+  max-height: 30px;
+  display: inline-flex;
+  margin-left: 40px;
 }
 
 .tagsContainer {

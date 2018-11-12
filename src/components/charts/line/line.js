@@ -194,7 +194,8 @@ class ChartLine extends PureComponent {
                 data: projectedData,
                 dataMaxMin,
                 activePoint,
-                handleProjectedDataHover: this.handleProjectedDataHover
+                handleProjectedDataHover: this.handleProjectedDataHover,
+                config
               })
           }
         </LineChart>
