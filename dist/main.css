@@ -212,6 +212,48 @@
 .cw__card-styles_subtitle {
   color: #113750;
   line-height: 1.62; }
+.cw__carousel-styles_carouselWrapper {
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  flex-direction: column-reverse;
+  align-content: center; }
+  .cw__carousel-styles_carouselWrapper .cwCarouselPaging {
+    display: flex !important;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: #0a1941;
+    padding: 0; }
+    .cw__carousel-styles_carouselWrapper .cwCarouselPaging li {
+      list-style: none;
+      cursor: pointer;
+      padding: 0 30px 16px;
+      border-bottom: 3px solid rgba(10, 25, 65, 0.2); }
+      .cw__carousel-styles_carouselWrapper .cwCarouselPaging li:first-child {
+        padding-left: 0; }
+      .cw__carousel-styles_carouselWrapper .cwCarouselPaging li:last-child {
+        padding-right: 0; }
+    .cw__carousel-styles_carouselWrapper .cwCarouselPaging .slick-active {
+      position: relative;
+      font-weight: 600; }
+      .cw__carousel-styles_carouselWrapper .cwCarouselPaging .slick-active > div::after {
+        background-color: #0a1941; }
+  .cw__carousel-styles_carouselWrapper .slick-list {
+    overflow: hidden; }
+  .cw__carousel-styles_carouselWrapper .slick-track {
+    display: flex; }
+
+.cw__carousel-styles_pagingTitle {
+  position: relative; }
+
+.cw__carousel-styles_pagingTitle::after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  bottom: calc(-16px - 2px);
+  left: 0;
+  background-color: transparent; }
 .recharts-tooltip-wrapper {
   z-index: 1; }
 
