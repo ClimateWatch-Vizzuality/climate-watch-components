@@ -24,3 +24,4 @@ export { default as Stories } from './components/stories';
 export { default as Switch } from './components/switch';
 export { default as Table } from './components/table';
 export { default as Tag } from './components/tag';
+export { default as TooltipChart } from './components/charts/tooltip-chart';

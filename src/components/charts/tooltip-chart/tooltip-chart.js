@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { format } from 'd3-format';
 import cx from 'classnames';
 
@@ -161,11 +161,32 @@ class TooltipChart extends PureComponent {
 }
 
 TooltipChart.propTypes = {
-  content: Proptypes.object.isRequired,
-  config: Proptypes.object.isRequired,
-  showTotal: Proptypes.bool,
-  forceFixedFormatDecimals: Proptypes.number,
-  getCustomYLabelFormat: Proptypes.func
+  content: PropTypes.shape().isRequired,
+  config: PropTypes.shape({
+    animation: PropTypes.bool,
+    columns: PropTypes.object,
+    theme: PropTypes.object,
+    axes: PropTypes.shape({
+      xBottom: PropTypes.shape({
+        name: PropTypes.string,
+        unit: PropTypes.string,
+        format: PropTypes.string,
+        suffix: PropTypes.string
+      }),
+      yLeft: PropTypes.shape({
+        name: PropTypes.string,
+        unit: PropTypes.string,
+        format: PropTypes.string,
+        suffix: PropTypes.string
+      })
+    })
+  }).isRequired,
+  /** Show total or not in the tooltip */
+  showTotal: PropTypes.bool,
+  /** Number of decimals to force the format to */
+  forceFixedFormatDecimals: PropTypes.number,
+  /** Function that gets the value and should returns a formatted value for the Y label */
+  getCustomYLabelFormat: PropTypes.func
 };
 
 TooltipChart.defaultProps = {
