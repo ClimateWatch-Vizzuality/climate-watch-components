@@ -5,6 +5,7 @@ import {
   ResponsiveContainer,
   PieChart as RechartsPieChart,
   Pie,
+  Cell,
   Tooltip
 } from 'recharts';
 
@@ -28,7 +29,9 @@ class PieChart extends PureComponent {
               dataKey="value"
               fill={config.theme && config.theme.fill}
               isAnimationActive={config.animation || false}
-            />
+            >
+              {data.map(d => <Cell fill={d.fill} />)}
+            </Pie>
           </RechartsPieChart>
         </ResponsiveContainer>
       </div>
@@ -37,8 +40,18 @@ class PieChart extends PureComponent {
 }
 
 PieChart.propTypes = {
-  config: PropTypes.shape({ columns: PropTypes.object }),
-  data: PropTypes.arrayOf(PropTypes.object),
+  config: PropTypes.shape({
+    columns: PropTypes.object,
+    /** Optional fill attribute - Only if the pie is monochrome */
+    theme: PropTypes.shape({ fill: PropTypes.string })
+  }),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+      fill: PropTypes.string.isRequired
+    })
+  ),
   height: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   margin: PropTypes.shape({
     top: PropTypes.number,
