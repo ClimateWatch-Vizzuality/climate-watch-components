@@ -74,7 +74,7 @@ class BubbleChart extends PureComponent {
         <ReactTooltip
           place="left"
           id="chartTooltip"
-          className={cx(styles.tooltip, tooltipClassName)}
+          className={cx('bubbleChartTooltip', tooltipClassName)}
           multiline
         />
       </Fragment>
@@ -114,7 +114,7 @@ BubbleChart.propTypes = {
 
 BubbleChart.defaultProps = {
   theme: {},
-  tooltipClassName: 'bubbleChartTooltip',
+  tooltipClassName: '',
   config: PropTypes.shape({ scale: 1, suffix: '', format: '~r' })
 };
 

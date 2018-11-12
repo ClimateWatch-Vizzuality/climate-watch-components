@@ -1,7 +1,29 @@
+@import '~styles/settings.scss';
+
 .circle {
   cursor: pointer;
 }
 
-.tooltip span {
-  text-align: left !important;
+:global {
+  .bubbleChartTooltip {
+    font-family: $font-family-1;
+    padding: 15px;
+    font-size: $font-size-xs;
+    letter-spacing: -0.1px;
+    box-shadow: 0 5px 15px 0 rgba(17, 55, 80, 0.15);
+    max-width: 300px;
+
+    &.__react_component_tooltip.type-dark {
+      color: $theme-color;
+      background-color: $white;
+    }
+
+    & .multi-line {
+      text-align: left;
+    }
+
+    &::after { // Hides the arrow
+      display: none;
+    }
+  }
 }
