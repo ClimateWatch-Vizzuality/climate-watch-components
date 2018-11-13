@@ -15,7 +15,7 @@ import Icon from 'components/icon';
 import { TabletLandscape } from '../../styles/responsive';
 import mapZoomIn from './assets/map-zoom-in.svg';
 import mapZoomOut from './assets/map-zoom-out.svg';
-import styles from './map-styles.scss';
+import styles from './map-component-styles.scss';
 
 class MapComponent extends PureComponent {
   render() {
