@@ -1,7 +1,6 @@
 import React from 'react';
 import { Rectangle, Layer } from 'recharts';
 import { PropTypes } from 'prop-types';
-import { format } from 'd3-format';
 import { splitSVGText } from 'utils/utils';
 import styles from './sankey-node-styles.scss';
 
@@ -9,10 +8,6 @@ function SankeyNode({ x, y, width, height, index, payload, config }) {
   const isOut = x > width;
   const padding = config.padding || 20;
   const rectangleStart = config.titlePadding || 140;
-  const scale = config.scale || 1;
-  const valueFormat = config.format || '~r';
-  const unit = config.unit ? `${config.unit} ` : '';
-  const suffix = config.suffix ? ` ${config.suffix}` : '';
   const minHeight = 2;
 
   const tSpans = (text) => {
@@ -50,14 +45,6 @@ function SankeyNode({ x, y, width, height, index, payload, config }) {
         fill={payload.color}
         fillOpacity="1"
       />
-      <text
-        textAnchor={isOut ? 'end' : 'start'}
-        x={isOut ? x - (rectangleStart + padding) : x + width + (rectangleStart + padding)}
-        y={y + height / 2}
-        className={styles.nodeText}
-      >
-        {`${unit}${format(valueFormat)(payload.value * scale)}${suffix}`}
-      </text>
     </Layer>
   );
 }
