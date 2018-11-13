@@ -43,7 +43,7 @@ const ProjectedData = (
             strokeWidth={isEdgeOrExplorer ? 0 : 8}
             style={{ paintOrder: 'stroke' }}
             fontSize="13px"
-            offset={25}
+            offset={30}
           />
         );
 
@@ -80,6 +80,7 @@ const ProjectedData = (
             style={{ paintOrder: 'stroke' }}
             fill="#113750"
             fontSize="18px"
+            offset={10}
           />
         );
 
