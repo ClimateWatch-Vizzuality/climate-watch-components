@@ -51,7 +51,8 @@ class MapComponent extends Component {
       zoom,
       center,
       customCenter,
-      className
+      className,
+      theme
     } = this.props;
 
     const getMotionStyle = () => {
@@ -146,7 +147,15 @@ class MapComponent extends Component {
                 </ComposableMap>
               )}
             </Motion>
-            {countryNameTooltip && <ReactTooltip id="namesTooltip" />}
+            {
+              countryNameTooltip &&
+                (
+                  <ReactTooltip
+                    id="namesTooltip"
+                    className={cx('tooltip', theme.tooltip)}
+                  />
+                )
+            }
           </div>
         )}
       </TabletLandscape>

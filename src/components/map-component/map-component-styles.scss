@@ -44,3 +44,17 @@
 .map {
   height: calc(100% - 100px);
 }
+
+:global {
+  .tooltip {
+    &.__react_component_tooltip.type-dark {
+      color: $black;
+      background-color: $white;
+      opacity: 1;
+
+      &::after {
+        border-top-color: $white;
+      }
+    }
+  }
+}
