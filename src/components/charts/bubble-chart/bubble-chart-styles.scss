@@ -18,6 +18,10 @@
       background-color: $white;
     }
 
+    &.__react_component_tooltip.show {
+      opacity: 1;
+    }
+
     & .multi-line {
       text-align: left;
     }
