@@ -2,6 +2,7 @@ import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import { pack, hierarchy } from 'd3-hierarchy';
+import { format } from 'd3-format';
 import cx from 'classnames';
 import styles from './bubble-chart-styles.scss';
 
@@ -25,10 +26,18 @@ class BubbleChart extends PureComponent {
     return bubble(root);
   };
 
-  getTooltipText = ({ tooltipContent, value, unit }) =>
-    tooltipContent && tooltipContent.length
-      ? tooltipContent.join('<br>')
-      : `${value} ${unit}`;
+  formatValue = (value, unit, { scale, suffix, format: f }) =>
+    `${format(f)(value * scale)}${suffix} ${unit}`;
+
+  getTooltipText = ({ tooltipContent, value, unit }, config) => {
+    if (tooltipContent && tooltipContent.length) {
+      const formattedContent = tooltipContent.map(
+        v => typeof v === 'number' ? this.formatValue(v, unit, config) : v
+      );
+      return formattedContent.join('<br>');
+    }
+    return this.formatValue(value, unit, config);
+  };
 
   render() {
     const {
@@ -37,7 +46,8 @@ class BubbleChart extends PureComponent {
       handleNodeClick,
       data,
       tooltipClassName,
-      theme
+      theme,
+      config
     } = this.props;
     const charData = data && this.chartDataCalculation(width, data);
     return (
@@ -53,7 +63,7 @@ class BubbleChart extends PureComponent {
                 <circle
                   r={d.r}
                   data-for="chartTooltip"
-                  data-tip={this.getTooltipText(d.data)}
+                  data-tip={this.getTooltipText(d.data, config)}
                   fill={d.data.color}
                   className={cx(styles.circle, theme.circle)}
                 />
@@ -64,7 +74,7 @@ class BubbleChart extends PureComponent {
         <ReactTooltip
           place="left"
           id="chartTooltip"
-          className={cx(styles.tooltip, tooltipClassName)}
+          className={cx('bubbleChartTooltip', tooltipClassName)}
           multiline
         />
       </Fragment>
@@ -83,14 +93,20 @@ BubbleChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number,
-      unit: PropTypes.string,
       id: PropTypes.number,
-      tooltipContent: PropTypes.arrayOf(PropTypes.string),
+      tooltipContent: PropTypes.arrayOf(
+        PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
+      ),
       /** Color prop accepts any valid color string on the svg spec
        * (HEX, RGB, RGBa, HSL, HSLa, named colors) */
       color: PropTypes.string
     })
   ).isRequired,
+  config: PropTypes.shape({
+    scale: PropTypes.number,
+    suffix: PropTypes.string,
+    format: PropTypes.string
+  }),
   tooltipClassName: PropTypes.string,
   /** Theming circles with customized styles */
   theme: PropTypes.shape({ circle: PropTypes.string })
@@ -98,7 +114,8 @@ BubbleChart.propTypes = {
 
 BubbleChart.defaultProps = {
   theme: {},
-  tooltipClassName: 'bubbleChartTooltip'
+  tooltipClassName: '',
+  config: PropTypes.shape({ scale: 1, suffix: '', format: '~r' })
 };
 
 export default BubbleChart;
