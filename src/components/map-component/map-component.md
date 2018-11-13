@@ -1,11 +1,8 @@
 
 ```js
-const paths = [];
+const styles = require('./map-component-styles.scss');
 const onCountryClick = () => console.log('country clicked');
-<Map
-  style={{ height: '100%', width: '100%' }}
-  zoomEnable
-  paths={paths}
-  onCountryClick={onCountryClick}
-/>
+<div className={styles.wrapper}>
+  <MapComponent zoomEnable className={styles.map} onCountryClick={onCountryClick} />
+</div>
 ```

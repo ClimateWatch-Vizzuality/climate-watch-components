@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {
@@ -7,20 +7,28 @@ import {
   Geographies,
   Geography
 } from 'react-simple-maps';
-import ReactTooltip from 'react-tooltip';
 import { Motion, spring } from 'react-motion';
-
-import Button from 'components/button';
-import Icon from 'components/icon';
-import { TabletLandscape } from '../../styles/responsive';
+import ReactTooltip from 'react-tooltip';
+import worldPaths from './world-50m-paths';
+import Button from '../button/button';
+import Icon from '../icon/icon';
 import mapZoomIn from './assets/map-zoom-in.svg';
 import mapZoomOut from './assets/map-zoom-out.svg';
+import { TabletLandscape } from '../../styles/responsive';
+
 import styles from './map-component-styles.scss';
 
-class MapComponent extends PureComponent {
+class MapComponent extends Component {
+  componentDidMount() {
+    setTimeout(
+      () => {
+        ReactTooltip.rebuild();
+      },
+      100
+    );
+  }
+
   render() {
-    const { zoom, center, customCenter } = this.props;
-    const { className } = this.props;
     const {
       forceUpdate,
       paths,
@@ -39,8 +47,13 @@ class MapComponent extends PureComponent {
       onCountryFocus,
       onCountryBlur,
       defaultStyle,
-      controlPosition
+      controlPosition,
+      zoom,
+      center,
+      customCenter,
+      className
     } = this.props;
+
     const getMotionStyle = () => {
       const xCenter = customCenter && customCenter[0] || center[0];
       const yCenter = customCenter && customCenter[1] || center[1];
@@ -79,26 +92,20 @@ class MapComponent extends PureComponent {
               style={getMotionStyle()}
             >
               {({ z, x, y }) => (
-                <ComposableMap
-                  projection="robinson"
-                  projectionConfig={{ scale: 145, rotation: [ 0, 0, 0 ] }}
-                  style={style}
-                >
+                <ComposableMap projection="robinson" style={style}>
                   <ZoomableGroup
-                    center={customCenter || [ x, y ]}
                     zoom={z}
-                    disablePanning={!dragEnable}
+                    center={customCenter || [ x, y ]}
+                    onMoveEnd={this.handleMoveEnd}
                   >
                     <Geographies
-                      geographyPaths={paths}
+                      geography={paths}
                       disableOptimization={forceUpdate || !cache}
                     >
                       {(geographies, projection) =>
                         geographies.map(geography => {
                           if (geography) {
                             let commonProps = {
-                              key: geography.properties &&
-                                geography.properties.id,
                               geography,
                               projection,
                               onClick: onCountryClick,
@@ -149,42 +156,53 @@ class MapComponent extends PureComponent {
 
 MapComponent.propTypes = {
   style: PropTypes.object,
+  theme: PropTypes.object,
+  /** Array with topojson map */
+  paths: PropTypes.array,
+  defaultStyle: PropTypes.object,
+  /** Center of the map */
   center: PropTypes.array,
   customCenter: PropTypes.array,
   zoom: PropTypes.number,
+  /** Option to show zoom and zoom out buttons */
   zoomEnable: PropTypes.bool,
-  dragEnable: PropTypes.bool,
-  forceUpdate: PropTypes.bool,
-  cache: PropTypes.bool,
-  className: PropTypes.string,
-  paths: PropTypes.array,
+  /** Tooltip id */
   tooltipId: PropTypes.string,
+  cache: PropTypes.bool,
   countryNameTooltip: PropTypes.bool,
+  /** Position of zoom and zoom out buttons - default to top */
+  controlPosition: PropTypes.string,
   handleZoomIn: PropTypes.func,
   handleZoomOut: PropTypes.func,
+  forceUpdate: PropTypes.bool,
+  /** Option to drag the map around */
+  dragEnable: PropTypes.bool,
+  className: PropTypes.string,
+  /** Action handlers */
   onCountryEnter: PropTypes.func,
   onCountryClick: PropTypes.func,
   onCountryMove: PropTypes.func,
   onCountryLeave: PropTypes.func,
   onCountryFocus: PropTypes.func,
-  onCountryBlur: PropTypes.func,
-  controlPosition: PropTypes.string,
-  defaultStyle: PropTypes.object
+  onCountryBlur: PropTypes.func
 };
 
 MapComponent.defaultProps = {
-  style: { width: '100%' },
-  center: [ 20, 10 ],
-  customCenter: [],
+  style: { width: '100%', height: 'auto' },
+  theme: {},
   zoom: 1,
-  zoomEnable: false,
+  paths: worldPaths,
+  center: [ 0, 0 ],
+  customCenter: [ 0, 0 ],
   dragEnable: true,
-  forceUpdate: false,
+  zoomEnable: false,
   cache: true,
-  paths: [],
-  tooltipId: '',
   className: '',
-  countryNameTooltip: true,
+  controlPosition: 'top',
+  handleZoomIn: () => {
+  },
+  handleZoomOut: () => {
+  },
   onCountryClick: () => {
   },
   onCountryEnter: () => {
@@ -195,29 +213,27 @@ MapComponent.defaultProps = {
   },
   onCountryFocus: () => {
   },
-  handleZoomIn: () => {
-  },
-  handleZoomOut: () => {
-  },
   onCountryBlur: () => {
   },
-  controlPosition: '',
+  countryNameTooltip: true,
+  forceUpdate: false,
+  tooltipId: '',
   defaultStyle: {
     default: {
       fill: '#E5E5EB',
-      stroke: '#000',
+      stroke: '#001329',
       strokeWidth: 0.05,
       outline: 'none'
     },
     hover: {
       fill: '#E5E5EB',
-      stroke: '#000',
+      stroke: '#001329',
       strokeWidth: 0.05,
       outline: 'none'
     },
     pressed: {
       fill: '#E5E5EB',
-      stroke: '#000',
+      stroke: '#001329',
       strokeWidth: 0.5,
       outline: 'none'
     }
