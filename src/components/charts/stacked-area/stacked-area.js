@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import { isMicrosoftBrowser, getCustomTicks } from 'utils';
+import { isMicrosoftBrowser, getCustomTicks, getMaxValue } from 'utils';
 import isUndefined from 'lodash/isUndefined';
 import has from 'lodash/has';
+import { format } from 'd3-format';
 
 import {
   ComposedChart,
@@ -19,20 +20,59 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
-import { format } from 'd3-format';
+import DividerLine from '../projected-data/divider-line';
+import ProjectedData from '../projected-data';
 
-import { getDataWithTotal, getDomain } from './stacked-area-selectors';
+import {
+  getDataWithTotal,
+  getDomain,
+  getDataMaxMin
+} from '../selectors/chart-selectors';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 
-function getMaxValue(data) {
-  const lastData = data[data.length - 1];
-  return { x: lastData.x, y: lastData.total };
-}
+const renderLastPoint = lastData => {
+  const isEdgeOrExplorer = isMicrosoftBrowser();
+  return (
+    <ReferenceDot
+      x={lastData.x}
+      y={lastData.y}
+      fill="#113750"
+      stroke="#fff"
+      strokeWidth={2}
+      r={6}
+    >
+      <Label
+        value={lastData.x}
+        position="top"
+        fill="#8f8fa1"
+        fontSize="13px"
+        offset={25}
+        stroke="#fff"
+        strokeWidth={isEdgeOrExplorer ? 0 : 8}
+        style={{ paintOrder: 'stroke' }}
+      />
+      <Label
+        value={`${format('.3s')(lastData.y)}t`}
+        position="top"
+        fill="#113750"
+        fontSize="18px"
+        stroke="#fff"
+        strokeWidth={isEdgeOrExplorer ? 0 : 8}
+        style={{ paintOrder: 'stroke' }}
+      />
+    </ReferenceDot>
+  );
+};
 
 class ChartStackedArea extends PureComponent {
   constructor() {
     super();
-    this.state = { showLastPoint: true };
+    this.state = { activePoint: null, showLastPoint: true };
+    this.handleProjectedDataHover = this.handleProjectedDataHover.bind(this);
+  }
+
+  handleProjectedDataHover(activePoint) {
+    this.setState({ activePoint });
   }
 
   setLastPoint = showLastPoint => {
@@ -47,11 +87,13 @@ class ChartStackedArea extends PureComponent {
   );
 
   handleMouseMove = e => {
+    const { tooltipVisibility: currentTooltipVisibility } = this.state;
+    const { onMouseMove } = this.props;
     const activeCoordinateX = e && e.activeCoordinate && e.activeCoordinate.x;
     const chartX = e && e.chartX || 0;
     const tooltipVisibility = activeCoordinateX >= chartX - 30;
-    if (this.state.tooltipVisibility !== tooltipVisibility) {
-      this.setState({ tooltipVisibility }, () => this.props.onMouseMove(e));
+    if (currentTooltipVisibility !== tooltipVisibility) {
+      this.setState({ tooltipVisibility }, () => onMouseMove(e));
     }
     const year = e && e.activeLabel;
     if (year) {
@@ -59,50 +101,13 @@ class ChartStackedArea extends PureComponent {
     }
   };
 
-  renderLastPoint() {
-    const { points, data, config } = this.props;
-    const stackedAreaState = { points, data, config };
-    const lastData = getMaxValue(getDataWithTotal(stackedAreaState));
-    const isEdgeOrExplorer = isMicrosoftBrowser();
-    return (
-      <ReferenceDot
-        x={lastData.x}
-        y={lastData.y}
-        fill="#113750"
-        stroke="#fff"
-        strokeWidth={2}
-        r={6}
-      >
-        <Label
-          value={lastData.x}
-          position="top"
-          fill="#8f8fa1"
-          fontSize="13px"
-          offset={25}
-          stroke="#fff"
-          strokeWidth={isEdgeOrExplorer ? 0 : 8}
-          style={{ paintOrder: 'stroke' }}
-        />
-        <Label
-          value={`${format('.3s')(lastData.y)}t`}
-          position="top"
-          fill="#113750"
-          fontSize="18px"
-          stroke="#fff"
-          strokeWidth={isEdgeOrExplorer ? 0 : 8}
-          style={{ paintOrder: 'stroke' }}
-        />
-      </ReferenceDot>
-    );
-  }
-
   render() {
-    const { tooltipVisibility, showLastPoint } = this.state;
+    const { tooltipVisibility, showLastPoint, activePoint } = this.state;
     const {
       data,
       config,
       height,
-      points,
+      projectedData,
       includeTotalLine,
       stepped,
       customXAxisTick,
@@ -110,9 +115,12 @@ class ChartStackedArea extends PureComponent {
       customTooltip,
       getCustomYLabelFormat
     } = this.props;
-    const stackedAreaState = { points, data, config };
+
+    const stackedAreaState = { projectedData, data, config };
     const dataWithTotal = getDataWithTotal(stackedAreaState);
     const domain = getDomain(stackedAreaState);
+    const lastData = getMaxValue(getDataWithTotal(stackedAreaState));
+    const dataMaxMin = getDataMaxMin(stackedAreaState);
 
     if (!dataWithTotal.length) return null;
     const tickColumns = {
@@ -121,7 +129,7 @@ class ChartStackedArea extends PureComponent {
     };
     const tickValues = getCustomTicks(
       tickColumns,
-      dataWithTotal.concat(points),
+      dataWithTotal.concat(projectedData),
       5
     );
     const suffix = has(config, 'axes.yLeft.suffix')
@@ -145,7 +153,7 @@ class ChartStackedArea extends PureComponent {
             tick={customXAxisTick || <CustomXAxisTick customstrokeWidth="0" />}
             tickSize={8}
             allowDecimals={false}
-            tickCount={dataWithTotal.length + points.length}
+            tickCount={dataWithTotal.length + projectedData.length}
           />
           <YAxis
             type="number"
@@ -224,7 +232,21 @@ class ChartStackedArea extends PureComponent {
                 />
               )
           }
-          {showLastPoint && this.renderLastPoint()}
+          {showLastPoint && renderLastPoint(lastData)}
+          {
+            projectedData.length &&
+              DividerLine({ x: lastData.x, labels: config.dividerLine })
+          }
+          {
+            projectedData.length &&
+              ProjectedData({
+                data: projectedData,
+                dataMaxMin,
+                activePoint,
+                handleProjectedDataHover: this.handleProjectedDataHover,
+                config
+              })
+          }
         </ComposedChart>
       </ResponsiveContainer>
     );
@@ -233,7 +255,7 @@ class ChartStackedArea extends PureComponent {
 
 ChartStackedArea.propTypes = {
   config: PropTypes.object.isRequired,
-  points: PropTypes.array,
+  projectedData: PropTypes.array,
   data: PropTypes.array,
   height: PropTypes.oneOfType([
     PropTypes.number,
@@ -252,7 +274,7 @@ ChartStackedArea.propTypes = {
 ChartStackedArea.defaultProps = {
   height: 500,
   data: [],
-  points: [],
+  projectedData: [],
   onMouseMove: () => {
   },
   includeTotalLine: true,

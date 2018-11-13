@@ -25,9 +25,11 @@ $margin-container: 10px;
   }
 
   @media #{$tablet-landscape} {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    .legendContainer {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
 
     .legendLogoTitle {
       position: absolute;
@@ -42,16 +44,23 @@ $margin-container: 10px;
   }
 }
 
+.projectedLegend {
+  width: fit-content;
+  max-height: 30px;
+  display: inline-flex;
+  margin-left: 40px;
+}
+
 .tagsContainer {
   position: relative;
   min-height: 120px;
 
   @media #{$tablet-landscape} {
-    min-height: 85px;
+    min-height: 35px;
   }
 
   @media #{$desktop} {
-    min-height: 50px;
+    min-height: 30px;
   }
 }
 
@@ -72,9 +81,9 @@ $margin-container: 10px;
 
 .tags {
   display: flex;
-  margin-top: $margin-container;
   position: absolute;
   bottom: 0;
+  margin-bottom: 10px;
 
   @media #{$tablet-landscape} {
     flex-wrap: wrap;
@@ -84,13 +93,7 @@ $margin-container: 10px;
 
 .tag {
   margin-right: 10px;
-  padding: 1em 0.3em;
-  margin-bottom: 30px;
-
-  @media #{$tablet-landscape} {
-    padding: 0 5px;
-    margin-bottom: 10px;
-  }
+  padding: 0 5px;
 }
 
 .tagDescription {

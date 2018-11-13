@@ -51,6 +51,39 @@ export function getCustomTicks(
   };
 }
 
+// Splits the longString into an array of strings
+export const wordWrap = (longString, maxChar) => {
+  const sumLengthOfWords = wordArray => {
+    let out = 0;
+    if (wordArray.length !== 0) {
+      for (let i = 0; i < wordArray.length; i++) {
+        const word = wordArray[i];
+        out += word.length;
+      }
+    }
+    return out;
+  };
+  let splitOut = [ [] ];
+  const splitString = longString.split(' ');
+  for (let i = 0; i < splitString.length; i++) {
+    const word = splitString[i];
+
+    if (
+      sumLengthOfWords(splitOut[splitOut.length - 1]) + word.length > maxChar
+    ) {
+      splitOut = splitOut.concat([ [] ]);
+    }
+
+    splitOut[splitOut.length - 1] = splitOut[splitOut.length - 1].concat(word);
+  }
+
+  for (let i = 0; i < splitOut.length; i++) {
+    splitOut[i] = splitOut[i].join(' ');
+  }
+
+  return splitOut;
+};
+
 // formats/create ellipsis nodes text using # of lines available, node width, etc
 export const splitSVGText = (
   text,
@@ -98,3 +131,8 @@ export const splitSVGText = (
     lines.push(currentLine);
     return lines;
   };
+
+export const getMaxValue = data => {
+  const lastData = data[data.length - 1];
+  return { x: lastData.x, y: lastData.total };
+};
