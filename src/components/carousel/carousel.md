@@ -1,4 +1,5 @@
 ```js
+const image = require('./assets/he.png');
 const pagingTitles = ['Climate goals', 'National context', 'Annual emissions'];
 const width = 400;
 const height = 400;
@@ -13,17 +14,22 @@ const  data = [
     {id:8, value: 76, unit: 'MtCO2', color: '#28965A'}
   ];
 
-const CustomSlide = ({title, withChart = false, withButton = false}) => (
+const CustomTopSlide = ({title}) => (
   <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
     <h3 style={{fontSize: '44px', fontWeight: '300', textAlign: 'center' }}>{title}</h3>
     <p>
     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio.
     </p>
+    <Button onClick={() => console.info('Clicked on info')} >
+      Go to GHG target
+    </Button>
+  </div>
+);
+const CustomBottomSlide = ({empty, withChart}) => !empty && (
+  <div style={{display: 'flex', flexDirection: 'column', margin: '0 auto', maxWidth: '80%', alignItems: 'center'}}>
     {
-      withButton &&
-      <Button onClick={() => console.info('Clicked on info')}>
-        Go to GHG target
-      </Button>
+      !withChart &&
+      <img src={image} style={{maxWidth: '100%'}}/>
     }
     {
       withChart &&
@@ -38,8 +44,11 @@ const CustomSlide = ({title, withChart = false, withButton = false}) => (
 );
 
 <Carousel pagingTitles={pagingTitles} >
-  <CustomSlide title="GHG emissions" withButton/>
-  <CustomSlide title="Provinces" withChart/>
-  <CustomSlide title="Provinces without chart" />
+  <CustomTopSlide title="GHG emissions" topSlide/>
+  <CustomTopSlide title="Provinces" topSlide/>
+  <CustomTopSlide title="Country" topSlide/>
+  <CustomBottomSlide bottomSlide/>
+  <CustomBottomSlide bottomSlide withChart/>
+  <CustomBottomSlide bottomSlide empty/>
 </Carousel>
 ```
