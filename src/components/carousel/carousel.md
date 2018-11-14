@@ -1,4 +1,5 @@
 ```js
+const image = require('./assets/he.png');
 const pagingTitles = ['Climate goals', 'National context', 'Annual emissions'];
 const width = 400;
 const height = 400;
@@ -13,33 +14,29 @@ const  data = [
     {id:8, value: 76, unit: 'MtCO2', color: '#28965A'}
   ];
 
-const CustomSlide = ({title, withChart = false, withButton = false}) => (
+const CustomTopSlide = ({title}) => (
   <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
     <h3 style={{fontSize: '44px', fontWeight: '300', textAlign: 'center' }}>{title}</h3>
     <p>
     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio.
     </p>
-    {
-      withButton &&
-      <Button onClick={() => console.info('Clicked on info')}>
-        Go to GHG target
-      </Button>
-    }
-    {
-      withChart &&
-      <BubbleChart
-        width={width}
-        height={height}
-        data={data}
-        handleNodeClick={(e, id) => console.info(`Clicked on element with id: ${id}`)}
-      />
-    }
+    <Button onClick={() => console.info('Clicked on info')} >
+      Go to GHG target
+    </Button>
+  </div>
+);
+const CustomBottomSlide = ({empty}) => !empty && (
+  <div style={{display: 'flex', flexDirection: 'column', margin: '0 auto', maxWidth: '80%'}}>
+    <img src={image} style={{maxWidth: '100%'}}/>
   </div>
 );
 
 <Carousel pagingTitles={pagingTitles} >
-  <CustomSlide title="GHG emissions" withButton/>
-  <CustomSlide title="Provinces" withChart/>
-  <CustomSlide title="Provinces without chart" />
+  <CustomTopSlide title="GHG emissions" topSlide/>
+  <CustomTopSlide title="Provinces" topSlide/>
+  <CustomTopSlide title="Country" topSlide/>
+  <CustomBottomSlide bottomSlide/>
+  <CustomBottomSlide bottomSlide/>
+  <CustomBottomSlide bottomSlide empty/>
 </Carousel>
 ```
