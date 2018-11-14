@@ -30,6 +30,7 @@ class Dropdown extends PureComponent {
       infoText,
       required,
       optional,
+      hideResetButton,
       value,
       options,
       icons
@@ -93,6 +94,7 @@ class Dropdown extends PureComponent {
                     theme={{ icon: styles.iconValue }}
                   />
                 )}
+                hideResetButton={hideResetButton}
               />
 ) : (
   <SimpleSelect
@@ -129,6 +131,7 @@ Dropdown.propTypes = {
   withDot: PropTypes.bool,
   required: PropTypes.bool,
   optional: PropTypes.bool,
+  hideResetButton: PropTypes.bool,
   theme: PropTypes.shape({
     wrapper: PropTypes.string,
     dot: PropTypes.string,
@@ -148,6 +151,7 @@ Dropdown.defaultProps = {
   theme: {},
   loading: false,
   disabled: false,
+  hideResetButton: false,
   withDot: false,
   required: false,
   optional: false,
