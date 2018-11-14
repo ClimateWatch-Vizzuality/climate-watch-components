@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import TooltipChart from 'components/charts/tooltip-chart';
 import camelCase from 'lodash/camelCase';
+import classnames from 'classnames';
 import Tag from 'components/tag';
 import {
   ResponsiveContainer,
@@ -16,7 +17,8 @@ import styles from './pie-chart-styles.scss';
 const RADIAN = Math.PI / 180;
 const CustomizedLabel = (
   { cx, cy, midAngle, innerRadius, outerRadius, percent },
-  { labelPositionRatio }
+  { labelPositionRatio },
+  theme
 ) =>
   {
     const radius = innerRadius +
@@ -31,6 +33,7 @@ const CustomizedLabel = (
         fill="white"
         textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline="central"
+        className={theme.label}
       >
         {`${(percent * 100).toFixed(0)}%`}
       </text>
@@ -53,10 +56,10 @@ const getColor = (d, config) => {
 
 class PieChart extends PureComponent {
   render() {
-    const { config, data, width, margin, customTooltip } = this.props;
+    const { config, data, width, margin, customTooltip, theme } = this.props;
 
     return (
-      <div className={styles.pieChart}>
+      <div className={classnames(styles.pieChart, theme.pieChart)}>
         <ResponsiveContainer width={width} aspect={4 / 3} margin={margin}>
           <RechartsPieChart>
             <Tooltip
@@ -71,7 +74,7 @@ class PieChart extends PureComponent {
               data={data}
               dataKey="value"
               fill={config.theme && config.theme.fill}
-              label={content => CustomizedLabel(content, config)}
+              label={content => CustomizedLabel(content, config, theme)}
               labelLine={false}
               isAnimationActive={config.animation || false}
               legendType="circle"
@@ -83,7 +86,7 @@ class PieChart extends PureComponent {
         {
           Object.keys(config.theme) && (
           <div
-            className={styles.legend}
+            className={classnames(styles.legend, theme.legend)}
             style={{
                   marginLeft: width / (config.legendPositionRatio || 4.75)
                 }}
@@ -92,7 +95,7 @@ class PieChart extends PureComponent {
                   .keys(config.theme)
                   .map(q => (
                     <Tag
-                      theme={simpleTagTheme}
+                      theme={theme.tag || simpleTagTheme}
                       key={config.theme[q].label}
                       canRemove={false}
                       label={config.theme[q].label}
@@ -136,7 +139,13 @@ PieChart.propTypes = {
     left: PropTypes.number,
     bottom: PropTypes.number
   }),
-  customTooltip: PropTypes.node
+  customTooltip: PropTypes.node,
+  theme: PropTypes.shape({
+    pieChart: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
+    legend: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
+    label: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
+    tag: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ])
+  })
 };
 
 PieChart.defaultProps = {
@@ -144,7 +153,8 @@ PieChart.defaultProps = {
   margin: { top: 0, right: 10, left: 10, bottom: 0 },
   config: {},
   data: [],
-  customTooltip: null
+  customTooltip: null,
+  theme: {}
 };
 
 export default PieChart;
