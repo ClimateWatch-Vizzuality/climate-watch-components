@@ -3,7 +3,7 @@ $bottom-padding: 16px;
 .carouselWrapper {
   font-family: 'Lato', sans-serif;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   align-content: center;
 
   :global .cwCarouselPaging {
@@ -45,6 +45,13 @@ $bottom-padding: 16px;
 
   :global .slick-track {
     display: flex;
+  }
+}
+
+.fadeSliderWithPaging {
+  :global .slick-slider {
+    display: flex;
+    flex-direction: column-reverse;
   }
 }
 
