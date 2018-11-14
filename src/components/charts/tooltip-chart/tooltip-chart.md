@@ -1,0 +1,2 @@
+
+See chart component tooltip
