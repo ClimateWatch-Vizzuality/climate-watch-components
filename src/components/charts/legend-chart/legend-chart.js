@@ -4,7 +4,7 @@ import MultiSelect from 'components/multiselect';
 import Tag from 'components/tag';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
-
+import projectedTagTheme from './projected-tag-theme.scss';
 import styles from './legend-chart-styles.scss';
 import plusIcon from '../assets/plus.svg';
 
@@ -122,6 +122,22 @@ class LegendChart extends PureComponent {
             <a href={model.url} target="_blank" rel="noopener noreferrer">
               <img src={`https:${model.logo}`} alt="Data provider logo" />
             </a>
+          </div>
+            )
+        }
+        {
+          config.projectedColumns && (
+          <div className={styles.projectedLegend}>
+            {config.projectedColumns.map(q => (
+              <Tag
+                theme={projectedTagTheme}
+                key={q.label}
+                canRemove={false}
+                label={q.label}
+                color={q.color}
+                data={q}
+              />
+                ))}
           </div>
             )
         }
