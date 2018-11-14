@@ -701,7 +701,7 @@ module.exports = (function(e) {
       }),
       tooltipClassName: a.default.string,
       theme: a.default.shape({ circle: a.default.string })
-    }, h.defaultProps = { theme: {}, tooltipClassName: '', config: a.default.shape({ scale: 1, suffix: '', format: '~r' }) }, t.default = h;
+    }, h.defaultProps = { theme: {}, tooltipClassName: '', config: { scale: 1, suffix: '', format: '~r' } }, t.default = h;
   },
   '+vtl': function(e, t, n) {
     'use strict';
