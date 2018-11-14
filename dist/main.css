@@ -229,7 +229,7 @@
 .cw__carousel-styles_carouselWrapper {
   font-family: 'Lato', sans-serif;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   align-content: center; }
   .cw__carousel-styles_carouselWrapper .cwCarouselPaging {
     display: flex !important;
@@ -256,6 +256,10 @@
     overflow: hidden; }
   .cw__carousel-styles_carouselWrapper .slick-track {
     display: flex; }
+
+.cw__carousel-styles_fadeSliderWithPaging .slick-slider {
+  display: flex;
+  flex-direction: column-reverse; }
 
 .cw__carousel-styles_pagingTitle {
   position: relative; }
@@ -1182,6 +1186,28 @@ input:checked ~ .cw__check-input-styles_label {
 
 .ReactModal__Body--open {
   overflow: hidden; }
+.cw__simple-tag-theme_tag {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #8f8fa1;
+  flex-grow: 0; }
+
+.cw__simple-tag-theme_label {
+  padding: 5px 0;
+  margin-right: 8px;
+  width: max-content; }
+.cw__pie-chart-styles_pieChart {
+  display: flex;
+  flex-direction: column; }
+
+.cw__pie-chart-styles_legend {
+  opacity: 1; }
 .cw__sankey-tooltip-styles_tooltip {
   background: #fff;
   font-family: "Roboto Mono", sans-serif;
