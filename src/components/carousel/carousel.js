@@ -11,6 +11,14 @@ const customPaging = (i, pagingTitles, theme) => (
   </div>
 );
 
+/**
+ * Carousel component is composed by two different sliders, one with fade transition (top one) and other with a lateral transition (bottom one).
+ *
+ * To determine where to place the `children` a `topSlide` or `bottomSlide` boolean should be passed as prop.
+ * View the code for more detail on implementation.
+ *
+ * [React-slick](https://react-slick.neostack.com/) library is the main dependency.
+ */
 class Carousel extends Component {
   render() {
     const {
