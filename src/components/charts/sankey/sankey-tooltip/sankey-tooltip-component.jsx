@@ -38,26 +38,25 @@ class SankeyTooltip extends PureComponent {
                     <div className={styles.legend}>
                       <span
                         className={styles.labelDot}
-                        style={{
-                          backgroundColor: node.payload.payload &&
-                            node.payload.payload.source &&
+                        style={node.payload.payload && 
+                          {backgroundColor: node.payload.payload.source ? (
                             node.payload.payload.source.color
-                        }}
+                          ) : (
+                            node.payload.payload.color
+                          )}
+                        }
                       />
                       <div className={styles.labelName}>
-                        {
-                          node.payload.payload &&
-                            node.payload.payload.source &&
-                            node.payload.payload.source.name
-                        }
+                        {node.payload.payload && node.payload.payload.source ? (
+                          node.payload.payload.source.name
+                        ) : (
+                          node.name
+                        )}
                       </div>
                     </div>
                     <div className={styles.labelValue}>
                       {`${format(valueFormat)(node.value * scale)}${suffix}`}
                     </div>
-                  </div>
-                  <div className={styles.labelValue}>
-                    {node.payload.payload && node.payload.payload.name}
                   </div>
                   <div className={styles.tooltipChildren}>
                     {tooltipChildren && tooltipChildren(node)}

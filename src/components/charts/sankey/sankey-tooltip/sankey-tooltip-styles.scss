@@ -53,7 +53,7 @@
 .labelValue {
   color: $dark-gray;
   text-align: right;
-  min-width: 45px;
+  min-width: max-content;
 }
 
 .targetName {
