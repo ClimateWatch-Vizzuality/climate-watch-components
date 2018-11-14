@@ -115,7 +115,7 @@ BubbleChart.propTypes = {
 BubbleChart.defaultProps = {
   theme: {},
   tooltipClassName: '',
-  config: PropTypes.shape({ scale: 1, suffix: '', format: '~r' })
+  config: { scale: 1, suffix: '', format: '~r' }
 };
 
 export default BubbleChart;
