@@ -74,8 +74,8 @@ const onValueChange = (selected) => {
     value={icons[state.selected.value]}
     options={state.data}
     onValueChange={onValueChange}
-    iconsDropdown
     icons={icons}
+    hideResetButton
   />
 </div>
 ```
