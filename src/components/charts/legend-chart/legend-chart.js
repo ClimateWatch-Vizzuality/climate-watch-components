@@ -126,7 +126,7 @@ class LegendChart extends PureComponent {
             )
         }
         {
-          config.projectedColumns && (
+          config && config.projectedColumns && (
           <div className={styles.projectedLegend}>
             {config.projectedColumns.map(q => (
               <Tag
