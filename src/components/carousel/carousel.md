@@ -25,9 +25,21 @@ const CustomTopSlide = ({title}) => (
     </Button>
   </div>
 );
-const CustomBottomSlide = ({empty}) => !empty && (
-  <div style={{display: 'flex', flexDirection: 'column', margin: '0 auto', maxWidth: '80%'}}>
-    <img src={image} style={{maxWidth: '100%'}}/>
+const CustomBottomSlide = ({empty, withChart}) => !empty && (
+  <div style={{display: 'flex', flexDirection: 'column', margin: '0 auto', maxWidth: '80%', alignItems: 'center'}}>
+    {
+      !withChart &&
+      <img src={image} style={{maxWidth: '100%'}}/>
+    }
+    {
+      withChart &&
+      <BubbleChart
+        width={width}
+        height={height}
+        data={data}
+        handleNodeClick={(e, id) => console.info(`Clicked on element with id: ${id}`)}
+      />
+    }
   </div>
 );
 
@@ -36,7 +48,7 @@ const CustomBottomSlide = ({empty}) => !empty && (
   <CustomTopSlide title="Provinces" topSlide/>
   <CustomTopSlide title="Country" topSlide/>
   <CustomBottomSlide bottomSlide/>
-  <CustomBottomSlide bottomSlide/>
+  <CustomBottomSlide bottomSlide withChart/>
   <CustomBottomSlide bottomSlide empty/>
 </Carousel>
 ```
