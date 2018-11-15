@@ -20,10 +20,10 @@ class SankeyTooltip extends PureComponent {
                 <div key={node.name}>
                   <div className={styles.tooltipHeader}>
                     <span className={styles.targetName}>
-                      {
-                        node.payload.payload &&
-                          node.payload.payload.target &&
-                          node.payload.payload.target.name
+                      {node.payload.payload && 
+                        node.payload.payload.target &&
+                          `${ node.payload.payload.target.name } 
+                           ${ node.payload.payload.timeframes ? node.payload.payload.timeframes : "" }`
                       }
                     </span>
                     {config.unit &&
