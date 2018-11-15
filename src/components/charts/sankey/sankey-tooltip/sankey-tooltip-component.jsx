@@ -50,7 +50,7 @@ class SankeyTooltip extends PureComponent {
                         {node.payload.payload && node.payload.payload.source ? (
                           node.payload.payload.source.name
                         ) : (
-                          node.name
+                          node.payload.payload && node.payload.payload.name
                         )}
                       </div>
                     </div>
