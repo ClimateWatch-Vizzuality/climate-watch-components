@@ -65,7 +65,8 @@ const config = {
   tooltip:
     {
       scale: 1/100000,
-      suffix: 'm'
+      suffix: 'm',
+      unit: 'USD million'
     },
   node:
     {
@@ -74,5 +75,5 @@ const config = {
     }
 };
 
-<SankeyChart data={data} config={config} tooltipChildren={node => <div>Tooltip Extra Info: {node.name}</div>} />
+<SankeyChart data={data} config={config} tooltipChildren={node => <div>Tooltip Extra Info: extra info here</div>} />
 ```
