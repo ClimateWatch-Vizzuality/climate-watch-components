@@ -39,7 +39,7 @@ class MapFooter extends PureComponent {
 }
 
 MapFooter.propTypes = {
-  /* data consists of colors of buckets to render and legend - left is placed on the left side of the buckets and right on the right side. Both are optional. */
+  /** data consists of colors of buckets to render and legend - left is placed on the left side of the buckets and right on the right side. Both are optional. */
   data: PropTypes.shape({
     legend: PropTypes.shape({
       left: PropTypes.string,
