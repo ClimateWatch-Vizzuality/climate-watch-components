@@ -5232,18 +5232,19 @@ module.exports = (function(e) {
                           { className: u.default.legend },
                           i.default.createElement('span', {
                             className: u.default.labelDot,
-                            style: {
-                              backgroundColor: e.payload.payload &&
-                                e.payload.payload.source &&
-                                e.payload.payload.source.color
-                            }
+                            style: e.payload.payload &&
+                              {
+                                backgroundColor: e.payload.payload.source
+                                  ? e.payload.payload.source.color
+                                  : e.payload.payload.color
+                              }
                           }),
                           i.default.createElement(
                             'div',
                             { className: u.default.labelName },
-                            e.payload.payload &&
-                              e.payload.payload.source &&
-                              e.payload.payload.source.name
+                            e.payload.payload && e.payload.payload.source
+                              ? e.payload.payload.source.name
+                              : e.payload.payload && e.payload.payload.name
                           )
                         ),
                         i.default.createElement(
@@ -15857,56 +15858,51 @@ module.exports = (function(e) {
   NQLp: function(e, t, n) {
     'use strict';
     Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = c(n('cDcd')),
-      o = c(n('FTEe')),
-      i = c(n('hPzJ')),
+    var r = s(n('cDcd')),
+      o = s(n('FTEe')),
+      i = s(n('hPzJ')),
       a = n('rf6O'),
-      l = n('8R4q'),
-      u = n('+n12'),
-      s = c(n('SflS'));
-    function c(e) {
+      l = n('+n12'),
+      u = s(n('SflS'));
+    function s(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function f(e) {
+    function c(e) {
       var t,
         n,
         a,
+        s,
         c,
         f,
         d,
         p,
-        h,
-        y = e.x,
-        m = e.y,
-        v = e.width,
-        g = e.height,
-        b = e.index,
-        _ = e.payload,
-        x = e.config,
-        w = y > v,
-        O = x.padding || 20,
-        S = x.titlePadding || 140,
-        T = x.scale || 1,
-        E = x.format || '~r',
-        C = x.unit ? x.unit + ' ' : '',
-        k = x.suffix ? ' ' + x.suffix : '';
-      return _ && _.value && r.default.createElement(
+        h = e.x,
+        y = e.y,
+        m = e.width,
+        v = e.height,
+        g = e.index,
+        b = e.payload,
+        _ = e.config,
+        x = h > m,
+        w = _.padding || 20,
+        O = _.titlePadding || 140;
+      return b && b.value && r.default.createElement(
           o.default,
-          { key: 'CustomNode' + b },
+          { key: 'CustomNode' + g },
           r.default.createElement('text', {
-            textAnchor: w ? 'start' : 'end',
-            textLength: S,
-            className: s.default.nodeText,
+            textAnchor: x ? 'start' : 'end',
+            textLength: O,
+            className: u.default.nodeText,
             dangerouslySetInnerHTML: {
-              __html: (t = _.name, n = x.fontSize || 13, a = x.lineHeigth ||
-                1.2, c = x.textHeight || 20, f = x.tspanLineHeight || 10, d = w
-                ? y - S + O
-                : y + v + S - O / 2, p = m + g / 2 - n || 0, h = S / 6 -
-                3, (0, u.splitSVGText)(t, c, f, h, 2).map(function(e, t) {
+              __html: (t = b.name, n = _.fontSize || 13, a = _.lineHeigth ||
+                1.2, s = _.textHeight || 20, c = _.tspanLineHeight || 10, f = x
+                ? h - O + w
+                : h + m + O - w / 2, d = y + v / 2 - n || 0, p = O / 6 -
+                3, (0, l.splitSVGText)(t, s, c, p, 2).map(function(e, t) {
                 return '<tspan\n        x="' +
-                  d +
+                  f +
                   '"\n        y="' +
-                  (p + n * a + t * n * a) +
+                  (d + n * a + t * n * a) +
                   '"\n      >\n        ' +
                   e +
                   '\n      </tspan>';
@@ -15914,26 +15910,16 @@ module.exports = (function(e) {
             }
           }),
           r.default.createElement(i.default, {
-            x: w ? y - S : y + v + S,
-            y: m,
-            width: v,
-            height: g < 2 ? 2 : g,
-            fill: _.color,
+            x: x ? h - O : h + m + O,
+            y: y,
+            width: m,
+            height: v < 2 ? 2 : v,
+            fill: b.color,
             fillOpacity: '1'
-          }),
-          r.default.createElement(
-            'text',
-            {
-              textAnchor: w ? 'end' : 'start',
-              x: w ? y - (S + O) : y + v + (S + O),
-              y: m + g / 2,
-              className: s.default.nodeText
-            },
-            '' + C + (0, l.format)(E)(_.value * T) + k
-          )
+          })
         );
     }
-    f.propTypes = {
+    c.propTypes = {
       x: a.PropTypes.number,
       y: a.PropTypes.number,
       width: a.PropTypes.number,
@@ -15958,7 +15944,7 @@ module.exports = (function(e) {
         suffix: a.PropTypes.string,
         titlePadding: a.PropTypes.number
       })
-    }, f.defaultProps = { x: 0, y: 0, width: 20, height: 20, index: 0, payload: {}, config: {} }, t.default = f;
+    }, c.defaultProps = { x: 0, y: 0, width: 20, height: 20, index: 0, payload: {}, config: {} }, t.default = c;
   },
   NV0k: function(e, t) {
     t.f = ({}).propertyIsEnumerable;
@@ -21720,8 +21706,9 @@ module.exports = (function(e) {
       l = g(n('qCFj')),
       u = g(n('u6S6')),
       s = g(n('K2gz')),
-      c = g(n('sXgQ')),
-      f = g(n('GlS/')),
+      c = g(n('sXgQ'));
+    n('adkz');
+    var f = g(n('GlS/')),
       d = g(n('i9Y8')),
       p = g(n('mGSp')),
       h = g(n('wrKF')),
@@ -26584,9 +26571,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = x(o),
       a = x(n('rf6O')),
-      l = x(n('OFL0'));
-    n('adkz');
-    var u = x(n('JVao')),
+      l = x(n('OFL0')),
+      u = x(n('JVao')),
       s = x(n('vVLp')),
       c = x(n('FehL')),
       f = x(n('GlS/')),

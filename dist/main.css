@@ -1254,7 +1254,7 @@ input:checked ~ .cw__check-input-styles_label {
 .cw__sankey-tooltip-styles_labelValue, .cw__sankey-tooltip-styles_focus {
   color: #8f8fa1;
   text-align: right;
-  min-width: 45px; }
+  min-width: max-content; }
 
 .cw__sankey-tooltip-styles_targetName {
   color: #113750; }
@@ -1275,6 +1275,9 @@ input:checked ~ .cw__check-input-styles_label {
   padding: 0 10px; }
 .cw__sankey-styles_sankey > svg {
   padding-bottom: 1em; }
+
+.cw__sankey-styles_sankey * {
+  font-family: "Lato", sans-serif; }
 
 .cw__sankey-styles_link {
   cursor: pointer; }
