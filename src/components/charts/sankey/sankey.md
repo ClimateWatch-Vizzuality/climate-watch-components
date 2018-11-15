@@ -67,7 +67,6 @@ const config = {
       scale: 1/100000,
       suffix: 'm',
       unit: 'USD million'
-
     },
   node:
     {
