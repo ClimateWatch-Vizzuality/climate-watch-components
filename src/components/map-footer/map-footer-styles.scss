@@ -1,3 +1,5 @@
+@import '../../styles/settings';
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -6,6 +8,7 @@
 }
 
 .title {
+  font-family: $font-family-1;
   font-size: 0.8125rem;
   color: #8f8fa1;
 }
