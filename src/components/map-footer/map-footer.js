@@ -7,13 +7,17 @@ import styles from './map-footer-styles.scss';
 class MapFooter extends PureComponent {
   // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { title, buckets } = this.props.data;
+    const { legend, buckets } = this.props.data;
     const { theme } = this.props;
 
     return (
       <div className={cx(styles.container, theme.container)}>
-        <span className={cx(styles.title, theme.title)}>{title}</span>
-        <div>
+        {
+          legend &&
+            legend.left &&
+            <span className={cx(styles.title, theme.title)}>{legend.left}</span>
+        }
+        <div className={styles.buckets}>
           {buckets.map(value => (
             <span
               className={cx(styles.bucket, theme.bucket)}
@@ -22,14 +26,25 @@ class MapFooter extends PureComponent {
             />
           ))}
         </div>
+        {
+          legend && legend.right && (
+          <span className={cx(styles.title, theme.title)}>
+            {legend.right}
+          </span>
+            )
+        }
       </div>
     );
   }
 }
 
 MapFooter.propTypes = {
+  /* data consists of colors of buckets to render and legend - left is placed on the left side of the buckets and right on the right side. Both are optional. */
   data: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    legend: PropTypes.shape({
+      left: PropTypes.string,
+      right: PropTypes.string
+    }),
     buckets: PropTypes.array.isRequired
   }),
   theme: PropTypes.shape({

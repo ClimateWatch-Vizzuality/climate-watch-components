@@ -1,6 +1,5 @@
 Legend for the map
 ```js
-const title = `GHG Emissions in 2014`;
 const buckets = [
   '#fffffb',
   '#ffffd5',
@@ -12,7 +11,7 @@ const buckets = [
   '#1b4a75',
   '#163449'
 ];
-const data = { title: title, buckets: buckets };
+const data = { legend: { left: '0-10 Mt CO2e', right: '> 1000 Mt CO2e' }, buckets: buckets };
 <MapFooter
   data={data}
 />
