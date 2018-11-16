@@ -39,7 +39,6 @@ class Carousel extends Component {
       pauseOnHover: true,
       pauseOnDotsHover: true,
       pauseOnFocus: true,
-      focusOnSelect: true,
       dots: hasPaging,
       dotsClass: 'cwCarouselPaging',
       speed: 500,
