@@ -95,6 +95,7 @@ class Dropdown extends PureComponent {
                   />
                 )}
                 hideResetButton={hideResetButton}
+                {...this.props}
               />
 ) : (
   <SimpleSelect
