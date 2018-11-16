@@ -47,9 +47,13 @@ class Multiselect extends Component {
       );
     }
     if (hasValues && !search) {
-      return values.length === options && options.length
-        ? <span> All selected </span>
-        : <span> {`${values.length} selected`} </span>;
+      if (values.length === options && options.length)
+        return <span> All selected </span>;
+      return values.length === 1 ? values[0].label : (
+        <span>
+          {`${values.length} selected`}
+        </span>
+);
     }
     return null;
   }
