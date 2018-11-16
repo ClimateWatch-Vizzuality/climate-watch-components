@@ -60,18 +60,18 @@ const icons = {
 'area': arrowIcon.default,
 'bubble': infoIcon.default
 }
-
 initialState = {
   selected: data[0],
   data: data
 }
+
 const onValueChange = (selected) => {
   setState({ selected })
 }
 <div>
   <Dropdown
     theme={{ wrapper: theme.iconDropdownWrapper}}
-    value={icons[state.selected.value]}
+    value={state.selected}
     options={state.data}
     onValueChange={onValueChange}
     icons={icons}
