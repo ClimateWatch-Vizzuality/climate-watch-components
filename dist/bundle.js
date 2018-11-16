@@ -21706,9 +21706,8 @@ module.exports = (function(e) {
       l = g(n('qCFj')),
       u = g(n('u6S6')),
       s = g(n('K2gz')),
-      c = g(n('sXgQ'));
-    n('adkz');
-    var f = g(n('GlS/')),
+      c = g(n('sXgQ')),
+      f = g(n('GlS/')),
       d = g(n('i9Y8')),
       p = g(n('mGSp')),
       h = g(n('wrKF')),
@@ -25444,7 +25443,6 @@ module.exports = (function(e) {
                 pauseOnHover: !0,
                 pauseOnDotsHover: !0,
                 pauseOnFocus: !0,
-                focusOnSelect: !0,
                 dots: l,
                 dotsClass: 'cwCarouselPaging',
                 speed: 500,
@@ -26571,8 +26569,9 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = x(o),
       a = x(n('rf6O')),
-      l = x(n('OFL0')),
-      u = x(n('JVao')),
+      l = x(n('OFL0'));
+    n('adkz');
+    var u = x(n('JVao')),
       s = x(n('vVLp')),
       c = x(n('FehL')),
       f = x(n('GlS/')),
