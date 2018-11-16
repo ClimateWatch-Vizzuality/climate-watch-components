@@ -79,7 +79,7 @@ class PieChart extends PureComponent {
               isAnimationActive={config.animation || false}
               legendType="circle"
             >
-              {data.map(d => <Cell fill={getColor(d, config)} />)}
+              {data.map(d => <Cell key={d.name} fill={getColor(d, config)} />)}
             </Pie>
           </RechartsPieChart>
         </ResponsiveContainer>
