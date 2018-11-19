@@ -1,7 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import { isMicrosoftBrowser, getCustomTicks, getMaxValue } from 'utils';
+import {
+  isMicrosoftBrowser,
+  getCustomTicks,
+  getMaxValue,
+  htmlToSvgSubscript
+} from 'utils';
 import isUndefined from 'lodash/isUndefined';
 import has from 'lodash/has';
 import { format } from 'd3-format';
@@ -113,7 +118,8 @@ class ChartStackedArea extends PureComponent {
       customXAxisTick,
       customYAxisTick,
       customTooltip,
-      getCustomYLabelFormat
+      getCustomYLabelFormat,
+      showUnit
     } = this.props;
 
     const stackedAreaState = { projectedData, data, config };
@@ -135,6 +141,20 @@ class ChartStackedArea extends PureComponent {
     const suffix = has(config, 'axes.yLeft.suffix')
       ? config.axes.yLeft.suffix
       : null;
+    const unit = showUnit && has(config, 'axes.yLeft.unit')
+      ? config.axes.yLeft.unit
+      : null;
+    const yAxisLabel = (
+      <Label
+        position="top"
+        offset={20}
+        content={() => (
+          <text x="8" y="20">
+            {htmlToSvgSubscript(unit)}
+          </text>
+        )}
+      />
+    );
     return (
       <ResponsiveContainer height={height}>
         <ComposedChart
@@ -173,7 +193,9 @@ class ChartStackedArea extends PureComponent {
                 )
             }
             ticks={tickValues.ticks}
-          />
+          >
+            {yAxisLabel}
+          </YAxis>
           <CartesianGrid vertical={false} />
           {
             tickValues.min < 0 &&
@@ -268,7 +290,8 @@ ChartStackedArea.propTypes = {
   customYAxisTick: PropTypes.node,
   customXAxisTick: PropTypes.node,
   customTooltip: PropTypes.node,
-  getCustomYLabelFormat: PropTypes.func
+  getCustomYLabelFormat: PropTypes.func,
+  showUnit: PropTypes.bool
 };
 
 ChartStackedArea.defaultProps = {
@@ -282,7 +305,8 @@ ChartStackedArea.defaultProps = {
   customYAxisTick: null,
   customXAxisTick: null,
   customTooltip: null,
-  getCustomYLabelFormat: null
+  getCustomYLabelFormat: null,
+  showUnit: true
 };
 
 export default ChartStackedArea;

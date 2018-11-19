@@ -20,6 +20,7 @@ import {
   CustomYAxisTick
 } from 'components/charts/line/axis-ticks';
 
+import { htmlToSvgSubscript } from 'utils';
 import styles from './chart-composed-styles.scss';
 
 class ChartComposed extends PureComponent {
@@ -78,7 +79,7 @@ class ChartComposed extends PureComponent {
         offset={20}
         content={() => (
           <text x="8" y="20">
-            {unit}
+            {htmlToSvgSubscript(unit)}
           </text>
         )}
       />

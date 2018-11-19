@@ -12,7 +12,7 @@ import {
   Label,
   ReferenceArea
 } from 'recharts';
-import { getMaxValue } from 'utils';
+import { getMaxValue, htmlToSvgSubscript } from 'utils';
 import TooltipChart from 'components/charts/tooltip-chart';
 import debounce from 'lodash/debounce';
 import isUndefined from 'lodash/isUndefined';
@@ -88,23 +88,6 @@ class ChartLine extends PureComponent {
     const dataMaxMin = getDataMaxMin(lineState);
     const domain = projectedData ? getDomain(lineState) : customDomain;
     const lastData = getMaxValue(getDataWithTotal(lineState));
-
-    const htmlToSvgSubscript = unitY => {
-      const chains = unitY.split('<sub>');
-      return chains.map(chain => {
-        if (chain.includes('</sub>')) {
-          const supChain = chain.split('</sub>');
-          return (
-            <tspan>
-              <tspan dy="4" fontSize="11px">{supChain[0]}</tspan>
-              <tspan dy="-4">{supChain[1]}</tspan>
-            </tspan>
-          );
-        }
-        return <tspan>{chain}</tspan>;
-      });
-    };
-
     const yAxisLabel = (
       <Label
         position="top"
@@ -249,7 +232,7 @@ ChartLine.defaultProps = {
   projectedData: [],
   dots: true,
   height: '100%',
-  showUnit: true,
+  showUnit: false,
   onMouseMove: () => {
   },
   margin: { top: 0, right: 10, left: 10, bottom: 0 },

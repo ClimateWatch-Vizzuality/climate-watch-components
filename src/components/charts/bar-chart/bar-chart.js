@@ -12,8 +12,8 @@ import {
   Bar
 } from 'recharts';
 import debounce from 'lodash/debounce';
+import { htmlToSvgSubscript } from 'utils';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
-
 import BarTooltipChart from './bar-tooltip-chart';
 
 class SimpleBarChart extends PureComponent {
@@ -60,7 +60,7 @@ class SimpleBarChart extends PureComponent {
         offset={20}
         content={() => (
           <text x="8" y="20">
-            {unit}
+            {htmlToSvgSubscript(unit)}
           </text>
         )}
       />
