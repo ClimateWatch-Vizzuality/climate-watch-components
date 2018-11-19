@@ -24,6 +24,7 @@ import {
   getDataWithTotal,
   getDomain
 } from '../selectors/chart-selectors';
+import styles from './line-styles.scss';
 
 class ChartLine extends PureComponent {
   constructor() {
@@ -87,19 +88,40 @@ class ChartLine extends PureComponent {
     const dataMaxMin = getDataMaxMin(lineState);
     const domain = projectedData ? getDomain(lineState) : customDomain;
     const lastData = getMaxValue(getDataWithTotal(lineState));
+
+    const htmlToSvgSubscript = unitY => {
+      const chains = unitY.split('<sub>');
+      return chains.map(chain => {
+        if (chain.includes('</sub>')) {
+          const supChain = chain.split('</sub>');
+          return (
+            <tspan>
+              <tspan dy="4" fontSize="11px">{supChain[0]}</tspan>
+              <tspan dy="-4">{supChain[1]}</tspan>
+            </tspan>
+          );
+        }
+        return <tspan>{chain}</tspan>;
+      });
+    };
+
     const yAxisLabel = (
       <Label
         position="top"
         offset={20}
         content={() => (
-          <text x="8" y="20">
-            {unit}
+          <text x="8" y="20" fontSize="13px">
+            {htmlToSvgSubscript(unit)}
           </text>
         )}
       />
     );
     return (
-      <ResponsiveContainer height={height} margin={margin}>
+      <ResponsiveContainer
+        height={height}
+        margin={margin}
+        className={styles.lineChart}
+      >
         <LineChart
           data={data}
           margin={lineChartMargin}
@@ -227,7 +249,7 @@ ChartLine.defaultProps = {
   projectedData: [],
   dots: true,
   height: '100%',
-  showUnit: false,
+  showUnit: true,
   onMouseMove: () => {
   },
   margin: { top: 0, right: 10, left: 10, bottom: 0 },
