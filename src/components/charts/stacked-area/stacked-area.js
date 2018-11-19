@@ -10,7 +10,6 @@ import {
 import isUndefined from 'lodash/isUndefined';
 import has from 'lodash/has';
 import { format } from 'd3-format';
-
 import {
   ComposedChart,
   Area,
@@ -25,9 +24,9 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
+import * as styles from './stacked-area-styles.scss';
 import DividerLine from '../projected-data/divider-line';
 import ProjectedData from '../projected-data';
-
 import {
   getDataWithTotal,
   getDomain,
@@ -149,14 +148,14 @@ class ChartStackedArea extends PureComponent {
         position="top"
         offset={20}
         content={() => (
-          <text x="8" y="20">
+          <text x="8" y="20" fontSize="13px" stroke="#b1b1c1" strokeWidth="0.5">
             {htmlToSvgSubscript(unit)}
           </text>
         )}
       />
     );
     return (
-      <ResponsiveContainer height={height}>
+      <ResponsiveContainer className={styles.wrapper} height={height}>
         <ComposedChart
           data={dataWithTotal}
           margin={{ top: 45, right: 20, left: -10, bottom: 0 }}

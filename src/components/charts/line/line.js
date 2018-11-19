@@ -93,7 +93,7 @@ class ChartLine extends PureComponent {
         position="top"
         offset={20}
         content={() => (
-          <text x="8" y="20" fontSize="13px">
+          <text x="8" y="20" fontSize="13px" stroke="#b1b1c1" strokeWidth="0.5">
             {htmlToSvgSubscript(unit)}
           </text>
         )}

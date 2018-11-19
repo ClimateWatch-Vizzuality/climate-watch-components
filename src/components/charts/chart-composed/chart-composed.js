@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import has from 'lodash/has';
-
 import {
   XAxis,
   YAxis,
@@ -19,7 +18,6 @@ import {
   CustomXAxisTick,
   CustomYAxisTick
 } from 'components/charts/line/axis-ticks';
-
 import { htmlToSvgSubscript } from 'utils';
 import styles from './chart-composed-styles.scss';
 
@@ -78,14 +76,14 @@ class ChartComposed extends PureComponent {
         position="top"
         offset={20}
         content={() => (
-          <text x="8" y="20">
+          <text x="8" y="20" fontSize="13px" stroke="#b1b1c1" strokeWidth="0.5">
             {htmlToSvgSubscript(unit)}
           </text>
         )}
       />
     );
     return (
-      <div>
+      <div className={styles.wrapper}>
         <ResponsiveContainer height={height} margin={margin}>
           <ComposedChart
             data={data}
