@@ -10,12 +10,11 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
-  Label
+  ResponsiveContainer
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
 import { format } from 'd3-format';
-import { htmlToSvgSubscript } from 'utils';
+import yAxisLabel from 'components/charts/y-axis-label';
 import { getData } from './percentage-selectors';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 
@@ -69,17 +68,6 @@ class ChartPercentage extends PureComponent {
     const unit = showUnit && has(config, 'axes.yLeft.unit')
       ? config.axes.yLeft.unit
       : null;
-    const yAxisLabel = (
-      <Label
-        position="top"
-        offset={20}
-        content={() => (
-          <text x="8" y="20" fontSize="13px" stroke="#b1b1c1" strokeWidth="0.5">
-            {htmlToSvgSubscript(unit)}
-          </text>
-        )}
-      />
-    );
 
     if (!percentageData.length) return null;
     const getTooltipLabelFormat = value => `${format('.2r')(value)}%`;
@@ -111,7 +99,7 @@ class ChartPercentage extends PureComponent {
             tick={customYAxisTick || <CustomYAxisTick customstrokeWidth="0" />}
             ticks={[ 0, 25, 50, 75, 100 ]}
           >
-            {yAxisLabel}
+            {yAxisLabel(unit)}
           </YAxis>
           <CartesianGrid vertical={false} />
           {

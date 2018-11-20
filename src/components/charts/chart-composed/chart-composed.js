@@ -7,7 +7,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Label,
   ComposedChart
 } from 'recharts';
 import cx from 'classnames';
@@ -18,7 +17,7 @@ import {
   CustomXAxisTick,
   CustomYAxisTick
 } from 'components/charts/line/axis-ticks';
-import { htmlToSvgSubscript } from 'utils';
+import yAxisLabel from 'components/charts/y-axis-label';
 import styles from './chart-composed-styles.scss';
 
 class ChartComposed extends PureComponent {
@@ -71,17 +70,7 @@ class ChartComposed extends PureComponent {
       null;
     const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
     const hasDataOptions = !loading && dataOptions;
-    const yAxisLabel = (
-      <Label
-        position="top"
-        offset={20}
-        content={() => (
-          <text x="8" y="20" fontSize="13px" stroke="#b1b1c1" strokeWidth="0.5">
-            {htmlToSvgSubscript(unit)}
-          </text>
-        )}
-      />
-    );
+
     return (
       <div className={styles.wrapper}>
         <ResponsiveContainer height={height} margin={margin}>
@@ -120,7 +109,7 @@ class ChartComposed extends PureComponent {
               domain={domain && domain.y || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
             >
-              {yAxisLabel}
+              {yAxisLabel(unit)}
             </YAxis>
             <CartesianGrid vertical={false} />
             <Tooltip

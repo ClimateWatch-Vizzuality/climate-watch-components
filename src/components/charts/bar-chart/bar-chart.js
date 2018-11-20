@@ -6,12 +6,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Label,
   BarChart,
   Bar
 } from 'recharts';
 import debounce from 'lodash/debounce';
-import { htmlToSvgSubscript } from 'utils';
+import yAxisLabel from 'components/charts/y-axis-label';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 import BarTooltipChart from './bar-tooltip-chart';
 
@@ -53,17 +52,6 @@ class SimpleBarChart extends PureComponent {
       ? config.axes.yLeft.unit
       : null;
     const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
-    const yAxisLabel = (
-      <Label
-        position="top"
-        offset={20}
-        content={() => (
-          <text x="8" y="20" fontSize="13px" stroke="#b1b1c1" strokeWidth="0.5">
-            {htmlToSvgSubscript(unit)}
-          </text>
-        )}
-      />
-    );
 
     const dataKeys = Object.keys(config.columns).filter(col => col !== 'x');
 
@@ -101,7 +89,7 @@ class SimpleBarChart extends PureComponent {
               domain={domain && domain.y || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
             >
-              {yAxisLabel}
+              {yAxisLabel(unit)}
             </YAxis>
             <CartesianGrid vertical={false} />
             <Tooltip

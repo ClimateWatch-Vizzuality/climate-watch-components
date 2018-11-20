@@ -1,12 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import {
-  isMicrosoftBrowser,
-  getCustomTicks,
-  getMaxValue,
-  htmlToSvgSubscript
-} from 'utils';
+import { isMicrosoftBrowser, getCustomTicks, getMaxValue } from 'utils';
 import isUndefined from 'lodash/isUndefined';
 import has from 'lodash/has';
 import { format } from 'd3-format';
@@ -24,6 +19,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
+import yAxisLabel from 'components/charts/y-axis-label';
 import * as styles from './stacked-area-styles.scss';
 import DividerLine from '../projected-data/divider-line';
 import ProjectedData from '../projected-data';
@@ -143,17 +139,7 @@ class ChartStackedArea extends PureComponent {
     const unit = showUnit && has(config, 'axes.yLeft.unit')
       ? config.axes.yLeft.unit
       : null;
-    const yAxisLabel = (
-      <Label
-        position="top"
-        offset={20}
-        content={() => (
-          <text x="8" y="20" fontSize="13px" stroke="#b1b1c1" strokeWidth="0.5">
-            {htmlToSvgSubscript(unit)}
-          </text>
-        )}
-      />
-    );
+
     return (
       <ResponsiveContainer className={styles.wrapper} height={height}>
         <ComposedChart
@@ -193,7 +179,7 @@ class ChartStackedArea extends PureComponent {
             }
             ticks={tickValues.ticks}
           >
-            {yAxisLabel}
+            {yAxisLabel(unit)}
           </YAxis>
           <CartesianGrid vertical={false} />
           {

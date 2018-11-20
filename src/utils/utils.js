@@ -4,7 +4,6 @@ import isFinite from 'lodash/isFinite';
 import minBy from 'lodash/minBy';
 import maxBy from 'lodash/maxBy';
 import { getNiceTickValues } from 'recharts-scale';
-import React from 'react';
 
 export const sanitize = data => {
   if (isArray(data)) {
@@ -136,21 +135,4 @@ export const splitSVGText = (
 export const getMaxValue = data => {
   const lastData = data[data.length - 1];
   return { x: lastData.x, y: lastData.total };
-};
-
-export const htmlToSvgSubscript = unitY => {
-  if (!unitY) return '';
-  const splittedUnit = unitY.split('<sub>');
-  return splittedUnit.map(chain => {
-    if (chain.includes('</sub>')) {
-      const subChain = chain.split('</sub>');
-      return (
-        <tspan>
-          <tspan dy="4" fontSize="11px" fill="">{subChain[0]}</tspan>
-          <tspan dy="-4">{subChain[1]}</tspan>
-        </tspan>
-      );
-    }
-    return <tspan>{chain}</tspan>;
-  });
 };
