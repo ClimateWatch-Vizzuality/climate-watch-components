@@ -16,6 +16,7 @@ import { pixelBreakpoints } from '../../styles/responsive';
 import MultiSelect from '../multiselect';
 import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
+import headerRowRenderer from './components/header-row-renderer-component';
 
 class Table extends PureComponent {
   constructor(props) {
@@ -276,6 +277,7 @@ class Table extends PureComponent {
                 sortBy={sortBy}
                 sortDirection={sortDirection}
                 rowGetter={({ index }) => data[index]}
+                headerRowRenderer={headerRowRenderer}
               >
                 {this
                   .getColumnData()
