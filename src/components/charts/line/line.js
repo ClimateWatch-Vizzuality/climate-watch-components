@@ -24,7 +24,6 @@ import {
   getDataWithTotal,
   getDomain
 } from '../selectors/chart-selectors';
-import styles from './line-styles.scss';
 
 class ChartLine extends PureComponent {
   constructor() {
@@ -90,11 +89,7 @@ class ChartLine extends PureComponent {
     const lastData = getMaxValue(getDataWithTotal(lineState));
 
     return (
-      <ResponsiveContainer
-        height={height}
-        margin={margin}
-        className={styles.lineChart}
-      >
+      <ResponsiveContainer height={height} margin={margin}>
         <LineChart
           data={data}
           margin={lineChartMargin}

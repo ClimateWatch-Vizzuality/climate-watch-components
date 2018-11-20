@@ -20,7 +20,6 @@ import {
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
 import yAxisLabel from 'components/charts/y-axis-label';
-import * as styles from './stacked-area-styles.scss';
 import DividerLine from '../projected-data/divider-line';
 import ProjectedData from '../projected-data';
 import {
@@ -141,7 +140,7 @@ class ChartStackedArea extends PureComponent {
       : null;
 
     return (
-      <ResponsiveContainer className={styles.wrapper} height={height}>
+      <ResponsiveContainer height={height}>
         <ComposedChart
           data={dataWithTotal}
           margin={{ top: 45, right: 20, left: -10, bottom: 0 }}
