@@ -32,7 +32,7 @@ const ProjectedData = (
 
         // LABELS
         // yearLabel
-        const LENGHT_LIMIT = config.projectedLabel.lengthLimit || 10;
+        const LENGHT_LIMIT = config.projectedLabel.lenghtLimit || 10;
         const isLongLabel = point.label.length > LENGHT_LIMIT;
         const yearLabel = (
           <Label
