@@ -54,6 +54,7 @@ const toggleChartType = (filtersSelected) => {
 Example with linear type of line chart
 ```js
 const data = require('../assets/data.js');
+const format = require('d3-format').format;
 initialState = {
   ...data,
   type: 'line',
@@ -82,6 +83,7 @@ const toggleChartType = (filtersSelected) => {
     return { type };
   });
 }
+const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
 <React.Fragment>
   <Button onClick={toggleChartType} >
     Toggle type
@@ -97,8 +99,8 @@ const toggleChartType = (filtersSelected) => {
     loading={state.loading}
     onLegendChange={handleLegendChange}
     lineType='linear'
+    getCustomYLabelFormat={getCustomYLabelFormat}
     showUnit
-
   />
 </React.Fragment>
 ```
@@ -108,6 +110,7 @@ Example with projected data
 ```js
 const data = require('../assets/data.js');
 const projectedData = require('../assets/projected-data.js');
+const format = require('d3-format').format;
 initialState = {
   ...data,
   config: { ...data.config, ...projectedData.config },
@@ -138,6 +141,7 @@ const toggleChartType = (filtersSelected) => {
     return { type };
   });
 }
+const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
 <React.Fragment>
   <Button onClick={toggleChartType} >
     Toggle type
@@ -154,6 +158,7 @@ const toggleChartType = (filtersSelected) => {
     loading={state.loading}
     onLegendChange={handleLegendChange}
     lineType='linear'
+    getCustomYLabelFormat={getCustomYLabelFormat}
     showUnit
   />
 </React.Fragment>

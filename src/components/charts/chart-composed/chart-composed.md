@@ -99,6 +99,8 @@ const lineWithDots = config.columns && config.columns.lineWithDots.map(column =>
                   );
                 });
 
+const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
+
 <ChartComposed
     config={state.config}
     data={state.data}
@@ -108,6 +110,7 @@ const lineWithDots = config.columns && config.columns.lineWithDots.map(column =>
     height={500}
     loading={state.loading}
     onLegendChange={handleLegendChange}
+    getCustomYLabelFormat={getCustomYLabelFormat}
     showUnit
 >
   {lineChart}
