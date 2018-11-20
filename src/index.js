@@ -14,6 +14,7 @@ export { default as Input } from './components/input';
 export { default as Intro } from './components/intro';
 export { default as ChartComposed } from './components/charts/chart-composed';
 export { default as Loading } from './components/loading';
+export { default as MapComponent } from './components/map-component';
 export { default as Modal } from './components/modal';
 export { default as ModalHeader } from './components/modal/modal-header';
 export { default as Multiselect } from './components/multiselect';
