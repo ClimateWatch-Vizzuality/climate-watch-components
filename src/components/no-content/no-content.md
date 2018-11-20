@@ -1,3 +1,3 @@
 ```js
-<NoContent message="Something happen here" icon />
+<NoContent message="Something happened here" icon />
 ```
