@@ -1298,7 +1298,8 @@ input:checked ~ .cw__check-input-styles_label {
   min-width: max-content; }
 
 .cw__sankey-tooltip-styles_targetName {
-  color: #113750; }
+  color: #113750;
+  padding-right: 16px; }
 
 .cw__sankey-tooltip-styles_focus {
   margin-top: 10px; }
