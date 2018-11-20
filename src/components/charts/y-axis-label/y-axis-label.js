@@ -1,5 +1,7 @@
 import React from 'react';
 import { Label } from 'recharts';
+import cx from 'classnames';
+import * as styles from './y-axis-label-styles.scss';
 
 const htmlToSvgSubscript = unitY => {
   const splittedUnit = unitY.split('<sub>');
@@ -17,10 +19,10 @@ const htmlToSvgSubscript = unitY => {
   });
 };
 
-const yAxisLabel = unit => (
+const yAxisLabel = (unit, className, x = '8', y = '20') => (
   <Label
     content={() => (
-      <text x="8" y="20" fontSize="13px" stroke="#b1b1c1" strokeWidth="0.5">
+      <text x={x} y={y} className={cx(styles.yAxisLabel, className)}>
         {unit && htmlToSvgSubscript(unit)}
       </text>
     )}
