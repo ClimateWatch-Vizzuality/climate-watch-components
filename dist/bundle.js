@@ -6437,11 +6437,12 @@ module.exports = (function(e) {
                     _({}, g.default.searchable, !b)
                   )
                 },
-                a.default.createElement(
-                  'div',
-                  { className: (0, s.default)(g.default.values, 'values') },
-                  this.getSelectorValue()
-                ),
+                !b &&
+                  a.default.createElement(
+                    'div',
+                    { className: (0, s.default)(g.default.values, 'values') },
+                    this.getSelectorValue()
+                  ),
                 u &&
                   a.default.createElement(v.default, {
                     className: g.default.loader,
@@ -8905,52 +8906,44 @@ module.exports = (function(e) {
           {
             key: 'componentWillReceiveProps',
             value: function(e) {
-              var t = this.props,
-                n = t.data,
-                r = t.children,
-                o = t.width,
-                i = t.height,
-                a = t.layout,
-                s = t.stackOffset,
-                c = t.margin,
-                f = this.state.updateId;
+              var t = this,
+                n = this.props,
+                r = n.data,
+                o = n.children,
+                i = n.width,
+                a = n.height,
+                s = n.layout,
+                c = n.stackOffset,
+                f = n.margin,
+                d = this.state.updateId;
               if (
-                e.data === n &&
-                  e.width === o &&
-                  e.height === i &&
-                  e.layout === a &&
-                  e.stackOffset === s &&
-                  (0, k.shallowEqual)(e.margin, c)
+                e.data === r &&
+                  e.width === i &&
+                  e.height === a &&
+                  e.layout === s &&
+                  e.stackOffset === c &&
+                  (0, k.shallowEqual)(e.margin, f)
               ) {
-                if (!(0, O.isChildrenEqual)(e.children, r)) {
-                  var d = (0, u.default)(e.data) ? f + 1 : f,
-                    p = this.state,
-                    h = p.dataStartIndex,
-                    y = p.dataEndIndex,
-                    v = l({}, this.constructor.createDefaultState(e), {
-                      dataEndIndex: y,
-                      dataStartIndex: h
-                    });
-                  this.setState(
-                    l(
-                      {},
-                      v,
-                      { updateId: d },
-                      this.updateStateOfAxisMapsOffsetAndStackGroups(
-                        l({ props: e }, v, { updateId: d })
+                if (!(0, O.isChildrenEqual)(e.children, o)) {
+                  var p = (0, u.default)(e.data) ? d + 1 : d;
+                  this.setState(function(n) {
+                    return l(
+                      { updateId: p },
+                      t.updateStateOfAxisMapsOffsetAndStackGroups(
+                        l({ props: e }, n, { updateId: p })
                       )
-                    )
-                  );
+                    );
+                  });
                 }
               } else {
-                var m = this.constructor.createDefaultState(e);
+                var h = this.constructor.createDefaultState(e);
                 this.setState(
                   l(
                     {},
-                    m,
-                    { updateId: f + 1 },
+                    h,
+                    { updateId: d + 1 },
                     this.updateStateOfAxisMapsOffsetAndStackGroups(
-                      l({ props: e }, m, { updateId: f + 1 })
+                      l({ props: e }, h, { updateId: d + 1 })
                     )
                   )
                 );
@@ -10207,8 +10200,10 @@ module.exports = (function(e) {
             offset: i,
             chartWidth: u,
             chartHeight: l,
-            verticalCoordinatesGenerator: e.verticalCoordinatesGenerator,
-            horizontalCoordinatesGenerator: e.horizontalCoordinatesGenerator
+            verticalCoordinatesGenerator: d.verticalCoordinatesGenerator ||
+              e.verticalCoordinatesGenerator,
+            horizontalCoordinatesGenerator: d.horizontalCoordinatesGenerator ||
+              e.horizontalCoordinatesGenerator
           });
         }, this.renderPolarGrid = function(t) {
           var n = e.state,
@@ -16356,6 +16351,7 @@ module.exports = (function(e) {
         itemStyle: d.default.object,
         labelStyle: d.default.object,
         wrapperStyle: d.default.object,
+        contentStyle: d.default.object,
         cursor: d.default.oneOfType([
           d.default.bool,
           d.default.element,
@@ -16399,6 +16395,7 @@ module.exports = (function(e) {
         cursorStyle: {},
         separator: ' : ',
         wrapperStyle: {},
+        contentStyle: {},
         itemStyle: {},
         labelStyle: {},
         cursor: !0,
@@ -28712,7 +28709,7 @@ module.exports = (function(e) {
                 a = e.alwaysShow,
                 l = e.clipPathId;
               (0, b.warn)(
-                void 0 !== a,
+                void 0 === a,
                 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.'
               );
               var s = (0, g.isNumOrStr)(t),
@@ -34775,20 +34772,31 @@ module.exports = (function(e) {
               value: function() {
                 var e = this.props,
                   t = e.wrapperClassName,
-                  n = e.labelClassName,
-                  r = e.labelStyle,
-                  o = e.label,
-                  i = e.labelFormatter,
-                  a = u({ margin: 0 }, r),
-                  l = (0, h.isNumOrStr)(o),
-                  s = l ? o : '',
-                  f = (0, d.default)('recharts-default-tooltip', t),
-                  p = (0, d.default)('recharts-tooltip-label', n);
-                return l &&
-                  i &&
-                  (s = i(
-                    o
-                  )), c.default.createElement('div', { className: f, style: { margin: 0, padding: 10, backgroundColor: '#fff', border: '1px solid #ccc', whiteSpace: 'nowrap' } }, c.default.createElement('p', { className: p, style: a }, s), this.renderContent());
+                  n = e.contentStyle,
+                  r = e.labelClassName,
+                  o = e.labelStyle,
+                  i = e.label,
+                  a = e.labelFormatter,
+                  l = u(
+                    {
+                      margin: 0,
+                      padding: 10,
+                      backgroundColor: '#fff',
+                      border: '1px solid #ccc',
+                      whiteSpace: 'nowrap'
+                    },
+                    n
+                  ),
+                  s = u({ margin: 0 }, o),
+                  f = (0, h.isNumOrStr)(i),
+                  p = f ? i : '',
+                  y = (0, d.default)('recharts-default-tooltip', t),
+                  v = (0, d.default)('recharts-tooltip-label', r);
+                return f &&
+                  a &&
+                  (p = a(
+                    i
+                  )), c.default.createElement('div', { className: y, style: l }, c.default.createElement('p', { className: v, style: s }, p), this.renderContent());
               }
             }
           ]), t;
@@ -34797,6 +34805,7 @@ module.exports = (function(e) {
           wrapperClassName: f.default.string,
           labelClassName: f.default.string,
           formatter: f.default.func,
+          contentStyle: f.default.object,
           itemStyle: f.default.object,
           labelStyle: f.default.object,
           labelFormatter: f.default.func,
@@ -34815,6 +34824,7 @@ module.exports = (function(e) {
           itemSorter: f.default.func
         }, o.defaultProps = {
           separator: ' : ',
+          contentStyle: {},
           itemStyle: {},
           labelStyle: {}
         }, r = i)
@@ -81778,7 +81788,7 @@ module.exports = (function(e) {
               m = o && e.x === o.x && e.y === o.y,
               g = null === e.y ? p : v;
             v || (g = e.label.includes('BAU') ? f : d);
-            var b = h.projectedLabel.lengthLimit || 10,
+            var b = h.projectedLabel.lenghtLimit || 10,
               _ = e.label.length > b,
               w = r.default.createElement(i.default, {
                 value: e.x + (_ ? '' : ' - ' + e.label),
@@ -85360,9 +85370,11 @@ module.exports = (function(e) {
           ), r.state = { isAnimationFinished: !1 }, r.id = (0, M.uniqueId)('recharts-pie-'), r.cachePrevData = function(e) {
             r.setState({ prevSectors: e });
           }, r.handleAnimationEnd = function() {
-            r.setState({ isAnimationFinished: !0 });
+            var e = r.props.onAnimationEnd;
+            r.setState({ isAnimationFinished: !0 }), (0, l.default)(e) && e();
           }, r.handleAnimationStart = function() {
-            r.setState({ isAnimationFinished: !1 });
+            var e = r.props.onAnimationStart;
+            r.setState({ isAnimationFinished: !1 }), (0, l.default)(e) && e();
           }, A(r, n);
         }
         return (function(e, t) {
@@ -85456,19 +85468,21 @@ module.exports = (function(e) {
           {
             key: 'renderSectorsStatically',
             value: function(e) {
-              var t = this, n = this.props.activeShape;
-              return e.map(function(e, r) {
+              var t = this,
+                n = this.props,
+                r = n.activeShape,
+                o = n.blendStroke;
+              return e.map(function(e, n) {
+                var i = t.isActiveIndex(n) ? r : null,
+                  a = c({}, e, { stroke: o ? e.fill : e.stroke });
                 return p.default.createElement(
                   g.default,
                   c(
                     { className: 'recharts-pie-sector' },
-                    (0, E.filterEventsOfChild)(t.props, e, r),
-                    { key: 'sector-' + r }
+                    (0, E.filterEventsOfChild)(t.props, e, n),
+                    { key: 'sector-' + n }
                   ),
-                  t.constructor.renderSectorItem(
-                    t.isActiveIndex(r) ? n : null,
-                    e
-                  )
+                  t.constructor.renderSectorItem(i, a)
                 );
               });
             }
@@ -85681,6 +85695,7 @@ module.exports = (function(e) {
             h.default.func
           ]),
           data: h.default.arrayOf(h.default.object),
+          blendStroke: h.default.bool,
           minAngle: h.default.number,
           legendType: h.default.oneOf(E.LEGEND_TYPES),
           maxRadius: h.default.number,
@@ -85738,7 +85753,8 @@ module.exports = (function(e) {
         animationBegin: 400,
         animationDuration: 1500,
         animationEasing: 'ease',
-        nameKey: 'name'
+        nameKey: 'name',
+        blendStroke: !1
       }, o.parseDeltaAngle = function(e) {
         var t = e.startAngle, n = e.endAngle;
         return (0, M.mathSign)(n - t) * Math.min(Math.abs(n - t), 360);
@@ -88994,7 +89010,7 @@ module.exports = (function(e) {
                 f = e.alwaysShow,
                 p = e.clipPathId;
               (0, x.warn)(
-                void 0 !== f,
+                void 0 === f,
                 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.'
               );
               var y = w.LabeledScaleHelper.create({ x: o.scale, y: i.scale }),
@@ -92010,7 +92026,7 @@ module.exports = (function(e) {
                 l = (0, g.isNumOrStr)(n);
               if (
                 ((0, w.warn)(
-                  void 0 !== o,
+                  void 0 === o,
                   'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.'
                 ), !a || !l)
               )
