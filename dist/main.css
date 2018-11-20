@@ -1130,6 +1130,47 @@ input:checked ~ .cw__check-input-styles_label {
     column-count: 2; } }
 .cw__chart-composed-styles_legend {
   min-height: 30px; }
+.cw__map-component-styles_wrapper {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  cursor: grab; }
+  .cw__map-component-styles_wrapper.cw__map-component-styles_notDraggable {
+    cursor: default; }
+    @media screen and (min-width: 56.25rem) {
+      .cw__map-component-styles_wrapper.cw__map-component-styles_notDraggable {
+        cursor: pointer; } }
+
+.cw__map-component-styles_actions {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  flex-direction: column; }
+  .cw__map-component-styles_actions.cw__map-component-styles_bottom {
+    bottom: 10px;
+    top: initial; }
+  .cw__map-component-styles_actions button {
+    display: block;
+    padding: 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.09);
+    border: solid 1px rgba(26, 28, 34, 0.1);
+    cursor: pointer; }
+
+.cw__map-component-styles_map {
+  height: calc(100% - 100px); }
+
+.tooltip.__react_component_tooltip.type-dark {
+  color: #333;
+  background-color: #fff;
+  opacity: 1; }
+  .tooltip.__react_component_tooltip.type-dark::after {
+    border-top-color: #fff; }
 .cw__modal-styles_modal {
   position: relative;
   top: calc(30px / 2);
@@ -1518,3 +1559,9 @@ input:checked ~ .cw__check-input-styles_label {
 .cw__table-styles_emptyValue {
   font-style: italic;
   font-weight: 300; }
+
+.cw__table-styles_idleSortIcon {
+  width: 8px;
+  height: 8px;
+  margin-left: 3px;
+  transform: translateY(-50%); }
