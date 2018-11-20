@@ -291,7 +291,7 @@ ChartStackedArea.defaultProps = {
   customXAxisTick: null,
   customTooltip: null,
   getCustomYLabelFormat: null,
-  showUnit: true
+  showUnit: false
 };
 
 export default ChartStackedArea;
