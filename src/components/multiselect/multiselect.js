@@ -144,9 +144,13 @@ class Multiselect extends Component {
             { [styles.searchable]: !icon }
           )}
         >
-          <div className={cx(styles.values, 'values')}>
-            {this.getSelectorValue()}
-          </div>
+          {
+            !icon && (
+            <div className={cx(styles.values, 'values')}>
+              {this.getSelectorValue()}
+            </div>
+              )
+          }
           {loading && <Loading className={styles.loader} mini />}
           <SelectizeMultiSelect
             ref={el => {
