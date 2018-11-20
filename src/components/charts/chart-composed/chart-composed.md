@@ -108,7 +108,7 @@ const lineWithDots = config.columns && config.columns.lineWithDots.map(column =>
     height={500}
     loading={state.loading}
     onLegendChange={handleLegendChange}
-    showUnit={true}
+    showUnit
 >
   {lineChart}
   {rangedArea}
@@ -164,7 +164,7 @@ const greyArea = (
   height={500}
   loading={state.loading}
   areaAsBackgroundForCartesianGrid={greyArea}
-  showUnit={true}
+  showUnit
 >
   {lineChart}
 </ChartComposed>

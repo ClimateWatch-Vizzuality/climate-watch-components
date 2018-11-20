@@ -46,7 +46,7 @@ const toggleChartType = (filtersSelected) => {
     loading={state.loading}
     onLegendChange={handleLegendChange}
     getCustomYLabelFormat={getCustomYLabelFormat}
-    showUnit={true}
+    showUnit
   />
 </React.Fragment>
 ```
@@ -97,7 +97,7 @@ const toggleChartType = (filtersSelected) => {
     loading={state.loading}
     onLegendChange={handleLegendChange}
     lineType='linear'
-    showUnit={true}
+    showUnit
 
   />
 </React.Fragment>
@@ -154,7 +154,7 @@ const toggleChartType = (filtersSelected) => {
     loading={state.loading}
     onLegendChange={handleLegendChange}
     lineType='linear'
-     showUnit={true}
+    showUnit
   />
 </React.Fragment>
 ```
@@ -179,7 +179,7 @@ const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
     height={500}
     loading={state.loading}
     getCustomYLabelFormat={getCustomYLabelFormat}
-    showUnit={true}
+    showUnit
   />
 </React.Fragment>
 ```
