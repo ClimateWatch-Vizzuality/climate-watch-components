@@ -17,6 +17,7 @@ $bottom-padding: 16px;
     li {
       list-style: none;
       cursor: pointer;
+      padding: 0 $bottom-padding;
       border-bottom: 3px solid rgba(10, 25, 65, 0.2);
 
       &:first-child {
@@ -60,7 +61,7 @@ $bottom-padding: 16px;
 
 .pagingTitle {
   position: relative;
-  padding: 0 30px $bottom-padding;
+  padding-bottom: $bottom-padding;
 }
 
 .pagingTitle::after {
