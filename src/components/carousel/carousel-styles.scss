@@ -52,6 +52,10 @@ $bottom-padding: 16px;
     display: flex;
     flex-direction: column-reverse;
   }
+
+  :global .slick-active {
+    z-index: 2;
+  }
 }
 
 .pagingTitle {
