@@ -18,7 +18,8 @@ function SankeyChart(
     customTooltip,
     customLink,
     customNode,
-    tooltipChildren
+    tooltipChildren,
+    margin
   }
 ) {
   return (
@@ -29,6 +30,7 @@ function SankeyChart(
         className={styles.sankey}
         nodeWidth={nodeWidth}
         nodePadding={nodePadding}
+        margin={margin}
         link={
           customLink ||
             <SankeyLink config={{ titlePadding: config.titlePadding }} />
@@ -91,6 +93,13 @@ SankeyChart.propTypes = {
     node: PropTypes.object,
     /** Configuration for the aspect of the responsive container */
     aspect: PropTypes.number
+  }),
+  /** Set margin of sankey component, used to calculate a position of all child elements inside sankey charts  */
+  margin: PropTypes.shape({
+    top: PropTypes.number,
+    right: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number
   })
 };
 
@@ -105,7 +114,8 @@ SankeyChart.defaultProps = {
   customTooltip: null,
   customLink: null,
   customNode: null,
-  tooltipChildren: null
+  tooltipChildren: null,
+  margin: { top: 10 }
 };
 
 export default SankeyChart;
