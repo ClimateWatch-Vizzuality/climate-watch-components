@@ -108,7 +108,7 @@ class LegendChart extends PureComponent {
           {
             hasLegendNote && (
             <div className={styles.tagDescription}>
-                  Click on each scenarios to see the assumptions behind it.
+                  Click on each scenario to see the assumptions behind it.
             </div>
               )
           }
@@ -127,7 +127,9 @@ class LegendChart extends PureComponent {
         }
         {
           config && config.projectedColumns && (
-          <div className={styles.projectedLegend}>
+          <div
+            className={cx(styles.projectedLegend, theme.projectedLegend)}
+          >
             {config.projectedColumns.map(q => (
               <Tag
                 theme={projectedTagTheme}
