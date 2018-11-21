@@ -17,6 +17,7 @@ $bottom-padding: 16px;
     li {
       list-style: none;
       cursor: pointer;
+      padding: 0 $bottom-padding;
       border-bottom: 3px solid rgba(10, 25, 65, 0.2);
 
       &:first-child {
@@ -52,11 +53,15 @@ $bottom-padding: 16px;
     display: flex;
     flex-direction: column-reverse;
   }
+
+  :global .slick-active {
+    z-index: 2;
+  }
 }
 
 .pagingTitle {
   position: relative;
-  padding: 0 30px $bottom-padding;
+  padding-bottom: $bottom-padding;
 }
 
 .pagingTitle::after {
