@@ -177,7 +177,8 @@ class ChartLine extends PureComponent {
               })
           }
           {
-            projectedData.length &&
+            projectedData &&
+              projectedData.length &&
               DividerLine({ x: lastData.x, labels: config.dividerLine })
           }
           <ReferenceArea
@@ -189,7 +190,8 @@ class ChartLine extends PureComponent {
             strokeOpacity={0.3}
           />
           {
-            projectedData.length &&
+            projectedData &&
+              projectedData.length &&
               ProjectedData({
                 data: projectedData,
                 dataMaxMin,

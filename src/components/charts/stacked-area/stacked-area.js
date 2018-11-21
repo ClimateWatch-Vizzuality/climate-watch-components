@@ -153,7 +153,11 @@ class ChartStackedArea extends PureComponent {
             tick={customXAxisTick || <CustomXAxisTick customstrokeWidth="0" />}
             tickSize={8}
             allowDecimals={false}
-            tickCount={dataWithTotal.length + projectedData.length}
+            tickCount={
+              projectedData
+                ? dataWithTotal.length + projectedData.length
+                : dataWithTotal.length
+            }
           />
           <YAxis
             type="number"
@@ -234,11 +238,13 @@ class ChartStackedArea extends PureComponent {
           }
           {showLastPoint && renderLastPoint(lastData)}
           {
-            projectedData.length &&
+            projectedData &&
+              projectedData.length &&
               DividerLine({ x: lastData.x, labels: config.dividerLine })
           }
           {
-            projectedData.length &&
+            projectedData &&
+              projectedData.length &&
               ProjectedData({
                 data: projectedData,
                 dataMaxMin,
