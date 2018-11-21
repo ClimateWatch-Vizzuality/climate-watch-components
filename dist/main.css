@@ -241,6 +241,7 @@
     .cw__carousel-styles_carouselWrapper .cwCarouselPaging li {
       list-style: none;
       cursor: pointer;
+      padding: 0 16px;
       border-bottom: 3px solid rgba(10, 25, 65, 0.2); }
       .cw__carousel-styles_carouselWrapper .cwCarouselPaging li:first-child {
         padding-left: 0; }
@@ -260,9 +261,12 @@
   display: flex;
   flex-direction: column-reverse; }
 
+.cw__carousel-styles_fadeSliderWithPaging .slick-active {
+  z-index: 2; }
+
 .cw__carousel-styles_pagingTitle {
   position: relative;
-  padding: 0 30px 16px; }
+  padding-bottom: 16px; }
 
 .cw__carousel-styles_pagingTitle::after {
   content: '';
