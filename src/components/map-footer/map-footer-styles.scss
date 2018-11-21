@@ -1,0 +1,27 @@
+@import '../../styles/settings';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-top: solid 1px rgba(26, 28, 34, 0.1);
+}
+
+.title {
+  font-family: $font-family-1;
+  font-size: 0.8125rem;
+  color: #8f8fa1;
+}
+
+.buckets {
+  margin: {
+    left: 5px;
+    right: 5px;
+  }
+}
+
+.bucket {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+}
