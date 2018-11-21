@@ -1,14 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import has from 'lodash/has';
-
 import {
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Label,
   ComposedChart
 } from 'recharts';
 import cx from 'classnames';
@@ -19,7 +17,7 @@ import {
   CustomXAxisTick,
   CustomYAxisTick
 } from 'components/charts/line/axis-ticks';
-
+import yAxisLabel from 'components/charts/y-axis-label';
 import styles from './chart-composed-styles.scss';
 
 class ChartComposed extends PureComponent {
@@ -72,19 +70,9 @@ class ChartComposed extends PureComponent {
       null;
     const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
     const hasDataOptions = !loading && dataOptions;
-    const yAxisLabel = (
-      <Label
-        position="top"
-        offset={20}
-        content={() => (
-          <text x="8" y="20">
-            {unit}
-          </text>
-        )}
-      />
-    );
+
     return (
-      <div>
+      <div className={styles.wrapper}>
         <ResponsiveContainer height={height} margin={margin}>
           <ComposedChart
             data={data}
@@ -121,7 +109,7 @@ class ChartComposed extends PureComponent {
               domain={domain && domain.y || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
             >
-              {yAxisLabel}
+              {yAxisLabel(unit)}
             </YAxis>
             <CartesianGrid vertical={false} />
             <Tooltip

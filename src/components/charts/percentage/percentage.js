@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import isUndefined from 'lodash/isUndefined';
-
+import has from 'lodash/has';
 import {
   ComposedChart,
   Area,
@@ -14,7 +14,7 @@ import {
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
 import { format } from 'd3-format';
-
+import yAxisLabel from 'components/charts/y-axis-label';
 import { getData } from './percentage-selectors';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 
@@ -53,7 +53,8 @@ class ChartPercentage extends PureComponent {
       stepped,
       customXAxisTick,
       customYAxisTick,
-      customTooltip
+      customTooltip,
+      showUnit
     } = this.props;
     const percentageState = { data, config };
     const percentageData = getData(percentageState);
@@ -64,6 +65,10 @@ class ChartPercentage extends PureComponent {
         yLeft: { ...config.axes.yLeft, unit: '', suffix: '' }
       }
     };
+    const unit = showUnit && has(config, 'axes.yLeft.unit')
+      ? config.axes.yLeft.unit
+      : null;
+
     if (!percentageData.length) return null;
     const getTooltipLabelFormat = value => `${format('.2r')(value)}%`;
     return (
@@ -93,7 +98,9 @@ class ChartPercentage extends PureComponent {
             tickLine={false}
             tick={customYAxisTick || <CustomYAxisTick customstrokeWidth="0" />}
             ticks={[ 0, 25, 50, 75, 100 ]}
-          />
+          >
+            {yAxisLabel(unit)}
+          </YAxis>
           <CartesianGrid vertical={false} />
           {
             tooltipVisibility &&
@@ -156,7 +163,8 @@ ChartPercentage.propTypes = {
   stepped: PropTypes.bool,
   customYAxisTick: PropTypes.node,
   customXAxisTick: PropTypes.node,
-  customTooltip: PropTypes.node
+  customTooltip: PropTypes.node,
+  showUnit: PropTypes.bool
 };
 
 ChartPercentage.defaultProps = {
@@ -167,7 +175,8 @@ ChartPercentage.defaultProps = {
   stepped: false,
   customYAxisTick: null,
   customXAxisTick: null,
-  customTooltip: null
+  customTooltip: null,
+  showUnit: false
 };
 
 export default ChartPercentage;
