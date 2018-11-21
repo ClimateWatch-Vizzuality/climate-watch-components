@@ -20,7 +20,7 @@ const CustomTopSlide = ({title}) => (
     <p>
     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio.
     </p>
-    <Button onClick={() => console.info('Clicked on info')} >
+    <Button onClick={() => console.info(`Clicked on ${title}`)} >
       Go to GHG target
     </Button>
   </div>
