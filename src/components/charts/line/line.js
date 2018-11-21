@@ -9,13 +9,13 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Label,
   ReferenceArea
 } from 'recharts';
 import { getMaxValue } from 'utils';
 import TooltipChart from 'components/charts/tooltip-chart';
 import debounce from 'lodash/debounce';
 import isUndefined from 'lodash/isUndefined';
+import yAxisLabel from 'components/charts/y-axis-label';
 import DividerLine from '../projected-data/divider-line';
 import ProjectedData from '../projected-data';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
@@ -87,17 +87,7 @@ class ChartLine extends PureComponent {
     const dataMaxMin = getDataMaxMin(lineState);
     const domain = projectedData ? getDomain(lineState) : customDomain;
     const lastData = getMaxValue(getDataWithTotal(lineState));
-    const yAxisLabel = (
-      <Label
-        position="top"
-        offset={20}
-        content={() => (
-          <text x="8" y="20">
-            {unit}
-          </text>
-        )}
-      />
-    );
+
     return (
       <ResponsiveContainer height={height} margin={margin}>
         <LineChart
@@ -134,7 +124,7 @@ class ChartLine extends PureComponent {
             domain={domain && domain.y || [ 'auto', 'auto' ]}
             interval="preserveStartEnd"
           >
-            {yAxisLabel}
+            {yAxisLabel(unit)}
           </YAxis>
           <CartesianGrid vertical={false} />
           {
