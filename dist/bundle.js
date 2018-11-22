@@ -4765,7 +4765,7 @@ module.exports = (function(e) {
                     }),
                   tickSize: 8,
                   allowDecimals: !1,
-                  tickCount: U.length + A.length
+                  tickCount: A ? U.length + A.length : U.length
                 }),
                 i.default.createElement(
                   g.default,
@@ -4866,8 +4866,11 @@ module.exports = (function(e) {
                       })
                     );
                   })(F),
-                A.length && (0, E.default)({ x: F.x, labels: P.dividerLine }),
-                A.length &&
+                A &&
+                  A.length &&
+                  (0, E.default)({ x: F.x, labels: P.dividerLine }),
+                A &&
+                  A.length &&
                   (0, T.default)({
                     data: A,
                     dataMaxMin: H,
@@ -8929,52 +8932,44 @@ module.exports = (function(e) {
           {
             key: 'componentWillReceiveProps',
             value: function(e) {
-              var t = this.props,
-                n = t.data,
-                r = t.children,
-                o = t.width,
-                i = t.height,
-                a = t.layout,
-                s = t.stackOffset,
-                c = t.margin,
-                f = this.state.updateId;
+              var t = this,
+                n = this.props,
+                r = n.data,
+                o = n.children,
+                i = n.width,
+                a = n.height,
+                s = n.layout,
+                c = n.stackOffset,
+                f = n.margin,
+                d = this.state.updateId;
               if (
-                e.data === n &&
-                  e.width === o &&
-                  e.height === i &&
-                  e.layout === a &&
-                  e.stackOffset === s &&
-                  (0, k.shallowEqual)(e.margin, c)
+                e.data === r &&
+                  e.width === i &&
+                  e.height === a &&
+                  e.layout === s &&
+                  e.stackOffset === c &&
+                  (0, k.shallowEqual)(e.margin, f)
               ) {
-                if (!(0, O.isChildrenEqual)(e.children, r)) {
-                  var d = (0, u.default)(e.data) ? f + 1 : f,
-                    p = this.state,
-                    h = p.dataStartIndex,
-                    y = p.dataEndIndex,
-                    v = l({}, this.constructor.createDefaultState(e), {
-                      dataEndIndex: y,
-                      dataStartIndex: h
-                    });
-                  this.setState(
-                    l(
-                      {},
-                      v,
-                      { updateId: d },
-                      this.updateStateOfAxisMapsOffsetAndStackGroups(
-                        l({ props: e }, v, { updateId: d })
+                if (!(0, O.isChildrenEqual)(e.children, o)) {
+                  var p = (0, u.default)(e.data) ? d + 1 : d;
+                  this.setState(function(n) {
+                    return l(
+                      { updateId: p },
+                      t.updateStateOfAxisMapsOffsetAndStackGroups(
+                        l({ props: e }, n, { updateId: p })
                       )
-                    )
-                  );
+                    );
+                  });
                 }
               } else {
-                var m = this.constructor.createDefaultState(e);
+                var h = this.constructor.createDefaultState(e);
                 this.setState(
                   l(
                     {},
-                    m,
-                    { updateId: f + 1 },
+                    h,
+                    { updateId: d + 1 },
                     this.updateStateOfAxisMapsOffsetAndStackGroups(
-                      l({ props: e }, m, { updateId: f + 1 })
+                      l({ props: e }, h, { updateId: d + 1 })
                     )
                   )
                 );
@@ -10231,8 +10226,10 @@ module.exports = (function(e) {
             offset: i,
             chartWidth: u,
             chartHeight: l,
-            verticalCoordinatesGenerator: e.verticalCoordinatesGenerator,
-            horizontalCoordinatesGenerator: e.horizontalCoordinatesGenerator
+            verticalCoordinatesGenerator: d.verticalCoordinatesGenerator ||
+              e.verticalCoordinatesGenerator,
+            horizontalCoordinatesGenerator: d.horizontalCoordinatesGenerator ||
+              e.horizontalCoordinatesGenerator
           });
         }, this.renderPolarGrid = function(t) {
           var n = e.state,
@@ -16381,6 +16378,7 @@ module.exports = (function(e) {
         itemStyle: d.default.object,
         labelStyle: d.default.object,
         wrapperStyle: d.default.object,
+        contentStyle: d.default.object,
         cursor: d.default.oneOfType([
           d.default.bool,
           d.default.element,
@@ -16424,6 +16422,7 @@ module.exports = (function(e) {
         cursorStyle: {},
         separator: ' : ',
         wrapperStyle: {},
+        contentStyle: {},
         itemStyle: {},
         labelStyle: {},
         cursor: !0,
@@ -19758,45 +19757,48 @@ module.exports = (function(e) {
         f,
         d,
         p,
-        h = e.x,
-        y = e.y,
-        v = e.width,
-        m = e.height,
-        g = e.index,
-        b = e.payload,
-        _ = e.config,
-        w = h > v,
-        x = _.padding || 20,
-        O = _.titlePadding || 140;
-      return b && b.value && r.default.createElement(
+        h,
+        y = e.x,
+        v = e.y,
+        m = e.width,
+        g = e.height,
+        b = e.index,
+        _ = e.payload,
+        w = e.config,
+        x = y > m,
+        O = w.padding || 20,
+        S = w.titlePadding || 140;
+      return _ && _.value && r.default.createElement(
           o.default,
-          { key: 'CustomNode' + g },
+          { key: 'CustomNode' + b },
           r.default.createElement('text', {
-            textAnchor: w ? 'start' : 'end',
-            textLength: O,
+            textAnchor: x ? 'start' : 'end',
+            textLength: S,
             className: l.default.nodeText,
             dangerouslySetInnerHTML: {
-              __html: (t = b.name, n = _.fontSize || 13, a = _.lineHeigth ||
-                1.2, s = _.textHeight || 20, c = _.tspanLineHeight || 10, f = w
-                ? h - O + x
-                : h + v + O - x / 2, d = y + m / 2 - n || 0, p = O / 6 -
-                3, (0, u.splitSVGText)(t, s, c, p, 2).map(function(e, t) {
-                return '<tspan\n        x="' +
-                  f +
-                  '"\n        y="' +
-                  (d + n * a + t * n * a) +
-                  '"\n      >\n        ' +
-                  e +
-                  '\n      </tspan>';
-              }).join('\n'))
+              __html: (t = _.name, n = w.fontSize || 13, a = w.lineHeigth ||
+                1.2, s = w.textHeight || 20, c = w.tspanLineHeight || 10, f = x
+                ? y - S + O
+                : y + m + S - O / 2, d = v + g / 2 - n || 0, p = S / 6 -
+                3, h = (0, u.splitSVGText)(t, s, c, p, 2), h
+                .map(function(e, t) {
+                  return '<tspan\n        x="' +
+                    f +
+                    '"\n        y="' +
+                    (d + n * a + t * n * a - .5 * (h.length - 1) * n) +
+                    '"\n      >\n        ' +
+                    e +
+                    '\n      </tspan>';
+                })
+                .join('\n'))
             }
           }),
           r.default.createElement(i.default, {
-            x: w ? h - O : h + v + O,
-            y: y,
-            width: v,
-            height: m < 2 ? 2 : m,
-            fill: b.color,
+            x: x ? y - S : y + m + S,
+            y: v,
+            width: m,
+            height: g < 2 ? 2 : g,
+            fill: _.color,
             fillOpacity: '1'
           })
         );
@@ -25402,7 +25404,8 @@ module.exports = (function(e) {
         m = e.customTooltip,
         g = e.customLink,
         b = e.customNode,
-        _ = e.tooltipChildren;
+        _ = e.tooltipChildren,
+        w = e.margin;
       return o.default.createElement(
         a.default,
         { width: '100%', height: n },
@@ -25414,6 +25417,7 @@ module.exports = (function(e) {
             className: d.default.sankey,
             nodeWidth: i,
             nodePadding: p,
+            margin: w,
             link: g ||
               o.default.createElement(c.default, {
                 config: { titlePadding: v.titlePadding }
@@ -25454,8 +25458,14 @@ module.exports = (function(e) {
         tooltip: i.PropTypes.object,
         node: i.PropTypes.object,
         aspect: i.PropTypes.number
+      }),
+      margin: i.PropTypes.shape({
+        top: i.PropTypes.number,
+        right: i.PropTypes.number,
+        bottom: i.PropTypes.number,
+        left: i.PropTypes.number
       })
-    }, h.defaultProps = { width: 960, height: 500, data: {}, nodeWidth: 10, nodePadding: 60, containerWidth: 800, config: {}, customTooltip: null, customLink: null, customNode: null, tooltipChildren: null }, t.default = h;
+    }, h.defaultProps = { width: 960, height: 500, data: {}, nodeWidth: 10, nodePadding: 60, containerWidth: 800, config: {}, customTooltip: null, customLink: null, customNode: null, tooltipChildren: null, margin: { top: 10 } }, t.default = h;
   },
   Rdai: function(e, t) {
     e.exports = {
@@ -28729,7 +28739,7 @@ module.exports = (function(e) {
                 a = e.alwaysShow,
                 l = e.clipPathId;
               (0, b.warn)(
-                void 0 !== a,
+                void 0 === a,
                 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.'
               );
               var s = (0, g.isNumOrStr)(t),
@@ -33142,7 +33152,10 @@ module.exports = (function(e) {
               !o && S && g && i.default.createElement(E, this.props),
               M &&
                 i.default.createElement(f.default, {
-                  theme: { wrapper: y.default.legend },
+                  theme: {
+                    wrapper: (0, h.default)(y.default.legend, t.legend),
+                    projectedLegend: t.projectedLegend
+                  },
                   config: g,
                   dataOptions: a,
                   dataSelected: v,
@@ -34781,20 +34794,31 @@ module.exports = (function(e) {
               value: function() {
                 var e = this.props,
                   t = e.wrapperClassName,
-                  n = e.labelClassName,
-                  r = e.labelStyle,
-                  o = e.label,
-                  i = e.labelFormatter,
-                  a = u({ margin: 0 }, r),
-                  l = (0, h.isNumOrStr)(o),
-                  s = l ? o : '',
-                  f = (0, d.default)('recharts-default-tooltip', t),
-                  p = (0, d.default)('recharts-tooltip-label', n);
-                return l &&
-                  i &&
-                  (s = i(
-                    o
-                  )), c.default.createElement('div', { className: f, style: { margin: 0, padding: 10, backgroundColor: '#fff', border: '1px solid #ccc', whiteSpace: 'nowrap' } }, c.default.createElement('p', { className: p, style: a }, s), this.renderContent());
+                  n = e.contentStyle,
+                  r = e.labelClassName,
+                  o = e.labelStyle,
+                  i = e.label,
+                  a = e.labelFormatter,
+                  l = u(
+                    {
+                      margin: 0,
+                      padding: 10,
+                      backgroundColor: '#fff',
+                      border: '1px solid #ccc',
+                      whiteSpace: 'nowrap'
+                    },
+                    n
+                  ),
+                  s = u({ margin: 0 }, o),
+                  f = (0, h.isNumOrStr)(i),
+                  p = f ? i : '',
+                  y = (0, d.default)('recharts-default-tooltip', t),
+                  v = (0, d.default)('recharts-tooltip-label', r);
+                return f &&
+                  a &&
+                  (p = a(
+                    i
+                  )), c.default.createElement('div', { className: y, style: l }, c.default.createElement('p', { className: v, style: s }, p), this.renderContent());
               }
             }
           ]), t;
@@ -34803,6 +34827,7 @@ module.exports = (function(e) {
           wrapperClassName: f.default.string,
           labelClassName: f.default.string,
           formatter: f.default.func,
+          contentStyle: f.default.object,
           itemStyle: f.default.object,
           labelStyle: f.default.object,
           labelFormatter: f.default.func,
@@ -34821,6 +34846,7 @@ module.exports = (function(e) {
           itemSorter: f.default.func
         }, o.defaultProps = {
           separator: ' : ',
+          contentStyle: {},
           itemStyle: {},
           labelStyle: {}
         }, r = i)
@@ -81784,7 +81810,7 @@ module.exports = (function(e) {
               m = o && e.x === o.x && e.y === o.y,
               g = null === e.y ? p : v;
             v || (g = e.label.includes('BAU') ? f : d);
-            var b = h.projectedLabel.lenghtLimit || 10,
+            var b = h.projectedLabel && h.projectedLabel.lengthLimit || 10,
               _ = e.label.length > b,
               w = r.default.createElement(i.default, {
                 value: e.x + (_ ? '' : ' - ' + e.label),
@@ -81796,8 +81822,8 @@ module.exports = (function(e) {
                 fontSize: '13px',
                 offset: 30
               }),
-              x = h.projectedLabel.labelOffset || 10,
-              O = h.projectedLabel.dY || 20,
+              x = h.projectedLabel && h.projectedLabel.labelOffset || 10,
+              O = h.projectedLabel && h.projectedLabel.dY || 20,
               S = (0, l.wordWrap)(e.label, b).map(function(e, t) {
                 return n = e, o = x + t * O, r.default.createElement(i.default, { key: n, value: n, position: 'insideTop', fill: '#8f8fa1', stroke: '#fff', strokeWidth: y ? 0 : 8, style: { paintOrder: 'stroke', zIndex: 500 }, fontSize: '13px', offset: o });
                 var n, o;
@@ -83290,7 +83316,7 @@ module.exports = (function(e) {
                   i.default.createElement(
                     'div',
                     { className: d.default.tagDescription },
-                    'Click on each scenarios to see the assumptions behind it.'
+                    'Click on each scenario to see the assumptions behind it.'
                   )
               ),
               h &&
@@ -83317,7 +83343,12 @@ module.exports = (function(e) {
                 ),
               r && r.projectedColumns && i.default.createElement(
                   'div',
-                  { className: d.default.projectedLegend },
+                  {
+                    className: (0, s.default)(
+                      d.default.projectedLegend,
+                      m.projectedLegend
+                    )
+                  },
                   r.projectedColumns.map(function(e) {
                     return i.default.createElement(l.default, {
                       theme: f.default,
@@ -83343,6 +83374,7 @@ module.exports = (function(e) {
       hideRemoveOptions: a.default.bool,
       theme: a.default.shape({
         wrapper: a.default.string,
+        projectedLegend: a.default.string,
         tags: a.default.string
       })
     }, v.defaultProps = { dataSelected: {}, dataOptions: {}, hideRemoveOptions: !1, model: null, theme: {} }, t.default = v;
@@ -83583,7 +83615,9 @@ module.exports = (function(e) {
                       type: M
                     });
                   }),
-                j.length && (0, w.default)({ x: F.x, labels: n.dividerLine }),
+                j &&
+                  j.length &&
+                  (0, w.default)({ x: F.x, labels: n.dividerLine }),
                 i.default.createElement(l.default, {
                   x1: 150,
                   x2: 180,
@@ -83592,7 +83626,8 @@ module.exports = (function(e) {
                   stroke: 'red',
                   strokeOpacity: .3
                 }),
-                j.length &&
+                j &&
+                  j.length &&
                   (0, x.default)({
                     data: j,
                     dataMaxMin: U,
@@ -85405,9 +85440,11 @@ module.exports = (function(e) {
           ), r.state = { isAnimationFinished: !1 }, r.id = (0, M.uniqueId)('recharts-pie-'), r.cachePrevData = function(e) {
             r.setState({ prevSectors: e });
           }, r.handleAnimationEnd = function() {
-            r.setState({ isAnimationFinished: !0 });
+            var e = r.props.onAnimationEnd;
+            r.setState({ isAnimationFinished: !0 }), (0, l.default)(e) && e();
           }, r.handleAnimationStart = function() {
-            r.setState({ isAnimationFinished: !1 });
+            var e = r.props.onAnimationStart;
+            r.setState({ isAnimationFinished: !1 }), (0, l.default)(e) && e();
           }, A(r, n);
         }
         return (function(e, t) {
@@ -85501,19 +85538,21 @@ module.exports = (function(e) {
           {
             key: 'renderSectorsStatically',
             value: function(e) {
-              var t = this, n = this.props.activeShape;
-              return e.map(function(e, r) {
+              var t = this,
+                n = this.props,
+                r = n.activeShape,
+                o = n.blendStroke;
+              return e.map(function(e, n) {
+                var i = t.isActiveIndex(n) ? r : null,
+                  a = c({}, e, { stroke: o ? e.fill : e.stroke });
                 return p.default.createElement(
                   g.default,
                   c(
                     { className: 'recharts-pie-sector' },
-                    (0, E.filterEventsOfChild)(t.props, e, r),
-                    { key: 'sector-' + r }
+                    (0, E.filterEventsOfChild)(t.props, e, n),
+                    { key: 'sector-' + n }
                   ),
-                  t.constructor.renderSectorItem(
-                    t.isActiveIndex(r) ? n : null,
-                    e
-                  )
+                  t.constructor.renderSectorItem(i, a)
                 );
               });
             }
@@ -85726,6 +85765,7 @@ module.exports = (function(e) {
             h.default.func
           ]),
           data: h.default.arrayOf(h.default.object),
+          blendStroke: h.default.bool,
           minAngle: h.default.number,
           legendType: h.default.oneOf(E.LEGEND_TYPES),
           maxRadius: h.default.number,
@@ -85783,7 +85823,8 @@ module.exports = (function(e) {
         animationBegin: 400,
         animationDuration: 1500,
         animationEasing: 'ease',
-        nameKey: 'name'
+        nameKey: 'name',
+        blendStroke: !1
       }, o.parseDeltaAngle = function(e) {
         var t = e.startAngle, n = e.endAngle;
         return (0, M.mathSign)(n - t) * Math.min(Math.abs(n - t), 360);
@@ -89042,7 +89083,7 @@ module.exports = (function(e) {
                 f = e.alwaysShow,
                 p = e.clipPathId;
               (0, x.warn)(
-                void 0 !== f,
+                void 0 === f,
                 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.'
               );
               var y = w.LabeledScaleHelper.create({ x: o.scale, y: i.scale }),
@@ -92058,7 +92099,7 @@ module.exports = (function(e) {
                 l = (0, g.isNumOrStr)(n);
               if (
                 ((0, w.warn)(
-                  void 0 !== o,
+                  void 0 === o,
                   'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.'
                 ), !a || !l)
               )
