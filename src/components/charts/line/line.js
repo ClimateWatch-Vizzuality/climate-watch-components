@@ -115,7 +115,6 @@ class ChartLine extends PureComponent {
                 (
                   <CustomYAxisTick
                     precision={config.precision}
-                    unit={unit}
                     suffix={suffix}
                     getCustomYLabelFormat={getCustomYLabelFormat}
                   />
