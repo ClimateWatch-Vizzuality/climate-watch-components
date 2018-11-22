@@ -155,7 +155,11 @@ LegendChart.propTypes = {
   onChange: PropTypes.func.isRequired,
   model: PropTypes.shape({ url: PropTypes.string, logo: PropTypes.string }),
   hideRemoveOptions: PropTypes.bool,
-  theme: PropTypes.shape({ wrapper: PropTypes.string, tags: PropTypes.string })
+  theme: PropTypes.shape({
+    wrapper: PropTypes.string,
+    projectedLegend: PropTypes.string,
+    tags: PropTypes.string
+  })
 };
 
 LegendChart.defaultProps = {
