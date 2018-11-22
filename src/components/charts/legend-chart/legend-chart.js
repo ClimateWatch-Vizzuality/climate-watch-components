@@ -108,7 +108,7 @@ class LegendChart extends PureComponent {
           {
             hasLegendNote && (
             <div className={styles.tagDescription}>
-                  Click on each scenarios to see the assumptions behind it.
+                  Click on each scenario to see the assumptions behind it.
             </div>
               )
           }
@@ -127,7 +127,9 @@ class LegendChart extends PureComponent {
         }
         {
           config && config.projectedColumns && (
-          <div className={styles.projectedLegend}>
+          <div
+            className={cx(styles.projectedLegend, theme.projectedLegend)}
+          >
             {config.projectedColumns.map(q => (
               <Tag
                 theme={projectedTagTheme}
@@ -153,7 +155,11 @@ LegendChart.propTypes = {
   onChange: PropTypes.func.isRequired,
   model: PropTypes.shape({ url: PropTypes.string, logo: PropTypes.string }),
   hideRemoveOptions: PropTypes.bool,
-  theme: PropTypes.shape({ wrapper: PropTypes.string, tags: PropTypes.string })
+  theme: PropTypes.shape({
+    wrapper: PropTypes.string,
+    projectedLegend: PropTypes.string,
+    tags: PropTypes.string
+  })
 };
 
 LegendChart.defaultProps = {
