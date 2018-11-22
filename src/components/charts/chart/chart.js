@@ -169,7 +169,9 @@ Chart.propTypes = {
   /** Custom tooltip to pass down to chart */
   customTooltip: PropTypes.node,
   /** Function transforming y axis value */
-  getCustomYLabelFormat: PropTypes.func
+  getCustomYLabelFormat: PropTypes.func,
+  /** Specific for bar chart - single bar size */
+  barSize: PropTypes.number
 };
 
 Chart.defaultProps = {
@@ -191,7 +193,8 @@ Chart.defaultProps = {
   customXAxisTick: null,
   customYAxisTick: null,
   customTooltip: null,
-  getCustomYLabelFormat: null
+  getCustomYLabelFormat: null,
+  barSize: undefined
 };
 
 export default Chart;
