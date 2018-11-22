@@ -241,6 +241,7 @@
     .cw__carousel-styles_carouselWrapper .cwCarouselPaging li {
       list-style: none;
       cursor: pointer;
+      padding: 0 16px;
       border-bottom: 3px solid rgba(10, 25, 65, 0.2); }
       .cw__carousel-styles_carouselWrapper .cwCarouselPaging li:first-child {
         padding-left: 0; }
@@ -260,9 +261,12 @@
   display: flex;
   flex-direction: column-reverse; }
 
+.cw__carousel-styles_fadeSliderWithPaging .slick-active {
+  z-index: 2; }
+
 .cw__carousel-styles_pagingTitle {
   position: relative;
-  padding: 0 30px 16px; }
+  padding-bottom: 16px; }
 
 .cw__carousel-styles_pagingTitle::after {
   content: '';
@@ -337,6 +341,10 @@
 
 .cw__tooltip-chart-styles_notAvailable {
   color: #b1b1c1; }
+.cw__y-axis-label-styles_yAxisLabel {
+  font-size: 0.8125rem;
+  stroke: #b1b1c1;
+  stroke-width: 0.5; }
 .cw__bar-tooltip-chart-styles_tooltip {
   background: #fff;
   min-width: 180px;
@@ -912,6 +920,9 @@
 
 .cw__chart-styles_legend {
   min-height: 30px; }
+
+.cw__chart-styles_wrapper * {
+  font-family: "Lato", sans-serif; }
 .cw__check-input-styles_switch {
   display: flex;
   justify-content: flex-start;
@@ -1130,6 +1141,9 @@ input:checked ~ .cw__check-input-styles_label {
     column-count: 2; } }
 .cw__chart-composed-styles_legend {
   min-height: 30px; }
+
+.cw__chart-composed-styles_wrapper * {
+  font-family: "Lato", sans-serif; }
 .cw__map-component-styles_wrapper {
   width: 100%;
   position: relative;
