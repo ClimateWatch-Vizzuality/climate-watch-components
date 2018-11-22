@@ -66,7 +66,10 @@ class Chart extends PureComponent {
           hasDataOptions &&
             (
               <LegendChart
-                theme={{ wrapper: styles.legend }}
+                theme={{
+                  wrapper: cx(styles.legend, theme.legend),
+                  projectedLegend: theme.projectedLegend
+                }}
                 config={config}
                 dataOptions={dataOptions}
                 dataSelected={dataSelected}

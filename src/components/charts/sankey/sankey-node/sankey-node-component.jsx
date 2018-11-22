@@ -19,15 +19,17 @@ function SankeyNode({ x, y, width, height, index, payload, config }) {
     const startY = y + (height / 2) - fontSize || 0;
     const charactersPerLine = (rectangleStart / 6) - 3; // -3 for the ellipsis
     const maxLines = 2;
-    return splitSVGText(text, textHeight, tspanLineHeight, charactersPerLine, maxLines).map((t, i) => (
+    const svgTexts = splitSVGText(text, textHeight, tspanLineHeight, charactersPerLine, maxLines);
+    return svgTexts.map((t, i) => (
       `<tspan
         x="${startX}"
-        y="${startY + fontSize * lineHeight + i * fontSize * lineHeight}"
+        y="${startY + fontSize * lineHeight + i * fontSize * lineHeight - (0.5 * (svgTexts.length - 1)) * fontSize}"
       >
         ${t}
       </tspan>`
     )).join('\n');
   }
+
   return payload && payload.value && (
     <Layer key={`CustomNode${index}`}>
       <text

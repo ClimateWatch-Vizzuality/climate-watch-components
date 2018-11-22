@@ -5,7 +5,6 @@ import { isMicrosoftBrowser, getCustomTicks, getMaxValue } from 'utils';
 import isUndefined from 'lodash/isUndefined';
 import has from 'lodash/has';
 import { format } from 'd3-format';
-
 import {
   ComposedChart,
   Area,
@@ -20,9 +19,9 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import TooltipChart from 'components/charts/tooltip-chart';
+import yAxisLabel from 'components/charts/y-axis-label';
 import DividerLine from '../projected-data/divider-line';
 import ProjectedData from '../projected-data';
-
 import {
   getDataWithTotal,
   getDomain,
@@ -113,7 +112,8 @@ class ChartStackedArea extends PureComponent {
       customXAxisTick,
       customYAxisTick,
       customTooltip,
-      getCustomYLabelFormat
+      getCustomYLabelFormat,
+      showUnit
     } = this.props;
 
     const stackedAreaState = { projectedData, data, config };
@@ -135,6 +135,10 @@ class ChartStackedArea extends PureComponent {
     const suffix = has(config, 'axes.yLeft.suffix')
       ? config.axes.yLeft.suffix
       : null;
+    const unit = showUnit && has(config, 'axes.yLeft.unit')
+      ? config.axes.yLeft.unit
+      : null;
+
     return (
       <ResponsiveContainer height={height}>
         <ComposedChart
@@ -153,7 +157,11 @@ class ChartStackedArea extends PureComponent {
             tick={customXAxisTick || <CustomXAxisTick customstrokeWidth="0" />}
             tickSize={8}
             allowDecimals={false}
-            tickCount={dataWithTotal.length + projectedData.length}
+            tickCount={
+              projectedData
+                ? dataWithTotal.length + projectedData.length
+                : dataWithTotal.length
+            }
           />
           <YAxis
             type="number"
@@ -173,7 +181,9 @@ class ChartStackedArea extends PureComponent {
                 )
             }
             ticks={tickValues.ticks}
-          />
+          >
+            {yAxisLabel(unit)}
+          </YAxis>
           <CartesianGrid vertical={false} />
           {
             tickValues.min < 0 &&
@@ -234,11 +244,13 @@ class ChartStackedArea extends PureComponent {
           }
           {showLastPoint && renderLastPoint(lastData)}
           {
-            projectedData.length &&
+            projectedData &&
+              projectedData.length &&
               DividerLine({ x: lastData.x, labels: config.dividerLine })
           }
           {
-            projectedData.length &&
+            projectedData &&
+              projectedData.length &&
               ProjectedData({
                 data: projectedData,
                 dataMaxMin,
@@ -268,7 +280,8 @@ ChartStackedArea.propTypes = {
   customYAxisTick: PropTypes.node,
   customXAxisTick: PropTypes.node,
   customTooltip: PropTypes.node,
-  getCustomYLabelFormat: PropTypes.func
+  getCustomYLabelFormat: PropTypes.func,
+  showUnit: PropTypes.bool
 };
 
 ChartStackedArea.defaultProps = {
@@ -282,7 +295,8 @@ ChartStackedArea.defaultProps = {
   customYAxisTick: null,
   customXAxisTick: null,
   customTooltip: null,
-  getCustomYLabelFormat: null
+  getCustomYLabelFormat: null,
+  showUnit: false
 };
 
 export default ChartStackedArea;

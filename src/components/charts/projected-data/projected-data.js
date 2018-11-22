@@ -32,7 +32,9 @@ const ProjectedData = (
 
         // LABELS
         // yearLabel
-        const LENGHT_LIMIT = config.projectedLabel.lenghtLimit || 10;
+        const LENGHT_LIMIT = config.projectedLabel &&
+          config.projectedLabel.lengthLimit ||
+          10;
         const isLongLabel = point.label.length > LENGHT_LIMIT;
         const yearLabel = (
           <Label
@@ -48,8 +50,10 @@ const ProjectedData = (
         );
 
         // extraLabelLine - For long labels
-        const LABEL_OFFSET = config.projectedLabel.labelOffset || 10;
-        const DY = config.projectedLabel.dY || 20;
+        const LABEL_OFFSET = config.projectedLabel &&
+          config.projectedLabel.labelOffset ||
+          10;
+        const DY = config.projectedLabel && config.projectedLabel.dY || 20;
         const extraLabelLine = (text, offset) => (
           <Label
             key={text}
