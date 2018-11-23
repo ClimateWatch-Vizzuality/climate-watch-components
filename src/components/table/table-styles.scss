@@ -94,14 +94,15 @@
   }
 
   .ReactVirtualized__Table__rowColumn {
+    font-family: $font-family-1;
     color: $theme-color;
     font-size: $font-size-sm;
     white-space: normal;
 
     a {
-      line-height: $line-height-medium;
-      color: $theme-color;
-      border-bottom: 1px solid $theme-secondary;
+      line-height: $line-height-small;
+      color: $link-color;
+      border-bottom: 1px solid $link-color;
       text-decoration: none;
     }
 
