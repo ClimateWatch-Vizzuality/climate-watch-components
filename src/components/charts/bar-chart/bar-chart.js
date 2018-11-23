@@ -42,7 +42,8 @@ class SimpleBarChart extends PureComponent {
       customXAxisTick,
       customYAxisTick,
       customTooltip,
-      getCustomYLabelFormat
+      getCustomYLabelFormat,
+      barSize
     } = this.props;
     const unit = showUnit &&
       config &&
@@ -112,6 +113,7 @@ class SimpleBarChart extends PureComponent {
               <Bar
                 key={dataKey}
                 dataKey={dataKey}
+                barSize={barSize}
                 fill={config.theme[dataKey] && config.theme[dataKey].fill}
               />
             ))}
@@ -134,7 +136,8 @@ SimpleBarChart.propTypes = {
   customXAxisTick: PropTypes.node,
   customYAxisTick: PropTypes.node,
   customTooltip: PropTypes.node,
-  getCustomYLabelFormat: PropTypes.func
+  getCustomYLabelFormat: PropTypes.func,
+  barSize: PropTypes.number
 };
 
 SimpleBarChart.defaultProps = {
@@ -150,7 +153,8 @@ SimpleBarChart.defaultProps = {
   customXAxisTick: null,
   customYAxisTick: null,
   customTooltip: null,
-  getCustomYLabelFormat: null
+  getCustomYLabelFormat: null,
+  barSize: undefined
 };
 
 export default SimpleBarChart;
