@@ -60,6 +60,7 @@ $extreme-ticks-correction: 10px;
         display: inline-block;
         width: 1px;
         background-color: $black;
+        transition: left 1s;
       }
 
       .year {
