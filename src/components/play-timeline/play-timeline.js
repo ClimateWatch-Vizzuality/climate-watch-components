@@ -7,7 +7,7 @@ import styles from './play-timeline-styles.scss';
 import infoIcon from './assets/play.svg';
 import playButtonTheme from './play-button-theme.scss';
 
-const PlayTimeline = ({ years, selectedYear, theme, handlePlay }) => {
+const PlayTimeline = ({ years, selectedYear, theme, onPlay }) => {
   const yearIndex = selectedYear ? years.indexOf(selectedYear) : 0;
   const getPosition = currentYearIndex =>
     parseInt(currentYearIndex, 10) * 100 / (years.length - 1);
@@ -22,7 +22,7 @@ const PlayTimeline = ({ years, selectedYear, theme, handlePlay }) => {
 
   return (
     <div className={cx(styles.timelineContainer, theme.timelineContainer)}>
-      <Button theme={playButtonTheme} onClick={handlePlay}>
+      <Button theme={playButtonTheme} onClick={onPlay}>
         <Icon icon={infoIcon} />
       </Button>
       <div className={cx(styles.timeline, theme.timeline)}>
@@ -72,7 +72,7 @@ PlayTimeline.propTypes = {
   /**
    * Play onClick
    */
-  handlePlay: PropTypes.func.isRequired
+  onPlay: PropTypes.func.isRequired
 };
 
 PlayTimeline.defaultProps = { theme: {}, selectedYear: undefined };
