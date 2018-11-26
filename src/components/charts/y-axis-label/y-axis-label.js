@@ -19,10 +19,10 @@ const htmlToSvgSubscript = unitY => {
   });
 };
 
-const yAxisLabel = (unit, className, x = '8', y = '20') => (
+const yAxisLabel = (unit, dx = '8', dy = '20', className) => (
   <Label
     content={() => (
-      <text x={x} y={y} className={cx(styles.yAxisLabel, className)}>
+      <text dx={dx} dy={dy} className={cx(styles.yAxisLabel, className)}>
         {unit && htmlToSvgSubscript(unit)}
       </text>
     )}

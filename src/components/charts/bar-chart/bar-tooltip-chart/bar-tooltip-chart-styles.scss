@@ -15,27 +15,16 @@
   align-items: center;
   padding-bottom: 10px;
   font-size: $font-size-s;
+
+  &:first-child{
+    color: $theme-color;
+  }
+
+  &:last-child{
+    color: #77818c;
+  }
 }
 
 .unit {
-  font-size: $font-size-s;
-}
-
-.label {
-  display: flex;
-  flex-direction: row;
-  padding-left: 10px;
-  font-size: $font-size-s;
-  color: #77818c;
-}
-
-.labelName {
-  color: $theme-color;
-  padding-left: 10px;
-}
-
-.labelValue {
-  text-align: right;
-  min-width: 45px;
-  margin: 0;
+  margin-right: 10px;
 }

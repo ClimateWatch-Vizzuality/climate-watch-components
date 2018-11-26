@@ -11,6 +11,9 @@ import {
 } from 'recharts';
 import debounce from 'lodash/debounce';
 import yAxisLabel from 'components/charts/y-axis-label';
+import cx from 'classnames';
+import styles from 'components/charts/y-axis-label/y-axis-label-styles.scss';
+import has from 'lodash/has';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 import BarTooltipChart from './bar-tooltip-chart';
 
@@ -45,15 +48,24 @@ class SimpleBarChart extends PureComponent {
       getCustomYLabelFormat,
       barSize
     } = this.props;
-    const unit = showUnit &&
-      config &&
-      config.axes &&
-      config.axes.yLeft &&
-      config.axes.yLeft.unit
+
+    const yUnit = showUnit && has(config, 'axes.yLeft.unit')
       ? config.axes.yLeft.unit
       : null;
-    const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
 
+    const xUnit = showUnit && has(config, 'axes.xBottom.unit')
+      ? config.axes.xBottom.unit
+      : null;
+
+    const xLabel = has(config, 'axes.xBottom.label')
+      ? config.axes.xBottom.label
+      : null;
+
+    const yLabel = has(config, 'axes.yLeft.label')
+      ? config.axes.yLeft.label
+      : null;
+
+    const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
     const dataKeys = Object.keys(config.columns).filter(col => col !== 'x');
 
     return (
@@ -73,6 +85,13 @@ class SimpleBarChart extends PureComponent {
               tickSize={8}
               domain={domain && domain.x || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
+              label={{
+                value: xUnit,
+                dx: xLabel.dx,
+                dy: xLabel.dy,
+                className: cx(styles.yAxisLabel, xLabel.className),
+                position: 'insideBottomRight'
+              }}
             />
             <YAxis
               axisLine={false}
@@ -90,7 +109,7 @@ class SimpleBarChart extends PureComponent {
               domain={domain && domain.y || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
             >
-              {yAxisLabel(unit)}
+              {yAxisLabel(yUnit, yLabel.dx, yLabel.dy, yLabel.className)}
             </YAxis>
             <CartesianGrid vertical={false} />
             <Tooltip

@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import Proptypes from 'prop-types';
 import { format } from 'd3-format';
-import cx from 'classnames';
-
 import styles from './bar-tooltip-chart-styles.scss';
 
 class BarTooltipChart extends PureComponent {
@@ -25,21 +23,28 @@ class BarTooltipChart extends PureComponent {
 
   render() {
     const { config, content } = this.props;
-    const unit = config &&
+    const yUnit = config &&
       config.axes &&
       config.axes.yLeft &&
       config.axes.yLeft.unit;
+    const xUnit = config &&
+      config.axes &&
+      config.axes.xBottom &&
+      config.axes.xBottom.unit;
+
     return (
       <div className={styles.tooltip}>
         <div className={styles.tooltipHeader}>
-          <span className={cx(styles.labelName)}>
+          {xUnit && (
+            <span
+              className={styles.unit}
+              /* eslint-disable-line*/
+              dangerouslySetInnerHTML={{ __html: xUnit }}
+            />
+          )}
+          <span>
             {content.label}
           </span>
-          <span
-            className={styles.unit}
-            /* eslint-disable-line*/
-            dangerouslySetInnerHTML={{ __html: unit }}
-          />
         </div>
         {
           content &&
@@ -52,16 +57,23 @@ class BarTooltipChart extends PureComponent {
                   config.tooltip[y.dataKey] && 
                   config.tooltip[y.dataKey].label
                   ? (
-                    <div key={`${y.dataKey}`} className={styles.label}>
-                      <p className={styles.labelValue}>
+                    <div key={`${y.dataKey}`} className={styles.tooltipHeader}>
+                      {yUnit && (
+                        <span
+                          className={styles.unit}
+                          /* eslint-disable-line*/
+                          dangerouslySetInnerHTML={{ __html: yUnit }}
+                        />
+                      )}
+                      <span>
                         {this.renderValue(y)}
-                      </p>
+                      </span>
                     </div>
 )
                   : null
             )
         }
-        {content && !content.payload && <div>No data fool</div>}
+        {content && !content.payload && <div>No data available</div>}
       </div>
     );
   }
