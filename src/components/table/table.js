@@ -205,12 +205,16 @@ class Table extends PureComponent {
       setRowsHeight,
       ellipsisColumns,
       horizontalScroll,
-      dynamicRowsHeight
+      dynamicRowsHeight,
+      hiddenColumnHeaderLabels
     } = this.props;
 
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
-    const columnLabel = columnSlug => capitalize(columnSlug.replace(/_/g, ' '));
+    const columnLabel = columnSlug => {
+      if (hiddenColumnHeaderLabels.includes(columnSlug)) return '';
+      return capitalize(columnSlug.replace(/_/g, ' '));
+    };
 
     const rowsHeight = d => {
       if (setRowsHeight) return setRowsHeight(d);
@@ -307,34 +311,54 @@ class Table extends PureComponent {
 }
 
 Table.propTypes = {
-  /* Array of any kind of data you want to display */
+  /** Array of any kind of data you want to display */
   // eslint-disable-next-line react/forbid-prop-types
   data: PropTypes.array.isRequired,
-  /* Initial columns active in the table */
+  /** Initial columns active in the table */
   // eslint-disable-next-line react/forbid-prop-types
   defaultColumns: PropTypes.array,
-  /* Initial column to sort by */
+  /** Initial column to sort by */
   sortBy: PropTypes.string,
-  /* Include top right dropdown to filter active columns */
+  /** Include top right dropdown to filter active columns */
   hasColumnSelect: PropTypes.bool,
-  /* Build dinamycally the rows height */
+  /** Build dinamycally the rows height */
   setRowsHeight: PropTypes.func,
-  /* Build dinamycally the columns width */
+  /** Build dinamycally the columns width */
   setColumnWidth: PropTypes.func,
-  /* Initial table height */
+  /** Initial table height */
   tableHeight: PropTypes.number,
-  /* Initial table header height */
+  /** Initial table header height */
   headerHeight: PropTypes.number,
-  /* Trim line to include ... */
+  /** Trim line to include ... */
   // eslint-disable-next-line react/forbid-prop-types
   ellipsisColumns: PropTypes.array,
-  /* Boolean to allow scroll in the horizontal direction */
+  /** Boolean to allow scroll in the horizontal direction */
   horizontalScroll: PropTypes.bool.isRequired,
-  /* Array to order the column headers */
+  /** Array to order the column headers */
   // eslint-disable-next-line react/forbid-prop-types
   firstColumnHeaders: PropTypes.array,
-  /* Boolean value to calculate dynamic rows */
-  dynamicRowsHeight: PropTypes.bool
+  /** Boolean value to calculate dynamic rows */
+  dynamicRowsHeight: PropTypes.bool,
+  /** Array of column header that dev do not want to display on header row */
+  hiddenColumnHeaderLabels: PropTypes.arrayOf(PropTypes.string),
+  /** Array of arrays of objects holding the properties of the columns that should have linkable content.
+   * This prop is passed to `cell-renderer-component`
+   * exaple: __`titleLinks={data.map(c => [{columnName: "link", url: "self", label: "View more"}])}`__
+  */
+  titleLinks: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        /** Name of the column with linkable content */
+        columnName: PropTypes.string,
+        /** If is an external link `url: "self"`
+         *  if is inside the platform `url: "/uri-to-resource"`
+        */
+        url: PropTypes.string,
+        /** If provided it will be displayed as column text */
+        label: PropTypes.string
+      })
+    )
+  )
 };
 
 Table.defaultProps = {
@@ -347,6 +371,8 @@ Table.defaultProps = {
   setRowsHeight: null,
   ellipsisColumns: [],
   firstColumnHeaders: [],
+  hiddenColumnHeaderLabels: [],
+  titleLinks: [],
   dynamicRowsHeight: false
 };
 

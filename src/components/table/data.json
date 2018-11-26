@@ -13,6 +13,10 @@
       "id": 236,
       "name": "Agriculture Pollutants",
       "parent_id": 3
+    },
+    "link": {
+      "label": "View more",
+      "name": "http://www.wordreference.com/"
     }
   },
   {
@@ -29,6 +33,10 @@
       "id": 72,
       "name": "Agriculture energy use",
       "parent_id": 3
+    },
+    "link": {
+      "label": "View more",
+      "name": "http://www.vizzuality.com/"
     }
   },
   {
@@ -45,6 +53,10 @@
       "id": 93,
       "name": "LULUCF Anthropogenic GHG Emissions by Gas",
       "parent_id": 3
+    },
+    "link": {
+      "label": "View more",
+      "name": "https://www.wikipedia.org/"
     }
   },
   {
@@ -61,6 +73,10 @@
       "id": 42,
       "name": "Agriculture GHG Emissions by Gas",
       "parent_id": 3
+    },
+    "link": {
+      "label": "View more",
+      "name": "http://www.vizzuality.com/"
     }
   },
   {
@@ -77,6 +93,10 @@
       "id": 236,
       "name": "Agriculture Pollutants",
       "parent_id": 3
+    },
+    "link": {
+      "label": "View more",
+      "name": "http://www.wordreference.com/"
     }
   },
   {
@@ -93,6 +113,10 @@
       "id": 42,
       "name": "Agriculture GHG Emissions by Gas",
       "parent_id": 3
+    },
+    "link": {
+      "label": "View more",
+      "name": "http://www.wordreference.com/"
     }
   },
   {
@@ -109,6 +133,10 @@
       "id": 93,
       "name": "LULUCF Anthropogenic GHG Emissions by Gas",
       "parent_id": 3
+    },
+    "link": {
+      "label": "View more",
+      "name": "http://www.wordreference.com/"
     }
   },
   {
@@ -141,6 +169,10 @@
       "id": 72,
       "name": "Agriculture energy use",
       "parent_id": 3
+    },
+    "link": {
+      "label": "View more",
+      "name": "http://www.wordreference.com/"
     }
   },
   {

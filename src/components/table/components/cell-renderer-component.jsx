@@ -19,11 +19,11 @@ const cellRenderer = ({
   if (titleLink) {
     return titleLink.url === 'self' ? (
       <a target="_blank" rel="noopener noreferrer" href={cellData}>
-        {cellData}
+        {titleLink.label || cellData}
       </a>
     ) : (
       <a href={titleLink.url}>
-        {cellData}
+        {titleLink.label || cellData}
       </a>
     );
   }
@@ -44,7 +44,7 @@ const cellRenderer = ({
 };
 
 cellRenderer.propTypes = {
-  cell: PropTypes.object.isRequired,
+  cell: PropTypes.shape({}).isRequired,
   props: PropTypes.shape({
     titleLinks: PropTypes.array, // [ [ {columnName: 'title field name in the table', url:'/destination-url' or 'self'}, ... ] ]
     trendLine: PropTypes.string, // 'field name of the trend line column'
