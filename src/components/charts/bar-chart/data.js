@@ -11,8 +11,18 @@ export const domain = { x: [ 'auto', 'auto' ], y: [ 0, 'auto' ] };
 
 export const config = {
   axes: {
-    xBottom: { name: 'Age distribution', unit: '', format: 'string' },
-    yLeft: { name: 'Number of people', unit: '', format: 'number' }
+    xBottom: {
+      name: 'Age distribution',
+      unit: 'age',
+      format: 'string',
+      label: { dx: 0, dy: 0, className: '' }
+    },
+    yLeft: {
+      name: 'Number of people',
+      unit: 'people',
+      format: 'number',
+      label: { dx: 2, dy: 14, className: '' }
+    }
   },
   tooltip: { y: { label: 'people' } },
   animation: false,
