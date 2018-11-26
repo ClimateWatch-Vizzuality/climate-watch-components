@@ -28428,10 +28428,10 @@ module.exports = (function(e) {
                 : null,
               P = (0, g.default)(t, 'axes.xBottom.label')
                 ? t.axes.xBottom.label
-                : null,
+                : void 0,
               k = (0, g.default)(t, 'axes.yLeft.label')
                 ? t.axes.yLeft.label
-                : null,
+                : void 0,
               A = Object.keys(t.columns).filter(function(e) {
                 return 'x' !== e;
               });
@@ -28459,11 +28459,11 @@ module.exports = (function(e) {
                     interval: 'preserveStartEnd',
                     label: {
                       value: C,
-                      dx: P.dx,
-                      dy: P.dy,
+                      dx: P && P.dx,
+                      dy: P && P.dy,
                       className: (0, v.default)(
                         m.default.yAxisLabel,
-                        P.className
+                        P && P.className
                       ),
                       position: 'insideBottomRight'
                     }
@@ -28482,7 +28482,7 @@ module.exports = (function(e) {
                       domain: a && a.y || [ 'auto', 'auto' ],
                       interval: 'preserveStartEnd'
                     },
-                    (0, y.default)(M, k.dx, k.dy, k.className)
+                    (0, y.default)(M, k)
                   ),
                   i.default.createElement(f.default, { vertical: !1 }),
                   i.default.createElement(c.default, {
@@ -83873,16 +83873,15 @@ module.exports = (function(e) {
     t.default = function(e) {
       var t = arguments.length > 1 && void 0 !== arguments[1]
         ? arguments[1]
-        : '8',
-        n = arguments.length > 2 && void 0 !== arguments[2]
-          ? arguments[2]
-          : '20',
-        u = arguments[3];
+        : { dx: '8', dy: '20' },
+        n = t.dx,
+        u = t.dy,
+        l = t.className;
       return r.default.createElement(o.default, {
         content: function() {
           return r.default.createElement(
             'text',
-            { dx: t, dy: n, className: (0, i.default)(a.yAxisLabel, u) },
+            { dx: n, dy: u, className: (0, i.default)(a.yAxisLabel, l) },
             e && e.split('<sub>').map(function(e) {
                 if (e.includes('</sub>')) {
                   var t = e.split('</sub>');
