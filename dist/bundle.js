@@ -1591,9 +1591,9 @@ module.exports = (function(e) {
           ? r.default.createElement(
             'a',
             { target: '_blank', rel: 'noopener noreferrer', href: s },
-            s
+            d.label || s
           )
-          : r.default.createElement('a', { href: d.url }, s)
+          : r.default.createElement('a', { href: d.url }, d.label || s)
         : n
           ? r.default.createElement('div', {
             dangerouslySetInnerHTML: { __html: s }
@@ -1608,7 +1608,7 @@ module.exports = (function(e) {
               : '');
     };
     l.propTypes = {
-      cell: o.default.object.isRequired,
+      cell: o.default.shape({}).isRequired,
       props: o.default.shape({
         titleLinks: o.default.array,
         trendLine: o.default.string,
@@ -18480,10 +18480,11 @@ module.exports = (function(e) {
               O = h.setRowsHeight,
               S = h.ellipsisColumns,
               E = h.horizontalScroll,
-              T = h.dynamicRowsHeight;
+              T = h.dynamicRowsHeight,
+              M = h.hiddenColumnHeaderLabels;
             if (!n.length) return null;
-            var M = y && l,
-              C = function(e, t) {
+            var C = y && l,
+              P = function(e, t) {
                 return e[t];
               };
             return a.default.createElement(
@@ -18491,7 +18492,7 @@ module.exports = (function(e) {
               {
                 className: (0, p.default)(x({}, g.default.hasColumnSelect, y))
               },
-              M &&
+              C &&
                 a.default.createElement(
                   'div',
                   {
@@ -18543,8 +18544,8 @@ module.exports = (function(e) {
                           var r = t.index;
                           return T ? (function(t) {
                               var r = e.getLongestTextColumnName();
-                              return C(n, t)[r] &&
-                                C(n, t)[r].length / 3 + 100 ||
+                              return P(n, t)[r] &&
+                                P(n, t)[r].length / 3 + 100 ||
                                 120;
                             })(
                               r
@@ -18575,9 +18576,9 @@ module.exports = (function(e) {
                                 ), x(o, g.default.allTextVisible, T), o)
                               ),
                               key: t,
-                              label: (i = t, (0, c.default)(
-                                i.replace(/_/g, ' ')
-                              )),
+                              label: (i = t, M.includes(i)
+                                ? ''
+                                : (0, c.default)(i.replace(/_/g, ' '))),
                               dataKey: t,
                               flexGrow: 0,
                               cellRenderer: function(t) {
@@ -18697,8 +18698,18 @@ module.exports = (function(e) {
       ellipsisColumns: u.default.array,
       horizontalScroll: u.default.bool.isRequired,
       firstColumnHeaders: u.default.array,
-      dynamicRowsHeight: u.default.bool
-    }, O.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 30, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], dynamicRowsHeight: !1 }, t.default = O;
+      dynamicRowsHeight: u.default.bool,
+      hiddenColumnHeaderLabels: u.default.arrayOf(u.default.string),
+      titleLinks: u.default.arrayOf(
+        u.default.arrayOf(
+          u.default.shape({
+            columnName: u.default.string,
+            url: u.default.string,
+            label: u.default.string
+          })
+        )
+      )
+    }, O.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 30, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1 }, t.default = O;
   },
   KMkd: function(e, t) {
     e.exports = function() {
@@ -25318,10 +25329,7 @@ module.exports = (function(e) {
     e.exports = {
       tooltip: 'cw__bar-tooltip-chart-styles_tooltip',
       tooltipHeader: 'cw__bar-tooltip-chart-styles_tooltipHeader',
-      unit: 'cw__bar-tooltip-chart-styles_unit',
-      label: 'cw__bar-tooltip-chart-styles_label',
-      labelName: 'cw__bar-tooltip-chart-styles_labelName',
-      labelValue: 'cw__bar-tooltip-chart-styles_labelValue'
+      unit: 'cw__bar-tooltip-chart-styles_unit'
     };
   },
   'R+7+': function(e, t, n) {
@@ -28327,30 +28335,33 @@ module.exports = (function(e) {
       };
     })(),
       o = n('cDcd'),
-      i = g(o),
-      a = g(n('rf6O')),
-      u = g(n('l3t4')),
-      l = g(n('lRzI')),
-      s = g(n('FehL')),
-      c = g(n('GlS/')),
-      f = g(n('ukY8')),
-      d = g(n('nyGZ')),
-      p = g(n('NbxL')),
-      h = g(n('sEfC')),
-      y = g(n('kjI7')),
-      v = n('M8R/'),
-      m = g(n('h/kh'));
-    function g(e) {
+      i = w(o),
+      a = w(n('rf6O')),
+      u = w(n('l3t4')),
+      l = w(n('lRzI')),
+      s = w(n('FehL')),
+      c = w(n('GlS/')),
+      f = w(n('ukY8')),
+      d = w(n('nyGZ')),
+      p = w(n('NbxL')),
+      h = w(n('sEfC')),
+      y = w(n('kjI7')),
+      v = w(n('K2gz')),
+      m = w(n('pGiC')),
+      g = w(n('OFL0')),
+      b = n('M8R/'),
+      _ = w(n('h/kh'));
+    function w(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function b(e, t) {
+    function x(e, t) {
       if (!e)
         throw new ReferenceError(
           "this hasn't been initialised - super() hasn't been called"
         );
       return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
     }
-    var _ = (function(e) {
+    var O = (function(e) {
       function t() {
         var e, n, r;
         !(function(e, t) {
@@ -28359,7 +28370,7 @@ module.exports = (function(e) {
         })(this, t);
         for (var o = arguments.length, i = Array(o), a = 0; a < o; a++)
           i[a] = arguments[a];
-        return n = r = b(
+        return n = r = x(
           this,
           (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(
             e,
@@ -28373,7 +28384,7 @@ module.exports = (function(e) {
         ), r.handleMouseMove = function(e) {
           var t = e && e.activeLabel;
           t && r.debouncedMouseMove(t);
-        }, b(r, n);
+        }, x(r, n);
       }
       return (function(e, t) {
         if ('function' != typeof t && null !== t)
@@ -28403,16 +28414,25 @@ module.exports = (function(e) {
               o = e.margin,
               a = e.domain,
               h = e.showUnit,
-              g = e.forceFixedFormatDecimals,
-              b = e.customXAxisTick,
-              _ = e.customYAxisTick,
-              w = e.customTooltip,
-              x = e.getCustomYLabelFormat,
-              O = e.barSize,
-              S = h && t && t.axes && t.axes.yLeft && t.axes.yLeft.unit
+              w = e.forceFixedFormatDecimals,
+              x = e.customXAxisTick,
+              O = e.customYAxisTick,
+              S = e.customTooltip,
+              E = e.getCustomYLabelFormat,
+              T = e.barSize,
+              M = h && (0, g.default)(t, 'axes.yLeft.unit')
                 ? t.axes.yLeft.unit
                 : null,
-              E = Object.keys(t.columns).filter(function(e) {
+              C = h && (0, g.default)(t, 'axes.xBottom.unit')
+                ? t.axes.xBottom.unit
+                : null,
+              P = (0, g.default)(t, 'axes.xBottom.label')
+                ? t.axes.xBottom.label
+                : null,
+              k = (0, g.default)(t, 'axes.yLeft.label')
+                ? t.axes.yLeft.label
+                : null,
+              A = Object.keys(t.columns).filter(function(e) {
                 return 'x' !== e;
               });
             return i.default.createElement(
@@ -28432,11 +28452,21 @@ module.exports = (function(e) {
                   i.default.createElement(p.default, {
                     dataKey: 'x',
                     type: 'category',
-                    tick: b || i.default.createElement(v.CustomXAxisTick, null),
+                    tick: x || i.default.createElement(b.CustomXAxisTick, null),
                     padding: { left: 15, right: 20 },
                     tickSize: 8,
                     domain: a && a.x || [ 'auto', 'auto' ],
-                    interval: 'preserveStartEnd'
+                    interval: 'preserveStartEnd',
+                    label: {
+                      value: C,
+                      dx: P.dx,
+                      dy: P.dy,
+                      className: (0, v.default)(
+                        m.default.yAxisLabel,
+                        P.className
+                      ),
+                      position: 'insideBottomRight'
+                    }
                   }),
                   i.default.createElement(
                     d.default,
@@ -28445,14 +28475,14 @@ module.exports = (function(e) {
                       tickLine: !1,
                       scale: 'linear',
                       type: 'number',
-                      tick: _ ||
-                        i.default.createElement(v.CustomYAxisTick, {
-                          getCustomYLabelFormat: x
+                      tick: O ||
+                        i.default.createElement(b.CustomYAxisTick, {
+                          getCustomYLabelFormat: E
                         }),
                       domain: a && a.y || [ 'auto', 'auto' ],
                       interval: 'preserveStartEnd'
                     },
-                    (0, y.default)(S)
+                    (0, y.default)(M, k.dx, k.dy, k.className)
                   ),
                   i.default.createElement(f.default, { vertical: !1 }),
                   i.default.createElement(c.default, {
@@ -28460,21 +28490,21 @@ module.exports = (function(e) {
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     filterNull: !1,
                     content: function(e) {
-                      return w &&
-                        i.default.cloneElement(w, { content: e, config: t }) ||
-                        i.default.createElement(m.default, {
+                      return S &&
+                        i.default.cloneElement(S, { content: e, config: t }) ||
+                        i.default.createElement(_.default, {
                           content: e,
                           config: t,
-                          forceFixedFormatDecimals: g,
-                          getCustomYLabelFormat: x
+                          forceFixedFormatDecimals: w,
+                          getCustomYLabelFormat: E
                         });
                     }
                   }),
-                  E.map(function(e) {
+                  A.map(function(e) {
                     return i.default.createElement(u.default, {
                       key: e,
                       dataKey: e,
-                      barSize: O,
+                      barSize: T,
                       fill: t.theme[e] && t.theme[e].fill
                     });
                   })
@@ -28485,7 +28515,7 @@ module.exports = (function(e) {
         }
       ]), t;
     })();
-    _.propTypes = {
+    O.propTypes = {
       config: a.default.shape({ columns: a.default.object }),
       data: a.default.array,
       showUnit: a.default.bool,
@@ -28499,7 +28529,7 @@ module.exports = (function(e) {
       customTooltip: a.default.node,
       getCustomYLabelFormat: a.default.func,
       barSize: a.default.number
-    }, _.defaultProps = {
+    }, O.defaultProps = {
       height: '100%',
       showUnit: !1,
       onMouseMove: function() {
@@ -28514,7 +28544,7 @@ module.exports = (function(e) {
       customTooltip: null,
       getCustomYLabelFormat: null,
       barSize: void 0
-    }, t.default = _;
+    }, t.default = O;
   },
   WvGa: function(e, t, n) {
     'use strict';
@@ -83840,18 +83870,19 @@ module.exports = (function(e) {
     function u(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    t.default = function(e, t) {
-      var n = arguments.length > 2 && void 0 !== arguments[2]
-        ? arguments[2]
+    t.default = function(e) {
+      var t = arguments.length > 1 && void 0 !== arguments[1]
+        ? arguments[1]
         : '8',
-        u = arguments.length > 3 && void 0 !== arguments[3]
-          ? arguments[3]
-          : '20';
+        n = arguments.length > 2 && void 0 !== arguments[2]
+          ? arguments[2]
+          : '20',
+        u = arguments[3];
       return r.default.createElement(o.default, {
         content: function() {
           return r.default.createElement(
             'text',
-            { x: n, y: u, className: (0, i.default)(a.yAxisLabel, t) },
+            { dx: t, dy: n, className: (0, i.default)(a.yAxisLabel, u) },
             e && e.split('<sub>').map(function(e) {
                 if (e.includes('</sub>')) {
                   var t = e.split('</sub>');
@@ -102490,22 +102521,21 @@ module.exports = (function(e) {
       };
     })(),
       o = n('cDcd'),
-      i = c(o),
-      a = c(n('rf6O')),
+      i = s(o),
+      a = s(n('rf6O')),
       u = n('8R4q'),
-      l = c(n('K2gz')),
-      s = c(n('QuQm'));
-    function c(e) {
+      l = s(n('QuQm'));
+    function s(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function f(e, t) {
+    function c(e, t) {
       if (!e)
         throw new ReferenceError(
           "this hasn't been initialised - super() hasn't been called"
         );
       return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
     }
-    var d = (function(e) {
+    var f = (function(e) {
       function t() {
         var e, n, r;
         !(function(e, t) {
@@ -102514,7 +102544,7 @@ module.exports = (function(e) {
         })(this, t);
         for (var o = arguments.length, i = Array(o), a = 0; a < o; a++)
           i[a] = arguments[a];
-        return n = r = f(
+        return n = r = c(
           this,
           (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(
             e,
@@ -102531,7 +102561,7 @@ module.exports = (function(e) {
           return e.payload && void 0 !== e.payload[e.dataKey]
             ? (0, u.format)(',')(e.payload[e.dataKey])
             : 'n/a';
-        }, f(r, n);
+        }, c(r, n);
       }
       return (function(e, t) {
         if ('function' != typeof t && null !== t)
@@ -102558,22 +102588,20 @@ module.exports = (function(e) {
               t = this.props,
               n = t.config,
               r = t.content,
-              o = n && n.axes && n.axes.yLeft && n.axes.yLeft.unit;
+              o = n && n.axes && n.axes.yLeft && n.axes.yLeft.unit,
+              a = n && n.axes && n.axes.xBottom && n.axes.xBottom.unit;
             return i.default.createElement(
               'div',
-              { className: s.default.tooltip },
+              { className: l.default.tooltip },
               i.default.createElement(
                 'div',
-                { className: s.default.tooltipHeader },
-                i.default.createElement(
-                  'span',
-                  { className: (0, l.default)(s.default.labelName) },
-                  r.label
-                ),
-                i.default.createElement('span', {
-                  className: s.default.unit,
-                  dangerouslySetInnerHTML: { __html: o }
-                })
+                { className: l.default.tooltipHeader },
+                a &&
+                  i.default.createElement('span', {
+                    className: l.default.unit,
+                    dangerouslySetInnerHTML: { __html: a }
+                  }),
+                i.default.createElement('span', null, r.label)
               ),
               r &&
                 r.payload &&
@@ -102585,27 +102613,31 @@ module.exports = (function(e) {
                     n.tooltip[t.dataKey].label
                     ? i.default.createElement(
                       'div',
-                      { key: '' + t.dataKey, className: s.default.label },
-                      i.default.createElement(
-                        'p',
-                        { className: s.default.labelValue },
-                        e.renderValue(t)
-                      )
+                      {
+                        key: '' + t.dataKey,
+                        className: l.default.tooltipHeader
+                      },
+                      o &&
+                        i.default.createElement('span', {
+                          className: l.default.unit,
+                          dangerouslySetInnerHTML: { __html: o }
+                        }),
+                      i.default.createElement('span', null, e.renderValue(t))
                     )
                     : null;
                 }),
               r &&
                 !r.payload &&
-                i.default.createElement('div', null, 'No data fool')
+                i.default.createElement('div', null, 'No data available')
             );
           }
         }
       ]), t;
     })();
-    d.propTypes = {
+    f.propTypes = {
       content: a.default.object,
       config: a.default.object
-    }, d.defaultProps = { content: {}, config: {} }, t.default = d;
+    }, f.defaultProps = { content: {}, config: {} }, t.default = f;
   },
   xU8c: function(e, t, n) {
     'use strict';

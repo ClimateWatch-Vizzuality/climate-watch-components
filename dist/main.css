@@ -359,25 +359,13 @@
   align-items: center;
   padding-bottom: 10px;
   font-size: 0.8125rem; }
+  .cw__bar-tooltip-chart-styles_tooltipHeader:first-child {
+    color: #113750; }
+  .cw__bar-tooltip-chart-styles_tooltipHeader:last-child {
+    color: #77818c; }
 
 .cw__bar-tooltip-chart-styles_unit {
-  font-size: 0.8125rem; }
-
-.cw__bar-tooltip-chart-styles_label {
-  display: flex;
-  flex-direction: row;
-  padding-left: 10px;
-  font-size: 0.8125rem;
-  color: #77818c; }
-
-.cw__bar-tooltip-chart-styles_labelName {
-  color: #113750;
-  padding-left: 10px; }
-
-.cw__bar-tooltip-chart-styles_labelValue {
-  text-align: right;
-  min-width: 45px;
-  margin: 0; }
+  margin-right: 10px; }
 .cw__loading-styles_container {
   position: relative;
   height: 100%;
@@ -1503,13 +1491,14 @@ input:checked ~ .cw__check-input-styles_label {
     align-items: flex-start;
     padding: 10px 0; }
   .cw__table-styles_table .ReactVirtualized__Table__rowColumn {
+    font-family: "Lato", sans-serif;
     color: #113750;
     font-size: 0.875rem;
     white-space: normal; }
     .cw__table-styles_table .ReactVirtualized__Table__rowColumn a {
-      line-height: 1.62;
-      color: #113750;
-      border-bottom: 1px solid #ffc735;
+      line-height: 1.3;
+      color: #0845cb;
+      border-bottom: 1px solid #0845cb;
       text-decoration: none; }
     .cw__table-styles_table .ReactVirtualized__Table__rowColumn:first-of-type {
       font-weight: 600; }
