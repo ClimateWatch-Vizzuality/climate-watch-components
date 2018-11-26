@@ -69,7 +69,7 @@ class BarTooltipChart extends PureComponent {
                         {this.renderValue(y)}
                       </span>
                     </div>
-)
+                  )
                   : null
             )
         }

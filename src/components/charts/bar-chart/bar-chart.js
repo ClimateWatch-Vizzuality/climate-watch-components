@@ -59,11 +59,11 @@ class SimpleBarChart extends PureComponent {
 
     const xLabel = has(config, 'axes.xBottom.label')
       ? config.axes.xBottom.label
-      : null;
+      : undefined;
 
     const yLabel = has(config, 'axes.yLeft.label')
       ? config.axes.yLeft.label
-      : null;
+      : undefined;
 
     const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
     const dataKeys = Object.keys(config.columns).filter(col => col !== 'x');
@@ -87,9 +87,9 @@ class SimpleBarChart extends PureComponent {
               interval="preserveStartEnd"
               label={{
                 value: xUnit,
-                dx: xLabel.dx,
-                dy: xLabel.dy,
-                className: cx(styles.yAxisLabel, xLabel.className),
+                dx: xLabel && xLabel.dx,
+                dy: xLabel && xLabel.dy,
+                className: cx(styles.yAxisLabel, xLabel && xLabel.className),
                 position: 'insideBottomRight'
               }}
             />
@@ -109,7 +109,7 @@ class SimpleBarChart extends PureComponent {
               domain={domain && domain.y || [ 'auto', 'auto' ]}
               interval="preserveStartEnd"
             >
-              {yAxisLabel(yUnit, yLabel.dx, yLabel.dy, yLabel.className)}
+              {yAxisLabel(yUnit, yLabel)}
             </YAxis>
             <CartesianGrid vertical={false} />
             <Tooltip
