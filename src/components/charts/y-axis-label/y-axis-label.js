@@ -19,14 +19,17 @@ const htmlToSvgSubscript = unitY => {
   });
 };
 
-const yAxisLabel = (unit, dx = '8', dy = '20', className) => (
-  <Label
-    content={() => (
-      <text dx={dx} dy={dy} className={cx(styles.yAxisLabel, className)}>
-        {unit && htmlToSvgSubscript(unit)}
-      </text>
-    )}
-  />
-);
+const yAxisLabel = (unit, labelConfig = { dx: '8', dy: '20' }) => {
+  const { dx, dy, className } = labelConfig;
+  return (
+    <Label
+      content={() => (
+        <text dx={dx} dy={dy} className={cx(styles.yAxisLabel, className)}>
+          {unit && htmlToSvgSubscript(unit)}
+        </text>
+      )}
+    />
+  );
+};
 
 export default yAxisLabel;
