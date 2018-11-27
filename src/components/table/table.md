@@ -1,7 +1,7 @@
 ```jsx
 const data = require('./data.json');
 
-const defaultColumns = ["name", "definition", "unit", "composite_name"];
+const defaultColumns = ["name", "definition_UPCASE_lowcase", "unit", "composite_name"];
 const ellipsisColumns = ["composite_name"];
 
 <Table

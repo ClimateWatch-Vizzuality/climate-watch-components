@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import _sortBy from 'lodash/sortBy';
 import reverse from 'lodash/reverse';
-import capitalize from 'lodash/capitalize';
 import {
   Table as VirtualizedTable,
   Column,
@@ -175,6 +174,9 @@ class Table extends PureComponent {
       .concat(difference(activeColumnNames, firstColumnHeaders));
   };
 
+  capitalizeFirstLetter = text =>
+    `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
+
   render() {
     const {
       data,
@@ -199,7 +201,8 @@ class Table extends PureComponent {
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
     const columnLabel = columnSlug => {
       if (hiddenColumnHeaderLabels.includes(columnSlug)) return '';
-      return capitalize(columnSlug.replace(/_/g, ' '));
+      const result = columnSlug.replace(/_/g, ' ');
+      return this.capitalizeFirstLetter(result);
     };
 
     const rowsHeight = d => {

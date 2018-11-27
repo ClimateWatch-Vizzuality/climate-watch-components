@@ -50,6 +50,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    user-select: none;
   }
 
   .ReactVirtualized__Table__headerColumn,
