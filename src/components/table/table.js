@@ -12,7 +12,6 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import cx from 'classnames';
 import difference from 'lodash/difference';
 
-import { pixelBreakpoints } from '../../styles/responsive';
 import MultiSelect from '../multiselect';
 import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
@@ -63,27 +62,13 @@ class Table extends PureComponent {
     );
   };
 
-  getResponsiveWidth = (columns, width) => {
-    if (columns.length === 1) return width;
-
-    const isMinColumSized = width / columns < this.standardColumnWidth;
-
-    let responsiveRatio = 1.4;
-    // Mobile
-    let responsiveColumnRatio = 0.2;
-    if (
-      width > pixelBreakpoints.portrait && width < pixelBreakpoints.landscape
-    ) {
-      responsiveColumnRatio = 0.1;
-      responsiveRatio = 1.2; // Tablet
-    } else if (width > pixelBreakpoints.landscape) {
-      // Desktop
-      responsiveColumnRatio = 0.1;
-      responsiveRatio = 1;
-    }
-    const columnRatio = isMinColumSized ? responsiveColumnRatio : 0;
-    const columnExtraWidth = columnRatio * columns;
-    return width * responsiveRatio * (1 + columnExtraWidth);
+  getResponsiveWidth = (data, columns, width) => {
+    const columnsLenght = columns.length;
+    if (columnsLenght === 1) return width;
+    return columns.reduce(
+      (acc, column) => acc + this.getColumnLength(data, column.label),
+      0
+    );
   };
 
   getDataSorted = (data, sortBy, sortDirection) => {
@@ -232,7 +217,6 @@ class Table extends PureComponent {
           considerableMargin ||
         120;
     };
-
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -268,7 +252,7 @@ class Table extends PureComponent {
             {({ width }) => (
               <VirtualizedTable
                 className={styles.table}
-                width={this.getResponsiveWidth(activeColumns.length, width)}
+                width={this.getResponsiveWidth(data, activeColumns, width)}
                 height={tableHeight}
                 headerHeight={headerHeight}
                 rowClassName={this.rowClassName}
