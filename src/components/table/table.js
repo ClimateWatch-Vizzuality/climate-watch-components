@@ -62,7 +62,7 @@ class Table extends PureComponent {
     );
   };
 
-  getResponsiveWidth = (data, columns, width) => {
+  getFullWidth = (data, columns, width) => {
     const columnsLenght = columns.length;
     if (columnsLenght === 1) return width;
     const totalWidth = columns.reduce(
@@ -253,7 +253,7 @@ class Table extends PureComponent {
             {({ width }) => (
               <VirtualizedTable
                 className={styles.table}
-                width={this.getResponsiveWidth(data, activeColumns, width)}
+                width={this.getFullWidth(data, activeColumns, width)}
                 height={tableHeight}
                 headerHeight={headerHeight}
                 rowClassName={this.rowClassName}
