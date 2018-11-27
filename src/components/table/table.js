@@ -65,10 +65,11 @@ class Table extends PureComponent {
   getResponsiveWidth = (data, columns, width) => {
     const columnsLenght = columns.length;
     if (columnsLenght === 1) return width;
-    return columns.reduce(
+    const totalWidth = columns.reduce(
       (acc, column) => acc + this.getColumnLength(data, column.label),
       0
     );
+    return totalWidth < width ? width : totalWidth;
   };
 
   getDataSorted = (data, sortBy, sortDirection) => {
