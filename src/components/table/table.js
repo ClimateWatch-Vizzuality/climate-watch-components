@@ -281,7 +281,13 @@ class Table extends PureComponent {
                 sortBy={sortBy}
                 sortDirection={sortDirection}
                 rowGetter={({ index }) => data[index]}
-                headerRowRenderer={headerRowRenderer}
+                headerRowRenderer={({ columns, style, className }) =>
+                  headerRowRenderer({
+                    ...this.props,
+                    columns,
+                    style,
+                    className
+                  })}
               >
                 {this
                   .getColumnData()
