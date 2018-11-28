@@ -11,6 +11,7 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import cx from 'classnames';
 import difference from 'lodash/difference';
 import ReactTooltip from 'react-tooltip';
+import Truncate from 'react-truncate';
 import MultiSelect from '../multiselect';
 import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
@@ -221,17 +222,25 @@ class Table extends PureComponent {
           considerableMargin ||
         120;
     };
-    const getHeaderLabel = columnText => (
-      <div
-        data-for="header-label"
-        data-tip={columnLabel(columnText)}
-        data-offset="{'top': 40, 'left': 0}"
-        className={styles.columHeaderText}
-        title=""
-      >
-        {columnLabel(columnText)}
-      </div>
-    );
+
+    const getHeaderLabel = (columnText, columnData) => {
+      const { width } = this.columnWidthProps(columnText, columnData);
+      const sortIconWidth = styles.sortIconWidth.replace('px', '');
+      const truncateWidth = width - sortIconWidth;
+      return (
+        <Truncate
+          data-for="header-label"
+          data-tip={columnLabel(columnText)}
+          data-offset="{'top': 40, 'left': 0}"
+          title=""
+          lines={2}
+          ellipsis={<span>...</span>}
+          width={truncateWidth}
+        >
+          {columnLabel(columnText)}
+        </Truncate>
+      );
+    };
 
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
@@ -299,7 +308,7 @@ class Table extends PureComponent {
                         [styles.allTextVisible]: dynamicRowsHeight
                       })}
                       key={column}
-                      label={getHeaderLabel(column)}
+                      label={getHeaderLabel(column, data)}
                       dataKey={column}
                       flexGrow={0}
                       cellRenderer={cell =>
@@ -313,7 +322,7 @@ class Table extends PureComponent {
           <ReactTooltip
             place="left"
             id="header-label"
-            className="bubbleChartTooltip"
+            className="reactTooltipWhite"
             multiline
           />
         </div>

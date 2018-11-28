@@ -1,5 +1,7 @@
 @import '~styles/settings';
 
+$sort-icon-width: 24px;
+
 .tableWrapper {
   position: relative;
   overflow-x: hidden;
@@ -74,7 +76,7 @@
   }
 
   .ReactVirtualized__Table__sortableHeaderIcon {
-    flex: 0 0 24px;
+    flex: 0 0 $sort-icon-width;
     height: 1em;
     width: 1em;
     fill: currentColor;
@@ -160,10 +162,6 @@
   }
 }
 
-.columHeaderText {
-  max-height: 2.2rem;
-}
-
 .columnSelector :global {
   position: absolute;
   right: 0;
@@ -206,6 +204,8 @@
 }
 
 .idleSortIcon {
-  width: 24px;
+  width: $sort-icon-width;
   height: 8px;
 }
+
+:export { sortIconWidth: $sort-icon-width; }
