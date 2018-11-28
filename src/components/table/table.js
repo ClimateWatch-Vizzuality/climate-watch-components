@@ -10,7 +10,7 @@ import {
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import cx from 'classnames';
 import difference from 'lodash/difference';
-
+import ReactTooltip from 'react-tooltip';
 import MultiSelect from '../multiselect';
 import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
@@ -201,8 +201,8 @@ class Table extends PureComponent {
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
     const columnLabel = columnSlug => {
       if (hiddenColumnHeaderLabels.includes(columnSlug)) return '';
-      const result = columnSlug.replace(/_/g, ' ');
-      return this.capitalizeFirstLetter(result);
+      const headerLabel = columnSlug.replace(/_/g, ' ');
+      return this.capitalizeFirstLetter(headerLabel);
     };
 
     const rowsHeight = d => {
@@ -221,6 +221,18 @@ class Table extends PureComponent {
           considerableMargin ||
         120;
     };
+    const getHeaderLabel = columnText => (
+      <div
+        data-for="header-label"
+        data-tip={columnLabel(columnText)}
+        data-offset="{'top': 40, 'left': 0}"
+        className={styles.columHeaderText}
+        title=""
+      >
+        {columnLabel(columnText)}
+      </div>
+    );
+
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -287,7 +299,7 @@ class Table extends PureComponent {
                         [styles.allTextVisible]: dynamicRowsHeight
                       })}
                       key={column}
-                      label={columnLabel(column)}
+                      label={getHeaderLabel(column)}
                       dataKey={column}
                       flexGrow={0}
                       cellRenderer={cell =>
@@ -298,6 +310,12 @@ class Table extends PureComponent {
               </VirtualizedTable>
             )}
           </AutoSizer>
+          <ReactTooltip
+            place="left"
+            id="header-label"
+            className="bubbleChartTooltip"
+            multiline
+          />
         </div>
       </div>
     );

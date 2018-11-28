@@ -47,7 +47,7 @@
   .ReactVirtualized__Table__headerTruncatedText {
     display: inline-block;
     max-width: 100%;
-    white-space: nowrap;
+    // white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     user-select: none;
@@ -114,6 +114,9 @@
 
   .ReactVirtualized__Table__sortableHeaderColumn {
     cursor: pointer;
+    display: inline-flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
 
     &:focus {
       outline: none;
@@ -157,12 +160,15 @@
   }
 }
 
+.columHeaderText {
+  max-height: 2.2rem;
+}
+
 .columnSelector :global {
   position: absolute;
   right: 0;
   top: -17px;
   z-index: 10;
-  border-bottom: solid 1px $theme-color-light;
   width: 25px;
   background-color: white;
 
@@ -200,8 +206,6 @@
 }
 
 .idleSortIcon {
-  width: 8px;
+  width: 24px;
   height: 8px;
-  margin-left: 3px;
-  transform: translateY(-50%);
 }

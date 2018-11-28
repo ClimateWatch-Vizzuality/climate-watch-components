@@ -1,11 +1,12 @@
 ```jsx
 const data = require('./data.json');
 
-const defaultColumns = ["name", "definition_UPCASE_lowcase", "unit", "composite_name"];
+const defaultColumns = ["name", "here it is really really really really really long label definition_UPPERCASE_lowercase and something funny at the end of that", "unit", "composite_name"];
 const ellipsisColumns = ["composite_name"];
 
 <Table
   data={data}
+  headerHeight={42}
   hasColumnSelect
   defaultColumns={defaultColumns}
   ellipsisColumns={ellipsisColumns}

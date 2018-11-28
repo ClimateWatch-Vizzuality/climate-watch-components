@@ -12,7 +12,9 @@ const headerRowRenderer = props => {
         const columnName = c.props['aria-label'];
         if (!hiddenColumnHeaderLabels.includes(columnName) && !c.props['aria-sort']) {
           c.props.children.push(
-            <Icon icon={idleSort} theme={{ icon: styles.idleSortIcon }} />
+            <span>
+              <Icon icon={idleSort} theme={{ icon: styles.idleSortIcon }} />
+            </span>
           );
         }
         return c;
