@@ -8,6 +8,11 @@
 yarn add github:ClimateWatch-Vizzuality/climate-watch-components#versionNumber
 ```
 
+After adding the version number, go to your's project frontend entry file (most probably `app/javascript/app.jsx`) and import the css:
+```
+import 'cw-components/dist/main.css';
+```
+
 ```
 import { NoContent, Loading, Table } from 'cw-components';
 ```
