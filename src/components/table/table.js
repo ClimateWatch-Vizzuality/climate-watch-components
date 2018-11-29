@@ -225,7 +225,7 @@ class Table extends PureComponent {
 
     const getHeaderLabel = (columnText, columnData) => {
       const { width } = this.columnWidthProps(columnText, columnData);
-      const sortIconWidth = styles.sortIconWidth.replace('px', '');
+      const sortIconWidth = styles.sorticonwidth.replace('px', '');
       const truncateWidth = width - sortIconWidth;
       return (
         <Truncate
@@ -385,7 +385,7 @@ Table.propTypes = {
 Table.defaultProps = {
   sortBy: 'value',
   tableHeight: 460,
-  headerHeight: 30,
+  headerHeight: 42,
   defaultColumns: [],
   hasColumnSelect: false,
   setColumnWidth: null,

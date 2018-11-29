@@ -2,6 +2,8 @@
 
 $sort-icon-width: 24px;
 
+:export { sorticonwidth: $sort-icon-width; }
+
 .tableWrapper {
   position: relative;
   overflow-x: hidden;
@@ -49,7 +51,6 @@ $sort-icon-width: 24px;
   .ReactVirtualized__Table__headerTruncatedText {
     display: inline-block;
     max-width: 100%;
-    // white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     user-select: none;
@@ -207,5 +208,3 @@ $sort-icon-width: 24px;
   width: $sort-icon-width;
   height: 8px;
 }
-
-:export { sortIconWidth: $sort-icon-width; }
