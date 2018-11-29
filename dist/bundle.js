@@ -1008,7 +1008,7 @@ module.exports = (function(e) {
               i.default.createElement(u.default, {
                 place: 'left',
                 id: 'chartTooltip',
-                className: (0, c.default)('bubbleChartTooltip', s),
+                className: (0, c.default)('reactTooltipWhite', s),
                 multiline: !0
               })
             );
@@ -1803,8 +1803,8 @@ module.exports = (function(e) {
             I: L,
             j: D,
             L: z,
-            m: U,
-            M: W,
+            m: W,
+            M: U,
             p: function(e) {
               return s[+(e.getHours() >= 12)];
             },
@@ -2112,10 +2112,10 @@ module.exports = (function(e) {
       function B(e, t) {
         return z(e, t) + '000';
       }
-      function U(e, t) {
+      function W(e, t) {
         return f(e.getMonth() + 1, t, 2);
       }
-      function W(e, t) {
+      function U(e, t) {
         return f(e.getMinutes(), t, 2);
       }
       function F(e, t) {
@@ -2411,17 +2411,26 @@ module.exports = (function(e) {
       return e && e.__esModule ? e : { default: e };
     }
     var s = function(e) {
-      var t = e.className, n = e.columns, o = e.style;
+      var t = e.className,
+        n = e.columns,
+        o = e.style,
+        l = e.hiddenColumnHeaderLabels;
       return r.default.createElement(
         'div',
         { className: t, role: 'row', style: o },
         n.map(function(e) {
-          return e.props['aria-sort'] ||
+          var t = e.props['aria-label'];
+          return l.includes(t) ||
+            e.props['aria-sort'] ||
             e.props.children.push(
-              r.default.createElement(i.default, {
-                icon: a.default,
-                theme: { icon: u.default.idleSortIcon }
-              })
+              r.default.createElement(
+                'span',
+                null,
+                r.default.createElement(i.default, {
+                  icon: a.default,
+                  theme: { icon: u.default.idleSortIcon }
+                })
+              )
             ), e;
         })
       );
@@ -2429,8 +2438,9 @@ module.exports = (function(e) {
     s.propTypes = {
       className: o.default.oneOfType(o.default.object, o.default.string),
       columns: o.default.arrayOf(o.default.node).isRequired,
-      style: o.default.string
-    }, s.defaultProps = { className: null, style: null }, t.default = s;
+      style: o.default.string,
+      hiddenColumnHeaderLabels: o.default.arrayOf(o.default.string)
+    }, s.defaultProps = { className: null, style: null, hiddenColumnHeaderLabels: [] }, t.default = s;
   },
   '1EBP': function(e, t) {
     e.exports = {
@@ -4724,13 +4734,13 @@ module.exports = (function(e) {
               D = a.getCustomYLabelFormat,
               z = a.showUnit,
               B = { projectedData: A, data: u, config: P },
-              U = (0, M.getDataWithTotal)(B),
-              W = (0, M.getDomain)(B),
+              W = (0, M.getDataWithTotal)(B),
+              U = (0, M.getDomain)(B),
               F = (0, l.getMaxValue)((0, M.getDataWithTotal)(B)),
               H = (0, M.getDataMaxMin)(B);
-            if (!U.length) return null;
+            if (!W.length) return null;
             var G = { x: P.columns.x, y: P.columns.y.concat({ value: 'y' }) },
-              q = (0, l.getCustomTicks)(G, U.concat(A), 5),
+              q = (0, l.getCustomTicks)(G, W.concat(A), 5),
               V = (0, c.default)(P, 'axes.yLeft.suffix')
                 ? P.axes.yLeft.suffix
                 : null,
@@ -4743,7 +4753,7 @@ module.exports = (function(e) {
               i.default.createElement(
                 x.default,
                 {
-                  data: U,
+                  data: W,
                   margin: { top: 45, right: 20, left: -10, bottom: 0 },
                   onMouseMove: this.handleMouseMove,
                   onMouseLeave: function() {
@@ -4755,7 +4765,7 @@ module.exports = (function(e) {
                   stackOffset: 'sign'
                 },
                 i.default.createElement(b.default, {
-                  domain: W.x,
+                  domain: U.x,
                   type: 'number',
                   dataKey: 'x',
                   padding: { left: 30, right: 40 },
@@ -4765,13 +4775,13 @@ module.exports = (function(e) {
                     }),
                   tickSize: 8,
                   allowDecimals: !1,
-                  tickCount: A ? U.length + A.length : U.length
+                  tickCount: A ? W.length + A.length : W.length
                 }),
                 i.default.createElement(
                   g.default,
                   {
                     type: 'number',
-                    domain: W.y,
+                    domain: U.y,
                     interval: 0,
                     axisLine: !1,
                     padding: { top: 0, bottom: 0 },
@@ -8126,11 +8136,11 @@ module.exports = (function(e) {
         var t = e.children;
         return t ? t[0] : e.t;
       }
-      function U(e) {
+      function W(e) {
         var t = e.children;
         return t ? t[t.length - 1] : e.t;
       }
-      function W(e, t, n) {
+      function U(e, t, n) {
         var r = n / (t.i - e.i);
         t.c -= r, t.s += n, e.c += r, t.z += n, t.m += n;
       }
@@ -8420,11 +8430,11 @@ module.exports = (function(e) {
                   c = a.m,
                   f = u.m,
                   d = l.m;
-                u = U(u), i = B(i), u && i;
+                u = W(u), i = B(i), u && i;
                 
-              ) l = B(l), (a = U(a)).a = t, (o = u.z + f - i.z - s + e(u._, i._)) > 0 && (W(F(u, t, r), t, o), s += o, c += o), f += u.m, s += i.m, d += l.m, c += a.m;
+              ) l = B(l), (a = W(a)).a = t, (o = u.z + f - i.z - s + e(u._, i._)) > 0 && (U(F(u, t, r), t, o), s += o, c += o), f += u.m, s += i.m, d += l.m, c += a.m;
               u &&
-                !U(a) &&
+                !W(a) &&
                 (a.t = u, a.m += f -
                   c), i && !B(l) && (l.t = i, l.m += s - d, r = t);
             }
@@ -8875,8 +8885,8 @@ module.exports = (function(e) {
         j,
         z = e.chartName,
         B = e.GraphicalChild,
-        U = e.eventType,
-        W = void 0 === U ? 'axis' : U,
+        W = e.eventType,
+        U = void 0 === W ? 'axis' : W,
         F = e.axisComponents,
         H = e.legendContent,
         G = e.formatAxisMap,
@@ -8930,52 +8940,44 @@ module.exports = (function(e) {
           {
             key: 'componentWillReceiveProps',
             value: function(e) {
-              var t = this.props,
-                n = t.data,
-                r = t.children,
-                o = t.width,
-                i = t.height,
-                a = t.layout,
-                s = t.stackOffset,
-                c = t.margin,
-                f = this.state.updateId;
+              var t = this,
+                n = this.props,
+                r = n.data,
+                o = n.children,
+                i = n.width,
+                a = n.height,
+                s = n.layout,
+                c = n.stackOffset,
+                f = n.margin,
+                d = this.state.updateId;
               if (
-                e.data === n &&
-                  e.width === o &&
-                  e.height === i &&
-                  e.layout === a &&
-                  e.stackOffset === s &&
-                  (0, k.shallowEqual)(e.margin, c)
+                e.data === r &&
+                  e.width === i &&
+                  e.height === a &&
+                  e.layout === s &&
+                  e.stackOffset === c &&
+                  (0, k.shallowEqual)(e.margin, f)
               ) {
-                if (!(0, O.isChildrenEqual)(e.children, r)) {
-                  var d = (0, u.default)(e.data) ? f + 1 : f,
-                    p = this.state,
-                    h = p.dataStartIndex,
-                    y = p.dataEndIndex,
-                    v = l({}, this.constructor.createDefaultState(e), {
-                      dataEndIndex: y,
-                      dataStartIndex: h
-                    });
-                  this.setState(
-                    l(
-                      {},
-                      v,
-                      { updateId: d },
-                      this.updateStateOfAxisMapsOffsetAndStackGroups(
-                        l({ props: e }, v, { updateId: d })
+                if (!(0, O.isChildrenEqual)(e.children, o)) {
+                  var p = (0, u.default)(e.data) ? d + 1 : d;
+                  this.setState(function(n) {
+                    return l(
+                      { updateId: p },
+                      t.updateStateOfAxisMapsOffsetAndStackGroups(
+                        l({ props: e }, n, { updateId: p })
                       )
-                    )
-                  );
+                    );
+                  });
                 }
               } else {
-                var m = this.constructor.createDefaultState(e);
+                var h = this.constructor.createDefaultState(e);
                 this.setState(
                   l(
                     {},
-                    m,
-                    { updateId: f + 1 },
+                    h,
+                    { updateId: d + 1 },
                     this.updateStateOfAxisMapsOffsetAndStackGroups(
-                      l({ props: e }, m, { updateId: f + 1 })
+                      l({ props: e }, h, { updateId: d + 1 })
                     )
                   )
                 );
@@ -9246,7 +9248,7 @@ module.exports = (function(e) {
                 r = this.inRange(n.chartX, n.chartY);
               if (!r) return null;
               var o = this.state, i = o.xAxisMap, a = o.yAxisMap;
-              if ('axis' !== W && i && a) {
+              if ('axis' !== U && i && a) {
                 var u = (0, M.getAnyElementOfObject)(i).scale,
                   s = (0, M.getAnyElementOfObject)(a).scale,
                   c = u && u.invert ? u.invert(n.chartX) : null,
@@ -9520,7 +9522,7 @@ module.exports = (function(e) {
             key: 'parseEventsOfWrapper',
             value: function() {
               var e = this.props.children,
-                t = (0, O.findChildByType)(e, v.default) && 'axis' === W
+                t = (0, O.findChildByType)(e, v.default) && 'axis' === U
                   ? {
                     onMouseEnter: this.handleMouseEnter,
                     onMouseMove: this.handleMouseMove,
@@ -10232,8 +10234,10 @@ module.exports = (function(e) {
             offset: i,
             chartWidth: u,
             chartHeight: l,
-            verticalCoordinatesGenerator: e.verticalCoordinatesGenerator,
-            horizontalCoordinatesGenerator: e.horizontalCoordinatesGenerator
+            verticalCoordinatesGenerator: d.verticalCoordinatesGenerator ||
+              e.verticalCoordinatesGenerator,
+            horizontalCoordinatesGenerator: d.horizontalCoordinatesGenerator ||
+              e.horizontalCoordinatesGenerator
           });
         }, this.renderPolarGrid = function(t) {
           var n = e.state,
@@ -10848,8 +10852,8 @@ module.exports = (function(e) {
             return e.getUTCDate() - 1;
           }
         ),
-        U = B.range;
-      function W(e) {
+        W = B.range;
+      function U(e) {
         return r(
           function(t) {
             t.setUTCDate(
@@ -10864,13 +10868,13 @@ module.exports = (function(e) {
           }
         );
       }
-      var F = W(0),
-        H = W(1),
-        G = W(2),
-        q = W(3),
-        V = W(4),
-        Y = W(5),
-        K = W(6),
+      var F = U(0),
+        H = U(1),
+        G = U(2),
+        q = U(3),
+        V = U(4),
+        Y = U(5),
+        K = U(6),
         X = F.range,
         Z = H.range,
         Q = G.range,
@@ -10919,7 +10923,7 @@ module.exports = (function(e) {
           }) : null;
       };
       var ie = oe.range;
-      e.timeInterval = r, e.timeMillisecond = o, e.timeMilliseconds = i, e.utcMillisecond = o, e.utcMilliseconds = i, e.timeSecond = l, e.timeSeconds = s, e.utcSecond = l, e.utcSeconds = s, e.timeMinute = c, e.timeMinutes = f, e.timeHour = d, e.timeHours = p, e.timeDay = h, e.timeDays = y, e.timeWeek = m, e.timeWeeks = S, e.timeSunday = m, e.timeSundays = S, e.timeMonday = g, e.timeMondays = E, e.timeTuesday = b, e.timeTuesdays = T, e.timeWednesday = _, e.timeWednesdays = M, e.timeThursday = w, e.timeThursdays = C, e.timeFriday = x, e.timeFridays = P, e.timeSaturday = O, e.timeSaturdays = k, e.timeMonth = A, e.timeMonths = j, e.timeYear = N, e.timeYears = R, e.utcMinute = I, e.utcMinutes = L, e.utcHour = D, e.utcHours = z, e.utcDay = B, e.utcDays = U, e.utcWeek = F, e.utcWeeks = X, e.utcSunday = F, e.utcSundays = X, e.utcMonday = H, e.utcMondays = Z, e.utcTuesday = G, e.utcTuesdays = Q, e.utcWednesday = q, e.utcWednesdays = J, e.utcThursday = V, e.utcThursdays = $, e.utcFriday = Y, e.utcFridays = ee, e.utcSaturday = K, e.utcSaturdays = te, e.utcMonth = ne, e.utcMonths = re, e.utcYear = oe, e.utcYears = ie, Object.defineProperty(e, '__esModule', { value: !0 });
+      e.timeInterval = r, e.timeMillisecond = o, e.timeMilliseconds = i, e.utcMillisecond = o, e.utcMilliseconds = i, e.timeSecond = l, e.timeSeconds = s, e.utcSecond = l, e.utcSeconds = s, e.timeMinute = c, e.timeMinutes = f, e.timeHour = d, e.timeHours = p, e.timeDay = h, e.timeDays = y, e.timeWeek = m, e.timeWeeks = S, e.timeSunday = m, e.timeSundays = S, e.timeMonday = g, e.timeMondays = E, e.timeTuesday = b, e.timeTuesdays = T, e.timeWednesday = _, e.timeWednesdays = M, e.timeThursday = w, e.timeThursdays = C, e.timeFriday = x, e.timeFridays = P, e.timeSaturday = O, e.timeSaturdays = k, e.timeMonth = A, e.timeMonths = j, e.timeYear = N, e.timeYears = R, e.utcMinute = I, e.utcMinutes = L, e.utcHour = D, e.utcHours = z, e.utcDay = B, e.utcDays = W, e.utcWeek = F, e.utcWeeks = X, e.utcSunday = F, e.utcSundays = X, e.utcMonday = H, e.utcMondays = Z, e.utcTuesday = G, e.utcTuesdays = Q, e.utcWednesday = q, e.utcWednesdays = J, e.utcThursday = V, e.utcThursdays = $, e.utcFriday = Y, e.utcFridays = ee, e.utcSaturday = K, e.utcSaturdays = te, e.utcMonth = ne, e.utcMonths = re, e.utcYear = oe, e.utcYears = ie, Object.defineProperty(e, '__esModule', { value: !0 });
     })(t);
   },
   '9bdd': function(e, t, n) {
@@ -11180,6 +11184,7 @@ module.exports = (function(e) {
   },
   A4w7: function(e, t) {
     e.exports = {
+      sorticonwidth: '24px',
       tableWrapper: 'cw__table-styles_tableWrapper',
       horizontalScroll: 'cw__table-styles_horizontalScroll',
       headerRow: 'cw__table-styles_headerRow',
@@ -11302,8 +11307,8 @@ module.exports = (function(e) {
       D = c('symbol-registry'),
       z = c('symbols'),
       B = c('op-symbols'),
-      U = Object.prototype,
-      W = 'function' == typeof A,
+      W = Object.prototype,
+      U = 'function' == typeof A,
       F = r.QObject,
       H = !F || !F.prototype || !F.prototype.findChild,
       G = i && s(function() {
@@ -11315,20 +11320,20 @@ module.exports = (function(e) {
               })
             ).a;
         }) ? (function(e, t, n) {
-          var r = C(U, t);
-          r && delete U[t], P(e, t, n), r && e !== U && P(U, t, r);
+          var r = C(W, t);
+          r && delete W[t], P(e, t, n), r && e !== W && P(W, t, r);
         }) : P,
       q = function(e) {
         var t = z[e] = O(A.prototype);
         return t._k = e, t;
       },
-      V = W && 'symbol' == typeof A.iterator ? (function(e) {
+      V = U && 'symbol' == typeof A.iterator ? (function(e) {
           return 'symbol' == typeof e;
         }) : (function(e) {
           return e instanceof A;
         }),
       Y = function(e, t, n) {
-        return e === U && Y(B, t, n), g(e), t = w(t, !0), g(n), o(z, t)
+        return e === W && Y(B, t, n), g(e), t = w(t, !0), g(n), o(z, t)
           ? (n.enumerable
             ? (o(e, R) && e[R][t] && (e[R][t] = !1), n = O(n, {
               enumerable: x(0, !1)
@@ -11344,11 +11349,11 @@ module.exports = (function(e) {
       },
       X = function(e) {
         var t = L.call(this, e = w(e, !0));
-        return !(this === U && o(z, e) && !o(B, e)) &&
+        return !(this === W && o(z, e) && !o(B, e)) &&
           (!(t || !o(this, e) || !o(z, e) || o(this, R) && this[R][e]) || t);
       },
       Z = function(e, t) {
-        if ((e = _(e), t = w(t, !0), e !== U || !o(z, t) || o(B, t))) {
+        if ((e = _(e), t = w(t, !0), e !== W || !o(z, t) || o(B, t))) {
           var n = C(e, t);
           return !n || !o(z, t) || o(e, R) && e[R][t] || (n.enumerable = !0), n;
         }
@@ -11360,27 +11365,27 @@ module.exports = (function(e) {
       },
       J = function(e) {
         for (
-          var t, n = e === U, r = k(n ? B : _(e)), i = [], a = 0;
+          var t, n = e === W, r = k(n ? B : _(e)), i = [], a = 0;
           r.length > a;
           
         )
-          !o(z, t = r[a++]) || n && !o(U, t) || i.push(z[t]);
+          !o(z, t = r[a++]) || n && !o(W, t) || i.push(z[t]);
         return i;
       };
-    W || (u((A = function() {
+    U || (u((A = function() {
         if (this instanceof A) throw TypeError('Symbol is not a constructor!');
         var e = d(arguments.length > 0 ? arguments[0] : void 0),
           t = function(n) {
-            this === U && t.call(B, n), o(this, R) &&
+            this === W && t.call(B, n), o(this, R) &&
               o(this[R], e) &&
               (this[R][e] = !1), G(this, e, x(1, n));
           };
-        return i && H && G(U, e, { configurable: !0, set: t }), q(e);
+        return i && H && G(W, e, { configurable: !0, set: t }), q(e);
       }).prototype, 'toString', function() {
         return this._k;
-      }), E.f = Z, T.f = Y, n('ar/p').f = S.f = Q, n('NV0k').f = X, n('mqlF').f = J, i && !n('uOPS') && u(U, 'propertyIsEnumerable', X, !0), h.f = function(e) {
+      }), E.f = Z, T.f = Y, n('ar/p').f = S.f = Q, n('NV0k').f = X, n('mqlF').f = J, i && !n('uOPS') && u(W, 'propertyIsEnumerable', X, !0), h.f = function(e) {
         return q(p(e));
-      }), a(a.G + a.W + a.F * !W, { Symbol: A });
+      }), a(a.G + a.W + a.F * !U, { Symbol: A });
     for (
       var $ = 'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'.split(
         ','
@@ -11390,7 +11395,7 @@ module.exports = (function(e) {
       
     ) p($[ee++]);
     for (var te = M(p.store), ne = 0; te.length > ne; ) y(te[ne++]);
-    a(a.S + a.F * !W, 'Symbol', {
+    a(a.S + a.F * !U, 'Symbol', {
       for: function(e) {
         return o(D, e += '') ? D[e] : D[e] = A(e);
       },
@@ -11404,7 +11409,7 @@ module.exports = (function(e) {
       useSimple: function() {
         H = !1;
       }
-    }), a(a.S + a.F * !W, 'Object', {
+    }), a(a.S + a.F * !U, 'Object', {
       create: function(e, t) {
         return void 0 === t ? O(e) : K(O(e), t);
       },
@@ -11413,7 +11418,7 @@ module.exports = (function(e) {
       getOwnPropertyDescriptor: Z,
       getOwnPropertyNames: Q,
       getOwnPropertySymbols: J
-    }), j && a(a.S + a.F * (!W || s(function() {
+    }), j && a(a.S + a.F * (!U || s(function() {
               var e = A();
               return '[null]' != N([ e ]) ||
                 '{}' != N({ a: e }) ||
@@ -13259,8 +13264,8 @@ module.exports = (function(e) {
         D,
         z,
         B,
-        U,
         W,
+        U,
         F,
         H,
         G,
@@ -13347,11 +13352,11 @@ module.exports = (function(e) {
             fe.point = ve, fe.lineStart = me, fe.lineEnd = ge, ce.reset(), Z.polygonStart();
           },
           polygonEnd: function() {
-            Z.polygonEnd(), fe.point = de, fe.lineStart = he, fe.lineEnd = ye, K < 0 ? (B = -(W = 180), U = -(F = 90)) : ce > a ? F = 90 : ce < -a && (U = -90), se[0] = B, se[1] = W;
+            Z.polygonEnd(), fe.point = de, fe.lineStart = he, fe.lineEnd = ye, K < 0 ? (B = -(U = 180), W = -(F = 90)) : ce > a ? F = 90 : ce < -a && (W = -90), se[0] = B, se[1] = U;
           }
         };
       function de(e, t) {
-        le.push(se = [ B = e, W = e ]), t < U && (U = t), t > F && (F = t);
+        le.push(se = [ B = e, U = e ]), t < W && (W = t), t > F && (F = t);
       }
       function pe(e, t) {
         var n = ne([ e * d, t * d ]);
@@ -13366,17 +13371,17 @@ module.exports = (function(e) {
           c ^ (l * H < s && s < l * e)
             ? (a = i[1] * f) > F && (F = a)
             : c ^ (l * H < (s = (s + 360) % 360 - 180) && s < l * e)
-              ? (a = (-i[1]) * f) < U && (U = a)
-              : (t < U && (U = t), t > F &&
-                (F = t)), c ? e < H ? be(B, e) > be(B, W) && (W = e) : be(e, W) > be(B, W) && (B = e) : W >= B ? (e < B && (B = e), e > W && (W = e)) : e > H ? be(B, e) > be(B, W) && (W = e) : be(e, W) > be(B, W) && (B = e);
-        } else le.push(se = [ B = e, W = e ]);
-        t < U && (U = t), t > F && (F = t), V = n, H = e;
+              ? (a = (-i[1]) * f) < W && (W = a)
+              : (t < W && (W = t), t > F &&
+                (F = t)), c ? e < H ? be(B, e) > be(B, U) && (U = e) : be(e, U) > be(B, U) && (B = e) : U >= B ? (e < B && (B = e), e > U && (U = e)) : e > H ? be(B, e) > be(B, U) && (U = e) : be(e, U) > be(B, U) && (B = e);
+        } else le.push(se = [ B = e, U = e ]);
+        t < W && (W = t), t > F && (F = t), V = n, H = e;
       }
       function he() {
         fe.point = pe;
       }
       function ye() {
-        se[0] = B, se[1] = W, fe.point = de, V = null;
+        se[0] = B, se[1] = U, fe.point = de, V = null;
       }
       function ve(e, t) {
         if (V) {
@@ -13392,7 +13397,7 @@ module.exports = (function(e) {
         ve(
           G,
           q
-        ), Z.lineEnd(), p(ce) > a && (B = -(W = 180)), se[0] = B, se[1] = W, V = null;
+        ), Z.lineEnd(), p(ce) > a && (B = -(U = 180)), se[0] = B, se[1] = U, V = null;
       }
       function be(e, t) {
         return (t -= e) < 0 ? t + 360 : t;
@@ -13422,30 +13427,30 @@ module.exports = (function(e) {
         ze = {
           sphere: C,
           point: Be,
-          lineStart: We,
+          lineStart: Ue,
           lineEnd: Ge,
           polygonStart: function() {
             ze.lineStart = qe, ze.lineEnd = Ve;
           },
           polygonEnd: function() {
-            ze.lineStart = We, ze.lineEnd = Ge;
+            ze.lineStart = Ue, ze.lineEnd = Ge;
           }
         };
       function Be(e, t) {
         e *= d;
         var n = v(t *= d);
-        Ue(n * v(e), n * w(e), w(t));
+        We(n * v(e), n * w(e), w(t));
       }
-      function Ue(e, t, n) {
+      function We(e, t, n) {
         Se += (e - Se) / ++xe, Ee += (t - Ee) / xe, Te += (n - Te) / xe;
       }
-      function We() {
+      function Ue() {
         ze.point = Fe;
       }
       function Fe(e, t) {
         e *= d;
         var n = v(t *= d);
-        Ie = n * v(e), Le = n * w(e), De = w(t), ze.point = He, Ue(Ie, Le, De);
+        Ie = n * v(e), Le = n * w(e), De = w(t), ze.point = He, We(Ie, Le, De);
       }
       function He(e, t) {
         e *= d;
@@ -13461,7 +13466,7 @@ module.exports = (function(e) {
             ),
             Ie * r + Le * o + De * i
           );
-        Oe += a, Me += a * (Ie + (Ie = r)), Ce += a * (Le + (Le = o)), Pe += a * (De + (De = i)), Ue(Ie, Le, De);
+        Oe += a, Me += a * (Ie + (Ie = r)), Ce += a * (Le + (Le = o)), Pe += a * (De + (De = i)), We(Ie, Le, De);
       }
       function Ge() {
         ze.point = Be;
@@ -13475,7 +13480,7 @@ module.exports = (function(e) {
       function Ye(e, t) {
         Ne = e, Re = t, e *= d, t *= d, ze.point = Ke;
         var n = v(t);
-        Ie = n * v(e), Le = n * w(e), De = w(t), Ue(Ie, Le, De);
+        Ie = n * v(e), Le = n * w(e), De = w(t), We(Ie, Le, De);
       }
       function Ke(e, t) {
         e *= d;
@@ -13490,7 +13495,7 @@ module.exports = (function(e) {
           c = T(s),
           f = s && (-c) / s;
         ke += f *
-          a, Ae += f * u, je += f * l, Oe += c, Me += c * (Ie + (Ie = r)), Ce += c * (Le + (Le = o)), Pe += c * (De + (De = i)), Ue(Ie, Le, De);
+          a, Ae += f * u, je += f * l, Oe += c, Me += c * (Ie + (Ie = r)), Ce += c * (Le + (Le = o)), Pe += c * (De + (De = i)), We(Ie, Le, De);
       }
       var Xe = function(e) {
         return function() {
@@ -14083,8 +14088,8 @@ module.exports = (function(e) {
           .extentMinor([ [ -180, -80 - a ], [ 180, 80 + a ] ]);
       }
       var Bt,
-        Ut,
         Wt,
+        Ut,
         Ft,
         Ht = function(e) {
           return e;
@@ -14110,13 +14115,13 @@ module.exports = (function(e) {
         Vt.point = Kt;
       }
       function Kt(e, t) {
-        Vt.point = Xt, Bt = Wt = e, Ut = Ft = t;
+        Vt.point = Xt, Bt = Ut = e, Wt = Ft = t;
       }
       function Xt(e, t) {
-        qt.add(Ft * e - Wt * t), Wt = e, Ft = t;
+        qt.add(Ft * e - Ut * t), Ut = e, Ft = t;
       }
       function Zt() {
-        Xt(Bt, Ut);
+        Xt(Bt, Wt);
       }
       var Qt,
         Jt,
@@ -14346,7 +14351,7 @@ module.exports = (function(e) {
                 y.point = v, y.lineStart = g, y.lineEnd = b, l = t.merge(l);
                 var e = gt(u, f);
                 l.length
-                  ? (h || (a.polygonStart(), h = !0), st(l, Un, e, r, a))
+                  ? (h || (a.polygonStart(), h = !0), st(l, Wn, e, r, a))
                   : e &&
                     (h || (a.polygonStart(), h = !0), a.lineStart(), r(
                       null,
@@ -14408,11 +14413,11 @@ module.exports = (function(e) {
       function Bn(e) {
         return e.length > 1;
       }
-      function Un(e, t) {
+      function Wn(e, t) {
         return ((e = e.x)[0] < 0 ? e[1] - l - a : l - e[1]) -
           ((t = t.x)[0] < 0 ? t[1] - l - a : l - t[1]);
       }
-      var Wn = zn(
+      var Un = zn(
         function() {
           return !0;
         },
@@ -14803,7 +14808,7 @@ module.exports = (function(e) {
           b = 0,
           _ = 0,
           w = null,
-          x = Wn,
+          x = Un,
           S = null,
           E = Ht,
           T = .5,
@@ -14830,7 +14835,7 @@ module.exports = (function(e) {
           return s && c === e ? s : s = Zn(x(o, M(E(c = e))));
         }, C.clipAngle = function(e) {
           return arguments.length
-            ? (x = +e ? Fn(w = e * d, 6 * d) : (w = null, Wn), j())
+            ? (x = +e ? Fn(w = e * d, 6 * d) : (w = null, Un), j())
             : w * f;
         }, C.clipExtent = function(e) {
           return arguments.length
@@ -15029,7 +15034,7 @@ module.exports = (function(e) {
         return X.reset(), Y(e, Z), 2 * X;
       }, e.geoBounds = function(e) {
         var t, n, r, o, i, a, u;
-        if ((F = W = -(B = U = 1 / 0), le = [], Y(e, fe), n = le.length)) {
+        if ((F = U = -(B = W = 1 / 0), le = [], Y(e, fe), n = le.length)) {
           for (
             le.sort(_e), t = 1, r = le[0], i = [ r ];
             t < n;
@@ -15039,9 +15044,9 @@ module.exports = (function(e) {
             a = (-1) / 0, n = i.length - 1, t = 0, r = i[n];
             t <= n;
             r = o, ++t
-          ) o = i[t], (u = be(r[1], o[0])) > a && (a = u, B = o[0], W = r[1]);
+          ) o = i[t], (u = be(r[1], o[0])) > a && (a = u, B = o[0], U = r[1]);
         }
-        return le = se = null, B === 1 / 0 || U === 1 / 0 ? [ [ NaN, NaN ], [ NaN, NaN ] ] : [ [ B, U ], [ W, F ] ];
+        return le = se = null, B === 1 / 0 || W === 1 / 0 ? [ [ NaN, NaN ], [ NaN, NaN ] ] : [ [ B, W ], [ U, F ] ];
       }, e.geoCentroid = function(e) {
         xe = Oe = Se = Ee = Te = Me = Ce = Pe = ke = Ae = je = 0, Y(e, ze);
         var t = ke, n = Ae, r = je, o = t * t + n * n + r * r;
@@ -16382,6 +16387,7 @@ module.exports = (function(e) {
         itemStyle: d.default.object,
         labelStyle: d.default.object,
         wrapperStyle: d.default.object,
+        contentStyle: d.default.object,
         cursor: d.default.oneOfType([
           d.default.bool,
           d.default.element,
@@ -16425,6 +16431,7 @@ module.exports = (function(e) {
         cursorStyle: {},
         separator: ' : ',
         wrapperStyle: {},
+        contentStyle: {},
         itemStyle: {},
         labelStyle: {},
         cursor: !0,
@@ -18376,12 +18383,12 @@ module.exports = (function(e) {
       u = _(n('rf6O')),
       l = _(n('xweI')),
       s = _(n('USjQ')),
-      c = _(n('6acW')),
-      f = n('9bdd'),
-      d = _(n('QWsV')),
-      p = _(n('K2gz')),
-      h = _(n('zqxM')),
-      y = n('oZ1F'),
+      c = n('9bdd'),
+      f = _(n('QWsV')),
+      d = _(n('K2gz')),
+      p = _(n('zqxM')),
+      h = _(n('OnOE')),
+      y = _(n('one6')),
       v = _(n('6V4F')),
       m = _(n('/Kx+')),
       g = _(n('A4w7')),
@@ -18428,7 +18435,7 @@ module.exports = (function(e) {
           data: r,
           optionsOpen: !1,
           sortBy: i || Object.keys(r[0])[0],
-          sortDirection: f.SortDirection.ASC,
+          sortDirection: c.SortDirection.ASC,
           activeColumns: a.map(function(e) {
             return { label: e, value: e };
           }),
@@ -18473,26 +18480,31 @@ module.exports = (function(e) {
               u = t.activeColumns,
               l = t.columnsOptions,
               s = t.optionsOpen,
-              h = this.props,
-              y = h.hasColumnSelect,
-              _ = h.tableHeight,
-              w = h.headerHeight,
-              O = h.setRowsHeight,
-              S = h.ellipsisColumns,
-              E = h.horizontalScroll,
-              T = h.dynamicRowsHeight,
-              M = h.hiddenColumnHeaderLabels;
+              p = this.props,
+              _ = p.hasColumnSelect,
+              w = p.tableHeight,
+              O = p.headerHeight,
+              S = p.setRowsHeight,
+              E = p.ellipsisColumns,
+              T = p.horizontalScroll,
+              M = p.dynamicRowsHeight,
+              C = p.hiddenColumnHeaderLabels;
             if (!n.length) return null;
-            var C = y && l,
-              P = function(e, t) {
+            var P = _ && l,
+              k = function(t) {
+                if (C.includes(t)) return '';
+                var n = t.replace(/_/g, ' ');
+                return e.capitalizeFirstLetter(n);
+              },
+              A = function(e, t) {
                 return e[t];
               };
             return a.default.createElement(
               'div',
               {
-                className: (0, p.default)(x({}, g.default.hasColumnSelect, y))
+                className: (0, d.default)(x({}, g.default.hasColumnSelect, _))
               },
-              C &&
+              P &&
                 a.default.createElement(
                   'div',
                   {
@@ -18522,34 +18534,34 @@ module.exports = (function(e) {
               a.default.createElement(
                 'div',
                 {
-                  className: (0, p.default)(
+                  className: (0, d.default)(
                     g.default.tableWrapper,
-                    x({}, g.default.horizontalScroll, E)
+                    x({}, g.default.horizontalScroll, T)
                   )
                 },
                 a.default.createElement(
-                  d.default,
+                  f.default,
                   { disableHeight: !0 },
                   function(t) {
                     var l = t.width;
                     return a.default.createElement(
-                      f.Table,
+                      c.Table,
                       {
                         className: g.default.table,
-                        width: e.getResponsiveWidth(u.length, l),
-                        height: _,
-                        headerHeight: w,
+                        width: e.getFullWidth(n, u, l),
+                        height: w,
+                        headerHeight: O,
                         rowClassName: e.rowClassName,
                         rowHeight: function(t) {
                           var r = t.index;
-                          return T ? (function(t) {
+                          return M ? (function(t) {
                               var r = e.getLongestTextColumnName();
-                              return P(n, t)[r] &&
-                                P(n, t)[r].length / 3 + 100 ||
+                              return A(n, t)[r] &&
+                                A(n, t)[r].length / 3 + 100 ||
                                 120;
                             })(
                               r
-                            ) : O ? O(r) : S.length > 0 ? e.rowHeightWithEllipsis : e.minRowHeight;
+                            ) : S ? S(r) : E.length > 0 ? e.rowHeightWithEllipsis : e.minRowHeight;
                         },
                         rowCount: n.length,
                         sort: e.handleSortChange,
@@ -18559,26 +18571,56 @@ module.exports = (function(e) {
                           var t = e.index;
                           return n[t];
                         },
-                        headerRowRenderer: b.default
+                        headerRowRenderer: function(t) {
+                          var n = t.columns, o = t.style, i = t.className;
+                          return (0, b.default)(
+                            r({}, e.props, {
+                              columns: n,
+                              style: o,
+                              className: i
+                            })
+                          );
+                        }
                       },
                       e.getColumnData().map(function(t) {
-                        var o, i;
+                        var o, i, u, l;
                         return a.default.createElement(
-                          f.Column,
+                          c.Column,
                           r(
                             {
-                              className: (0, p.default)(
+                              className: (0, d.default)(
                                 g.default.column,
                                 (o = {}, x(
                                   o,
                                   g.default.ellipsis,
-                                  S && S.indexOf(t) > -1
-                                ), x(o, g.default.allTextVisible, T), o)
+                                  E && E.indexOf(t) > -1
+                                ), x(o, g.default.allTextVisible, M), o)
                               ),
                               key: t,
-                              label: (i = t, M.includes(i)
-                                ? ''
-                                : (0, c.default)(i.replace(/_/g, ' '))),
+                              label: (i = t, u = n, l = e.columnWidthProps(
+                                i,
+                                u
+                              ).width -
+                                g.default.sorticonwidth.replace(
+                                  'px',
+                                  ''
+                                ), a.default.createElement(
+                                y.default,
+                                {
+                                  'data-for': 'header-label',
+                                  'data-tip': k(i),
+                                  'data-offset': "{'top': 40, 'left': 0}",
+                                  title: '',
+                                  lines: 2,
+                                  ellipsis: a.default.createElement(
+                                    'span',
+                                    null,
+                                    '...'
+                                  ),
+                                  width: l
+                                },
+                                k(i)
+                              )),
                               dataKey: t,
                               flexGrow: 0,
                               cellRenderer: function(t) {
@@ -18594,7 +18636,13 @@ module.exports = (function(e) {
                       })
                     );
                   }
-                )
+                ),
+                a.default.createElement(h.default, {
+                  place: 'left',
+                  id: 'header-label',
+                  className: 'reactTooltipWhite',
+                  multiline: !0
+                })
               )
             );
           }
@@ -18611,17 +18659,18 @@ module.exports = (function(e) {
           e.setState(function(e) {
             return e.optionsOpen ? null : { optionsOpen: !0 };
           });
-        }, this.getResponsiveWidth = function(t, n) {
-          if (1 === t.length) return n;
-          var r = n / t < e.standardColumnWidth, o = 1.4, i = .2;
-          return n > y.pixelBreakpoints.portrait &&
-            n < y.pixelBreakpoints.landscape
-            ? (i = .1, o = 1.2)
-            : n > y.pixelBreakpoints.landscape &&
-              (i = .1, o = 1), n * o * (1 + (r ? i : 0) * t);
+        }, this.getFullWidth = function(t, n, r) {
+          if (1 === n.length) return r;
+          var o = n.reduce(
+            function(n, r) {
+              return n + e.getColumnLength(t, r.label);
+            },
+            0
+          );
+          return o < r ? r : o;
         }, this.getDataSorted = function(e, t, n) {
           var r = (0, l.default)(e, t);
-          return n === f.SortDirection.DESC ? (0, s.default)(r) : r;
+          return n === c.SortDirection.DESC ? (0, s.default)(r) : r;
         }, this.handleSortChange = function(t) {
           var n = t.sortBy,
             r = t.sortDirection,
@@ -18683,7 +18732,9 @@ module.exports = (function(e) {
             });
           return r.filter(function(e) {
             return n.includes(e);
-          }).concat((0, h.default)(r, n));
+          }).concat((0, p.default)(r, n));
+        }, this.capitalizeFirstLetter = function(e) {
+          return '' + e.charAt(0).toUpperCase() + e.slice(1);
         };
       };
     O.propTypes = {
@@ -18709,7 +18760,7 @@ module.exports = (function(e) {
           })
         )
       )
-    }, O.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 30, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1 }, t.default = O;
+    }, O.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1 }, t.default = O;
   },
   KMkd: function(e, t) {
     e.exports = function() {
@@ -19786,7 +19837,6 @@ module.exports = (function(e) {
           { key: 'CustomNode' + b },
           r.default.createElement('text', {
             textAnchor: x ? 'start' : 'end',
-            textLength: S,
             className: l.default.nodeText,
             dangerouslySetInnerHTML: {
               __html: (t = _.name, n = w.fontSize || 13, a = w.lineHeigth ||
@@ -20218,18 +20268,18 @@ module.exports = (function(e) {
         D,
         z,
         B,
-        U,
-        W = n(),
+        W,
+        U = n(),
         F = n(),
         H = {
           point: P,
           lineStart: P,
           lineEnd: P,
           polygonStart: function() {
-            W.reset(), H.lineStart = G, H.lineEnd = q;
+            U.reset(), H.lineStart = G, H.lineEnd = q;
           },
           polygonEnd: function() {
-            var e = +W;
+            var e = +U;
             F.add(
               e < 0 ? f + e : e
             ), this.lineStart = this.lineEnd = this.point = P;
@@ -20245,7 +20295,7 @@ module.exports = (function(e) {
         Y(L, D);
       }
       function V(e, t) {
-        H.point = Y, L = e, D = t, z = e *= p, B = m(t = (t *= p) / 2 + c), U = x(t);
+        H.point = Y, L = e, D = t, z = e *= p, B = m(t = (t *= p) / 2 + c), W = x(t);
       }
       function Y(e, t) {
         t = (t *= p) / 2 + c;
@@ -20254,10 +20304,10 @@ module.exports = (function(e) {
           o = r * n,
           i = m(t),
           a = x(t),
-          u = U * a,
+          u = W * a,
           l = B * i + u * m(o),
           s = u * r * x(o);
-        W.add(v(s, l)), z = e, B = i, U = a;
+        U.add(v(s, l)), z = e, B = i, W = a;
       }
       function K(e) {
         return [ v(e[1], e[0]), M(e[2]) ];
@@ -20321,7 +20371,7 @@ module.exports = (function(e) {
             Ce.point = Ne, Ce.lineStart = Re, Ce.lineEnd = Ie, Me.reset(), H.polygonStart();
           },
           polygonEnd: function() {
-            H.polygonEnd(), Ce.point = Pe, Ce.lineStart = Ae, Ce.lineEnd = je, W < 0 ? (te = -(re = 180), ne = -(oe = 90)) : Me > a ? oe = 90 : Me < -a && (ne = -90), ce[0] = te, ce[1] = re;
+            H.polygonEnd(), Ce.point = Pe, Ce.lineStart = Ae, Ce.lineEnd = je, U < 0 ? (te = -(re = 180), ne = -(oe = 90)) : Me > a ? oe = 90 : Me < -a && (ne = -90), ce[0] = te, ce[1] = re;
           }
         };
       function Pe(e, t) {
@@ -20381,7 +20431,7 @@ module.exports = (function(e) {
       }
       var Be = {
         sphere: P,
-        point: Ue,
+        point: We,
         lineStart: Fe,
         lineEnd: qe,
         polygonStart: function() {
@@ -20391,12 +20441,12 @@ module.exports = (function(e) {
           Be.lineStart = Fe, Be.lineEnd = qe;
         }
       };
-      function Ue(e, t) {
+      function We(e, t) {
         e *= p;
         var n = m(t *= p);
-        We(n * m(e), n * x(e), x(t));
+        Ue(n * m(e), n * x(e), x(t));
       }
-      function We(e, t, n) {
+      function Ue(e, t, n) {
         pe += (e - pe) / ++fe, he += (t - he) / fe, ye += (n - ye) / fe;
       }
       function Fe() {
@@ -20405,7 +20455,7 @@ module.exports = (function(e) {
       function He(e, t) {
         e *= p;
         var n = m(t *= p);
-        Se = n * m(e), Ee = n * x(e), Te = x(t), Be.point = Ge, We(Se, Ee, Te);
+        Se = n * m(e), Ee = n * x(e), Te = x(t), Be.point = Ge, Ue(Se, Ee, Te);
       }
       function Ge(e, t) {
         e *= p;
@@ -20421,21 +20471,21 @@ module.exports = (function(e) {
             ),
             Se * r + Ee * o + Te * i
           );
-        de += a, ve += a * (Se + (Se = r)), me += a * (Ee + (Ee = o)), ge += a * (Te + (Te = i)), We(Se, Ee, Te);
+        de += a, ve += a * (Se + (Se = r)), me += a * (Ee + (Ee = o)), ge += a * (Te + (Te = i)), Ue(Se, Ee, Te);
       }
       function qe() {
-        Be.point = Ue;
+        Be.point = We;
       }
       function Ve() {
         Be.point = Ke;
       }
       function Ye() {
-        Xe(xe, Oe), Be.point = Ue;
+        Xe(xe, Oe), Be.point = We;
       }
       function Ke(e, t) {
         xe = e, Oe = t, e *= p, t *= p, Be.point = Xe;
         var n = m(t);
-        Se = n * m(e), Ee = n * x(e), Te = x(t), We(Se, Ee, Te);
+        Se = n * m(e), Ee = n * x(e), Te = x(t), Ue(Se, Ee, Te);
       }
       function Xe(e, t) {
         e *= p;
@@ -20450,7 +20500,7 @@ module.exports = (function(e) {
           c = M(s),
           f = s && (-c) / s;
         be += f *
-          a, _e += f * u, we += f * l, de += c, ve += c * (Se + (Se = r)), me += c * (Ee + (Ee = o)), ge += c * (Te + (Te = i)), We(Se, Ee, Te);
+          a, _e += f * u, we += f * l, de += c, ve += c * (Se + (Se = r)), me += c * (Ee + (Ee = o)), ge += c * (Te + (Te = i)), Ue(Se, Ee, Te);
       }
       function Ze(e) {
         return function() {
@@ -21169,15 +21219,15 @@ module.exports = (function(e) {
         return r + o <= n + a;
       }
       function zt(e, t) {
-        return !!dt(e.map(Bt), Ut(t));
+        return !!dt(e.map(Bt), Wt(t));
       }
       function Bt(e) {
-        return (e = e.map(Ut)).pop(), e;
+        return (e = e.map(Wt)).pop(), e;
       }
-      function Ut(e) {
+      function Wt(e) {
         return [ e[0] * p, e[1] * p ];
       }
-      function Wt(e, n, r) {
+      function Ut(e, n, r) {
         var o = t.range(e, n - a, r).concat(n);
         return function(e) {
           return o.map(function(t) {
@@ -21269,7 +21319,7 @@ module.exports = (function(e) {
           return arguments.length ? (y = +e[0], v = +e[1], w) : [ y, v ];
         }, w.precision = function(t) {
           return arguments.length
-            ? (_ = +t, c = Wt(u, i, 90), f = Ft(n, e, _), d = Wt(
+            ? (_ = +t, c = Ut(u, i, 90), f = Ft(n, e, _), d = Ut(
               s,
               l,
               90
@@ -21447,7 +21497,7 @@ module.exports = (function(e) {
             zn.point = Bn;
           },
           lineEnd: function() {
-            jn && Un(Nn, Rn), zn.point = P;
+            jn && Wn(Nn, Rn), zn.point = P;
           },
           polygonStart: function() {
             jn = !0;
@@ -21461,12 +21511,12 @@ module.exports = (function(e) {
           }
         };
       function Bn(e, t) {
-        zn.point = Un, Nn = In = e, Rn = Ln = t;
+        zn.point = Wn, Nn = In = e, Rn = Ln = t;
       }
-      function Un(e, t) {
+      function Wn(e, t) {
         In -= e, Ln -= t, Dn.add(S(In * In + Ln * Ln)), In = e, Ln = t;
       }
-      function Wn() {
+      function Un() {
         this._string = [];
       }
       function Fn(e) {
@@ -21547,7 +21597,7 @@ module.exports = (function(e) {
           n
         );
       }
-      Wn.prototype = {
+      Un.prototype = {
         _radius: 4.5,
         _circle: Fn(4.5),
         pointRadius: function(e) {
@@ -22219,7 +22269,7 @@ module.exports = (function(e) {
         }, i.context = function(e) {
           return arguments.length
             ? (r = null == e
-              ? (t = null, new Wn())
+              ? (t = null, new Un())
               : new An((t = e)), 'function' != typeof o && r.pointRadius(o), i)
             : t;
         }, i.pointRadius = function(e) {
@@ -23070,8 +23120,8 @@ module.exports = (function(e) {
       D,
       z,
       B,
-      U,
       W,
+      U,
       F,
       H,
       G,
@@ -23298,11 +23348,11 @@ module.exports = (function(e) {
       return t.concat().sort(function(t, n) {
         return e(t) > e(n) ? 1 : e(t) < e(n) ? -1 : 0;
       });
-    }), U = function(e) {
+    }), W = function(e) {
       var t, n, r;
       for (t = 0, n = 0, r = e.length; n < r; ++n) t += e[n];
       return t;
-    }, W = function(e) {
+    }, U = function(e) {
       var t, n, r;
       for (t = 1, n = 0, r = e.length; n < r; ++n) t *= e[n];
       return t;
@@ -23490,8 +23540,8 @@ module.exports = (function(e) {
       sort: D,
       sortWith: z,
       sortBy: B,
-      sum: U,
-      product: W,
+      sum: W,
+      product: U,
       mean: F,
       average: H,
       concat: E,
@@ -23862,7 +23912,7 @@ module.exports = (function(e) {
         };
       }
       var z = D(u), B = D(s);
-      function U(e) {
+      function W(e) {
         return (function n(r) {
           function o(n, o) {
             var i = e((n = t.cubehelix(n)).h, (o = t.cubehelix(o)).h),
@@ -23878,7 +23928,7 @@ module.exports = (function(e) {
           return r = +r, o.gamma = n, o;
         })(1);
       }
-      var W = U(u), F = U(s);
+      var U = W(u), F = W(s);
       e.interpolate = E, e.interpolateArray = g, e.interpolateBasis = r, e.interpolateBasisClosed = o, e.interpolateDate = b, e.interpolateNumber = _, e.interpolateObject = w, e.interpolateRound = function(e, t) {
         return t -= e = +e, function(n) {
           return Math.round(e + t * n);
@@ -23926,7 +23976,7 @@ module.exports = (function(e) {
         return function(t) {
           return e.l = r(t), e.a = o(t), e.b = i(t), e.opacity = a(t), e + '';
         };
-      }, e.interpolateHcl = z, e.interpolateHclLong = B, e.interpolateCubehelix = W, e.interpolateCubehelixLong = F, e.piecewise = function(e, t) {
+      }, e.interpolateHcl = z, e.interpolateHclLong = B, e.interpolateCubehelix = U, e.interpolateCubehelixLong = F, e.piecewise = function(e, t) {
         for (
           var n = 0, r = t.length - 1, o = t[0], i = new Array((r < 0 ? 0 : r));
           n < r;
@@ -25753,9 +25803,9 @@ module.exports = (function(e) {
             D,
             z,
             B,
-            U,
-            W = this;
-          return t = (e = this.getComputedState()).anchor, e.filteredOptions, n = e.highlightedUid, r = e.onAnchorChange, o = e.onOpenChange, i = e.onHighlightedUidChange, a = e.onSearchChange, u = e.onValuesChange, s = e.search, c = e.open, f = e.options, d = e.values, null != (e = this.props) && (y = e.autofocus, m = e.autosize, g = e.cancelKeyboardEventOnSelection, b = e.delimiters, _ = e.disabled, w = e.dropdownDirection, x = e.groupId, O = e.groups, S = e.groupsAsColumns, E = e.hideResetButton, T = e.inputProps, M = e.name, C = e.onKeyboardSelectionFailed, P = e.renderToggleButton, k = e.renderGroupTitle, A = e.renderResetButton, j = e.serialize, N = e.tether, R = e.tetherProps, I = e.theme, L = e.transitionEnter, D = e.transitionLeave, z = e.transitionEnterTimeout, B = e.transitionLeaveTimeout, U = e.uid), p(
+            W,
+            U = this;
+          return t = (e = this.getComputedState()).anchor, e.filteredOptions, n = e.highlightedUid, r = e.onAnchorChange, o = e.onOpenChange, i = e.onHighlightedUidChange, a = e.onSearchChange, u = e.onValuesChange, s = e.search, c = e.open, f = e.options, d = e.values, null != (e = this.props) && (y = e.autofocus, m = e.autosize, g = e.cancelKeyboardEventOnSelection, b = e.delimiters, _ = e.disabled, w = e.dropdownDirection, x = e.groupId, O = e.groups, S = e.groupsAsColumns, E = e.hideResetButton, T = e.inputProps, M = e.name, C = e.onKeyboardSelectionFailed, P = e.renderToggleButton, k = e.renderGroupTitle, A = e.renderResetButton, j = e.serialize, N = e.tether, R = e.tetherProps, I = e.theme, L = e.transitionEnter, D = e.transitionLeave, z = e.transitionEnterTimeout, B = e.transitionLeaveTimeout, W = e.uid), p(
             v(
               v(
                 {
@@ -25780,7 +25830,7 @@ module.exports = (function(e) {
                   renderToggleButton: P,
                   scrollLock: this.state.scrollLock,
                   onScrollLockChange: function(e) {
-                    return W.setState({ scrollLock: e });
+                    return U.setState({ scrollLock: e });
                   },
                   tether: N,
                   tetherProps: R,
@@ -25789,7 +25839,7 @@ module.exports = (function(e) {
                   transitionEnterTimeout: z,
                   transitionLeave: D,
                   transitionLeaveTimeout: B,
-                  uid: U,
+                  uid: W,
                   ref: 'select',
                   anchor: t,
                   onAnchorChange: r,
@@ -25798,12 +25848,12 @@ module.exports = (function(e) {
                   options: f,
                   renderOption: this.props.renderOption,
                   firstOptionIndexToHighlight: function() {
-                    return W.firstOptionIndexToHighlight(f);
+                    return U.firstOptionIndexToHighlight(f);
                   },
                   search: s,
                   onSearchChange: function(e, t) {
                     return a(
-                      W.props.maxValues && d.length >= W.props.maxValues
+                      U.props.maxValues && d.length >= U.props.maxValues
                         ? ''
                         : e,
                       t
@@ -25813,9 +25863,9 @@ module.exports = (function(e) {
                   onValuesChange: function(e, t) {
                     return u(e, function() {
                       if (
-                        (t(), W.props.closeOnSelect ||
-                          W.props.maxValues &&
-                            W.values().length >= W.props.maxValues)
+                        (t(), U.props.closeOnSelect ||
+                          U.props.maxValues &&
+                            U.values().length >= U.props.maxValues)
                       )
                         return o(!1, function() {
                         });
@@ -25825,7 +25875,7 @@ module.exports = (function(e) {
                   serialize: j,
                   onBlur: function(e) {
                     a('', function() {
-                      return W.props.onBlur({
+                      return U.props.onBlur({
                         open: c,
                         values: d,
                         originalEvent: e
@@ -25833,7 +25883,7 @@ module.exports = (function(e) {
                     });
                   },
                   onFocus: function(e) {
-                    W.props.onFocus({ open: c, values: d, originalEvent: e });
+                    U.props.onFocus({ open: c, values: d, originalEvent: e });
                   },
                   onPaste: (function() {
                     var e;
@@ -25844,7 +25894,7 @@ module.exports = (function(e) {
                       default:
                         return function(e) {
                           var t, n;
-                          return t = e.clipboardData, n = d.concat(W.props.valuesFromPaste(f, d, t.getData('text'))), u(n, function() {
+                          return t = e.clipboardData, n = d.concat(U.props.valuesFromPaste(f, d, t.getData('text'))), u(n, function() {
                             return r(l(n));
                           }), h(e);
                         };
@@ -25869,7 +25919,7 @@ module.exports = (function(e) {
                   case 'function' != typeof this.props.renderNoResultsFound:
                     return {
                       renderNoResultsFound: function() {
-                        return W.props.renderNoResultsFound(d, s);
+                        return U.props.renderNoResultsFound(d, s);
                       }
                     };
                   default:
@@ -28775,7 +28825,7 @@ module.exports = (function(e) {
                 a = e.alwaysShow,
                 l = e.clipPathId;
               (0, b.warn)(
-                void 0 !== a,
+                void 0 === a,
                 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.'
               );
               var s = (0, g.isNumOrStr)(t),
@@ -29650,10 +29700,10 @@ module.exports = (function(e) {
           return arguments.length ? (u = null == e ? null : e, l) : u;
         }, l;
       }
-      function U(e, t, n, r, o) {
+      function W(e, t, n, r, o) {
         e.moveTo(t, n), e.bezierCurveTo(t = (t + r) / 2, n, t, o, r, o);
       }
-      function W(e, t, n, r, o) {
+      function U(e, t, n, r, o) {
         e.moveTo(t, n), e.bezierCurveTo(t, n = (n + o) / 2, r, n, r, o);
       }
       function F(e, t, n, r, o) {
@@ -30459,17 +30509,17 @@ module.exports = (function(e) {
             for (r = a, a = e[t[i]], n = 0; n < u; ++n)
               a[n][1] += a[n][0] = isNaN(r[n][1]) ? r[n][0] : r[n][1];
       },
-        Ue = function(e) {
+        We = function(e) {
           for (var t = e.length, n = new Array(t); --t >= 0; )
             n[t] = t;
           return n;
         };
-      function We(e, t) {
+      function Ue(e, t) {
         return e[t];
       }
       var Fe = function(e) {
         var t = e.map(He);
-        return Ue(e).sort(function(e, n) {
+        return We(e).sort(function(e, n) {
           return t[e] - t[n];
         });
       };
@@ -30508,9 +30558,9 @@ module.exports = (function(e) {
                 D = C,
                 z = E.apply(this, arguments) / 2,
                 B = z > c && (x ? +x.apply(this, arguments) : s(m * m + g * g)),
-                U = u(r(g - m) / 2, +w.apply(this, arguments)),
-                W = U,
-                F = U;
+                W = u(r(g - m) / 2, +w.apply(this, arguments)),
+                U = W,
+                F = W;
               if (B > c) {
                 var H = h(B / m * l(z)), G = h(B / g * l(z));
                 (L -= 2 * H) > c
@@ -30519,7 +30569,7 @@ module.exports = (function(e) {
                     2), (D -= 2 * G) > c ? (j += G *= P ? 1 : -1, N -= G) : (D = 0, j = N = (b + M) / 2);
               }
               var q = g * i(j), V = g * l(j), Y = m * i(I), K = m * l(I);
-              if (U > c) {
+              if (W > c) {
                 var X = g * i(N), Z = g * l(N), Q = m * i(R), J = m * l(R);
                 if (C < f) {
                   var $ = L > c ? (function(e, t, n, r, o, i, a, u) {
@@ -30544,7 +30594,7 @@ module.exports = (function(e) {
                           2
                       ),
                     ie = s($[0] * $[0] + $[1] * $[1]);
-                  W = u(U, (m - ie) / (oe - 1)), F = u(U, (g - ie) / (oe + 1));
+                  U = u(W, (m - ie) / (oe - 1)), F = u(W, (g - ie) / (oe + 1));
                 }
               }
               D > c
@@ -30557,7 +30607,7 @@ module.exports = (function(e) {
                     g,
                     F,
                     P
-                  ), T.moveTo(k.cx + k.x01, k.cy + k.y01), F < U
+                  ), T.moveTo(k.cx + k.x01, k.cy + k.y01), F < W
                     ? T.arc(k.cx, k.cy, F, o(k.y01, k.x01), o(A.y01, A.x01), !P)
                     : (T.arc(
                       k.cx,
@@ -30583,21 +30633,21 @@ module.exports = (function(e) {
                     )))
                   : (T.moveTo(q, V), T.arc(0, 0, g, j, N, !P))
                 : T.moveTo(q, V), m > c && L > c
-                ? W > c
-                  ? (k = _(Y, K, X, Z, m, -W, P), A = _(
+                ? U > c
+                  ? (k = _(Y, K, X, Z, m, -U, P), A = _(
                     q,
                     V,
                     Q,
                     J,
                     m,
-                    -W,
+                    -U,
                     P
-                  ), T.lineTo(k.cx + k.x01, k.cy + k.y01), W < U
-                    ? T.arc(k.cx, k.cy, W, o(k.y01, k.x01), o(A.y01, A.x01), !P)
+                  ), T.lineTo(k.cx + k.x01, k.cy + k.y01), U < W
+                    ? T.arc(k.cx, k.cy, U, o(k.y01, k.x01), o(A.y01, A.x01), !P)
                     : (T.arc(
                       k.cx,
                       k.cy,
-                      W,
+                      U,
                       o(k.y01, k.x01),
                       o(k.y11, k.x11),
                       !P
@@ -30611,7 +30661,7 @@ module.exports = (function(e) {
                     ), T.arc(
                       A.cx,
                       A.cy,
-                      W,
+                      U,
                       o(A.y11, A.x11),
                       o(A.y01, A.x01),
                       !P
@@ -30709,9 +30759,9 @@ module.exports = (function(e) {
             : a;
         }, u;
       }, e.areaRadial = R, e.radialArea = R, e.lineRadial = N, e.radialLine = N, e.pointRadial = I, e.linkHorizontal = function() {
-        return B(U);
-      }, e.linkVertical = function() {
         return B(W);
+      }, e.linkVertical = function() {
+        return B(U);
       }, e.linkRadial = function() {
         var e = B(F);
         return e.angle = e.x, delete e.x, e.radius = e.y, delete e.y, e;
@@ -30758,7 +30808,7 @@ module.exports = (function(e) {
       }, e.curveStepBefore = function(e) {
         return new ze(e, 0);
       }, e.stack = function() {
-        var e = n([]), t = Ue, r = Be, o = We;
+        var e = n([]), t = We, r = Be, o = Ue;
         function i(n) {
           var i,
             a,
@@ -30788,7 +30838,7 @@ module.exports = (function(e) {
         }, i.order = function(e) {
           return arguments.length
             ? (t = null == e
-              ? Ue
+              ? We
               : 'function' == typeof e ? e : n(L.call(e)), i)
             : t;
         }, i.offset = function(e) {
@@ -30846,7 +30896,7 @@ module.exports = (function(e) {
           n,
           r = e.length,
           o = e.map(He),
-          i = Ue(e).sort(function(e, t) {
+          i = We(e).sort(function(e, t) {
             return o[t] - o[e];
           }),
           a = 0,
@@ -30859,8 +30909,8 @@ module.exports = (function(e) {
           ++t
         ) n = i[t], a < u ? (a += o[n], l.push(n)) : (u += o[n], s.push(n));
         return s.reverse().concat(l);
-      }, e.stackOrderNone = Ue, e.stackOrderReverse = function(e) {
-        return Ue(e).reverse();
+      }, e.stackOrderNone = We, e.stackOrderReverse = function(e) {
+        return We(e).reverse();
       }, Object.defineProperty(e, '__esModule', { value: !0 });
     })(t, n('UHlV'));
   },
@@ -31500,7 +31550,7 @@ module.exports = (function(e) {
             result: p,
             newPlace: h
           })),
-        U = (function() {
+        W = (function() {
           var e = D(), t = e.result, n = e.newPlace;
           return t && z().result
             ? { result: !1 }
@@ -31509,7 +31559,7 @@ module.exports = (function(e) {
               newPlace: n
             });
         })(),
-        W = (function() {
+        U = (function() {
           var e = z(), t = e.result, n = e.newPlace;
           return t && D().result
             ? { result: !1 }
@@ -31529,18 +31579,18 @@ module.exports = (function(e) {
         })();
       if ('left' === l && B.result)
         return { isNewState: !0, newState: { place: B.newPlace } };
-      if ('right' === l && U.result)
-        return { isNewState: !0, newState: { place: U.newPlace } };
-      if ('top' === l && W.result)
+      if ('right' === l && W.result)
         return { isNewState: !0, newState: { place: W.newPlace } };
+      if ('top' === l && U.result)
+        return { isNewState: !0, newState: { place: U.newPlace } };
       if ('bottom' === l && F.result)
         return { isNewState: !0, newState: { place: F.newPlace } };
       if (l !== s) {
-        if ('top' === s && !W.result)
+        if ('top' === s && !U.result)
           return { isNewState: !0, newState: { place: 'top' } };
         if ('left' === s && !B.result)
           return { isNewState: !0, newState: { place: 'left' } };
-        if ('right' === s && !U.result)
+        if ('right' === s && !W.result)
           return { isNewState: !0, newState: { place: 'right' } };
         if ('bottom' === s && !F.result)
           return { isNewState: !0, newState: { place: 'bottom' } };
@@ -34831,20 +34881,31 @@ module.exports = (function(e) {
               value: function() {
                 var e = this.props,
                   t = e.wrapperClassName,
-                  n = e.labelClassName,
-                  r = e.labelStyle,
-                  o = e.label,
-                  i = e.labelFormatter,
-                  a = u({ margin: 0 }, r),
-                  l = (0, h.isNumOrStr)(o),
-                  s = l ? o : '',
-                  f = (0, d.default)('recharts-default-tooltip', t),
-                  p = (0, d.default)('recharts-tooltip-label', n);
-                return l &&
-                  i &&
-                  (s = i(
-                    o
-                  )), c.default.createElement('div', { className: f, style: { margin: 0, padding: 10, backgroundColor: '#fff', border: '1px solid #ccc', whiteSpace: 'nowrap' } }, c.default.createElement('p', { className: p, style: a }, s), this.renderContent());
+                  n = e.contentStyle,
+                  r = e.labelClassName,
+                  o = e.labelStyle,
+                  i = e.label,
+                  a = e.labelFormatter,
+                  l = u(
+                    {
+                      margin: 0,
+                      padding: 10,
+                      backgroundColor: '#fff',
+                      border: '1px solid #ccc',
+                      whiteSpace: 'nowrap'
+                    },
+                    n
+                  ),
+                  s = u({ margin: 0 }, o),
+                  f = (0, h.isNumOrStr)(i),
+                  p = f ? i : '',
+                  y = (0, d.default)('recharts-default-tooltip', t),
+                  v = (0, d.default)('recharts-tooltip-label', r);
+                return f &&
+                  a &&
+                  (p = a(
+                    i
+                  )), c.default.createElement('div', { className: y, style: l }, c.default.createElement('p', { className: v, style: s }, p), this.renderContent());
               }
             }
           ]), t;
@@ -34853,6 +34914,7 @@ module.exports = (function(e) {
           wrapperClassName: f.default.string,
           labelClassName: f.default.string,
           formatter: f.default.func,
+          contentStyle: f.default.object,
           itemStyle: f.default.object,
           labelStyle: f.default.object,
           labelFormatter: f.default.func,
@@ -34871,6 +34933,7 @@ module.exports = (function(e) {
           itemSorter: f.default.func
         }, o.defaultProps = {
           separator: ' : ',
+          contentStyle: {},
           itemStyle: {},
           labelStyle: {}
         }, r = i)
@@ -35189,10 +35252,10 @@ module.exports = (function(e) {
         D = 7 * L,
         z = 30 * L,
         B = 365 * L;
-      function U(e) {
+      function W(e) {
         return new Date(e);
       }
-      function W(e) {
+      function U(e) {
         return e instanceof Date ? +e : +new Date(+e);
       }
       function F(e, n, o, i, a, u, l, c, f) {
@@ -35257,7 +35320,7 @@ module.exports = (function(e) {
         return d.invert = function(e) {
           return new Date(p(e));
         }, d.domain = function(e) {
-          return arguments.length ? h(s.call(e, W)) : h().map(U);
+          return arguments.length ? h(s.call(e, U)) : h().map(W);
         }, d.ticks = function(e, t) {
           var n, r = h(), o = r[0], i = r[r.length - 1], a = i < o;
           return a &&
@@ -83572,8 +83635,8 @@ module.exports = (function(e) {
                 ? n.axes.yLeft.suffix
                 : null,
               B = { projectedData: j, data: r, config: n },
-              U = (0, S.getDataMaxMin)(B),
-              W = j ? (0, S.getDomain)(B) : g,
+              W = (0, S.getDataMaxMin)(B),
+              U = j ? (0, S.getDomain)(B) : g,
               F = (0, v.getMaxValue)((0, S.getDataWithTotal)(B));
             return i.default.createElement(
               s.default,
@@ -83588,7 +83651,7 @@ module.exports = (function(e) {
                   tick: C || i.default.createElement(O.CustomXAxisTick, null),
                   padding: { left: 15, right: 20 },
                   tickSize: 8,
-                  domain: W && W.x || [ 'auto', 'auto' ],
+                  domain: U && U.x || [ 'auto', 'auto' ],
                   interval: 'preserveStartEnd'
                 }),
                 i.default.createElement(
@@ -83604,7 +83667,7 @@ module.exports = (function(e) {
                         suffix: z,
                         getCustomYLabelFormat: A
                       }),
-                    domain: W && W.y || [ 'auto', 'auto' ],
+                    domain: U && U.y || [ 'auto', 'auto' ],
                     interval: 'preserveStartEnd'
                   },
                   (0, _.default)(D)
@@ -83653,7 +83716,7 @@ module.exports = (function(e) {
                   j.length &&
                   (0, x.default)({
                     data: j,
-                    dataMaxMin: U,
+                    dataMaxMin: W,
                     activePoint: I,
                     handleProjectedDataHover: this.handleProjectedDataHover,
                     config: n
@@ -85463,9 +85526,11 @@ module.exports = (function(e) {
           ), r.state = { isAnimationFinished: !1 }, r.id = (0, M.uniqueId)('recharts-pie-'), r.cachePrevData = function(e) {
             r.setState({ prevSectors: e });
           }, r.handleAnimationEnd = function() {
-            r.setState({ isAnimationFinished: !0 });
+            var e = r.props.onAnimationEnd;
+            r.setState({ isAnimationFinished: !0 }), (0, l.default)(e) && e();
           }, r.handleAnimationStart = function() {
-            r.setState({ isAnimationFinished: !1 });
+            var e = r.props.onAnimationStart;
+            r.setState({ isAnimationFinished: !1 }), (0, l.default)(e) && e();
           }, A(r, n);
         }
         return (function(e, t) {
@@ -85559,19 +85624,21 @@ module.exports = (function(e) {
           {
             key: 'renderSectorsStatically',
             value: function(e) {
-              var t = this, n = this.props.activeShape;
-              return e.map(function(e, r) {
+              var t = this,
+                n = this.props,
+                r = n.activeShape,
+                o = n.blendStroke;
+              return e.map(function(e, n) {
+                var i = t.isActiveIndex(n) ? r : null,
+                  a = c({}, e, { stroke: o ? e.fill : e.stroke });
                 return p.default.createElement(
                   g.default,
                   c(
                     { className: 'recharts-pie-sector' },
-                    (0, E.filterEventsOfChild)(t.props, e, r),
-                    { key: 'sector-' + r }
+                    (0, E.filterEventsOfChild)(t.props, e, n),
+                    { key: 'sector-' + n }
                   ),
-                  t.constructor.renderSectorItem(
-                    t.isActiveIndex(r) ? n : null,
-                    e
-                  )
+                  t.constructor.renderSectorItem(i, a)
                 );
               });
             }
@@ -85784,6 +85851,7 @@ module.exports = (function(e) {
             h.default.func
           ]),
           data: h.default.arrayOf(h.default.object),
+          blendStroke: h.default.bool,
           minAngle: h.default.number,
           legendType: h.default.oneOf(E.LEGEND_TYPES),
           maxRadius: h.default.number,
@@ -85841,7 +85909,8 @@ module.exports = (function(e) {
         animationBegin: 400,
         animationDuration: 1500,
         animationEasing: 'ease',
-        nameKey: 'name'
+        nameKey: 'name',
+        blendStroke: !1
       }, o.parseDeltaAngle = function(e) {
         var t = e.startAngle, n = e.endAngle;
         return (0, M.mathSign)(n - t) * Math.min(Math.abs(n - t), 360);
@@ -87405,13 +87474,13 @@ module.exports = (function(e) {
               bottom: '100%',
               right: '100%'
             },
-            U = function(e) {
+            W = function(e) {
               var t = e.left, n = e.top;
               return void 0 !== B[e.left] && (t = B[e.left]), void 0 !==
                 B[e.top] &&
                 (n = B[e.top]), { left: t, top: n };
             };
-          function W() {
+          function U() {
             for (
               var e = { top: 0, left: 0 },
                 t = arguments.length,
@@ -87722,11 +87791,11 @@ module.exports = (function(e) {
                         return e.getTargetBounds();
                       }),
                         s = l,
-                        c = F(U(this.attachment), { width: i, height: a }),
-                        p = F(U(r), s),
+                        c = F(W(this.attachment), { width: i, height: a }),
+                        p = F(W(r), s),
                         y = F(this.offset, { width: i, height: a }),
                         v = F(this.targetOffset, s);
-                      c = W(c, y), p = W(p, v);
+                      c = U(c, y), p = U(p, v);
                       for (
                         var m = l.left + p.left - c.left,
                           g = l.top + p.top - c.top,
@@ -88272,6 +88341,320 @@ module.exports = (function(e) {
           
         ) if ((v = o(y, g, h.value, t)) === s || v === c) return v;
     }).BREAK = s, t.RETURN = c;
+  },
+  one6: function(e, t, n) {
+    'use strict';
+    Object.defineProperty(t, '__esModule', { value: !0 });
+    var r = Object.assign || function(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var n = arguments[t];
+          for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+        }
+        return e;
+      },
+      o = (function() {
+        function e(e, t) {
+          for (var n = 0; n < t.length; n++) {
+            var r = t[n];
+            r.enumerable = r.enumerable || !1, r.configurable = !0, 'value' in
+              r &&
+              (r.writable = !0), Object.defineProperty(e, r.key, r);
+          }
+        }
+        return function(t, n, r) {
+          return n && e(t.prototype, n), r && e(t, r), t;
+        };
+      })(),
+      i = n('cDcd'),
+      a = l(i),
+      u = l(n('rf6O'));
+    function l(e) {
+      return e && e.__esModule ? e : { default: e };
+    }
+    var s = (function(e) {
+      function t() {
+        var e;
+        !(function(e, t) {
+          if (!(e instanceof t))
+            throw new TypeError('Cannot call a class as a function');
+        })(this, t);
+        for (var n = arguments.length, r = Array(n), o = 0; o < n; o++)
+          r[o] = arguments[o];
+        var i = (function(e, t) {
+          if (!e)
+            throw new ReferenceError(
+              "this hasn't been initialised - super() hasn't been called"
+            );
+          return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
+        })(
+          this,
+          (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(
+            e,
+            [ this ].concat(r)
+          )
+        );
+        return i.state = {}, i.styles = {
+          ellipsis: { position: 'fixed', visibility: 'hidden', top: 0, left: 0 }
+        }, i.elements = {}, i.onResize = i.onResize.bind(
+          i
+        ), i.onTruncate = i.onTruncate.bind(
+          i
+        ), i.calcTargetWidth = i.calcTargetWidth.bind(
+          i
+        ), i.measureWidth = i.measureWidth.bind(
+          i
+        ), i.getLines = i.getLines.bind(i), i.renderLine = i.renderLine.bind(
+          i
+        ), i;
+      }
+      return (function(e, t) {
+        if ('function' != typeof t && null !== t)
+          throw new TypeError(
+            'Super expression must either be null or a function, not ' +
+              typeof t
+          );
+        e.prototype = Object.create(t && t.prototype, {
+          constructor: {
+            value: e,
+            enumerable: !1,
+            writable: !0,
+            configurable: !0
+          }
+        }), t &&
+          (Object.setPrototypeOf
+            ? Object.setPrototypeOf(e, t)
+            : e.__proto__ = t);
+      })(t, i.Component), o(t, [
+        {
+          key: 'componentDidMount',
+          value: function() {
+            var e = this.elements.text,
+              t = this.calcTargetWidth,
+              n = this.onResize,
+              r = document.createElement('canvas');
+            this.canvasContext = r.getContext('2d'), t(function() {
+              e && e.parentNode.removeChild(e);
+            }), window.addEventListener('resize', n);
+          }
+        },
+        {
+          key: 'componentDidUpdate',
+          value: function(e) {
+            this.props.children !== e.children &&
+              this.forceUpdate(), this.props.width !== e.width && this.calcTargetWidth();
+          }
+        },
+        {
+          key: 'componentWillUnmount',
+          value: function() {
+            var e = this.elements.ellipsis, t = this.onResize, n = this.timeout;
+            e.parentNode.removeChild(
+              e
+            ), window.removeEventListener('resize', t), window.cancelAnimationFrame(n);
+          }
+        },
+        {
+          key: 'innerText',
+          value: function(e) {
+            var t = document.createElement('div'),
+              n = 'innerText' in window.HTMLElement.prototype
+                ? 'innerText'
+                : 'textContent';
+            t.innerHTML = e.innerHTML.replace(/\r\n|\r|\n/g, ' ');
+            var r = t[n], o = document.createElement('div');
+            return o.innerHTML = 'foo<br/>bar', 'foo\nbar' !== o[n].replace(/\r\n|\r/g, '\n') && (t.innerHTML = t.innerHTML.replace(/<br.*?[\/]?>/gi, '\n'), r = t[n]), r;
+          }
+        },
+        {
+          key: 'onResize',
+          value: function() {
+            this.calcTargetWidth();
+          }
+        },
+        {
+          key: 'onTruncate',
+          value: function(e) {
+            var t = this.props.onTruncate;
+            'function' == typeof t &&
+              (this.timeout = window.requestAnimationFrame(function() {
+                t(e);
+              }));
+          }
+        },
+        {
+          key: 'calcTargetWidth',
+          value: function(e) {
+            var t = this.elements.target,
+              n = this.calcTargetWidth,
+              r = this.canvasContext,
+              o = this.props.width;
+            if (t) {
+              var i = o ||
+                Math.floor(t.parentNode.getBoundingClientRect().width);
+              if (!i) return window.requestAnimationFrame(function() {
+                  return n(e);
+                });
+              var a = window.getComputedStyle(t),
+                u = [
+                  a['font-weight'],
+                  a['font-style'],
+                  a['font-size'],
+                  a['font-family']
+                ].join(' ');
+              r.font = u, this.setState({ targetWidth: i }, e);
+            }
+          }
+        },
+        {
+          key: 'measureWidth',
+          value: function(e) {
+            return this.canvasContext.measureText(e).width;
+          }
+        },
+        {
+          key: 'ellipsisWidth',
+          value: function(e) {
+            return e.offsetWidth;
+          }
+        },
+        {
+          key: 'trimRight',
+          value: function(e) {
+            return e.replace(/\s+$/, '');
+          }
+        },
+        {
+          key: 'getLines',
+          value: function() {
+            for (var e = this.elements,
+                t = this.props,
+                n = t.lines,
+                r = t.ellipsis,
+                o = t.trimWhitespace,
+                i = this.state.targetWidth,
+                u = this.innerText,
+                l = this.measureWidth,
+                s = this.onTruncate,
+                c = this.trimRight,
+                f = [],
+                d = u(e.text).split('\n').map(function(e) {
+                  return e.split(' ');
+                }),
+                p = !0,
+                h = this.ellipsisWidth(this.elements.ellipsis),
+                y = 1; y <= n; y++) {
+              var v = d[0];
+              if (0 !== v.length) {
+                var m = v.join(' ');
+                if (l(m) <= i && 1 === d.length) {
+                  p = !1, f.push(m);
+                  break;
+                }
+                if (y === n) {
+                  for (var g = v.join(' '), b = 0, _ = g.length - 1; b <= _; ) {
+                    var w = Math.floor((b + _) / 2);
+                    l(g.slice(0, w + 1)) + h <= i ? b = w + 1 : _ = w - 1;
+                  }
+                  var x = g.slice(0, b);
+                  if (o) for (x = c(x); !x.length && f.length; ) {
+                      x = c(f.pop());
+                    }
+                  m = a.default.createElement('span', null, x, r);
+                } else {
+                  for (var O = 0, S = v.length - 1; O <= S; ) {
+                    var E = Math.floor((O + S) / 2);
+                    l(v.slice(0, E + 1).join(' ')) <= i ? O = E + 1 : S = E - 1;
+                  }
+                  if (0 === O) {
+                    y = n - 1;
+                    continue;
+                  }
+                  m = v.slice(0, O).join(' '), d[0].splice(0, O);
+                }
+                f.push(m);
+              } else f.push(), d.shift(), y--;
+            }
+            return s(p), f;
+          }
+        },
+        {
+          key: 'renderLine',
+          value: function(e, t, n) {
+            if (t === n.length - 1)
+              return a.default.createElement('span', { key: t }, e);
+            var r = a.default.createElement('br', { key: t + 'br' });
+            return e
+              ? [ a.default.createElement('span', { key: t }, e), r ]
+              : r;
+          }
+        },
+        {
+          key: 'render',
+          value: function() {
+            var e = this,
+              t = this.elements.target,
+              n = this.props,
+              o = n.children,
+              i = n.ellipsis,
+              u = n.lines,
+              l = (function(e, t) {
+                var n = {};
+                for (var r in e)
+                  t.indexOf(r) >= 0 ||
+                    Object.prototype.hasOwnProperty.call(e, r) && (n[r] = e[r]);
+                return n;
+              })(n, [ 'children', 'ellipsis', 'lines' ]),
+              s = this.state.targetWidth,
+              c = this.getLines,
+              f = this.renderLine,
+              d = this.onTruncate,
+              p = void 0;
+            return 'undefined' != typeof window &&
+              !(!t || !s) &&
+              (u > 0
+                ? p = c().map(f)
+                : (p = o, d(
+                  !1
+                ))), delete l.onTruncate, delete l.trimWhitespace, a.default.createElement(
+              'span',
+              r({}, l, {
+                ref: function(t) {
+                  e.elements.target = t;
+                }
+              }),
+              a.default.createElement('span', null, p),
+              a.default.createElement(
+                'span',
+                {
+                  ref: function(t) {
+                    e.elements.text = t;
+                  }
+                },
+                o
+              ),
+              a.default.createElement(
+                'span',
+                {
+                  ref: function(t) {
+                    e.elements.ellipsis = t;
+                  },
+                  style: this.styles.ellipsis
+                },
+                i
+              )
+            );
+          }
+        }
+      ]), t;
+    })();
+    s.propTypes = {
+      children: u.default.node,
+      ellipsis: u.default.node,
+      lines: u.default.oneOfType([ u.default.oneOf([ !1 ]), u.default.number ]),
+      trimWhitespace: u.default.bool,
+      width: u.default.number,
+      onTruncate: u.default.func
+    }, s.defaultProps = { children: '', ellipsis: '…', lines: 1, trimWhitespace: !1, width: 0 }, t.default = s;
   },
   or5M: function(e, t, n) {
     var r = n('1hJj'), o = n('QoRX'), i = n('xYSL'), a = 1, u = 2;
@@ -89100,7 +89483,7 @@ module.exports = (function(e) {
                 f = e.alwaysShow,
                 p = e.clipPathId;
               (0, x.warn)(
-                void 0 !== f,
+                void 0 === f,
                 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.'
               );
               var y = w.LabeledScaleHelper.create({ x: o.scale, y: i.scale }),
@@ -90786,10 +91169,10 @@ module.exports = (function(e) {
           o = H(e.r),
           i = H(e.g),
           a = H(e.b),
-          u = U((.2225045 * o + .7168786 * i + .0606169 * a) / A);
+          u = W((.2225045 * o + .7168786 * i + .0606169 * a) / A);
         return o === i && i === a
           ? n = r = u
-          : (n = U((.4360747 * o + .3850649 * i + .1430804 * a) / k), r = U(
+          : (n = W((.4360747 * o + .3850649 * i + .1430804 * a) / k), r = W(
             (.0139322 * o + .0971045 * i + .7141733 * a) / j
           )), new B(116 * u - 16, 500 * (n - u), 200 * (u - r), e.opacity);
       }
@@ -90801,10 +91184,10 @@ module.exports = (function(e) {
       function B(e, t, n, r) {
         this.l = +e, this.a = +t, this.b = +n, this.opacity = +r;
       }
-      function U(e) {
+      function W(e) {
         return e > L ? Math.pow(e, 1 / 3) : e / I + N;
       }
-      function W(e) {
+      function U(e) {
         return e > R ? e * e * e : I * (e - N);
       }
       function F(e) {
@@ -90861,9 +91244,9 @@ module.exports = (function(e) {
               t = isNaN(this.a) ? e : e + this.a / 500,
               n = isNaN(this.b) ? e : e - this.b / 200;
             return t = k *
-              W(
+              U(
                 t
-              ), e = A * W(e), n = j * W(n), new x(F(3.1338561 * t - 1.6168667 * e - .4906146 * n), F((-.9787684) * t + 1.9161415 * e + .033454 * n), F(.0719453 * t - .2289914 * e + 1.4052427 * n), this.opacity);
+              ), e = A * U(e), n = j * U(n), new x(F(3.1338561 * t - 1.6168667 * e - .4906146 * n), F((-.9787684) * t + 1.9161415 * e + .033454 * n), F(.0719453 * t - .2289914 * e + 1.4052427 * n), this.opacity);
           }
         })
       ), t(
@@ -92116,7 +92499,7 @@ module.exports = (function(e) {
                 l = (0, g.isNumOrStr)(n);
               if (
                 ((0, w.warn)(
-                  void 0 !== o,
+                  void 0 === o,
                   'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.'
                 ), !a || !l)
               )
@@ -97735,7 +98118,7 @@ module.exports = (function(e) {
             h(t) * (2 * O * (n - w) - s(v(n / 2)))
           ];
       }
-      function U(e) {
+      function W(e) {
         var n = 2 * b / e;
         function u(e, o) {
           var u = t.geoAzimuthalEquidistantRaw(e, o);
@@ -97762,7 +98145,7 @@ module.exports = (function(e) {
           return t.geoAzimuthalEquidistantRaw.invert(e, r);
         }, u;
       }
-      function W(e, t) {
+      function U(e, t) {
         var n, o = e * y(t), i = 30;
         do {
           t -= n = (t + y(t) - o) / (1 + a(t));
@@ -97771,7 +98154,7 @@ module.exports = (function(e) {
       }
       function F(e, t, n) {
         function r(r, o) {
-          return [ e * r * a(o = W(n, o)), t * y(o) ];
+          return [ e * r * a(o = U(n, o)), t * y(o) ];
         }
         return r.invert = function(r, o) {
           return o = C(o / t), [ r / (e * a(o)), C((2 * o + y(2 * o)) / n) ];
@@ -97788,7 +98171,7 @@ module.exports = (function(e) {
       };
       var H = F(O / _, O, b), G = 2.00276, q = 1.11072;
       function V(e, t) {
-        var n = W(b, t);
+        var n = U(b, t);
         return [ G * e / (1 / a(t) + q / a(n)), (t + O * y(n)) / G ];
       }
       V.invert = function(e, t) {
@@ -98046,15 +98429,15 @@ module.exports = (function(e) {
             D = M * E * R - 2 * o(E) - t,
             z = g && x * S * h * T / g,
             B = (O * v * b + S) / (2 * (b + O * v * S) * (b + O * v * S) * S),
-            U = (-.5) * E * M * M * M,
-            W = U * z,
-            F = U * B,
+            W = (-.5) * E * M * M * M,
+            U = W * z,
+            F = W * B,
             H = (H = 2 * b + O * S * (v - h)) * H * j,
             G = (O * v * b * S + w) / H,
             q = (-O) * h * g / (S * H),
-            V = N * W - 2 * G / j + M * (G + G / A),
+            V = N * U - 2 * G / j + M * (G + G / A),
             Y = N * F - 2 * q / j + M * (q + q / A),
-            K = E * R * W - 2 * z / (1 + T) + M * R * z + M * E * (G - G / A),
+            K = E * R * U - 2 * z / (1 + T) + M * R * z + M * E * (G - G / A),
             X = E * R * F - 2 * B / (1 + T) + M * R * B + M * E * (q - q / A),
             Z = Y * K - X * V;
           if (!Z) break;
@@ -98189,14 +98572,14 @@ module.exports = (function(e) {
               D = a(P),
               z = y(P),
               B = E * D,
-              U = E * z,
-              W = h / b * (1 / k(1 - A / T)) * (j * E - w * L) / T,
-              F = U - c,
+              W = E * z,
+              U = h / b * (1 / k(1 - A / T)) * (j * E - w * L) / T,
+              F = W - c,
               H = v * (1 + _ * s) + E - B - f,
-              G = L * z + B * W,
+              G = L * z + B * U,
               q = B * M,
-              V = 1 + L - (L * D - U * W),
-              Y = U * M,
+              V = 1 + L - (L * D - W * U),
+              Y = W * M,
               K = G * Y - V * q;
             if (!K) break;
             h -= d = (H * G - F * V) / K, v -= p = (F * Y - H * q) / K;
@@ -98299,10 +98682,10 @@ module.exports = (function(e) {
             do {
               var z = n * n,
                 B = k(g - z),
-                U = j + P * B,
-                W = n * U + A * C(n / w) - N,
-                F = U + (A - P * z) / B;
-              n -= O = B ? W / F : 0;
+                W = j + P * B,
+                U = n * W + A * C(n / w) - N,
+                F = W + (A - P * z) / B;
+              n -= O = B ? U / F : 0;
             } while (r(O) > m && --o > 0);
           }
           return [ n, -x - u * k(g - n * n) ];
@@ -98400,7 +98783,7 @@ module.exports = (function(e) {
         return [ e * a(t) / a(t /= 2), 2 * y(t) ];
       }
       function Be(e) {
-        var t = y(e), n = a(e), o = Ue(e);
+        var t = y(e), n = a(e), o = We(e);
         function u(e, i) {
           var u = o(e, i);
           e = u[0], i = u[1];
@@ -98412,7 +98795,7 @@ module.exports = (function(e) {
             p = r(d) > m ? f / d : 1;
           return [ p * n * y(e), (r(e) > _ ? p : -p) * (t * s - n * l * c) ];
         }
-        return o.invert = Ue(-e), u.invert = function(e, n) {
+        return o.invert = We(-e), u.invert = function(e, n) {
           var r = k(e * e + n * n),
             u = -y(r),
             l = a(r),
@@ -98425,7 +98808,7 @@ module.exports = (function(e) {
           return o.invert(h, p);
         }, u;
       }
-      function Ue(e) {
+      function We(e) {
         var t = y(e), n = a(e);
         return function(e, r) {
           var o = a(r), u = a(e) * o, l = y(e) * o, s = y(r);
@@ -98513,9 +98896,9 @@ module.exports = (function(e) {
         var n = 2 * C(t / 2);
         return [ e * a(n / 2) / a(n), n ];
       };
-      var We = 41 + 48 / 36 + 37 / 3600, Fe = le(0);
+      var Ue = 41 + 48 / 36 + 37 / 3600, Fe = le(0);
       function He(e) {
-        var t = We * M,
+        var t = Ue * M,
           n = oe(b, t)[0] - oe(-b, t)[0],
           o = Fe(0, t)[1],
           i = oe(0, t)[1],
@@ -99118,7 +99501,7 @@ module.exports = (function(e) {
       function Bt(e) {
         return k(e[0] * e[0] + e[1] * e[1]);
       }
-      var Ut = function(e, n, o) {
+      var Wt = function(e, n, o) {
         function i(e, t) {
           var r, o = n(e, t), i = o.project([ e * T, t * T ]);
           return (r = o.transform)
@@ -99156,12 +99539,12 @@ module.exports = (function(e) {
               var i = n.edges, a = 0, u = i.length;
               a < u;
               ++a
-            ) Wt(r[0], i[a][1]) && Wt(r[1], i[a][0]) && (i[a] = t), Wt(r[0], i[a][0]) && Wt(r[1], i[a][1]) && (i[a] = t);
+            ) Ut(r[0], i[a][1]) && Ut(r[1], i[a][0]) && (i[a] = t), Ut(r[0], i[a][0]) && Ut(r[1], i[a][1]) && (i[a] = t);
             for (
               i = t.edges, a = 0, u = i.length;
               a < u;
               ++a
-            ) Wt(r[0], i[a][0]) && Wt(r[1], i[a][1]) && (i[a] = n), Wt(r[0], i[a][1]) && Wt(r[1], i[a][0]) && (i[a] = n);
+            ) Ut(r[0], i[a][0]) && Ut(r[1], i[a][1]) && (i[a] = n), Ut(r[0], i[a][1]) && Ut(r[1], i[a][0]) && (i[a] = n);
           } else t.transform = n.transform;
           return t.children && t.children.forEach(function(n) {
               e(n, t);
@@ -99231,7 +99614,7 @@ module.exports = (function(e) {
           }, i;
         }, u;
       };
-      function Wt(e, t) {
+      function Ut(e, t) {
         return e && t && e[0] === t[0] && e[1] === t[1];
       }
       function Ft(e) {
@@ -99866,10 +100249,10 @@ module.exports = (function(e) {
       var Dn = 4 * b + 3 * k(3),
         zn = 2 * k(2 * b * k(3) / Dn),
         Bn = F(zn * k(3) / b, zn, Dn / 6);
-      function Un(e, t) {
+      function Wn(e, t) {
         return [ e * k(1 - 3 * t * t / (b * b)), t ];
       }
-      function Wn(e, t) {
+      function Un(e, t) {
         var n = .90631 * y(t), r = k(1 - n * n), o = k(2 / (1 + r * a(e /= 3)));
         return [ 2.66723 * r * o * y(e), 1.24104 * n * o ];
       }
@@ -99885,9 +100268,9 @@ module.exports = (function(e) {
         var n = R(e, t);
         return [ (n[0] + e / _) / 2, (n[1] + t) / 2 ];
       }
-      Un.invert = function(e, t) {
+      Wn.invert = function(e, t) {
         return [ e / k(1 - 3 * t * t / (b * b)), t ];
-      }, Wn.invert = function(e, t) {
+      }, Un.invert = function(e, t) {
         var n = e / 2.66723,
           r = t / 1.24104,
           o = k(n * n + r * r),
@@ -99971,7 +100354,7 @@ module.exports = (function(e) {
         return t.geoProjection(B).scale(112.314);
       }, e.geoBakerRaw = B, e.geoBerghaus = function() {
         var e = 5,
-          n = t.geoProjectionMutator(U),
+          n = t.geoProjectionMutator(W),
           r = n(e),
           o = r.stream,
           u = -a(.01 * M),
@@ -99990,7 +100373,7 @@ module.exports = (function(e) {
             c.lineEnd(), c.polygonEnd();
           }, s;
         }, r.scale(87.8076).center([ 0, 17.1875 ]).clipAngle(179.999);
-      }, e.geoBerghausRaw = U, e.geoBoggs = function() {
+      }, e.geoBerghausRaw = W, e.geoBoggs = function() {
         return t.geoProjection(V).scale(160.857);
       }, e.geoBoggsRaw = V, e.geoBonne = function() {
         return Y(X).scale(123.082).center([ 0, 26.1441 ]).parallel(45);
@@ -100171,10 +100554,10 @@ module.exports = (function(e) {
                 type: 'Polygon',
                 coordinates: [
                   n.range(-180, 180 + r / 2, r).map(function(e, t) {
-                    return [ e, 1 & t ? 90 - 1e-6 : We ];
+                    return [ e, 1 & t ? 90 - 1e-6 : Ue ];
                   }).concat(
                     n.range(180, -180 - r / 2, -r).map(function(e, t) {
-                      return [ e, 1 & t ? 1e-6 - 90 : -We ];
+                      return [ e, 1 & t ? 1e-6 - 90 : -Ue ];
                     })
                   )
                 ]
@@ -100263,7 +100646,7 @@ module.exports = (function(e) {
         return t.geoProjection(Rt).scale(139.319);
       }, e.geoPattersonRaw = Rt, e.geoPolyconic = function() {
         return t.geoProjection(It).scale(103.74);
-      }, e.geoPolyconicRaw = It, e.geoPolyhedral = Ut, e.geoPolyhedralButterfly = function(e) {
+      }, e.geoPolyconicRaw = It, e.geoPolyhedral = Wt, e.geoPolyhedralButterfly = function(e) {
         e = e || function(e) {
             var n = t.geoCentroid({ type: 'MultiPoint', coordinates: e });
             return t
@@ -100278,7 +100661,7 @@ module.exports = (function(e) {
         return [ -1, 0, 0, 1, 0, 1, 4, 5 ].forEach(function(e, t) {
           var r = n[e];
           r && (r.children || (r.children = [])).push(n[t]);
-        }), Ut(n[0], function(e, t) {
+        }), Wt(n[0], function(e, t) {
           return n[e < (-b) / 2
             ? t < 0 ? 6 : 4
             : e < 0
@@ -100300,7 +100683,7 @@ module.exports = (function(e) {
         return [ -1, 0, 0, 1, 0, 1, 4, 5 ].forEach(function(e, t) {
           var r = n[e];
           r && (r.children || (r.children = [])).push(n[t]);
-        }), Ut(n[0], function(e, t) {
+        }), Wt(n[0], function(e, t) {
           return n[e < (-b) / 2
             ? t < 0 ? 6 : 4
             : e < 0
@@ -100341,7 +100724,7 @@ module.exports = (function(e) {
         return o.forEach(function(e, t) {
           var n = i[e];
           n && (n.children || (n.children = [])).push(i[t]);
-        }), Ut(i[0], function(e, t) {
+        }), Wt(i[0], function(e, t) {
           var n = a(t),
             o = [ n * a(e), n * y(e), y(t) ],
             u = e < (-b) / 2
@@ -100468,10 +100851,10 @@ module.exports = (function(e) {
       }, e.geoVanDerGrinten4Raw = Ln, e.geoWagner4 = function() {
         return t.geoProjection(Bn).scale(176.84);
       }, e.geoWagner4Raw = Bn, e.geoWagner6 = function() {
-        return t.geoProjection(Un).scale(152.63);
-      }, e.geoWagner6Raw = Un, e.geoWagner7 = function() {
-        return t.geoProjection(Wn).scale(172.632);
-      }, e.geoWagner7Raw = Wn, e.geoWiechel = function() {
+        return t.geoProjection(Wn).scale(152.63);
+      }, e.geoWagner6Raw = Wn, e.geoWagner7 = function() {
+        return t.geoProjection(Un).scale(172.632);
+      }, e.geoWagner7Raw = Un, e.geoWiechel = function() {
         return t
           .geoProjection(Fn)
           .rotate([ 0, -90, 45 ])
@@ -101178,7 +101561,7 @@ module.exports = (function(e) {
             D,
             z,
             B,
-            U = this;
+            W = this;
           return (e = this.getComputedState()).filteredOptions, t = e.highlightedUid, n = e.onHighlightedUidChange, r = e.onOpenChange, o = e.onSearchChange, i = e.onValueChange, a = e.open, u = e.options, l = e.search, c = e.value, d = e.values, null != (e = this.props) && (p = e.autofocus, h = e.autosize, y = e.cancelKeyboardEventOnSelection, g = e.delimiters, _ = e.disabled, w = e.dropdownDirection, x = e.groupId, O = e.groups, S = e.groupsAsColumns, E = e.hideResetButton, T = e.name, M = e.inputProps, C = e.onBlurResetsInput, P = e.renderToggleButton, k = e.renderGroupTitle, A = e.renderResetButton, j = e.serialize, N = e.tether, R = e.tetherProps, I = e.theme, L = e.transitionEnter, D = e.transitionLeave, z = e.transitionEnterTimeout, B = e.transitionLeaveTimeout, e.uid), v(
             b(
               b(
@@ -101205,7 +101588,7 @@ module.exports = (function(e) {
                   renderToggleButton: P,
                   scrollLock: this.state.scrollLock,
                   onScrollLockChange: function(e) {
-                    return U.setState({ scrollLock: e });
+                    return W.setState({ scrollLock: e });
                   },
                   tether: N,
                   tetherProps: R,
@@ -101222,7 +101605,7 @@ module.exports = (function(e) {
                   open: a,
                   onOpenChange: r,
                   firstOptionIndexToHighlight: function() {
-                    return U.firstOptionIndexToHighlight(u, c);
+                    return W.firstOptionIndexToHighlight(u, c);
                   },
                   options: u,
                   renderOption: this.props.renderOption,
@@ -101244,27 +101627,27 @@ module.exports = (function(e) {
                       }));
                   },
                   renderValue: function(e) {
-                    return a && (U.props.editable || l.length > 0)
+                    return a && (W.props.editable || l.length > 0)
                       ? null
-                      : U.props.renderValue(e);
+                      : W.props.renderValue(e);
                   },
                   onKeyboardSelectionFailed: function(e) {
                     return o('', function() {
                       return r(!1, function() {
-                        return U.props.onKeyboardSelectionFailed(e);
+                        return W.props.onKeyboardSelectionFailed(e);
                       });
                     });
                   },
                   uid: function(e) {
-                    return { uid: U.props.uid(e), open: a, search: l };
+                    return { uid: W.props.uid(e), open: a, search: l };
                   },
                   serialize: function(e) {
                     return j(e[0]);
                   },
                   onBlur: function(e) {
                     var t, n;
-                    t = U.props.onBlurResetsInput, n = function() {
-                      return U.props.onBlur({
+                    t = W.props.onBlurResetsInput, n = function() {
+                      return W.props.onBlur({
                         value: c,
                         open: a,
                         originalEvent: e
@@ -101272,7 +101655,7 @@ module.exports = (function(e) {
                     }, l.length > 0 && t ? o('', n) : n();
                   },
                   onFocus: function(e) {
-                    U.props.onFocus({ value: c, open: a, originalEvent: e });
+                    W.props.onFocus({ value: c, open: a, originalEvent: e });
                   },
                   onPaste: (function() {
                     var e;
@@ -101284,7 +101667,7 @@ module.exports = (function(e) {
                         return function(e) {
                           var t, n;
                           if (
-                            (t = e.clipboardData, n = U.props.valueFromPaste(
+                            (t = e.clipboardData, n = W.props.valueFromPaste(
                               u,
                               c,
                               t.getData('text')
@@ -101317,7 +101700,7 @@ module.exports = (function(e) {
                   case 'function' != typeof this.props.renderNoResultsFound:
                     return {
                       renderNoResultsFound: function() {
-                        return U.props.renderNoResultsFound(c, l);
+                        return W.props.renderNoResultsFound(c, l);
                       }
                     };
                   default:

@@ -175,25 +175,25 @@
   .cw__button-group-styles_button:hover {
     box-shadow: none;
     fill: #113750; }
-.cw__bubble-chart-styles_circle {
-  cursor: pointer; }
-
-.bubbleChartTooltip {
+.reactTooltipWhite {
   font-family: "Lato", sans-serif;
   padding: 15px;
   font-size: 0.75rem;
   letter-spacing: -0.1px;
   box-shadow: 0 5px 15px 0 rgba(17, 55, 80, 0.15);
   max-width: 300px; }
-  .bubbleChartTooltip.__react_component_tooltip.type-dark {
+  .reactTooltipWhite.__react_component_tooltip.type-dark {
     color: #113750;
     background-color: #fff; }
-  .bubbleChartTooltip.__react_component_tooltip.show {
+  .reactTooltipWhite.__react_component_tooltip.show {
     opacity: 1; }
-  .bubbleChartTooltip .multi-line {
+  .reactTooltipWhite .multi-line {
     text-align: left; }
-  .bubbleChartTooltip::after {
+  .reactTooltipWhite::after {
     display: none; }
+
+.cw__bubble-chart-styles_circle {
+  cursor: pointer; }
 .cw__card-styles_card {
   display: flex;
   flex-direction: column;
@@ -1461,9 +1461,9 @@ input:checked ~ .cw__check-input-styles_label {
   .cw__table-styles_table .ReactVirtualized__Table__headerTruncatedText {
     display: inline-block;
     max-width: 100%;
-    white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden; }
+    overflow: hidden;
+    user-select: none; }
   .cw__table-styles_table .ReactVirtualized__Table__headerColumn,
   .cw__table-styles_table .ReactVirtualized__Table__rowColumn {
     margin-right: 10px;
@@ -1503,7 +1503,10 @@ input:checked ~ .cw__check-input-styles_label {
     .cw__table-styles_table .ReactVirtualized__Table__rowColumn:first-of-type {
       font-weight: 600; }
   .cw__table-styles_table .ReactVirtualized__Table__sortableHeaderColumn {
-    cursor: pointer; }
+    cursor: pointer;
+    display: inline-flex;
+    align-items: flex-end;
+    margin-bottom: 10px; }
     .cw__table-styles_table .ReactVirtualized__Table__sortableHeaderColumn:focus {
       outline: none; }
 
@@ -1538,7 +1541,6 @@ input:checked ~ .cw__check-input-styles_label {
   right: 0;
   top: -17px;
   z-index: 10;
-  border-bottom: solid 1px #25597c;
   width: 25px;
   background-color: white; }
   @media screen and (min-width: 56.25rem) {
@@ -1565,7 +1567,5 @@ input:checked ~ .cw__check-input-styles_label {
   font-weight: 300; }
 
 .cw__table-styles_idleSortIcon {
-  width: 8px;
-  height: 8px;
-  margin-left: 3px;
-  transform: translateY(-50%); }
+  width: 24px;
+  height: 8px; }
