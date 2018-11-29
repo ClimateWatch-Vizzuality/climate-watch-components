@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import _sortBy from 'lodash/sortBy';
 import reverse from 'lodash/reverse';
-import capitalize from 'lodash/capitalize';
 import {
   Table as VirtualizedTable,
   Column,
@@ -11,8 +10,8 @@ import {
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import cx from 'classnames';
 import difference from 'lodash/difference';
-
-import { pixelBreakpoints } from '../../styles/responsive';
+import ReactTooltip from 'react-tooltip';
+import Truncate from 'react-truncate';
 import MultiSelect from '../multiselect';
 import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
@@ -63,27 +62,14 @@ class Table extends PureComponent {
     );
   };
 
-  getResponsiveWidth = (columns, width) => {
-    if (columns.length === 1) return width;
-
-    const isMinColumSized = width / columns < this.standardColumnWidth;
-
-    let responsiveRatio = 1.4;
-    // Mobile
-    let responsiveColumnRatio = 0.2;
-    if (
-      width > pixelBreakpoints.portrait && width < pixelBreakpoints.landscape
-    ) {
-      responsiveColumnRatio = 0.1;
-      responsiveRatio = 1.2; // Tablet
-    } else if (width > pixelBreakpoints.landscape) {
-      // Desktop
-      responsiveColumnRatio = 0.1;
-      responsiveRatio = 1;
-    }
-    const columnRatio = isMinColumSized ? responsiveColumnRatio : 0;
-    const columnExtraWidth = columnRatio * columns;
-    return width * responsiveRatio * (1 + columnExtraWidth);
+  getFullWidth = (data, columns, width) => {
+    const columnsLenght = columns.length;
+    if (columnsLenght === 1) return width;
+    const totalWidth = columns.reduce(
+      (acc, column) => acc + this.getColumnLength(data, column.label),
+      0
+    );
+    return totalWidth < width ? width : totalWidth;
   };
 
   getDataSorted = (data, sortBy, sortDirection) => {
@@ -189,6 +175,9 @@ class Table extends PureComponent {
       .concat(difference(activeColumnNames, firstColumnHeaders));
   };
 
+  capitalizeFirstLetter = text =>
+    `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
+
   render() {
     const {
       data,
@@ -213,7 +202,8 @@ class Table extends PureComponent {
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
     const columnLabel = columnSlug => {
       if (hiddenColumnHeaderLabels.includes(columnSlug)) return '';
-      return capitalize(columnSlug.replace(/_/g, ' '));
+      const headerLabel = columnSlug.replace(/_/g, ' ');
+      return this.capitalizeFirstLetter(headerLabel);
     };
 
     const rowsHeight = d => {
@@ -231,6 +221,25 @@ class Table extends PureComponent {
         getDatum(data, index)[greatestColumnName].length / 3 +
           considerableMargin ||
         120;
+    };
+
+    const getHeaderLabel = (columnText, columnData) => {
+      const { width } = this.columnWidthProps(columnText, columnData);
+      const sortIconWidth = styles.sorticonwidth.replace('px', '');
+      const truncateWidth = width - sortIconWidth;
+      return (
+        <Truncate
+          data-for="header-label"
+          data-tip={columnLabel(columnText)}
+          data-offset="{'top': 40, 'left': 0}"
+          title=""
+          lines={2}
+          ellipsis={<span>...</span>}
+          width={truncateWidth}
+        >
+          {columnLabel(columnText)}
+        </Truncate>
+      );
     };
 
     return (
@@ -268,7 +277,7 @@ class Table extends PureComponent {
             {({ width }) => (
               <VirtualizedTable
                 className={styles.table}
-                width={this.getResponsiveWidth(activeColumns.length, width)}
+                width={this.getFullWidth(data, activeColumns, width)}
                 height={tableHeight}
                 headerHeight={headerHeight}
                 rowClassName={this.rowClassName}
@@ -281,7 +290,13 @@ class Table extends PureComponent {
                 sortBy={sortBy}
                 sortDirection={sortDirection}
                 rowGetter={({ index }) => data[index]}
-                headerRowRenderer={headerRowRenderer}
+                headerRowRenderer={({ columns, style, className }) =>
+                  headerRowRenderer({
+                    ...this.props,
+                    columns,
+                    style,
+                    className
+                  })}
               >
                 {this
                   .getColumnData()
@@ -293,7 +308,7 @@ class Table extends PureComponent {
                         [styles.allTextVisible]: dynamicRowsHeight
                       })}
                       key={column}
-                      label={columnLabel(column)}
+                      label={getHeaderLabel(column, data)}
                       dataKey={column}
                       flexGrow={0}
                       cellRenderer={cell =>
@@ -304,6 +319,12 @@ class Table extends PureComponent {
               </VirtualizedTable>
             )}
           </AutoSizer>
+          <ReactTooltip
+            place="left"
+            id="header-label"
+            className="reactTooltipWhite"
+            multiline
+          />
         </div>
       </div>
     );
@@ -364,7 +385,7 @@ Table.propTypes = {
 Table.defaultProps = {
   sortBy: 'value',
   tableHeight: 460,
-  headerHeight: 30,
+  headerHeight: 42,
   defaultColumns: [],
   hasColumnSelect: false,
   setColumnWidth: null,

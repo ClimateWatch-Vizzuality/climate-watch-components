@@ -7,7 +7,7 @@
     "no-duplicate-selectors": null,
     "length-zero-no-unit": null,
     "selector-pseudo-class-no-unknown": [
-      true, { ignorePseudoClasses: ["global"] }
+      true, { ignorePseudoClasses: ["global", "export"] }
     ]
   }
 }
