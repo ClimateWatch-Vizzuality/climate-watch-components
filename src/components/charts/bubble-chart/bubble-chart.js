@@ -74,7 +74,7 @@ class BubbleChart extends PureComponent {
         <ReactTooltip
           place="left"
           id="chartTooltip"
-          className={cx('bubbleChartTooltip', tooltipClassName)}
+          className={cx('reactTooltipWhite', tooltipClassName)}
           multiline
         />
       </Fragment>

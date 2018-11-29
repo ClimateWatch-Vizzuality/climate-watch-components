@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import _sortBy from 'lodash/sortBy';
 import reverse from 'lodash/reverse';
-import capitalize from 'lodash/capitalize';
 import {
   Table as VirtualizedTable,
   Column,
@@ -11,7 +10,8 @@ import {
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import cx from 'classnames';
 import difference from 'lodash/difference';
-
+import ReactTooltip from 'react-tooltip';
+import Truncate from 'react-truncate';
 import MultiSelect from '../multiselect';
 import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
@@ -175,6 +175,9 @@ class Table extends PureComponent {
       .concat(difference(activeColumnNames, firstColumnHeaders));
   };
 
+  capitalizeFirstLetter = text =>
+    `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
+
   render() {
     const {
       data,
@@ -199,7 +202,8 @@ class Table extends PureComponent {
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
     const columnLabel = columnSlug => {
       if (hiddenColumnHeaderLabels.includes(columnSlug)) return '';
-      return capitalize(columnSlug.replace(/_/g, ' '));
+      const headerLabel = columnSlug.replace(/_/g, ' ');
+      return this.capitalizeFirstLetter(headerLabel);
     };
 
     const rowsHeight = d => {
@@ -218,6 +222,26 @@ class Table extends PureComponent {
           considerableMargin ||
         120;
     };
+
+    const getHeaderLabel = (columnText, columnData) => {
+      const { width } = this.columnWidthProps(columnText, columnData);
+      const sortIconWidth = styles.sorticonwidth.replace('px', '');
+      const truncateWidth = width - sortIconWidth;
+      return (
+        <Truncate
+          data-for="header-label"
+          data-tip={columnLabel(columnText)}
+          data-offset="{'top': 40, 'left': 0}"
+          title=""
+          lines={2}
+          ellipsis={<span>...</span>}
+          width={truncateWidth}
+        >
+          {columnLabel(columnText)}
+        </Truncate>
+      );
+    };
+
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -284,7 +308,7 @@ class Table extends PureComponent {
                         [styles.allTextVisible]: dynamicRowsHeight
                       })}
                       key={column}
-                      label={columnLabel(column)}
+                      label={getHeaderLabel(column, data)}
                       dataKey={column}
                       flexGrow={0}
                       cellRenderer={cell =>
@@ -295,6 +319,12 @@ class Table extends PureComponent {
               </VirtualizedTable>
             )}
           </AutoSizer>
+          <ReactTooltip
+            place="left"
+            id="header-label"
+            className="reactTooltipWhite"
+            multiline
+          />
         </div>
       </div>
     );
@@ -355,7 +385,7 @@ Table.propTypes = {
 Table.defaultProps = {
   sortBy: 'value',
   tableHeight: 460,
-  headerHeight: 30,
+  headerHeight: 42,
   defaultColumns: [],
   hasColumnSelect: false,
   setColumnWidth: null,
