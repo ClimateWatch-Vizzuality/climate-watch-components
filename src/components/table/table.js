@@ -41,6 +41,7 @@ class Table extends PureComponent {
     this.columnHeightSamples = 10;
     this.minRowHeight = 80;
     this.rowHeightWithEllipsis = 150;
+    this.virtualizedTable = React.createRef();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,8 +82,10 @@ class Table extends PureComponent {
 
   handleSortChange = ({ sortBy, sortDirection }) => {
     const { data } = this.state;
+    const { dynamicRowsHeight } = this.props;
     const sortedData = this.getDataSorted(data, sortBy, sortDirection);
     this.setState({ data: sortedData, sortBy, sortDirection });
+    if (dynamicRowsHeight) this.virtualizedTable.current.recomputeRowHeights(0);
   };
 
   handleColumnChange = columns => {
@@ -111,7 +114,6 @@ class Table extends PureComponent {
 
   getLongestTextColumnName = () => {
     const { data } = this.props;
-
     const columnsTextLengthSamples = [];
     [ ...Array(this.columnHeightSamples).keys() ].forEach(n => {
       const keys = data[n] && Object.keys(data[n]);
@@ -297,6 +299,7 @@ class Table extends PureComponent {
                     style,
                     className
                   })}
+                ref={this.virtualizedTable}
               >
                 {this
                   .getColumnData()
