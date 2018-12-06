@@ -20,6 +20,7 @@ export { default as ModalHeader } from './components/modal/modal-header';
 export { default as Multiselect } from './components/multiselect';
 export { default as NoContent } from './components/no-content';
 export { default as PieChart } from './components/charts/pie-chart';
+export { default as PlayTimeline } from './components/play-timeline';
 export { default as Sankey } from './components/charts/sankey';
 export { default as Section } from './components/section';
 export { default as Stories } from './components/stories';
