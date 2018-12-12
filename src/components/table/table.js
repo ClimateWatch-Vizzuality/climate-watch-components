@@ -343,6 +343,10 @@ Table.propTypes = {
   defaultColumns: PropTypes.array,
   /** Initial column to sort by */
   sortBy: PropTypes.string,
+  /** Render html in the cell */
+  parseHtml: PropTypes.bool,
+  /** Render markdown in the cell */
+  parseMarkdown: PropTypes.bool,
   /** Include top right dropdown to filter active columns */
   hasColumnSelect: PropTypes.bool,
   /** Build dinamycally the rows height */
@@ -397,7 +401,9 @@ Table.defaultProps = {
   firstColumnHeaders: [],
   hiddenColumnHeaderLabels: [],
   titleLinks: [],
-  dynamicRowsHeight: false
+  dynamicRowsHeight: false,
+  parseHtml: false,
+  parseMarkdown: false
 };
 
 export default Table;
