@@ -53,7 +53,7 @@ class Accordion extends PureComponent {
                     onClick={() => handleOnClick(section.slug, isOpen)}
                   >
                     <div className={styles.layout}>
-                      <div className={styles.title}>
+                      <div className={cx(styles.title, theme.title)}>
                         {title}
                         <Icon
                           icon={dropdownArrow}
@@ -117,7 +117,8 @@ Accordion.propTypes = {
   /** Themable options */
   theme: PropTypes.shape({
     wrapper: PropTypes.string,
-    accordion: PropTypes.string
+    accordion: PropTypes.string,
+    title: PropTypes.string
   })
 };
 
