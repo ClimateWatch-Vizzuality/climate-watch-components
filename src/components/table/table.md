@@ -11,6 +11,7 @@ const ellipsisColumns = ["composite_name"];
   ellipsisColumns={ellipsisColumns}
   emptyValueLabel={'Not specified'}
   horizontalScroll
+  parseMarkdown
   dynamicRowsHeight={true}
   titleLinks={data.map(c => [{columnName: "link", url: "self", label: "View more"}])}
   hiddenColumnHeaderLabels={['link']}

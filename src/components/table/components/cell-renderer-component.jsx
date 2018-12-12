@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactMarkdown from 'react-markdown';
 import { sanitize } from 'utils';
 import styles from '../table-styles.scss';
 
 const cellRenderer = ({
-  props: { parseHtml, titleLinks, emptyValueLabel },
+  props: { parseHtml, parseMarkdown, titleLinks, emptyValueLabel },
   cell
 }) => {
   let { cellData } = cell;
@@ -25,6 +26,14 @@ const cellRenderer = ({
       <a href={titleLink.url}>
         {titleLink.label || cellData}
       </a>
+    );
+  }
+  if (parseMarkdown) {
+    return (
+      <ReactMarkdown
+        className={styles.description}
+        source={cellData}
+      />
     );
   }
   // render Html or finally cellData
@@ -49,6 +58,7 @@ cellRenderer.propTypes = {
     titleLinks: PropTypes.array, // [ [ {columnName: 'title field name in the table', url:'/destination-url' or 'self'}, ... ] ]
     trendLine: PropTypes.string, // 'field name of the trend line column'
     parseHtml: PropTypes.bool,
+    parseMarkdown: PropTypes.bool,
     emptyValueLabel: PropTypes.string
   }).isRequired
 };
