@@ -27,10 +27,11 @@ class Carousel extends Component {
       theme,
       hasPaging,
       autoplay,
-      autoplaySpeed
+      autoplaySpeed,
+      primarySlider
     } = this.props;
 
-    const topSliderConfig = {
+    const mainSliderConfig = {
       infinite: true,
       fade: true,
       arrows: false,
@@ -39,44 +40,67 @@ class Carousel extends Component {
       pauseOnHover: true,
       pauseOnDotsHover: true,
       pauseOnFocus: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      beforeChange: (current, next) => this.bottomSlider.slickGoTo(next),
       dots: hasPaging,
       dotsClass: 'cwCarouselPaging',
       speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      customPaging: i => customPaging(i, pagingTitles, theme),
-      beforeChange: (current, next) => this.bottomSlider.slickGoTo(next)
+      customPaging: i => customPaging(i, pagingTitles, theme)
     };
 
-    const bottomSliderConfig = {
+    const secondarySliderConfig = {
       infinite: true,
       arrows: false,
       autoplay: false,
       slidesToShow: 1
     };
 
-    return (
-      <div className={cx(styles.carouselWrapper, theme.carouselWrapper)}>
-        <div
-          className={cx(
+    return primarySlider === 'top'
+      ? (
+        <div className={cx(styles.carouselWrapper, theme.carouselWrapper)}>
+          <div
+            className={cx(
             styles.fadeSliderWithPaging,
             theme.fadeSliderWithPaging
           )}
-        >
-          <Slider {...topSliderConfig}>
-            {children.filter(child => child.props.topSlide)}
-          </Slider>
-        </div>
-        <Slider
-          {...bottomSliderConfig}
-          ref={slider => {
+          >
+            <Slider {...mainSliderConfig}>
+              {children.filter(child => child.props.topSlide)}
+            </Slider>
+          </div>
+          <Slider
+            {...secondarySliderConfig}
+            ref={slider => {
             this.bottomSlider = slider;
           }}
-        >
-          {children.filter(child => child.props.bottomSlide)}
-        </Slider>
-      </div>
-    );
+          >
+            {children.filter(child => child.props.bottomSlide)}
+          </Slider>
+        </div>
+)
+      : (
+        <div className={cx(styles.carouselWrapper, theme.carouselWrapper)}>
+          <Slider
+            {...secondarySliderConfig}
+            ref={slider => {
+            this.bottomSlider = slider;
+          }}
+          >
+            {children.filter(child => child.props.topSlide)}
+          </Slider>
+          <div
+            className={cx(
+            styles.fadeSliderWithPaging,
+            theme.fadeSliderWithPaging
+          )}
+          >
+            <Slider {...mainSliderConfig}>
+              {children.filter(child => child.props.bottomSlide)}
+            </Slider>
+          </div>
+        </div>
+);
   }
 }
 
@@ -87,6 +111,8 @@ Carousel.propTypes = {
   autoplaySpeed: PropTypes.number,
   /** Whether or not to display pagination */
   hasPaging: PropTypes.bool,
+  /** Slider to handle the pagination 'top' or 'bottom' */
+  primarySlider: PropTypes.string,
   /** Array of strings containing slides titles to display on the pagination element.
    * Each string index belongs to the slide with the same index
     */
@@ -106,7 +132,8 @@ Carousel.defaultProps = {
   autoplaySpeed: 4000,
   hasPaging: true,
   pagingTitles: [],
-  theme: {}
+  theme: {},
+  primarySlider: 'top'
 };
 
 export default Carousel;
