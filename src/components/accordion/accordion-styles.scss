@@ -20,8 +20,9 @@
 }
 
 .title {
-  text-align: left;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-right: 30px;
 }
 
@@ -38,9 +39,7 @@
 
 .iconArrow {
   transition: transform 0.25s ease-in-out;
-  position: absolute;
-  right: 10px;
-  top: calc(50% - 5px);
+  margin-left: 10px;
 
   &.isOpen {
     transform: rotate(180deg);

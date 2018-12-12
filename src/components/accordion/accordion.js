@@ -54,7 +54,9 @@ class Accordion extends PureComponent {
                   >
                     <div className={styles.layout}>
                       <div className={cx(styles.title, theme.title)}>
-                        {title}
+                        <span>
+                          {title}
+                        </span>
                         <Icon
                           icon={dropdownArrow}
                           theme={{
