@@ -36,11 +36,13 @@ const cellRenderer = ({
       />
     );
   }
-  // render Html or finally cellData
-  return parseHtml ? (
-    // eslint-disable-next-line react/no-danger
-    <div dangerouslySetInnerHTML={{ __html: cellData }} />
-  ) : (
+
+  if (parseHtml) {
+     // eslint-disable-next-line react/no-danger
+     return <div dangerouslySetInnerHTML={{ __html: cellData }} />
+  }
+
+  return (
     cellData ||
     (emptyValueLabel ? (
       <div className={styles.emptyValue}>
