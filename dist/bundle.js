@@ -30500,9 +30500,8 @@ module.exports = (function(e) {
       l = g(n('qCFj')),
       u = g(n('u6S6')),
       s = g(n('K2gz')),
-      c = g(n('sXgQ'));
-    n('adkz');
-    var f = g(n('GlS/')),
+      c = g(n('sXgQ')),
+      f = g(n('GlS/')),
       d = g(n('i9Y8')),
       p = g(n('mGSp')),
       h = g(n('wrKF')),
@@ -36340,8 +36339,9 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      l = w(n('OFL0')),
-      u = w(n('JVao')),
+      l = w(n('OFL0'));
+    n('adkz');
+    var u = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
@@ -100857,6 +100857,7 @@ module.exports = (function(e) {
                         type: 'button',
                         className: (0, u.default)(
                           f.default.header,
+                          n.header,
                           d ? f.default.subHeader : ''
                         ),
                         onClick: function() {
@@ -100925,7 +100926,8 @@ module.exports = (function(e) {
       theme: a.default.shape({
         wrapper: a.default.string,
         accordion: a.default.string,
-        title: a.default.string
+        title: a.default.string,
+        header: a.default.string
       })
     }, p.defaultProps = {
       data: [],
