@@ -30500,8 +30500,9 @@ module.exports = (function(e) {
       l = g(n('qCFj')),
       u = g(n('u6S6')),
       s = g(n('K2gz')),
-      c = g(n('sXgQ')),
-      f = g(n('GlS/')),
+      c = g(n('sXgQ'));
+    n('adkz');
+    var f = g(n('GlS/')),
       d = g(n('i9Y8')),
       p = g(n('mGSp')),
       h = g(n('wrKF')),
@@ -34449,11 +34450,14 @@ module.exports = (function(e) {
                 pauseOnHover: !0,
                 pauseOnDotsHover: !0,
                 pauseOnFocus: !0,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                beforeChange: function(t, n) {
+                  return e.bottomSlider.slickGoTo(n);
+                },
                 dots: l,
                 dotsClass: 'cwCarouselPaging',
                 speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1,
                 customPaging: function(e) {
                   return (function(e, t, n) {
                     return a.default.createElement(
@@ -34467,51 +34471,80 @@ module.exports = (function(e) {
                       t[e]
                     );
                   })(e, o, i);
-                },
-                beforeChange: function(t, n) {
-                  return e.bottomSlider.slickGoTo(n);
                 }
-              };
-            return a.default.createElement(
-              'div',
-              {
-                className: (0, u.default)(
-                  c.default.carouselWrapper,
-                  i.carouselWrapper
-                )
               },
-              a.default.createElement(
+              d = { infinite: !0, arrows: !1, autoplay: !1, slidesToShow: 1 };
+            return 'top' === t.primarySlider ? a.default.createElement(
                 'div',
                 {
                   className: (0, u.default)(
-                    c.default.fadeSliderWithPaging,
-                    i.fadeSliderWithPaging
+                    c.default.carouselWrapper,
+                    i.carouselWrapper
+                  )
+                },
+                a.default.createElement(
+                  'div',
+                  {
+                    className: (0, u.default)(
+                      c.default.fadeSliderWithPaging,
+                      i.fadeSliderWithPaging
+                    )
+                  },
+                  a.default.createElement(
+                    s.default,
+                    f,
+                    n.filter(function(e) {
+                      return e.props.topSlide;
+                    })
+                  )
+                ),
+                a.default.createElement(
+                  s.default,
+                  r({}, d, {
+                    ref: function(t) {
+                      e.bottomSlider = t;
+                    }
+                  }),
+                  n.filter(function(e) {
+                    return e.props.bottomSlide;
+                  })
+                )
+              ) : a.default.createElement(
+                'div',
+                {
+                  className: (0, u.default)(
+                    c.default.carouselWrapper,
+                    i.carouselWrapper
                   )
                 },
                 a.default.createElement(
                   s.default,
-                  f,
-                  n.filter(function(e) {
-                    return e.props.topSlide;
-                  })
-                )
-              ),
-              a.default.createElement(
-                s.default,
-                r(
-                  {},
-                  { infinite: !0, arrows: !1, autoplay: !1, slidesToShow: 1 },
-                  {
+                  r({}, d, {
                     ref: function(t) {
                       e.bottomSlider = t;
                     }
-                  }
+                  }),
+                  n.filter(function(e) {
+                    return e.props.topSlide;
+                  })
                 ),
-                n.filter(function(e) {
-                  return e.props.bottomSlide;
-                })
-              )
-            );
+                a.default.createElement(
+                  'div',
+                  {
+                    className: (0, u.default)(
+                      c.default.fadeSliderWithPaging,
+                      i.fadeSliderWithPaging
+                    )
+                  },
+                  a.default.createElement(
+                    s.default,
+                    f,
+                    n.filter(function(e) {
+                      return e.props.bottomSlide;
+                    })
+                  )
+                )
+              );
           }
         }
       ]), t;
@@ -34520,6 +34553,7 @@ module.exports = (function(e) {
       autoplay: l.default.bool,
       autoplaySpeed: l.default.number,
       hasPaging: l.default.bool,
+      primarySlider: l.default.oneOf([ 'top', 'bottom' ]),
       pagingTitles: l.default.arrayOf(l.default.string),
       theme: l.default.shape({
         carouselWrapper: l.default.string,
@@ -34527,7 +34561,7 @@ module.exports = (function(e) {
         pagingTitle: l.default.string
       }),
       children: l.default.arrayOf(l.default.node).isRequired
-    }, d.defaultProps = { autoplay: !0, autoplaySpeed: 4e3, hasPaging: !0, pagingTitles: [], theme: {} }, t.default = d;
+    }, d.defaultProps = { autoplay: !0, autoplaySpeed: 4e3, hasPaging: !0, pagingTitles: [], theme: {}, primarySlider: 'top' }, t.default = d;
   },
   ZOtO: function(e, t, n) {
     'use strict';
@@ -36306,9 +36340,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      l = w(n('OFL0'));
-    n('adkz');
-    var u = w(n('JVao')),
+      l = w(n('OFL0')),
+      u = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
@@ -100835,8 +100868,10 @@ module.exports = (function(e) {
                         { className: f.default.layout },
                         i.default.createElement(
                           'div',
-                          { className: f.default.title },
-                          _,
+                          {
+                            className: (0, u.default)(f.default.title, n.title)
+                          },
+                          i.default.createElement('span', null, _),
                           i.default.createElement(s.default, {
                             icon: c.default,
                             theme: {
@@ -100889,7 +100924,8 @@ module.exports = (function(e) {
       hasNestedCollapse: a.default.bool,
       theme: a.default.shape({
         wrapper: a.default.string,
-        accordion: a.default.string
+        accordion: a.default.string,
+        title: a.default.string
       })
     }, p.defaultProps = {
       data: [],

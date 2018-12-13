@@ -19,10 +19,12 @@
   cursor: pointer; }
   .cw__accordion-styles_header:focus {
     outline: none; }
-  .cw__accordion-styles_header .cw__accordion-styles_title {
-    text-align: left;
-    position: relative;
-    padding-right: 30px; }
+
+.cw__accordion-styles_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 30px; }
 
 .cw__accordion-styles_subHeader {
   background-color: rgba(245, 246, 247, 0.5);
@@ -34,9 +36,7 @@
 
 .cw__accordion-styles_iconArrow {
   transition: transform 0.25s ease-in-out;
-  position: absolute;
-  right: 10px;
-  top: calc(50% - 5px); }
+  margin-left: 10px; }
   .cw__accordion-styles_iconArrow.cw__accordion-styles_isOpen {
     transform: rotate(180deg); }
 .cw__bottom-bar-styles_row {
