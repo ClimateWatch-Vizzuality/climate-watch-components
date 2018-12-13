@@ -112,7 +112,7 @@ Carousel.propTypes = {
   /** Whether or not to display pagination */
   hasPaging: PropTypes.bool,
   /** Slider to handle the pagination 'top' or 'bottom' */
-  primarySlider: PropTypes.string,
+  primarySlider: PropTypes.oneOf([ 'top', 'bottom' ]),
   /** Array of strings containing slides titles to display on the pagination element.
    * Each string index belongs to the slide with the same index
     */
