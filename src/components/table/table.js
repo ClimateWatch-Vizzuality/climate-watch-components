@@ -42,6 +42,11 @@ class Table extends PureComponent {
     this.minRowHeight = 80;
     this.rowHeightWithEllipsis = 150;
     this.virtualizedTable = React.createRef();
+    this.arrowWidth = parseInt(styles.sorticonwidth.replace('px', ''), 10);
+    this.rowColumnMargin = parseInt(
+      styles.rowcolumnmargin.replace('px', ''),
+      10
+    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,8 +72,9 @@ class Table extends PureComponent {
     const columnsLenght = columns.length;
     if (columnsLenght === 1) return width;
     const totalWidth = columns.reduce(
-      (acc, column) => acc + this.getColumnLength(data, column.label),
-      0
+      (acc, column) =>
+        acc + this.getColumnLength(data, column.label) + this.rowColumnMargin,
+      this.rowColumnMargin
     );
     return totalWidth < width ? width : totalWidth;
   };
@@ -148,8 +154,8 @@ class Table extends PureComponent {
       column
     );
     const length = meanLenght * this.lengthWidthRatio;
-    const arrowPadding = 8;
-    const columnTitleLength = (column.length + arrowPadding) *
+    // const arrowPadding = this.arrowWidth;
+    const columnTitleLength = (column.length + this.arrowWidth) *
       this.lengthWidthRatio;
 
     if (length < this.minColumnWidth) return this.minColumnWidth;
@@ -227,8 +233,7 @@ class Table extends PureComponent {
 
     const getHeaderLabel = (columnText, columnData) => {
       const { width } = this.columnWidthProps(columnText, columnData);
-      const sortIconWidth = styles.sorticonwidth.replace('px', '');
-      const truncateWidth = width - sortIconWidth;
+      const truncateWidth = width - this.arrowWidth;
       return (
         <Truncate
           data-for="header-label"
