@@ -48,6 +48,7 @@ class Accordion extends PureComponent {
                     type="button"
                     className={cx(
                       styles.header,
+                      theme.header,
                       isChild ? styles.subHeader : ''
                     )}
                     onClick={() => handleOnClick(section.slug, isOpen)}
@@ -120,7 +121,8 @@ Accordion.propTypes = {
   theme: PropTypes.shape({
     wrapper: PropTypes.string,
     accordion: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    header: PropTypes.string
   })
 };
 
