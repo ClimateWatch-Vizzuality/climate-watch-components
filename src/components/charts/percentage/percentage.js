@@ -70,7 +70,8 @@ class ChartPercentage extends PureComponent {
       : null;
 
     if (!percentageData.length) return null;
-    const getTooltipLabelFormat = value => `${format('.2r')(value)}%`;
+    const getTooltipLabelFormat = value =>
+      value ? `${format('.2r')(value)}%` : 'n/a';
     return (
       <ResponsiveContainer height={height}>
         <ComposedChart

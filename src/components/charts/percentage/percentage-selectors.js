@@ -11,7 +11,7 @@ export const getData = createSelector([ selectData, state => state.config ], (
       const updatedD = { ...d };
       let total = 0;
       config.columns.y.forEach(key => {
-        total += d[key.value];
+        if (d[key.value]) total += d[key.value];
       });
       config.columns.y.map(key => {
         updatedD[key.value] = total ? d[key.value] / total * 100 : null;
