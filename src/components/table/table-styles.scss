@@ -1,8 +1,9 @@
 @import '~styles/settings';
 
 $sort-icon-width: 24px;
-
+$row-column-margin: 10px;
 :export { sorticonwidth: $sort-icon-width; }
+:export { rowcolumnmargin: $row-column-margin; }
 
 .tableWrapper {
   position: relative;
@@ -11,6 +12,10 @@ $sort-icon-width: 24px;
   &.horizontalScroll {
     overflow-x: auto;
   }
+}
+
+p {
+  margin: 0;
 }
 
 .headerRow,
@@ -58,13 +63,13 @@ $sort-icon-width: 24px;
 
   .ReactVirtualized__Table__headerColumn,
   .ReactVirtualized__Table__rowColumn {
-    margin-right: 10px;
+    margin-right: $row-column-margin;
     min-width: 0px;
   }
 
   .ReactVirtualized__Table__headerColumn:first-of-type,
   .ReactVirtualized__Table__rowColumn:first-of-type {
-    margin-left: 10px;
+    margin-left: $row-column-margin;
   }
 
   .ReactVirtualized__Table__rowColumn {
@@ -137,20 +142,19 @@ $sort-icon-width: 24px;
   &.ellipsis {
     display: block;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
 
 .hasColumnSelect :global {
   .ReactVirtualized__Table__headerRow {
-    padding-left: 30px;
-    margin-left: -30px;
+    padding-left: 15px;
+    margin-left: -15px;
     margin-right: 30px;
   }
 
   .ReactVirtualized__Table__row {
-    padding-left: 30px;
-    margin-left: -30px;
+    padding-left: 15px;
+    margin-left: -15px;
     margin-right: 30px;
   }
 }
