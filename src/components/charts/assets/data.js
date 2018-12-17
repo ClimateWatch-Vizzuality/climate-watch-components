@@ -75,7 +75,6 @@ export const data = [
     ghgInventory: 7260373623,
     yCo2: 24697808420,
     yCh4: 6260373623,
-    yN2O: 2603211690,
     yFGas: 262076768.3
   },
   {
