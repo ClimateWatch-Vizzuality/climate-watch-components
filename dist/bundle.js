@@ -4989,7 +4989,7 @@ module.exports = (function(e) {
                 : null;
             if (!k.length) return null;
             var P = function(e) {
-              return (0, b.format)('.2r')(e) + '%';
+              return e ? (0, b.format)('.2r')(e) + '%' : 'n/a';
             };
             return a.default.createElement(
               f.default,
@@ -17214,7 +17214,7 @@ module.exports = (function(e) {
       return e && t ? e.map(function(e) {
           var n = r({}, e), o = 0;
           return t.columns.y.forEach(function(t) {
-            o += e[t.value];
+            e[t.value] && (o += e[t.value]);
           }), t.columns.y.map(function(t) {
             return n[t.value] = o ? e[t.value] / o * 100 : null, n[t.value];
           }), n;
