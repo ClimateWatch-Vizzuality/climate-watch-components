@@ -14,6 +14,10 @@ $row-column-margin: 10px;
   }
 }
 
+p {
+  margin: 0;
+}
+
 .headerRow,
 .evenRow {
   background-color: $white;

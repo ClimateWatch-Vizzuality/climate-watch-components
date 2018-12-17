@@ -74,7 +74,7 @@ class Table extends PureComponent {
     const totalWidth = columns.reduce(
       (acc, column) =>
         acc + this.getColumnLength(data, column.label) + this.rowColumnMargin,
-      this.rowColumnMargin
+      this.rowColumnMargin + 10
     );
     return totalWidth < width ? width : totalWidth;
   };
@@ -154,7 +154,6 @@ class Table extends PureComponent {
       column
     );
     const length = meanLenght * this.lengthWidthRatio;
-    // const arrowPadding = this.arrowWidth;
     const columnTitleLength = (column.length + this.arrowWidth) *
       this.lengthWidthRatio;
 
@@ -196,6 +195,7 @@ class Table extends PureComponent {
       optionsOpen
     } = this.state;
     const {
+      data: propsData,
       hasColumnSelect,
       tableHeight,
       headerHeight,
@@ -284,7 +284,7 @@ class Table extends PureComponent {
             {({ width }) => (
               <VirtualizedTable
                 className={styles.table}
-                width={this.getFullWidth(data, activeColumns, width)}
+                width={this.getFullWidth(propsData, activeColumns, width)}
                 height={tableHeight}
                 headerHeight={headerHeight}
                 rowClassName={this.rowClassName}
