@@ -53,10 +53,8 @@ class LegendChart extends PureComponent {
           column => dataSelectedIds.includes(column.label)
         )
         : [];
-
     let filteredColumns = columnKeys.map(key => filterColumns(key));
     filteredColumns = [].concat(...filteredColumns);
-
     const hasLegendNote = config && config.legendNote;
 
     const columnsLength = filteredColumns.length;

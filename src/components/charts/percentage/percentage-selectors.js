@@ -7,16 +7,17 @@ export const getData = createSelector([ selectData, state => state.config ], (
 ) =>
   {
     if (!data || !config) return null;
+
     return data.map(d => {
-      const updatedD = { ...d };
+      const updatedD = {};
       let total = 0;
-      config.columns.y.forEach(key => {
-        if (d[key.value]) total += d[key.value];
+      const columns = config.columns.y.filter(c => !c.hideData);
+      columns.forEach(column => {
+        if (d[column.value]) total += d[column.value];
       });
-      config.columns.y.map(key => {
-        updatedD[key.value] = total ? d[key.value] / total * 100 : null;
-        return updatedD[key.value];
+      columns.forEach(column => {
+        updatedD[column.value] = total ? d[column.value] / total * 100 : null;
       });
-      return updatedD;
+      return { x: d.x, ...updatedD };
     });
   });

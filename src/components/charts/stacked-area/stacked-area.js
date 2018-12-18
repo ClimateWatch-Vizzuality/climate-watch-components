@@ -219,12 +219,15 @@ class ChartStackedArea extends PureComponent {
                   dataKey={column.value}
                   dot={false}
                   stackId={1}
-                  stroke={'transparent' || ''}
+                  stroke="transparent"
                   strokeWidth={0}
                   isAnimationActive={
                     isUndefined(config.animation) ? true : config.animation
                   }
-                  fill={config.theme[column.value].fill || ''}
+                  fill={
+                    !column.hideData && config.theme[column.value].fill ||
+                      'transparent'
+                  }
                   type={stepped ? 'step' : 'linear'}
                 />
               ))

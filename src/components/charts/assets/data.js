@@ -17,7 +17,10 @@ export const config = {
     yFGas: { stroke: '#FF7800', fill: '#FF7800' },
     ppd: { stroke: '#3498db', fill: '#d6eaf8' },
     bau: { stroke: '#f5b335', fill: '#fdf0d7' },
-    ltms: { stroke: '#f97da1', fill: '#f97da1' }
+    ltms: { stroke: '#f97da1', fill: '#f97da1' },
+    yOthersGas1: { stroke: '#ccc', fill: '#ccc' },
+    yOthersGas2: { stroke: '#ccc', fill: '#ccc' },
+    yOthers: { stroke: '#ccc', fill: '#ccc' }
   },
   tooltip: {
     yAllGhg: { label: 'All GHG' },
@@ -28,7 +31,8 @@ export const config = {
     yCo2: { label: 'CO2' },
     yCh4: { label: 'CH4' },
     yN2O: { label: 'N2O' },
-    yFGas: { label: 'F-Gas' }
+    yFGas: { label: 'F-Gas' },
+    yOthers: { label: 'Others' }
   },
   animation: false,
   columns: {
@@ -38,7 +42,10 @@ export const config = {
       { label: 'CO2', value: 'yCo2' },
       { label: 'CH4', value: 'yCh4' },
       { label: 'N2O', value: 'yN2O' },
-      { label: 'F-Gas', value: 'yFGas' }
+      { label: 'F-Gas', value: 'yFGas' },
+      { label: 'Gas1', value: 'yOthersGas1', hideLegend: true },
+      { label: 'Gas2', value: 'yOthersGas2', hideLegend: true },
+      { label: 'Others', value: 'yOthers', hideData: true }
     ],
     z: [ { label: 'GHG Inventory', value: 'ghgInventory' } ],
     w: [ { label: 'ppd', value: 'ppd' }, { label: 'BaU', value: 'bau' } ],
@@ -51,7 +58,10 @@ export const initialYColumns = [
   { label: 'CO2', value: 'yCo2' },
   { label: 'CH4', value: 'yCh4' },
   { label: 'N2O', value: 'yN2O' },
-  { label: 'F-Gas', value: 'yFGas' }
+  { label: 'F-Gas', value: 'yFGas' },
+  { label: 'Gas1', value: 'yOthersGas1' },
+  { label: 'Gas2', value: 'yOthersGas2' },
+  { label: 'Others', value: 'yOthers', hideData: true }
 ];
 
 export const initialWColumns = [
@@ -65,6 +75,25 @@ export const initialZColumns = [
 
 export const initialTColumns = [ { label: 'LTMs', value: 'ltms' } ];
 
+export const domain = { x: [ 'auto', 'auto' ], y: [ null, 'auto' ] };
+
+export const filters = [
+  { value: 13, label: 'All GHG' },
+  { value: 15, label: 'CH4' },
+  { value: 14, label: 'CO2' },
+  { value: 17, label: 'F-Gas' },
+  { value: 16, label: 'N2O' },
+  { value: 17, label: 'Others' }
+];
+
+export const filtersSelected = [
+  { value: 13, label: 'All GHG' },
+  { value: 15, label: 'CH4' },
+  { value: 14, label: 'CO2' },
+  { value: 16, label: 'N2O' },
+  { value: 17, label: 'Others' }
+];
+
 export const data = [
   {
     x: 1990,
@@ -75,7 +104,10 @@ export const data = [
     ghgInventory: 7260373623,
     yCo2: 24697808420,
     yCh4: 6260373623,
-    yFGas: 262076768.3
+    yFGas: 262076768.3,
+    yOthersGas1: 3062076768.3,
+    yOthersGas2: 2025076768.3,
+    yOthers: 5025076768.3
   },
   {
     x: 1991,
@@ -87,7 +119,10 @@ export const data = [
     yCo2: 24896694270,
     yCh4: 6250436642,
     yN2O: 2593531229,
-    yFGas: 267832161.6
+    yFGas: 267832161.6,
+    yOthersGas1: 3062076768.3,
+    yOthersGas2: 2025076768.3,
+    yOthers: 5025076768.3
   },
   {
     x: 1992,
@@ -331,21 +366,4 @@ export const data = [
     yN2O: 3049932441,
     yFGas: 874078563.9
   }
-];
-
-export const domain = { x: [ 'auto', 'auto' ], y: [ null, 'auto' ] };
-
-export const filters = [
-  { value: 13, label: 'All GHG' },
-  { value: 15, label: 'CH4' },
-  { value: 14, label: 'CO2' },
-  { value: 17, label: 'F-Gas' },
-  { value: 16, label: 'N2O' }
-];
-
-export const filtersSelected = [
-  { value: 13, label: 'All GHG' },
-  { value: 15, label: 'CH4' },
-  { value: 14, label: 'CO2' },
-  { value: 16, label: 'N2O' }
 ];
