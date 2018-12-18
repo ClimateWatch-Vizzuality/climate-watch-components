@@ -34457,7 +34457,7 @@ module.exports = (function(e) {
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 beforeChange: function(t, n) {
-                  return e.bottomSlider.slickGoTo(n);
+                  return e.secondarySlider.slickGoTo(n);
                 },
                 dots: l,
                 dotsClass: 'cwCarouselPaging',
@@ -34477,7 +34477,15 @@ module.exports = (function(e) {
                   })(e, o, i);
                 }
               },
-              d = { infinite: !0, arrows: !1, autoplay: !1, slidesToShow: 1 };
+              d = {
+                infinite: !0,
+                arrows: !1,
+                autoplay: !1,
+                slidesToShow: 1,
+                beforeChange: function(t, n) {
+                  return e.mainSlider.slickGoTo(n);
+                }
+              };
             return 'top' === t.primarySlider ? a.default.createElement(
                 'div',
                 {
@@ -34496,7 +34504,11 @@ module.exports = (function(e) {
                   },
                   a.default.createElement(
                     s.default,
-                    f,
+                    r({}, f, {
+                      ref: function(t) {
+                        e.mainSlider = t;
+                      }
+                    }),
                     n.filter(function(e) {
                       return e.props.topSlide;
                     })
@@ -34506,7 +34518,7 @@ module.exports = (function(e) {
                   s.default,
                   r({}, d, {
                     ref: function(t) {
-                      e.bottomSlider = t;
+                      e.secondarySlider = t;
                     }
                   }),
                   n.filter(function(e) {
@@ -34525,7 +34537,7 @@ module.exports = (function(e) {
                   s.default,
                   r({}, d, {
                     ref: function(t) {
-                      e.bottomSlider = t;
+                      e.secondarySlider = t;
                     }
                   }),
                   n.filter(function(e) {
@@ -34542,7 +34554,11 @@ module.exports = (function(e) {
                   },
                   a.default.createElement(
                     s.default,
-                    f,
+                    r({}, f, {
+                      ref: function(t) {
+                        e.mainSlider = t;
+                      }
+                    }),
                     n.filter(function(e) {
                       return e.props.bottomSlide;
                     })
