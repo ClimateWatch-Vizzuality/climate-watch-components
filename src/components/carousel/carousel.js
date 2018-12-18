@@ -42,7 +42,7 @@ class Carousel extends Component {
       pauseOnFocus: true,
       slidesToShow: 1,
       slidesToScroll: 1,
-      beforeChange: (current, next) => this.bottomSlider.slickGoTo(next),
+      beforeChange: (current, next) => this.secondarySlider.slickGoTo(next),
       dots: hasPaging,
       dotsClass: 'cwCarouselPaging',
       speed: 500,
@@ -53,7 +53,8 @@ class Carousel extends Component {
       infinite: true,
       arrows: false,
       autoplay: false,
-      slidesToShow: 1
+      slidesToShow: 1,
+      beforeChange: (current, next) => this.mainSlider.slickGoTo(next)
     };
 
     return primarySlider === 'top'
@@ -65,14 +66,19 @@ class Carousel extends Component {
             theme.fadeSliderWithPaging
           )}
           >
-            <Slider {...mainSliderConfig}>
+            <Slider
+              {...mainSliderConfig}
+              ref={slider => {
+              this.mainSlider = slider;
+            }}
+            >
               {children.filter(child => child.props.topSlide)}
             </Slider>
           </div>
           <Slider
             {...secondarySliderConfig}
             ref={slider => {
-            this.bottomSlider = slider;
+            this.secondarySlider = slider;
           }}
           >
             {children.filter(child => child.props.bottomSlide)}
@@ -84,7 +90,7 @@ class Carousel extends Component {
           <Slider
             {...secondarySliderConfig}
             ref={slider => {
-            this.bottomSlider = slider;
+            this.secondarySlider = slider;
           }}
           >
             {children.filter(child => child.props.topSlide)}
@@ -95,7 +101,12 @@ class Carousel extends Component {
             theme.fadeSliderWithPaging
           )}
           >
-            <Slider {...mainSliderConfig}>
+            <Slider
+              {...mainSliderConfig}
+              ref={slider => {
+              this.mainSlider = slider;
+            }}
+            >
               {children.filter(child => child.props.bottomSlide)}
             </Slider>
           </div>
