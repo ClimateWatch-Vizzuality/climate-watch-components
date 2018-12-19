@@ -105,9 +105,9 @@ export const data = [
     yCo2: 24697808420,
     yCh4: 6260373623,
     yFGas: 262076768.3,
-    yOthersGas1: 3062076768.3,
-    yOthersGas2: 2025076768.3,
-    yOthers: 5025076768.3
+    yOthersGas1: 3000000000,
+    yOthersGas2: 2000000000,
+    yOthers: 5000000000
   },
   {
     x: 1991,
@@ -120,9 +120,9 @@ export const data = [
     yCh4: 6250436642,
     yN2O: 2593531229,
     yFGas: 267832161.6,
-    yOthersGas1: 3062076768.3,
-    yOthersGas2: 2025076768.3,
-    yOthers: 5025076768.3
+    yOthersGas1: 3000000000,
+    yOthersGas2: 2000000000,
+    yOthers: 5000000000
   },
   {
     x: 1992,
