@@ -43,8 +43,18 @@ export const config = {
       { label: 'CH4', value: 'yCh4' },
       { label: 'N2O', value: 'yN2O' },
       { label: 'F-Gas', value: 'yFGas' },
-      { label: 'Gas1', value: 'yOthersGas1', hideLegend: true },
-      { label: 'Gas2', value: 'yOthersGas2', hideLegend: true },
+      {
+        label: 'Gas1',
+        value: 'yOthersGas1',
+        hideLegend: true,
+        legendColumn: 'Others'
+      },
+      {
+        label: 'Gas2',
+        value: 'yOthersGas2',
+        hideLegend: true,
+        legendColumn: 'Others'
+      },
       { label: 'Others', value: 'yOthers', hideData: true }
     ],
     z: [ { label: 'GHG Inventory', value: 'ghgInventory' } ],
@@ -59,8 +69,18 @@ export const initialYColumns = [
   { label: 'CH4', value: 'yCh4' },
   { label: 'N2O', value: 'yN2O' },
   { label: 'F-Gas', value: 'yFGas' },
-  { label: 'Gas1', value: 'yOthersGas1' },
-  { label: 'Gas2', value: 'yOthersGas2' },
+  {
+    label: 'Gas1',
+    value: 'yOthersGas1',
+    hideLegend: true,
+    legendColumn: 'Others'
+  },
+  {
+    label: 'Gas2',
+    value: 'yOthersGas2',
+    hideLegend: true,
+    legendColumn: 'Others'
+  },
   { label: 'Others', value: 'yOthers', hideData: true }
 ];
 
@@ -83,7 +103,7 @@ export const filters = [
   { value: 14, label: 'CO2' },
   { value: 17, label: 'F-Gas' },
   { value: 16, label: 'N2O' },
-  { value: 17, label: 'Others' }
+  { value: 18, label: 'Others' }
 ];
 
 export const filtersSelected = [
@@ -91,7 +111,7 @@ export const filtersSelected = [
   { value: 15, label: 'CH4' },
   { value: 14, label: 'CO2' },
   { value: 16, label: 'N2O' },
-  { value: 17, label: 'Others' }
+  { value: 18, label: 'Others' }
 ];
 
 export const data = [
