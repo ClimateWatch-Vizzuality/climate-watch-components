@@ -4944,6 +4944,16 @@ module.exports = (function(e) {
             });
           var r = t && t.activeLabel;
           r && e.debouncedMouseMove(r);
+        }, e.addHiddenData = function(e, t) {
+          var n = r({}, e);
+          return t ? r({}, n, {
+              payload: n.payload.map(function(e) {
+                var n = r({}, e);
+                return e.payload ? (n.payload = t.find(function(t) {
+                    return e.payload.x === t.x;
+                  }), n) : e;
+              })
+            }) : e;
         }, e.state = {}, e;
       }
       return (function(e, t) {
@@ -4967,37 +4977,39 @@ module.exports = (function(e) {
         {
           key: 'render',
           value: function() {
-            var e = this.state.tooltipVisibility,
-              t = this.props,
-              n = t.data,
-              o = t.config,
-              i = t.height,
-              l = t.stepped,
-              u = t.customXAxisTick,
-              O = t.customYAxisTick,
-              S = t.customTooltip,
-              E = t.showUnit,
-              T = { data: n, config: o },
-              k = (0, _.getData)(T),
-              M = r({}, o, {
-                axes: r({}, o.axes, {
-                  yLeft: r({}, o.axes.yLeft, { unit: '', suffix: '' })
+            var e = this,
+              t = this.state.tooltipVisibility,
+              n = this.props,
+              o = n.data,
+              i = n.config,
+              l = n.height,
+              u = n.stepped,
+              O = n.customXAxisTick,
+              S = n.customYAxisTick,
+              E = n.customTooltip,
+              T = n.showUnit,
+              k = { data: o, config: i },
+              M = (0, _.getData)(k),
+              C = (0, _.getTooltipData)(k),
+              P = r({}, i, {
+                axes: r({}, i.axes, {
+                  yLeft: r({}, i.axes.yLeft, { unit: '', suffix: '' })
                 })
               }),
-              C = E && (0, c.default)(o, 'axes.yLeft.unit')
-                ? o.axes.yLeft.unit
+              A = T && (0, c.default)(i, 'axes.yLeft.unit')
+                ? i.axes.yLeft.unit
                 : null;
-            if (!k.length) return null;
-            var P = function(e) {
+            if (!M.length) return null;
+            var j = function(e) {
               return e ? (0, b.format)('.2r')(e) + '%' : 'n/a';
             };
             return a.default.createElement(
               f.default,
-              { height: i },
+              { height: l },
               a.default.createElement(
                 m.default,
                 {
-                  data: k,
+                  data: M,
                   margin: { top: 45, right: 20, left: -10, bottom: 0 },
                   onMouseMove: this.handleMouseMove,
                   stackOffset: 'sign'
@@ -5007,13 +5019,13 @@ module.exports = (function(e) {
                   type: 'number',
                   dataKey: 'x',
                   padding: { left: 30, right: 40 },
-                  tick: u ||
+                  tick: O ||
                     a.default.createElement(x.CustomXAxisTick, {
                       customstrokeWidth: '0'
                     }),
                   tickSize: 8,
                   allowDecimals: !1,
-                  tickCount: k.length
+                  tickCount: M.length
                 }),
                 a.default.createElement(
                   h.default,
@@ -5024,32 +5036,32 @@ module.exports = (function(e) {
                     axisLine: !1,
                     padding: { top: 0, bottom: 0 },
                     tickLine: !1,
-                    tick: O ||
+                    tick: S ||
                       a.default.createElement(x.CustomYAxisTick, {
                         customstrokeWidth: '0'
                       }),
                     ticks: [ 0, 25, 50, 75, 100 ]
                   },
-                  (0, w.default)(C)
+                  (0, w.default)(A)
                 ),
                 a.default.createElement(p.default, { vertical: !1 }),
-                e && a.default.createElement(d.default, {
+                t && a.default.createElement(d.default, {
                     viewBox: { x: 0, y: 0, width: 100, height: 100 },
                     isAnimationActive: !1,
                     cursor: { stroke: '#113750', strokeWidth: 2 },
-                    content: function(e) {
-                      return S &&
-                        a.default.cloneElement(S, { content: e, config: M }) ||
+                    content: function(t) {
+                      return E &&
+                        a.default.cloneElement(E, { content: t, config: P }) ||
                         a.default.createElement(g.default, {
-                          content: e,
-                          config: M,
+                          content: e.addHiddenData(t, C),
+                          config: P,
                           showTotal: !0,
-                          getCustomYLabelFormat: P
+                          getCustomYLabelFormat: j
                         });
                     },
                     filterNull: !1
                   }),
-                o.columns && o.columns.y.map(function(e) {
+                i.columns && i.columns.y.map(function(e) {
                     return a.default.createElement(v.default, {
                       key: e.value,
                       dataKey: e.value,
@@ -5057,10 +5069,10 @@ module.exports = (function(e) {
                       stackId: 1,
                       stroke: 'transparent',
                       strokeWidth: 0,
-                      isAnimationActive: !!(0, s.default)(o.animation) ||
-                        o.animation,
-                      fill: o.theme[e.value].fill || '',
-                      type: l ? 'step' : 'linear'
+                      isAnimationActive: !!(0, s.default)(i.animation) ||
+                        i.animation,
+                      fill: i.theme[e.value].fill || '',
+                      type: u ? 'step' : 'linear'
                     });
                   })
               )
@@ -5467,7 +5479,8 @@ module.exports = (function(e) {
                       strokeWidth: 0,
                       isAnimationActive: !!(0, s.default)(C.animation) ||
                         C.animation,
-                      fill: C.theme[e.value].fill || '',
+                      fill: !e.hideData && C.theme[e.value].fill ||
+                        'transparent',
                       type: N ? 'step' : 'linear'
                     });
                   }),
@@ -17195,7 +17208,9 @@ module.exports = (function(e) {
   },
   GEMb: function(e, t, n) {
     'use strict';
-    Object.defineProperty(t, '__esModule', { value: !0 }), t.getData = void 0;
+    Object.defineProperty(t, '__esModule', {
+      value: !0
+    }), t.getTooltipData = t.getData = void 0;
     var r = Object.assign || function(e) {
         for (var t = 1; t < arguments.length; t++) {
           var n = arguments[t];
@@ -17203,23 +17218,45 @@ module.exports = (function(e) {
         }
         return e;
       },
-      o = n('peh1');
-    t.getData = (0, o.createSelector)([
-      function(e) {
+      o = n('peh1'),
+      i = function(e) {
         return e.data || null;
       },
+      a = function(e, t) {
+        return e.map(function(e) {
+          var n = {}, o = 0;
+          return t.forEach(function(t) {
+            e[t.value] && (o += e[t.value]);
+          }), t.forEach(function(t) {
+            n[t.value] = o ? e[t.value] / o * 100 : null;
+          }), r({ x: e.x }, n, { total: o });
+        });
+      };
+    t.getData = (0, o.createSelector)([
+      i,
       function(e) {
         return e.config;
       }
     ], function(e, t) {
-      return e && t ? e.map(function(e) {
-          var n = r({}, e), o = 0;
-          return t.columns.y.forEach(function(t) {
-            e[t.value] && (o += e[t.value]);
-          }), t.columns.y.map(function(t) {
-            return n[t.value] = o ? e[t.value] / o * 100 : null, n[t.value];
-          }), n;
-        }) : null;
+      if (!e || !t) return null;
+      var n = t.columns.y.filter(function(e) {
+        return !e.hideData;
+      });
+      return a(e, n);
+    }), t.getTooltipData = (0, o.createSelector)([
+      i,
+      function(e) {
+        return e.config;
+      }
+    ], function(e, t) {
+      if (!e || !t) return null;
+      if (!t.columns.y.filter(function(e) {
+          return !e.hideData;
+        })) return null;
+      var n = t.columns.y.filter(function(e) {
+        return !e.hideLegend;
+      });
+      return a(e, n);
     });
   },
   GHvC: function(e, t, n) {
@@ -87002,10 +87039,12 @@ module.exports = (function(e) {
                       key: e.value,
                       isAnimationActive: !!(0, b.default)(n.animation) ||
                         n.animation,
-                      dot: t && { strokeWidth: 0, fill: r, radius: .5 },
+                      dot: t &&
+                        !e.hideData &&
+                        { strokeWidth: 0, fill: r, radius: .5 },
                       dataKey: e.value,
-                      stroke: r,
-                      strokeWidth: 2,
+                      stroke: e.hideData ? 'transparent' : r,
+                      strokeWidth: e.hideData ? 0 : 2,
                       type: k
                     });
                   }),
@@ -95884,11 +95923,11 @@ module.exports = (function(e) {
               r &&
                 r.payload &&
                 r.payload.length > 0 &&
-                this.sortByValue(r.payload, n).map(function(t) {
+                this.sortByValue(r.payload).map(function(t) {
                   var r, o, l, u = !!t.dataKey, c = t.dataKey || t.name;
                   return t.payload &&
                     'total' !== t.dataKey &&
-                    (u ? n.tooltip[c].label : n.tooltip[c])
+                    (u ? n.tooltip[c] && n.tooltip[c].label : n.tooltip[c])
                     ? a.default.createElement(
                       'div',
                       { key: '' + c, className: f.default.label },
@@ -100384,7 +100423,7 @@ module.exports = (function(e) {
         return e && t ? e.map(function(e) {
             var n = null;
             return t.columns.y.forEach(function(t) {
-              e[t.value] && (n || (n = 0), n += e[t.value]);
+              e[t.value] && !t.hideData && (n || (n = 0), n += e[t.value]);
             }), r({}, e, { total: n });
           }) : null;
       }),
