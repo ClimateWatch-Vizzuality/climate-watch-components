@@ -116,13 +116,13 @@ class TooltipChart extends PureComponent {
           content &&
             content.payload &&
             content.payload.length > 0 &&
-            this.sortByValue(content.payload, config).map(y => {
+            this.sortByValue(content.payload).map(y => {
               const hasDataKey = !!y.dataKey;
               const labelName = y.dataKey || y.name;
               return y.payload &&
                 y.dataKey !== 'total' &&
                 (hasDataKey
-                  ? config.tooltip[labelName].label
+                  ? config.tooltip[labelName] && config.tooltip[labelName].label
                   : config.tooltip[labelName])
                 ? (
                   <div key={`${labelName}`} className={styles.label}>

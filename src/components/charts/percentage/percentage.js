@@ -15,7 +15,7 @@ import {
 import TooltipChart from 'components/charts/tooltip-chart';
 import { format } from 'd3-format';
 import yAxisLabel from 'components/charts/y-axis-label';
-import { getData } from './percentage-selectors';
+import { getData, getTooltipData } from './percentage-selectors';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 
 class ChartPercentage extends PureComponent {
@@ -44,6 +44,20 @@ class ChartPercentage extends PureComponent {
     }
   };
 
+  addHiddenData = (content, tooltipData) => {
+    const updatedContent = { ...content };
+    if (!tooltipData) return content;
+    return {
+      ...updatedContent,
+      payload: updatedContent.payload.map(c => {
+        const updatedC = { ...c };
+        if (!c.payload) return c;
+        updatedC.payload = tooltipData.find(t => c.payload.x === t.x);
+        return updatedC;
+      })
+    };
+  };
+
   render() {
     const { tooltipVisibility } = this.state;
     const {
@@ -58,6 +72,7 @@ class ChartPercentage extends PureComponent {
     } = this.props;
     const percentageState = { data, config };
     const percentageData = getData(percentageState);
+    const tooltipData = getTooltipData(percentageState);
     const updatedConfig = {
       ...config,
       axes: {
@@ -118,7 +133,7 @@ class ChartPercentage extends PureComponent {
                       }) ||
                       (
                         <TooltipChart
-                          content={content}
+                          content={this.addHiddenData(content, tooltipData)}
                           config={updatedConfig}
                           showTotal
                           getCustomYLabelFormat={getTooltipLabelFormat}
