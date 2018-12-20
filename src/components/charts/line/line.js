@@ -156,10 +156,14 @@ class ChartLine extends PureComponent {
                     isAnimationActive={
                       isUndefined(config.animation) ? true : config.animation
                     }
-                    dot={dots && { strokeWidth: 0, fill: color, radius: 0.5 }}
+                    dot={
+                      dots &&
+                        !column.hideData &&
+                        { strokeWidth: 0, fill: color, radius: 0.5 }
+                    }
                     dataKey={column.value}
-                    stroke={color}
-                    strokeWidth={2}
+                    stroke={column.hideData ? 'transparent' : color}
+                    strokeWidth={column.hideData ? 0 : 2}
                     type={lineType}
                   />
                 );

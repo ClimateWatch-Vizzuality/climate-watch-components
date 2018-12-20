@@ -10,10 +10,10 @@ export const getDataWithTotal = createSelector(
     if (!data || !config) return null;
     return data.map(d => {
       let total = null;
-      config.columns.y.forEach(key => {
-        if (d[key.value]) {
+      config.columns.y.forEach(column => {
+        if (d[column.value] && !column.hideData) {
           if (!total) total = 0;
-          total += d[key.value];
+          total += d[column.value];
         }
       });
       return { ...d, total };
