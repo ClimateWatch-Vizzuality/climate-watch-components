@@ -100,6 +100,24 @@ class ChartStackedArea extends PureComponent {
     }
   };
 
+  addHiddenColumns = content => {
+    const { data, config } = this.props;
+    const hiddenColumns = config.columns.y.filter(c => c.hideData);
+    if (!hiddenColumns || !data || content.payload.length === 0) return content;
+    const updatedContent = { ...content };
+    const extraContent = hiddenColumns.map(c => ({ ...c, name: c.value }));
+    const year = updatedContent.payload[0].payload.x;
+    const payload = updatedContent.payload.concat(extraContent).map(c => {
+      const updatedC = { ...c };
+      if (!c.payload && !hiddenColumns.map(col => col.value).includes(c.name))
+        return c;
+      updatedC.payload = data.find(t => year === t.x);
+      return updatedC;
+    });
+    const d = { ...updatedContent, payload };
+    return d;
+  };
+
   render() {
     const { tooltipVisibility, showLastPoint, activePoint } = this.state;
     const {
@@ -201,7 +219,7 @@ class ChartStackedArea extends PureComponent {
                       React.cloneElement(customTooltip, { content, config }) ||
                       (
                         <TooltipChart
-                          content={content}
+                          content={this.addHiddenColumns(content)}
                           config={config}
                           showTotal
                           getCustomYLabelFormat={getCustomYLabelFormat}
@@ -212,25 +230,26 @@ class ChartStackedArea extends PureComponent {
               )
           }
           {
-            config.columns &&
-              config.columns.y.map(column => (
-                <Area
-                  key={column.value}
-                  dataKey={column.value}
-                  dot={false}
-                  stackId={1}
-                  stroke="transparent"
-                  strokeWidth={0}
-                  isAnimationActive={
-                    isUndefined(config.animation) ? true : config.animation
-                  }
-                  fill={
-                    !column.hideData && config.theme[column.value].fill ||
-                      'transparent'
-                  }
-                  type={stepped ? 'step' : 'linear'}
-                />
-              ))
+            config.columns && config.columns.y
+                .filter(c => !c.hideData)
+                .map(column => (
+                  <Area
+                    key={column.value}
+                    dataKey={column.value}
+                    dot={false}
+                    stackId={1}
+                    stroke="transparent"
+                    strokeWidth={0}
+                    isAnimationActive={
+                      isUndefined(config.animation) ? true : config.animation
+                    }
+                    fill={
+                      !column.hideData && config.theme[column.value].fill ||
+                        'transparent'
+                    }
+                    type={stepped ? 'step' : 'linear'}
+                  />
+                ))
           }
           {
             includeTotalLine &&
