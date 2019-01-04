@@ -5262,48 +5262,55 @@ module.exports = (function(e) {
   '4o4n': function(e, t, n) {
     'use strict';
     Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = (function() {
-      function e(e, t) {
-        for (var n = 0; n < t.length; n++) {
-          var r = t[n];
-          r.enumerable = r.enumerable || !1, r.configurable = !0, 'value' in
-            r &&
-            (r.writable = !0), Object.defineProperty(e, r.key, r);
+    var r = Object.assign || function(e) {
+        for (var t = 1; t < arguments.length; t++) {
+          var n = arguments[t];
+          for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
         }
-      }
-      return function(t, n, r) {
-        return n && e(t.prototype, n), r && e(t, r), t;
-      };
-    })(),
-      o = n('cDcd'),
-      i = C(o),
-      a = C(n('rf6O')),
-      l = C(n('sEfC')),
-      u = n('+n12'),
-      s = C(n('TP7S')),
-      c = C(n('OFL0')),
-      f = n('8R4q'),
-      d = C(n('FehL')),
-      p = C(n('vVLp')),
-      h = C(n('pIUp')),
-      y = C(n('r5xj')),
-      v = C(n('GlS/')),
-      m = C(n('ukY8')),
-      g = C(n('nyGZ')),
-      b = C(n('NbxL')),
-      w = C(n('SCd1')),
-      _ = C(n('lAjj')),
-      x = C(n('JVao')),
-      O = C(n('qCFj')),
-      S = C(n('kjI7')),
-      E = C(n('Xh48')),
-      T = C(n('h3pi')),
-      k = n('s7al'),
-      M = n('CJaM');
-    function C(e) {
+        return e;
+      },
+      o = (function() {
+        function e(e, t) {
+          for (var n = 0; n < t.length; n++) {
+            var r = t[n];
+            r.enumerable = r.enumerable || !1, r.configurable = !0, 'value' in
+              r &&
+              (r.writable = !0), Object.defineProperty(e, r.key, r);
+          }
+        }
+        return function(t, n, r) {
+          return n && e(t.prototype, n), r && e(t, r), t;
+        };
+      })(),
+      i = n('cDcd'),
+      a = P(i),
+      l = P(n('rf6O')),
+      u = P(n('sEfC')),
+      s = n('+n12'),
+      c = P(n('TP7S')),
+      f = P(n('OFL0')),
+      d = n('8R4q'),
+      p = P(n('FehL')),
+      h = P(n('vVLp')),
+      y = P(n('pIUp')),
+      v = P(n('r5xj')),
+      m = P(n('GlS/')),
+      g = P(n('ukY8')),
+      b = P(n('nyGZ')),
+      w = P(n('NbxL')),
+      _ = P(n('SCd1')),
+      x = P(n('lAjj')),
+      O = P(n('JVao')),
+      S = P(n('qCFj')),
+      E = P(n('kjI7')),
+      T = P(n('Xh48')),
+      k = P(n('h3pi')),
+      M = n('s7al'),
+      C = n('CJaM');
+    function P(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var P = (function(e) {
+    var A = (function(e) {
       function t() {
         !(function(e, t) {
           if (!(e instanceof t))
@@ -5318,7 +5325,7 @@ module.exports = (function(e) {
         })(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this));
         return e.setLastPoint = function(t) {
           e.setState({ showLastPoint: t });
-        }, e.debouncedMouseMove = (0, l.default)(
+        }, e.debouncedMouseMove = (0, u.default)(
           function(t) {
             e.props.onMouseMove(t);
           },
@@ -5333,6 +5340,27 @@ module.exports = (function(e) {
             });
           var i = t && t.activeLabel;
           i && e.debouncedMouseMove(i);
+        }, e.addHiddenColumns = function(t) {
+          var n = e.props,
+            o = n.data,
+            i = n.config.columns.y.filter(function(e) {
+              return e.hideData;
+            });
+          if (!i || !o || 0 === t.payload.length) return t;
+          var a = r({}, t),
+            l = i.map(function(e) {
+              return r({}, e, { name: e.value });
+            }),
+            u = a.payload[0].payload.x,
+            s = a.payload.concat(l).map(function(e) {
+              var t = r({}, e);
+              return e.payload || i.map(function(e) {
+                  return e.value;
+                }).includes(e.name) ? (t.payload = o.find(function(e) {
+                  return u === e.x;
+                }), t) : e;
+            });
+          return r({}, a, { payload: s });
         }, e.state = {
           activePoint: null,
           showLastPoint: !0
@@ -5355,7 +5383,7 @@ module.exports = (function(e) {
           (Object.setPrototypeOf
             ? Object.setPrototypeOf(e, t)
             : e.__proto__ = t);
-      })(t, o.PureComponent), r(t, [
+      })(t, i.PureComponent), o(t, [
         {
           key: 'handleProjectedDataHover',
           value: function(e) {
@@ -5370,37 +5398,37 @@ module.exports = (function(e) {
               n = t.tooltipVisibility,
               r = t.showLastPoint,
               o = t.activePoint,
-              a = this.props,
-              l = a.data,
-              C = a.config,
-              P = a.height,
-              A = a.projectedData,
-              j = a.includeTotalLine,
-              N = a.stepped,
-              R = a.customXAxisTick,
-              I = a.customYAxisTick,
-              L = a.customTooltip,
-              D = a.getCustomYLabelFormat,
-              z = a.showUnit,
-              B = { projectedData: A, data: l, config: C },
-              U = (0, k.getDataWithTotal)(B),
-              W = (0, k.getDomain)(B),
-              F = (0, u.getMaxValue)((0, k.getDataWithTotal)(B)),
-              q = (0, k.getDataMaxMin)(B);
+              i = this.props,
+              l = i.data,
+              u = i.config,
+              P = i.height,
+              A = i.projectedData,
+              j = i.includeTotalLine,
+              N = i.stepped,
+              R = i.customXAxisTick,
+              I = i.customYAxisTick,
+              L = i.customTooltip,
+              D = i.getCustomYLabelFormat,
+              z = i.showUnit,
+              B = { projectedData: A, data: l, config: u },
+              U = (0, M.getDataWithTotal)(B),
+              W = (0, M.getDomain)(B),
+              F = (0, s.getMaxValue)((0, M.getDataWithTotal)(B)),
+              q = (0, M.getDataMaxMin)(B);
             if (!U.length) return null;
-            var H = { x: C.columns.x, y: C.columns.y.concat({ value: 'y' }) },
-              G = (0, u.getCustomTicks)(H, U.concat(A), 5),
-              V = (0, c.default)(C, 'axes.yLeft.suffix')
-                ? C.axes.yLeft.suffix
+            var H = { x: u.columns.x, y: u.columns.y.concat({ value: 'y' }) },
+              G = (0, s.getCustomTicks)(H, U.concat(A), 5),
+              V = (0, f.default)(u, 'axes.yLeft.suffix')
+                ? u.axes.yLeft.suffix
                 : null,
-              Y = z && (0, c.default)(C, 'axes.yLeft.unit')
-                ? C.axes.yLeft.unit
+              Y = z && (0, f.default)(u, 'axes.yLeft.unit')
+                ? u.axes.yLeft.unit
                 : null;
-            return i.default.createElement(
-              d.default,
+            return a.default.createElement(
+              p.default,
               { height: P },
-              i.default.createElement(
-                x.default,
+              a.default.createElement(
+                O.default,
                 {
                   data: U,
                   margin: { top: 45, right: 20, left: -10, bottom: 0 },
@@ -5413,21 +5441,21 @@ module.exports = (function(e) {
                   },
                   stackOffset: 'sign'
                 },
-                i.default.createElement(b.default, {
+                a.default.createElement(w.default, {
                   domain: W.x,
                   type: 'number',
                   dataKey: 'x',
                   padding: { left: 30, right: 40 },
                   tick: R ||
-                    i.default.createElement(M.CustomXAxisTick, {
+                    a.default.createElement(C.CustomXAxisTick, {
                       customstrokeWidth: '0'
                     }),
                   tickSize: 8,
                   allowDecimals: !1,
                   tickCount: A ? U.length + A.length : U.length
                 }),
-                i.default.createElement(
-                  g.default,
+                a.default.createElement(
+                  b.default,
                   {
                     type: 'number',
                     domain: W.y,
@@ -5436,56 +5464,60 @@ module.exports = (function(e) {
                     padding: { top: 0, bottom: 0 },
                     tickLine: !1,
                     tick: I ||
-                      i.default.createElement(M.CustomYAxisTick, {
+                      a.default.createElement(C.CustomYAxisTick, {
                         customstrokeWidth: '0',
                         suffix: V,
                         getCustomYLabelFormat: D
                       }),
                     ticks: G.ticks
                   },
-                  (0, S.default)(Y)
+                  (0, E.default)(Y)
                 ),
-                i.default.createElement(m.default, { vertical: !1 }),
+                a.default.createElement(g.default, { vertical: !1 }),
                 G.min < 0 &&
-                  i.default.createElement(h.default, {
+                  a.default.createElement(y.default, {
                     y: 0,
                     strokeWidth: '2',
                     stroke: '#666',
                     fill: ''
                   }),
-                n && i.default.createElement(v.default, {
+                n && a.default.createElement(m.default, {
                     viewBox: { x: 0, y: 0, width: 100, height: 100 },
                     isAnimationActive: !1,
                     cursor: { stroke: '#113750', strokeWidth: 2 },
-                    content: function(e) {
+                    content: function(t) {
                       return L &&
-                        i.default.cloneElement(L, { content: e, config: C }) ||
-                        i.default.createElement(O.default, {
-                          content: e,
-                          config: C,
+                        a.default.cloneElement(L, { content: t, config: u }) ||
+                        a.default.createElement(S.default, {
+                          content: e.addHiddenColumns(t),
+                          config: u,
                           showTotal: !0,
                           getCustomYLabelFormat: D
                         });
                     },
                     filterNull: !1
                   }),
-                C.columns && C.columns.y.map(function(e) {
-                    return i.default.createElement(_.default, {
-                      key: e.value,
-                      dataKey: e.value,
-                      dot: !1,
-                      stackId: 1,
-                      stroke: 'transparent',
-                      strokeWidth: 0,
-                      isAnimationActive: !!(0, s.default)(C.animation) ||
-                        C.animation,
-                      fill: !e.hideData && C.theme[e.value].fill ||
-                        'transparent',
-                      type: N ? 'step' : 'linear'
-                    });
-                  }),
+                u.columns && u.columns.y
+                    .filter(function(e) {
+                      return !e.hideData;
+                    })
+                    .map(function(e) {
+                      return a.default.createElement(x.default, {
+                        key: e.value,
+                        dataKey: e.value,
+                        dot: !1,
+                        stackId: 1,
+                        stroke: 'transparent',
+                        strokeWidth: 0,
+                        isAnimationActive: !!(0, c.default)(u.animation) ||
+                          u.animation,
+                        fill: !e.hideData && u.theme[e.value].fill ||
+                          'transparent',
+                        type: N ? 'step' : 'linear'
+                      });
+                    }),
                 j &&
-                  i.default.createElement(w.default, {
+                  a.default.createElement(_.default, {
                     key: 'total',
                     dataKey: 'total',
                     dot: !1,
@@ -5494,9 +5526,9 @@ module.exports = (function(e) {
                     type: N ? 'step' : 'linear'
                   }),
                 r && (function(e) {
-                    var t = (0, u.isMicrosoftBrowser)();
-                    return i.default.createElement(
-                      y.default,
+                    var t = (0, s.isMicrosoftBrowser)();
+                    return a.default.createElement(
+                      v.default,
                       {
                         x: e.x,
                         y: e.y,
@@ -5505,7 +5537,7 @@ module.exports = (function(e) {
                         strokeWidth: 2,
                         r: 6
                       },
-                      i.default.createElement(p.default, {
+                      a.default.createElement(h.default, {
                         value: e.x,
                         position: 'top',
                         fill: '#8f8fa1',
@@ -5515,8 +5547,8 @@ module.exports = (function(e) {
                         strokeWidth: t ? 0 : 8,
                         style: { paintOrder: 'stroke' }
                       }),
-                      i.default.createElement(p.default, {
-                        value: (0, f.format)('.3s')(e.y) + 't',
+                      a.default.createElement(h.default, {
+                        value: (0, d.format)('.3s')(e.y) + 't',
                         position: 'top',
                         fill: '#113750',
                         fontSize: '18px',
@@ -5528,15 +5560,15 @@ module.exports = (function(e) {
                   })(F),
                 A &&
                   A.length &&
-                  (0, E.default)({ x: F.x, labels: C.dividerLine }),
+                  (0, T.default)({ x: F.x, labels: u.dividerLine }),
                 A &&
                   A.length &&
-                  (0, T.default)({
+                  (0, k.default)({
                     data: A,
                     dataMaxMin: q,
                     activePoint: o,
                     handleProjectedDataHover: this.handleProjectedDataHover,
-                    config: C
+                    config: u
                   })
               )
             );
@@ -5544,20 +5576,20 @@ module.exports = (function(e) {
         }
       ]), t;
     })();
-    P.propTypes = {
-      config: a.default.object.isRequired,
-      projectedData: a.default.array,
-      data: a.default.array,
-      height: a.default.oneOfType([ a.default.number, a.default.string ]),
-      onMouseMove: a.default.func,
-      includeTotalLine: a.default.bool,
-      stepped: a.default.bool,
-      customYAxisTick: a.default.node,
-      customXAxisTick: a.default.node,
-      customTooltip: a.default.node,
-      getCustomYLabelFormat: a.default.func,
-      showUnit: a.default.bool
-    }, P.defaultProps = {
+    A.propTypes = {
+      config: l.default.object.isRequired,
+      projectedData: l.default.array,
+      data: l.default.array,
+      height: l.default.oneOfType([ l.default.number, l.default.string ]),
+      onMouseMove: l.default.func,
+      includeTotalLine: l.default.bool,
+      stepped: l.default.bool,
+      customYAxisTick: l.default.node,
+      customXAxisTick: l.default.node,
+      customTooltip: l.default.node,
+      getCustomYLabelFormat: l.default.func,
+      showUnit: l.default.bool
+    }, A.defaultProps = {
       height: 500,
       data: [],
       projectedData: [],
@@ -5570,7 +5602,7 @@ module.exports = (function(e) {
       customTooltip: null,
       getCustomYLabelFormat: null,
       showUnit: !1
-    }, t.default = P;
+    }, t.default = A;
   },
   '4qC0': function(e, t, n) {
     var r = n('NykK'), o = n('Z0cm'), i = n('ExA7'), a = '[object String]';
