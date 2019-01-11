@@ -192,3 +192,29 @@ const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
   />
 </React.Fragment>
 ```
+
+Example with bar chart with multiple bars
+```js
+const data = require('../bar-chart/data-for-multiple-bars.js');
+const format = require('d3-format').format;
+initialState = {
+  ...data,
+  type: 'bar',
+  loading: false
+};
+const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
+<React.Fragment>
+  <Chart
+    type={state.type}
+    config={state.config}
+    data={state.data}
+    domain={state.domain}
+    height={500}
+    loading={state.loading}
+    getCustomYLabelFormat={getCustomYLabelFormat}
+    barSize={40}
+    showUnit
+  />
+</React.Fragment>
+```
+
