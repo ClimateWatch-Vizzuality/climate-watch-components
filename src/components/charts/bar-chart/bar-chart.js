@@ -46,7 +46,8 @@ class SimpleBarChart extends PureComponent {
       customYAxisTick,
       customTooltip,
       getCustomYLabelFormat,
-      barSize
+      barSize,
+      barGap
     } = this.props;
 
     const yUnit = showUnit && has(config, 'axes.yLeft.unit')
@@ -74,6 +75,7 @@ class SimpleBarChart extends PureComponent {
       <div>
         <ResponsiveContainer height={height} margin={margin}>
           <BarChart
+            barGap={barGap}
             data={data}
             margin={LineChartMargin}
             height={height}
@@ -158,7 +160,9 @@ SimpleBarChart.propTypes = {
   customYAxisTick: PropTypes.node,
   customTooltip: PropTypes.node,
   getCustomYLabelFormat: PropTypes.func,
-  barSize: PropTypes.number
+  barSize: PropTypes.number,
+  /** Bar gap between bars if there are multiple bars per one x value */
+  barGap: PropTypes.number
 };
 
 SimpleBarChart.defaultProps = {
@@ -175,7 +179,8 @@ SimpleBarChart.defaultProps = {
   customYAxisTick: null,
   customTooltip: null,
   getCustomYLabelFormat: null,
-  barSize: undefined
+  barSize: undefined,
+  barGap: undefined
 };
 
 export default SimpleBarChart;

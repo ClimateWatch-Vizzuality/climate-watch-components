@@ -171,7 +171,9 @@ Chart.propTypes = {
   /** Function transforming y axis value */
   getCustomYLabelFormat: PropTypes.func,
   /** Specific for bar chart - single bar size */
-  barSize: PropTypes.number
+  barSize: PropTypes.number,
+  /** Specific for bar chart - gap between bars in case there are multiple bars per one x value */
+  barGap: PropTypes.number
 };
 
 Chart.defaultProps = {
@@ -194,7 +196,8 @@ Chart.defaultProps = {
   customYAxisTick: null,
   customTooltip: null,
   getCustomYLabelFormat: null,
-  barSize: undefined
+  barSize: undefined,
+  barGap: undefined
 };
 
 export default Chart;
