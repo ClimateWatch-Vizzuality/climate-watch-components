@@ -62,7 +62,7 @@ class BarTooltipChart extends PureComponent {
                         <span
                           className={styles.unit}
                           /* eslint-disable-line*/
-                          dangerouslySetInnerHTML={{ __html: yUnit }}
+                          dangerouslySetInnerHTML={{ __html: config.tooltip[y.dataKey].label }}
                         />
                       )}
                       <span>
