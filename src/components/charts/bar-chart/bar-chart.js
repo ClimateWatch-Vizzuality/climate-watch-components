@@ -67,9 +67,7 @@ class SimpleBarChart extends PureComponent {
       : undefined;
 
     const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
-    const dataKeys = config.columns.y
-      .map(o => o.value)
-      .filter(col => col !== 'x');
+    const dataKeys = config.columns.y.map(o => o.value);
 
     return (
       <div>
