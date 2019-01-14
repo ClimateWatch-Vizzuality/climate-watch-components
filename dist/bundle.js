@@ -31035,20 +31035,21 @@ module.exports = (function(e) {
               S = e.customTooltip,
               E = e.getCustomYLabelFormat,
               T = e.barSize,
-              k = h && (0, g.default)(t, 'axes.yLeft.unit')
+              k = e.barGap,
+              M = h && (0, g.default)(t, 'axes.yLeft.unit')
                 ? t.axes.yLeft.unit
                 : null,
-              M = h && (0, g.default)(t, 'axes.xBottom.unit')
+              C = h && (0, g.default)(t, 'axes.xBottom.unit')
                 ? t.axes.xBottom.unit
                 : null,
-              C = (0, g.default)(t, 'axes.xBottom.label')
+              P = (0, g.default)(t, 'axes.xBottom.label')
                 ? t.axes.xBottom.label
                 : void 0,
-              P = (0, g.default)(t, 'axes.yLeft.label')
+              A = (0, g.default)(t, 'axes.yLeft.label')
                 ? t.axes.yLeft.label
                 : void 0,
-              A = Object.keys(t.columns).filter(function(e) {
-                return 'x' !== e;
+              j = t.columns.y.map(function(e) {
+                return e.value;
               });
             return i.default.createElement(
               'div',
@@ -31059,6 +31060,7 @@ module.exports = (function(e) {
                 i.default.createElement(
                   u.default,
                   {
+                    barGap: k,
                     data: n,
                     margin: { top: 10, right: 0, left: -10, bottom: 0 },
                     height: r,
@@ -31073,12 +31075,12 @@ module.exports = (function(e) {
                     domain: a && a.x || [ 'auto', 'auto' ],
                     interval: 'preserveStartEnd',
                     label: {
-                      value: M,
-                      dx: C && C.dx,
-                      dy: C && C.dy,
+                      value: C,
+                      dx: P && P.dx,
+                      dy: P && P.dy,
                       className: (0, v.default)(
                         m.default.yAxisLabel,
-                        C && C.className
+                        P && P.className
                       ),
                       position: 'insideBottomRight'
                     }
@@ -31097,7 +31099,7 @@ module.exports = (function(e) {
                       domain: a && a.y || [ 'auto', 'auto' ],
                       interval: 'preserveStartEnd'
                     },
-                    (0, y.default)(k, P)
+                    (0, y.default)(M, A)
                   ),
                   i.default.createElement(f.default, { vertical: !1 }),
                   i.default.createElement(c.default, {
@@ -31115,7 +31117,7 @@ module.exports = (function(e) {
                         });
                     }
                   }),
-                  A.map(function(e) {
+                  j.map(function(e) {
                     return i.default.createElement(l.default, {
                       key: e,
                       dataKey: e,
@@ -31143,7 +31145,8 @@ module.exports = (function(e) {
       customYAxisTick: a.default.node,
       customTooltip: a.default.node,
       getCustomYLabelFormat: a.default.func,
-      barSize: a.default.number
+      barSize: a.default.number,
+      barGap: a.default.number
     }, O.defaultProps = {
       height: '100%',
       showUnit: !1,
@@ -31158,7 +31161,8 @@ module.exports = (function(e) {
       customYAxisTick: null,
       customTooltip: null,
       getCustomYLabelFormat: null,
-      barSize: void 0
+      barSize: void 0,
+      barGap: void 0
     }, t.default = O;
   },
   WvGa: function(e, t, n) {
@@ -36364,7 +36368,8 @@ module.exports = (function(e) {
       customYAxisTick: a.default.node,
       customTooltip: a.default.node,
       getCustomYLabelFormat: a.default.func,
-      barSize: a.default.number
+      barSize: a.default.number,
+      barGap: a.default.number
     }, m.defaultProps = {
       dots: !0,
       height: 300,
@@ -36385,7 +36390,8 @@ module.exports = (function(e) {
       customYAxisTick: null,
       customTooltip: null,
       getCustomYLabelFormat: null,
-      barSize: void 0
+      barSize: void 0,
+      barGap: void 0
     }, t.default = m;
   },
   bZ1Q: function(e, t, n) {
@@ -109390,7 +109396,9 @@ module.exports = (function(e) {
                       o &&
                         i.default.createElement('span', {
                           className: u.default.unit,
-                          dangerouslySetInnerHTML: { __html: o }
+                          dangerouslySetInnerHTML: {
+                            __html: n.tooltip[t.dataKey].label
+                          }
                         }),
                       i.default.createElement('span', null, e.renderValue(t))
                     )
