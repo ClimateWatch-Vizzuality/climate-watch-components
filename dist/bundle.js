@@ -20901,7 +20901,7 @@ module.exports = (function(e) {
               textAnchor: 'end',
               stroke: '#b1b1c1',
               strokeWidth: '0.5',
-              fontSize: '13px'
+              fontSize: '11px'
             },
             0 === n && (0 === l.value || l.value < 0 && l.value > -.001)
               ? '0'
