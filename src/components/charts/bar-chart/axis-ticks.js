@@ -37,7 +37,7 @@ export const CustomYAxisTick = (
           textAnchor="end"
           stroke="#b1b1c1"
           strokeWidth="0.5"
-          fontSize="13px"
+          fontSize="11px"
         >
           {
             index === 0 &&
