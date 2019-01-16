@@ -8,29 +8,49 @@ import styles from './card-styles.scss';
  * Represents a card with title and description
  */
 class Card extends PureComponent {
+  renderContent = () => {
+    const { title, subtitle, theme } = this.props;
+
+    return (
+      <div className={cx(styles.contentContainer, theme.contentContainer)}>
+        {
+          title && (
+          <p className={cx(styles.title, theme.title)}>
+            {title}
+          </p>
+            )
+        }
+        {
+          subtitle && (
+          <p className={cx(styles.subtitle, theme.subtitle)}>
+            {subtitle}
+          </p>
+            )
+        }
+      </div>
+    );
+  };
+
+  renderChildren = () => {
+    const { children, theme } = this.props;
+
+    return (
+      <div className={cx(styles.data, theme.data)}>
+        {children}
+      </div>
+    );
+  };
+
   render() {
-    const { title, children, subtitle, theme } = this.props;
+    const { theme, reverse } = this.props;
+
     return (
       <div className={cx(styles.card, theme.card)}>
-        <div className={cx(styles.data, theme.data)}>
-          {children}
-        </div>
-        <div className={cx(styles.contentContainer, theme.contentContainer)}>
-          {
-            title && (
-            <p className={cx(styles.title, theme.title)}>
-              {title}
-            </p>
-              )
-          }
-          {
-            subtitle && (
-            <p className={cx(styles.subtitle, theme.subtitle)}>
-              {subtitle}
-            </p>
-              )
-          }
-        </div>
+        {
+          reverse
+            ? [ this.renderContent(), this.renderChildren() ]
+            : [ this.renderChildren(), this.renderContent() ]
+        }
       </div>
     );
   }
@@ -40,6 +60,7 @@ Card.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   children: PropTypes.node.isRequired,
+  reverse: PropTypes.bool,
   theme: PropTypes.shape({
     card: PropTypes.string,
     title: PropTypes.string,
@@ -49,6 +70,6 @@ Card.propTypes = {
   })
 };
 
-Card.defaultProps = { theme: {}, title: '', subtitle: '' };
+Card.defaultProps = { theme: {}, title: '', subtitle: '', reverse: false };
 
 export default Card;
