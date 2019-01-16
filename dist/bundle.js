@@ -87178,21 +87178,59 @@ module.exports = (function(e) {
     function s(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var c = (function(e) {
+    function c(e, t) {
+      if (!e)
+        throw new ReferenceError(
+          "this hasn't been initialised - super() hasn't been called"
+        );
+      return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
+    }
+    var f = (function(e) {
       function t() {
-        return (function(e, t) {
+        var e, n, r;
+        !(function(e, t) {
           if (!(e instanceof t))
             throw new TypeError('Cannot call a class as a function');
-        })(this, t), (function(e, t) {
-          if (!e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
-        })(
+        })(this, t);
+        for (var o = arguments.length, a = Array(o), s = 0; s < o; s++)
+          a[s] = arguments[s];
+        return n = r = c(
           this,
-          (t.__proto__ || Object.getPrototypeOf(t)).apply(this, arguments)
-        );
+          (e = t.__proto__ || Object.getPrototypeOf(t)).call.apply(
+            e,
+            [ this ].concat(a)
+          )
+        ), r.renderContent = function() {
+          var e = r.props, t = e.title, n = e.subtitle, o = e.theme;
+          return i.default.createElement(
+            'div',
+            {
+              className: (0, l.default)(
+                u.default.contentContainer,
+                o.contentContainer
+              )
+            },
+            t &&
+              i.default.createElement(
+                'p',
+                { className: (0, l.default)(u.default.title, o.title) },
+                t
+              ),
+            n &&
+              i.default.createElement(
+                'p',
+                { className: (0, l.default)(u.default.subtitle, o.subtitle) },
+                n
+              )
+          );
+        }, r.renderChildren = function() {
+          var e = r.props, t = e.children, n = e.theme;
+          return i.default.createElement(
+            'div',
+            { className: (0, l.default)(u.default.data, n.data) },
+            t
+          );
+        }, c(r, n);
       }
       return (function(e, t) {
         if ('function' != typeof t && null !== t)
@@ -87215,51 +87253,23 @@ module.exports = (function(e) {
         {
           key: 'render',
           value: function() {
-            var e = this.props,
-              t = e.title,
-              n = e.children,
-              r = e.subtitle,
-              o = e.theme;
+            var e = this.props, t = e.theme, n = e.reverse;
             return i.default.createElement(
               'div',
-              { className: (0, l.default)(u.default.card, o.card) },
-              i.default.createElement(
-                'div',
-                { className: (0, l.default)(u.default.data, o.data) },
-                n
-              ),
-              i.default.createElement(
-                'div',
-                {
-                  className: (0, l.default)(
-                    u.default.contentContainer,
-                    o.contentContainer
-                  )
-                },
-                t &&
-                  i.default.createElement(
-                    'p',
-                    { className: (0, l.default)(u.default.title, o.title) },
-                    t
-                  ),
-                r &&
-                  i.default.createElement(
-                    'p',
-                    {
-                      className: (0, l.default)(u.default.subtitle, o.subtitle)
-                    },
-                    r
-                  )
-              )
+              { className: (0, l.default)(u.default.card, t.card) },
+              n
+                ? [ this.renderContent(), this.renderChildren() ]
+                : [ this.renderChildren(), this.renderContent() ]
             );
           }
         }
       ]), t;
     })();
-    c.propTypes = {
+    f.propTypes = {
       title: a.default.string,
       subtitle: a.default.string,
       children: a.default.node.isRequired,
+      reverse: a.default.bool,
       theme: a.default.shape({
         card: a.default.string,
         title: a.default.string,
@@ -87267,7 +87277,7 @@ module.exports = (function(e) {
         data: a.default.string,
         contentContainer: a.default.string
       })
-    }, c.defaultProps = { theme: {}, title: '', subtitle: '' }, t.default = c;
+    }, f.defaultProps = { theme: {}, title: '', subtitle: '', reverse: !1 }, t.default = f;
   },
   kbA8: function(e, t) {
     function n(e, t, n) {
