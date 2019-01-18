@@ -17,7 +17,7 @@ import styles from './pie-chart-styles.scss';
 const RADIAN = Math.PI / 180;
 const CustomizedLabel = (
   { cx, cy, midAngle, innerRadius, outerRadius, percent },
-  { labelPositionRatio },
+  { labelPositionRatio, hideLabel },
   theme
 ) =>
   {
@@ -26,18 +26,20 @@ const CustomizedLabel = (
     const x = cx + radius * Math.cos((-midAngle) * RADIAN);
     const y = cy + radius * Math.sin((-midAngle) * RADIAN);
 
-    return (
-      <text
-        x={x}
-        y={y}
-        fill="white"
-        textAnchor={x > cx ? 'start' : 'end'}
-        dominantBaseline="central"
-        className={theme.label}
-      >
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
+    return !hideLabel
+      ? (
+        <text
+          x={x}
+          y={y}
+          fill="white"
+          textAnchor={x > cx ? 'start' : 'end'}
+          dominantBaseline="central"
+          className={theme.label}
+        >
+          {`${(percent * 100).toFixed(0)}%`}
+        </text>
+)
+      : null;
   };
 
 CustomizedLabel.propTypes = {
@@ -78,13 +80,17 @@ class PieChart extends PureComponent {
               labelLine={false}
               isAnimationActive={config.animation || false}
               legendType="circle"
+              innerRadius={config.innerRadius}
+              outerRadius={config.outerRadius}
+              cx={config.cx}
+              cy={config.cy}
             >
               {data.map(d => <Cell key={d.name} fill={getColor(d, config)} />)}
             </Pie>
           </RechartsPieChart>
         </ResponsiveContainer>
         {
-          Object.keys(config.theme) && (
+          !config.hideLegend && Object.keys(config.theme) && (
           <div
             className={classnames(styles.legend, theme.legend)}
             style={{
@@ -123,7 +129,15 @@ PieChart.propTypes = {
     theme: PropTypes.shape({
       // column: PropTypes.object
       fill: PropTypes.string
-    })
+    }),
+    /** Set inner radius of the chart */
+    innerRadius: PropTypes.number,
+    /** Set outer radius of the chart */
+    outerRadius: PropTypes.number,
+    /** hide values on the chart */
+    hideLabel: PropTypes.bool,
+    /** hide legend component */
+    hideLegend: PropTypes.bool
   }),
   data: PropTypes.arrayOf(
     PropTypes.shape({
@@ -154,7 +168,11 @@ PieChart.defaultProps = {
   config: {},
   data: [],
   customTooltip: null,
-  theme: {}
+  theme: {},
+  innerRadius: 0,
+  outerRadius: null,
+  hideLabel: false,
+  hideLegend: false
 };
 
 export default PieChart;
