@@ -242,7 +242,6 @@ const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
     barSize={40}
     barGap={0}
     showUnit
-    stacked
   />
 </React.Fragment>
 ```
