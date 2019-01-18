@@ -140,6 +140,7 @@ Chart.propTypes = {
         suffix: PropTypes.string
       })
     }),
+    /** In barchart add same stackId attribute to each column object that you want to stack */
     columns: PropTypes.objectOf(
       PropTypes.arrayOf(
         PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
