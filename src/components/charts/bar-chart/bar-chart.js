@@ -130,12 +130,13 @@ class SimpleBarChart extends PureComponent {
                     />
                   )}
             />
-            {dataKeys.map(dataKey => (
+            {dataKeys.map((dataKey, i) => (
               <Bar
                 key={dataKey}
                 dataKey={dataKey}
                 barSize={barSize}
                 fill={config.theme[dataKey] && config.theme[dataKey].fill}
+                stackId={config.columns.y[i].stackId}
               />
             ))}
           </BarChart>
@@ -146,6 +147,7 @@ class SimpleBarChart extends PureComponent {
 }
 
 SimpleBarChart.propTypes = {
+  /** Add same stackedId attribute to each column object that you want to stack */
   config: PropTypes.shape({ columns: PropTypes.object }),
   data: PropTypes.array,
   showUnit: PropTypes.bool,

@@ -219,3 +219,30 @@ const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
 </React.Fragment>
 ```
 
+
+Example of stacked bar chart
+```js
+const data = require('../bar-chart/data-for-stacked-bars.js');
+const format = require('d3-format').format;
+initialState = {
+  ...data,
+  type: 'bar',
+  loading: false
+};
+const getCustomYLabelFormat = value => `${format('.2s')(`${value / 10000}`)}`;
+<React.Fragment>
+  <Chart
+    type={state.type}
+    config={state.config}
+    data={state.data}
+    domain={state.domain}
+    height={500}
+    loading={state.loading}
+    getCustomYLabelFormat={getCustomYLabelFormat}
+    barSize={40}
+    barGap={0}
+    showUnit
+  />
+</React.Fragment>
+```
+
