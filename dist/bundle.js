@@ -30574,8 +30574,9 @@ module.exports = (function(e) {
       l = g(n('qCFj')),
       u = g(n('u6S6')),
       s = g(n('K2gz')),
-      c = g(n('sXgQ')),
-      f = g(n('GlS/')),
+      c = g(n('sXgQ'));
+    n('adkz');
+    var f = g(n('GlS/')),
       d = g(n('i9Y8')),
       p = g(n('mGSp')),
       h = g(n('wrKF')),
@@ -30593,21 +30594,25 @@ module.exports = (function(e) {
           l = e.innerRadius,
           u = e.outerRadius,
           s = e.percent,
-          c = l + (u - l) * (t.labelPositionRatio || .6),
-          f = r + c * Math.cos((-a) * b),
-          d = o + c * Math.sin((-a) * b);
-        return i.default.createElement(
-          'text',
-          {
-            x: f,
-            y: d,
-            fill: 'white',
-            textAnchor: f > r ? 'start' : 'end',
-            dominantBaseline: 'central',
-            className: n.label
-          },
-          (100 * s).toFixed(0) + '%'
-        );
+          c = t.labelPositionRatio,
+          f = t.hideLabel,
+          d = l + (u - l) * (c || .6),
+          p = r + d * Math.cos((-a) * b),
+          h = o + d * Math.sin((-a) * b);
+        return f
+          ? null
+          : i.default.createElement(
+            'text',
+            {
+              x: p,
+              y: h,
+              fill: 'white',
+              textAnchor: p > r ? 'start' : 'end',
+              dominantBaseline: 'central',
+              className: n.label
+            },
+            (100 * s).toFixed(0) + '%'
+          );
       };
     w.propTypes = {
       cx: a.default.number.isRequired,
@@ -30693,7 +30698,11 @@ module.exports = (function(e) {
                       },
                       labelLine: !1,
                       isAnimationActive: t.animation || !1,
-                      legendType: 'circle'
+                      legendType: 'circle',
+                      innerRadius: t.innerRadius,
+                      outerRadius: t.outerRadius,
+                      cx: t.cx,
+                      cy: t.cy
                     },
                     n.map(function(e) {
                       return i.default.createElement(d.default, {
@@ -30707,7 +30716,7 @@ module.exports = (function(e) {
                   )
                 )
               ),
-              Object.keys(t.theme) && i.default.createElement(
+              !t.hideLegend && Object.keys(t.theme) && i.default.createElement(
                   'div',
                   {
                     className: (0, s.default)(m.default.legend, g.legend),
@@ -30733,7 +30742,11 @@ module.exports = (function(e) {
         legendPositionRatio: a.default.number,
         labelPositionRatio: a.default.number,
         columns: a.default.object,
-        theme: a.default.shape({ fill: a.default.string })
+        theme: a.default.shape({ fill: a.default.string }),
+        innerRadius: a.default.number,
+        outerRadius: a.default.number,
+        hideLabel: a.default.bool,
+        hideLegend: a.default.bool
       }),
       data: a.default.arrayOf(
         a.default.shape({
@@ -30756,7 +30769,7 @@ module.exports = (function(e) {
         label: a.default.oneOfType([ a.default.shape(), a.default.string ]),
         tag: a.default.oneOfType([ a.default.shape(), a.default.string ])
       })
-    }, _.defaultProps = { width: 600, margin: { top: 0, right: 10, left: 10, bottom: 0 }, config: {}, data: [], customTooltip: null, theme: {} }, t.default = _;
+    }, _.defaultProps = { width: 600, margin: { top: 0, right: 10, left: 10, bottom: 0 }, config: {}, data: [], customTooltip: null, theme: {}, innerRadius: 0, outerRadius: null, hideLabel: !1, hideLegend: !1 }, t.default = _;
   },
   W070: function(e, t, n) {
     var r = n('NsO/'), o = n('tEej'), i = n('D8kY');
@@ -31117,12 +31130,13 @@ module.exports = (function(e) {
                         });
                     }
                   }),
-                  j.map(function(e) {
+                  j.map(function(e, n) {
                     return i.default.createElement(l.default, {
                       key: e,
                       dataKey: e,
                       barSize: T,
-                      fill: t.theme[e] && t.theme[e].fill
+                      fill: t.theme[e] && t.theme[e].fill,
+                      stackId: t.columns.y[n].stackId
                     });
                   })
                 )
@@ -36435,9 +36449,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = _(o),
       a = _(n('rf6O')),
-      l = _(n('OFL0'));
-    n('adkz');
-    var u = _(n('JVao')),
+      l = _(n('OFL0')),
+      u = _(n('JVao')),
       s = _(n('FehL')),
       c = _(n('GlS/')),
       f = _(n('ukY8')),
