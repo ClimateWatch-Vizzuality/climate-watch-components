@@ -80,8 +80,8 @@ class PieChart extends PureComponent {
               labelLine={false}
               isAnimationActive={config.animation || false}
               legendType="circle"
-              innerRadius={config.innerRadius || 0}
-              outerRadius={config.outerRadius || null}
+              innerRadius={config.innerRadius}
+              outerRadius={config.outerRadius}
               cx={config.cx}
               cy={config.cy}
             >
@@ -129,7 +129,15 @@ PieChart.propTypes = {
     theme: PropTypes.shape({
       // column: PropTypes.object
       fill: PropTypes.string
-    })
+    }),
+    /** Set inner radius of the chart */
+    innerRadius: PropTypes.number,
+    /** Set outer radius of the chart */
+    outerRadius: PropTypes.number,
+    /** hide values on the chart */
+    hideLabel: PropTypes.bool,
+    /** hide legend component */
+    hideLegend: PropTypes.bool
   }),
   data: PropTypes.arrayOf(
     PropTypes.shape({
@@ -160,7 +168,11 @@ PieChart.defaultProps = {
   config: {},
   data: [],
   customTooltip: null,
-  theme: {}
+  theme: {},
+  innerRadius: 0,
+  outerRadius: null,
+  hideLabel: false,
+  hideLegend: false
 };
 
 export default PieChart;
