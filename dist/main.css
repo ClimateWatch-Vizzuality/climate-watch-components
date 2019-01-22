@@ -1486,6 +1486,8 @@ input:checked ~ .cw__check-input-styles_label {
 
 .cw__switch-styles_disabled {
   cursor: not-allowed; }
+.cw__sunburst-chart-styles_legend {
+  opacity: 1; }
 .cw__table-styles_tableWrapper {
   position: relative;
   overflow-x: hidden; }
