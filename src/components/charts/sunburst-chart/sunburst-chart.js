@@ -33,7 +33,6 @@ class SunburstChart extends PureComponent {
           data={data}
           colors={colors}
           dataKey="size"
-          ratio={4 / 3}
         >
           <Tooltip
             isAnimationActive={false}
