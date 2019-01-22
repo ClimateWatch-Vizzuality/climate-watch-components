@@ -59,7 +59,6 @@ const getColor = (d, config) => {
 class PieChart extends PureComponent {
   render() {
     const { config, data, width, margin, customTooltip, theme } = this.props;
-
     return (
       <div className={classnames(styles.pieChart, theme.pieChart)}>
         <ResponsiveContainer width={width} aspect={4 / 3} margin={margin}>
@@ -72,21 +71,25 @@ class PieChart extends PureComponent {
                   <TooltipChart content={content} config={config} />}
               filterNull={false}
             />
-            <Pie
-              data={data}
-              dataKey="value"
-              fill={config.theme && config.theme.fill}
-              label={content => CustomizedLabel(content, config, theme)}
-              labelLine={false}
-              isAnimationActive={config.animation || false}
-              legendType="circle"
-              innerRadius={config.innerRadius}
-              outerRadius={config.outerRadius}
-              cx={config.cx}
-              cy={config.cy}
-            >
-              {data.map(d => <Cell key={d.name} fill={getColor(d, config)} />)}
-            </Pie>
+            {Object.keys(data).map(key => (
+              <Pie
+                data={data[key]}
+                dataKey="value"
+                outerRadius={config.radius[key].outerRadius}
+                innerRadius={config.radius[key].innerRadius}
+                fill={config.theme && config.theme.fill}
+                label={content => CustomizedLabel(content, config, theme)}
+                labelLine={false}
+                isAnimationActive={config.animation || false}
+                legendType="circle"
+                cx={config.cx}
+                cy={config.cy}
+              >
+                {data[key].map(d => (
+                  <Cell key={d.name} fill={getColor(d, config)} />
+                ))}
+              </Pie>
+            ))}
           </RechartsPieChart>
         </ResponsiveContainer>
         {

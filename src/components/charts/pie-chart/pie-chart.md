@@ -1,7 +1,7 @@
 ```js
 const width = 400;
 
-const data = [
+const data1 = [
   { name: 'groupA', value: 400 },
   { name: 'groupB', value: 300 },
   { name: 'groupC', value: 300 },
@@ -9,6 +9,14 @@ const data = [
   { name: 'groupE', value: 278 },
   { name: 'groupF', value: 189 }
 ];
+
+const data2 = [
+  { name: 'gA', value: 200 },
+  { name: 'gB', value: 100 },
+  { name: 'gC', value: 150 }
+];
+
+const data = { d1: data1, d2: data2 };
 
 const config = {
   tooltip: {
@@ -18,12 +26,25 @@ const config = {
     groupD: { label: 'Group D' },
     groupE: { label: 'Group E' },
     groupF: { label: 'Group F' },
+    gA: { label: 'A' },
+    gB: { label: 'B' },
+    gC: { label: 'C' }
   },
   animation: false,
   axes: {
     yLeft: {
       unit: 'MtCO2e',
       label: '2010'
+    }
+  },
+  radius: {
+    d1: {
+      outerRadius: 80,
+      innerRadius: 30
+    },
+    d2: {
+      innerRadius: 85,
+      outerRadius: 150
     }
   },
   theme: { // Color of the slices is in the stroke attribute:
@@ -34,6 +55,9 @@ const config = {
     groupD: { label: 'Group D', stroke: 'orange' },
     groupE: { label: 'Group E', stroke: 'maroon' },
     groupF: { label: 'Group F', stroke: 'fuchsia' },
+    gA: { label: 'A', stroke: 'pink' },
+    gB: { label: 'B', stroke: 'green' },
+    gC: { label: 'C', stroke: 'gray' }
   },
 };
 
