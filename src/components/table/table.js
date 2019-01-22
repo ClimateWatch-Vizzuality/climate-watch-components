@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
 import _sortBy from 'lodash/sortBy';
 import reverse from 'lodash/reverse';
 import {
@@ -21,17 +22,15 @@ class Table extends PureComponent {
   constructor(props) {
     super(props);
     const { data, defaultColumns, sortBy } = props;
-    const columns = defaultColumns || Object.keys(data[0]);
+    const allColumns = Object.keys(get(data, '[0]', {}));
+    const columns = defaultColumns.length ? defaultColumns : allColumns;
     this.state = {
       data,
       optionsOpen: false,
-      sortBy: sortBy || Object.keys(data[0])[0],
+      sortBy: sortBy || get(allColumns, '[0]'),
       sortDirection: SortDirection.ASC,
       activeColumns: columns.map(d => ({ label: d, value: d })),
-      columnsOptions: data &&
-        data.length &&
-        Object.keys(data[0]).map(d => ({ label: d, value: d })) ||
-        []
+      columnsOptions: allColumns.map(d => ({ label: d, value: d }))
     };
     this.standardColumnWidth = 180;
     this.minColumnWidth = 80;
