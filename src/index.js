@@ -25,6 +25,7 @@ export { default as Sankey } from './components/charts/sankey';
 export { default as Section } from './components/section';
 export { default as Stories } from './components/stories';
 export { default as Switch } from './components/switch';
+export { default as SunburstChart } from './components/charts/sunburst-chart';
 export { default as Table } from './components/table';
 export { default as Tag } from './components/tag';
 export { default as TooltipChart } from './components/charts/tooltip-chart';
