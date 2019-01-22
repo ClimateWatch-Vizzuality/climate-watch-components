@@ -39,13 +39,14 @@ const config = {
   },
   theme: { // Color of the slices is in the stroke attribute:
     // fill: '#f5b335', // Optional -just if monochrome
-    Dogs: { label: 'Dogs', stroke: '#F2A03D' },
+    Dogs: { label: 'Dogs', stroke: '#F2A03D', children: [ 'Retrievers', 'German Shephards', 'Puddles' ] },
     Cats: { label: 'Cats', stroke: '#ED7439' },
     Turtles: { label: 'Turtles', stroke: '#F7C84A' },
-    Retrievers: { label: 'Retrievers', stroke: '#F5B76D' },
-    'German Shephards': { label: 'German Shephards', stroke: '#EC8810' },
-    Puddles: { label: 'Puddles', stroke: '#F7C385' }
+    Retrievers: { label: 'Retrievers', stroke: '#F5B76D', nestedLegend: true },
+    'German Shephards': { label: 'German Shephards', stroke: '#EC8810', nestedLegend: true },
+    Puddles: { label: 'Puddles', stroke: '#F7C385', nestedLegend: true }
   },
+  legendPositionRatio: 80
 };
 
 <SunburstChart
