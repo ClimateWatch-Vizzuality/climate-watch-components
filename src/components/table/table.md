@@ -3,12 +3,14 @@ const data = require('./data.json');
 
 const defaultColumns = ["name", "definition", "very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_long_header_label", "unit", "composite_name"];
 const ellipsisColumns = ["composite_name"];
+const firstColumnHeaders = ["composite_name", "name"];
 
 <Table
   data={data}
   hasColumnSelect
   defaultColumns={defaultColumns}
   ellipsisColumns={ellipsisColumns}
+  firstColumnHeaders={firstColumnHeaders}
   emptyValueLabel={'Not specified'}
   horizontalScroll
   parseMarkdown
