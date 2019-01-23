@@ -176,7 +176,13 @@ ChartPercentage.propTypes = {
     // % accepted
     PropTypes.string
   ]),
-  chartMargin: PropTypes.object,
+  /** Margin of the chart */
+  chartMargin: PropTypes.shape({
+    top: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number
+  }),
   onMouseMove: PropTypes.func,
   stepped: PropTypes.bool,
   customYAxisTick: PropTypes.node,

@@ -184,7 +184,13 @@ ChartComposed.propTypes = {
   onMouseMove: PropTypes.func,
   forceFixedFormatDecimals: PropTypes.number,
   margin: PropTypes.object,
-  chartMargin: PropTypes.object,
+  /** Margin of the chart */
+  chartMargin: PropTypes.shape({
+    top: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number
+  }),
   domain: PropTypes.object,
   theme: PropTypes.shape({ legend: PropTypes.string }),
   children: PropTypes.node.isRequired,

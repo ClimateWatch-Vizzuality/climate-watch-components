@@ -298,7 +298,13 @@ ChartStackedArea.propTypes = {
     PropTypes.string
   ]),
   onMouseMove: PropTypes.func,
-  chartMargin: PropTypes.object,
+  /** Margin of the chart */
+  chartMargin: PropTypes.shape({
+    top: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number
+  }),
   includeTotalLine: PropTypes.bool,
   stepped: PropTypes.bool,
   customYAxisTick: PropTypes.node,
