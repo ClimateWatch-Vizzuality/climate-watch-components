@@ -48,6 +48,7 @@ class ChartComposed extends PureComponent {
       dataSelected,
       height,
       margin,
+      chartMargin,
       domain,
       showUnit,
       forceFixedFormatDecimals,
@@ -68,7 +69,6 @@ class ChartComposed extends PureComponent {
       has(config, 'axes.yLeft.suffix') &&
       config.axes.yLeft.suffix ||
       null;
-    const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
     const hasDataOptions = !loading && dataOptions;
 
     return (
@@ -76,7 +76,7 @@ class ChartComposed extends PureComponent {
         <ResponsiveContainer height={height} margin={margin}>
           <ComposedChart
             data={data}
-            margin={LineChartMargin}
+            margin={chartMargin}
             onMouseMove={this.handleMouseMove}
           >
             {areaAsBackgroundForCartesianGrid}
@@ -184,6 +184,7 @@ ChartComposed.propTypes = {
   onMouseMove: PropTypes.func,
   forceFixedFormatDecimals: PropTypes.number,
   margin: PropTypes.object,
+  chartMargin: PropTypes.object,
   domain: PropTypes.object,
   theme: PropTypes.shape({ legend: PropTypes.string }),
   children: PropTypes.node.isRequired,
@@ -214,6 +215,7 @@ ChartComposed.defaultProps = {
   hideRemoveOptions: false,
   dataSelected: [],
   margin: { top: 0, right: 10, left: 10, bottom: 0 },
+  chartMargin: { top: 10, right: 0, left: -10, bottom: 0 },
   domain: null,
   forceFixedFormatDecimals: null,
   theme: {},

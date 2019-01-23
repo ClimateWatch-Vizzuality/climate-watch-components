@@ -74,7 +74,7 @@ class ChartLine extends PureComponent {
       customTooltip,
       getCustomYLabelFormat,
       projectedData,
-      lineChartMargin
+      chartMargin
     } = this.props;
     const { activePoint, tooltipVisibility } = this.state;
     const unit = showUnit && has(config, 'axes.yLeft.unit')
@@ -92,7 +92,7 @@ class ChartLine extends PureComponent {
       <ResponsiveContainer height={height} margin={margin}>
         <LineChart
           data={data}
-          margin={lineChartMargin}
+          margin={chartMargin}
           onMouseMove={this.handleMouseMove}
         >
           <XAxis
@@ -209,7 +209,7 @@ ChartLine.propTypes = {
   onMouseMove: PropTypes.func,
   forceFixedFormatDecimals: PropTypes.number,
   margin: PropTypes.object,
-  lineChartMargin: PropTypes.object,
+  chartMargin: PropTypes.object,
   domain: PropTypes.object,
   lineType: PropTypes.string,
   customYAxisTick: PropTypes.node,
@@ -226,7 +226,7 @@ ChartLine.defaultProps = {
   onMouseMove: () => {
   },
   margin: { top: 0, right: 10, left: 10, bottom: 0 },
-  lineChartMargin: { top: 45, right: 0, left: -10, bottom: 0 },
+  chartMargin: { top: 45, right: 0, left: -10, bottom: 0 },
   domain: null,
   forceFixedFormatDecimals: null,
   lineType: 'monotone',
