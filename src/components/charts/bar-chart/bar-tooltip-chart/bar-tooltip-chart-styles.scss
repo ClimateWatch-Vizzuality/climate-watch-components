@@ -20,7 +20,7 @@
     color: $theme-color;
   }
 
-  &:last-child {
+  &:not(:first-child) {
     color: #77818c;
   }
 }
