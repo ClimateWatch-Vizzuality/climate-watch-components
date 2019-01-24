@@ -62,8 +62,8 @@ class PieChart extends PureComponent {
     const isMultilevelPieChart = !Array.isArray(data);
     return (
       <div className={classnames(styles.pieChart, theme.pieChart)}>
-        <ResponsiveContainer width={width} aspect={4 / 3} margin={margin}>
-          <RechartsPieChart>
+        <ResponsiveContainer width={width} aspect={4 / 3}>
+          <RechartsPieChart margin={margin}>
             <Tooltip
               isAnimationActive={false}
               content={content =>
