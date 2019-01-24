@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import difference from 'lodash/difference';
+import get from 'lodash/get';
 import _sortBy from 'lodash/sortBy';
 import reverse from 'lodash/reverse';
 import {
@@ -9,7 +11,6 @@ import {
 } from 'react-virtualized/dist/commonjs/Table';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import cx from 'classnames';
-import difference from 'lodash/difference';
 import ReactTooltip from 'react-tooltip';
 import Truncate from 'react-truncate';
 import MultiSelect from '../multiselect';
@@ -21,17 +22,15 @@ class Table extends PureComponent {
   constructor(props) {
     super(props);
     const { data, defaultColumns, sortBy } = props;
-    const columns = defaultColumns || Object.keys(data[0]);
+    const allColumns = Object.keys(get(data, '[0]', {}));
+    const columns = defaultColumns.length ? defaultColumns : allColumns;
     this.state = {
       data,
       optionsOpen: false,
-      sortBy: sortBy || Object.keys(data[0])[0],
+      sortBy: sortBy || get(allColumns, '[0]'),
       sortDirection: SortDirection.ASC,
       activeColumns: columns.map(d => ({ label: d, value: d })),
-      columnsOptions: data &&
-        data.length &&
-        Object.keys(data[0]).map(d => ({ label: d, value: d })) ||
-        []
+      columnsOptions: allColumns.map(d => ({ label: d, value: d }))
     };
     this.standardColumnWidth = 180;
     this.minColumnWidth = 80;
@@ -234,20 +233,26 @@ class Table extends PureComponent {
     const getHeaderLabel = (columnText, columnData) => {
       const { width } = this.columnWidthProps(columnText, columnData);
       const truncateWidth = width - this.arrowWidth;
+      const header = columnLabel(columnText);
       return (
         <Truncate
           data-for="header-label"
-          data-tip={columnLabel(columnText)}
+          data-tip={header}
           data-offset="{'top': 40, 'left': 0}"
           title=""
           lines={2}
           ellipsis={<span>...</span>}
           width={truncateWidth}
         >
-          {columnLabel(columnText)}
+          {header}
         </Truncate>
       );
     };
+    const multiSelectOptions = columnsOptions.map(o => ({
+      ...o,
+      label: columnLabel(o.value)
+    })) ||
+      [];
 
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
@@ -263,7 +268,7 @@ class Table extends PureComponent {
             <MultiSelect
               theme={{ dropdown: styles.columnSelector }}
               values={activeColumns || []}
-              options={columnsOptions || []}
+              options={multiSelectOptions}
               onValueChange={this.handleColumnChange}
               hideResetButton
               open={optionsOpen}
