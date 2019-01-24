@@ -361,7 +361,7 @@
   font-size: 0.8125rem; }
   .cw__bar-tooltip-chart-styles_tooltipHeader:first-child {
     color: #113750; }
-  .cw__bar-tooltip-chart-styles_tooltipHeader:last-child {
+  .cw__bar-tooltip-chart-styles_tooltipHeader:not(:first-child) {
     color: #77818c; }
 
 .cw__bar-tooltip-chart-styles_unit {

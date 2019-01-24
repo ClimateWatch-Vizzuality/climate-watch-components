@@ -4988,19 +4988,20 @@ module.exports = (function(e) {
               S = n.customYAxisTick,
               E = n.customTooltip,
               T = n.showUnit,
-              k = { data: o, config: i },
-              M = (0, x.getData)(k),
-              C = (0, x.getTooltipData)(k),
-              P = r({}, i, {
+              k = n.margin,
+              M = { data: o, config: i },
+              C = (0, x.getData)(M),
+              P = (0, x.getTooltipData)(M),
+              A = r({}, i, {
                 axes: r({}, i.axes, {
                   yLeft: r({}, i.axes.yLeft, { unit: '', suffix: '' })
                 })
               }),
-              A = T && (0, c.default)(i, 'axes.yLeft.unit')
+              j = T && (0, c.default)(i, 'axes.yLeft.unit')
                 ? i.axes.yLeft.unit
                 : null;
-            if (!M.length) return null;
-            var j = function(e) {
+            if (!C.length) return null;
+            var N = function(e) {
               return e ? (0, b.format)('.2r')(e) + '%' : 'n/a';
             };
             return a.default.createElement(
@@ -5009,8 +5010,8 @@ module.exports = (function(e) {
               a.default.createElement(
                 m.default,
                 {
-                  data: M,
-                  margin: { top: 45, right: 20, left: -10, bottom: 0 },
+                  data: C,
+                  margin: k,
                   onMouseMove: this.handleMouseMove,
                   stackOffset: 'sign'
                 },
@@ -5025,7 +5026,7 @@ module.exports = (function(e) {
                     }),
                   tickSize: 8,
                   allowDecimals: !1,
-                  tickCount: M.length
+                  tickCount: C.length
                 }),
                 a.default.createElement(
                   h.default,
@@ -5042,7 +5043,7 @@ module.exports = (function(e) {
                       }),
                     ticks: [ 0, 25, 50, 75, 100 ]
                   },
-                  (0, _.default)(A)
+                  (0, _.default)(j)
                 ),
                 a.default.createElement(p.default, { vertical: !1 }),
                 t && a.default.createElement(d.default, {
@@ -5051,12 +5052,12 @@ module.exports = (function(e) {
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     content: function(t) {
                       return E &&
-                        a.default.cloneElement(E, { content: t, config: P }) ||
+                        a.default.cloneElement(E, { content: t, config: A }) ||
                         a.default.createElement(g.default, {
-                          content: e.addHiddenData(t, C),
-                          config: P,
+                          content: e.addHiddenData(t, P),
+                          config: A,
                           showTotal: !0,
-                          getCustomYLabelFormat: j
+                          getCustomYLabelFormat: N
                         });
                     },
                     filterNull: !1
@@ -5085,6 +5086,12 @@ module.exports = (function(e) {
       config: l.default.object.isRequired,
       data: l.default.array,
       height: l.default.oneOfType([ l.default.number, l.default.string ]),
+      margin: l.default.shape({
+        top: l.default.number,
+        bottom: l.default.number,
+        left: l.default.number,
+        right: l.default.number
+      }),
       onMouseMove: l.default.func,
       stepped: l.default.bool,
       customYAxisTick: l.default.node,
@@ -5096,6 +5103,7 @@ module.exports = (function(e) {
       data: [],
       onMouseMove: function() {
       },
+      margin: { top: 45, right: 20, left: -10, bottom: 0 },
       stepped: !1,
       customYAxisTick: null,
       customXAxisTick: null,
@@ -5410,18 +5418,19 @@ module.exports = (function(e) {
               L = i.customTooltip,
               D = i.getCustomYLabelFormat,
               z = i.showUnit,
-              B = { projectedData: A, data: l, config: u },
-              U = (0, M.getDataWithTotal)(B),
-              W = (0, M.getDomain)(B),
-              F = (0, s.getMaxValue)((0, M.getDataWithTotal)(B)),
-              q = (0, M.getDataMaxMin)(B);
-            if (!U.length) return null;
-            var H = { x: u.columns.x, y: u.columns.y.concat({ value: 'y' }) },
-              G = (0, s.getCustomTicks)(H, U.concat(A), 5),
-              V = (0, f.default)(u, 'axes.yLeft.suffix')
+              B = i.margin,
+              U = { projectedData: A, data: l, config: u },
+              W = (0, M.getDataWithTotal)(U),
+              F = (0, M.getDomain)(U),
+              q = (0, s.getMaxValue)((0, M.getDataWithTotal)(U)),
+              H = (0, M.getDataMaxMin)(U);
+            if (!W.length) return null;
+            var G = { x: u.columns.x, y: u.columns.y.concat({ value: 'y' }) },
+              V = (0, s.getCustomTicks)(G, W.concat(A), 5),
+              Y = (0, f.default)(u, 'axes.yLeft.suffix')
                 ? u.axes.yLeft.suffix
                 : null,
-              Y = z && (0, f.default)(u, 'axes.yLeft.unit')
+              K = z && (0, f.default)(u, 'axes.yLeft.unit')
                 ? u.axes.yLeft.unit
                 : null;
             return a.default.createElement(
@@ -5430,8 +5439,8 @@ module.exports = (function(e) {
               a.default.createElement(
                 O.default,
                 {
-                  data: U,
-                  margin: { top: 45, right: 20, left: -10, bottom: 0 },
+                  data: W,
+                  margin: B,
                   onMouseMove: this.handleMouseMove,
                   onMouseLeave: function() {
                     return e.setLastPoint(!0);
@@ -5442,7 +5451,7 @@ module.exports = (function(e) {
                   stackOffset: 'sign'
                 },
                 a.default.createElement(_.default, {
-                  domain: W.x,
+                  domain: F.x,
                   type: 'number',
                   dataKey: 'x',
                   padding: { left: 30, right: 40 },
@@ -5452,13 +5461,13 @@ module.exports = (function(e) {
                     }),
                   tickSize: 8,
                   allowDecimals: !1,
-                  tickCount: A ? U.length + A.length : U.length
+                  tickCount: A ? W.length + A.length : W.length
                 }),
                 a.default.createElement(
                   b.default,
                   {
                     type: 'number',
-                    domain: W.y,
+                    domain: F.y,
                     interval: 0,
                     axisLine: !1,
                     padding: { top: 0, bottom: 0 },
@@ -5466,15 +5475,15 @@ module.exports = (function(e) {
                     tick: I ||
                       a.default.createElement(C.CustomYAxisTick, {
                         customstrokeWidth: '0',
-                        suffix: V,
+                        suffix: Y,
                         getCustomYLabelFormat: D
                       }),
-                    ticks: G.ticks
+                    ticks: V.ticks
                   },
-                  (0, E.default)(Y)
+                  (0, E.default)(K)
                 ),
                 a.default.createElement(g.default, { vertical: !1 }),
-                G.min < 0 &&
+                V.min < 0 &&
                   a.default.createElement(y.default, {
                     y: 0,
                     strokeWidth: '2',
@@ -5557,15 +5566,15 @@ module.exports = (function(e) {
                         style: { paintOrder: 'stroke' }
                       })
                     );
-                  })(F),
+                  })(q),
                 A &&
                   A.length &&
-                  (0, T.default)({ x: F.x, labels: u.dividerLine }),
+                  (0, T.default)({ x: q.x, labels: u.dividerLine }),
                 A &&
                   A.length &&
                   (0, k.default)({
                     data: A,
-                    dataMaxMin: q,
+                    dataMaxMin: H,
                     activePoint: o,
                     handleProjectedDataHover: this.handleProjectedDataHover,
                     config: u
@@ -5582,6 +5591,12 @@ module.exports = (function(e) {
       data: l.default.array,
       height: l.default.oneOfType([ l.default.number, l.default.string ]),
       onMouseMove: l.default.func,
+      margin: l.default.shape({
+        top: l.default.number,
+        bottom: l.default.number,
+        left: l.default.number,
+        right: l.default.number
+      }),
       includeTotalLine: l.default.bool,
       stepped: l.default.bool,
       customYAxisTick: l.default.node,
@@ -5595,6 +5610,7 @@ module.exports = (function(e) {
       projectedData: [],
       onMouseMove: function() {
       },
+      margin: { top: 45, right: 20, left: -10, bottom: 0 },
       includeTotalLine: !0,
       stepped: !1,
       customYAxisTick: null,
@@ -21390,31 +21406,32 @@ module.exports = (function(e) {
         };
       })(),
       i = n('cDcd'),
-      a = _(i),
-      l = _(n('rf6O')),
-      u = _(n('xweI')),
-      s = _(n('USjQ')),
-      c = n('9bdd'),
-      f = _(n('QWsV')),
-      d = _(n('K2gz')),
-      p = _(n('zqxM')),
-      h = _(n('OnOE')),
-      y = _(n('one6')),
-      v = _(n('6V4F')),
-      m = _(n('/Kx+')),
-      g = _(n('A4w7')),
-      b = _(n('1Aof'));
-    function _(e) {
+      a = x(i),
+      l = x(n('rf6O')),
+      u = x(n('zqxM')),
+      s = x(n('mwIZ')),
+      c = x(n('xweI')),
+      f = x(n('USjQ')),
+      d = n('9bdd'),
+      p = x(n('QWsV')),
+      h = x(n('K2gz')),
+      y = x(n('OnOE')),
+      v = x(n('one6')),
+      m = x(n('6V4F')),
+      g = x(n('/Kx+')),
+      b = x(n('A4w7')),
+      _ = x(n('1Aof'));
+    function x(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function x(e) {
+    function w(e) {
       if (Array.isArray(e)) {
         for (var t = 0, n = Array(e.length); t < e.length; t++) n[t] = e[t];
         return n;
       }
       return Array.from(e);
     }
-    function w(e, t, n) {
+    function O(e, t, n) {
       return t in e
         ? Object.defineProperty(e, t, {
           value: n,
@@ -21424,7 +21441,7 @@ module.exports = (function(e) {
         })
         : e[t] = n, e;
     }
-    var O = (function(e) {
+    var S = (function(e) {
       function t(e) {
         !(function(e, t) {
           if (!(e instanceof t))
@@ -21437,27 +21454,28 @@ module.exports = (function(e) {
             );
           return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
         })(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));
-        S.call(n);
+        E.call(n);
         var r = e.data,
           o = e.defaultColumns,
           i = e.sortBy,
-          l = o || Object.keys(r[0]);
+          l = Object.keys((0, s.default)(r, '[0]', {})),
+          u = o.length ? o : l;
         return n.state = {
           data: r,
           optionsOpen: !1,
-          sortBy: i || Object.keys(r[0])[0],
-          sortDirection: c.SortDirection.ASC,
-          activeColumns: l.map(function(e) {
+          sortBy: i || (0, s.default)(l, '[0]'),
+          sortDirection: d.SortDirection.ASC,
+          activeColumns: u.map(function(e) {
             return { label: e, value: e };
           }),
-          columnsOptions: r && r.length && Object.keys(r[0]).map(function(e) {
-              return { label: e, value: e };
-            }) || []
+          columnsOptions: l.map(function(e) {
+            return { label: e, value: e };
+          })
         }, n.standardColumnWidth = 180, n.minColumnWidth = 80, n.maxColumnWidth = 300, n.lengthWidthRatio = 4, n.columnWidthSamples = 5, n.columnHeightSamples = 10, n.minRowHeight = 80, n.rowHeightWithEllipsis = 150, n.virtualizedTable = a.default.createRef(), n.arrowWidth = parseInt(
-          g.default.sorticonwidth.replace('px', ''),
+          b.default.sorticonwidth.replace('px', ''),
           10
         ), n.rowColumnMargin = parseInt(
-          g.default.rowcolumnmargin.replace('px', ''),
+          b.default.rowcolumnmargin.replace('px', ''),
           10
         ), n;
       }
@@ -21497,16 +21515,16 @@ module.exports = (function(e) {
               l = t.activeColumns,
               u = t.columnsOptions,
               s = t.optionsOpen,
-              p = this.props,
-              _ = p.data,
-              x = p.hasColumnSelect,
-              O = p.tableHeight,
-              S = p.headerHeight,
-              E = p.setRowsHeight,
-              T = p.ellipsisColumns,
-              k = p.horizontalScroll,
-              M = p.dynamicRowsHeight,
-              C = p.hiddenColumnHeaderLabels;
+              c = this.props,
+              f = c.data,
+              x = c.hasColumnSelect,
+              w = c.tableHeight,
+              S = c.headerHeight,
+              E = c.setRowsHeight,
+              T = c.ellipsisColumns,
+              k = c.horizontalScroll,
+              M = c.dynamicRowsHeight,
+              C = c.hiddenColumnHeaderLabels;
             if (!n.length) return null;
             var P = x && u,
               A = function(t) {
@@ -21516,11 +21534,14 @@ module.exports = (function(e) {
               },
               j = function(e, t) {
                 return e[t];
-              };
+              },
+              N = u.map(function(e) {
+                return r({}, e, { label: A(e.value) });
+              }) || [];
             return a.default.createElement(
               'div',
               {
-                className: (0, d.default)(w({}, g.default.hasColumnSelect, x))
+                className: (0, h.default)(O({}, b.default.hasColumnSelect, x))
               },
               P &&
                 a.default.createElement(
@@ -21528,23 +21549,23 @@ module.exports = (function(e) {
                   {
                     role: 'button',
                     tabIndex: 0,
-                    className: g.default.columnSelectorWrapper,
+                    className: b.default.columnSelectorWrapper,
                     onMouseEnter: this.setOptionsOpen,
                     onMouseLeave: this.setOptionsClose
                   },
                   a.default.createElement(
-                    v.default,
+                    m.default,
                     {
-                      theme: { dropdown: g.default.columnSelector },
+                      theme: { dropdown: b.default.columnSelector },
                       values: l || [],
-                      options: u || [],
+                      options: N,
                       onValueChange: this.handleColumnChange,
                       hideResetButton: !0,
                       open: s
                     },
                     a.default.createElement(
                       'span',
-                      { className: g.default.selectorValue },
+                      { className: b.default.selectorValue },
                       '...'
                     )
                   )
@@ -21552,22 +21573,22 @@ module.exports = (function(e) {
               a.default.createElement(
                 'div',
                 {
-                  className: (0, d.default)(
-                    g.default.tableWrapper,
-                    w({}, g.default.horizontalScroll, k)
+                  className: (0, h.default)(
+                    b.default.tableWrapper,
+                    O({}, b.default.horizontalScroll, k)
                   )
                 },
                 a.default.createElement(
-                  f.default,
+                  p.default,
                   { disableHeight: !0 },
                   function(t) {
                     var u = t.width;
                     return a.default.createElement(
-                      c.Table,
+                      d.Table,
                       {
-                        className: g.default.table,
-                        width: e.getFullWidth(_, l, u),
-                        height: O,
+                        className: b.default.table,
+                        width: e.getFullWidth(f, l, u),
+                        height: w,
                         headerHeight: S,
                         rowClassName: e.rowClassName,
                         rowHeight: function(t) {
@@ -21591,7 +21612,7 @@ module.exports = (function(e) {
                         },
                         headerRowRenderer: function(t) {
                           var n = t.columns, o = t.style, i = t.className;
-                          return (0, b.default)(
+                          return (0, _.default)(
                             r({}, e.props, {
                               columns: n,
                               style: o,
@@ -21602,29 +21623,29 @@ module.exports = (function(e) {
                         ref: e.virtualizedTable
                       },
                       e.getColumnData().map(function(t) {
-                        var o, i, l, u;
+                        var o, i, l, u, s;
                         return a.default.createElement(
-                          c.Column,
+                          d.Column,
                           r(
                             {
-                              className: (0, d.default)(
-                                g.default.column,
-                                (o = {}, w(
+                              className: (0, h.default)(
+                                b.default.column,
+                                (o = {}, O(
                                   o,
-                                  g.default.ellipsis,
+                                  b.default.ellipsis,
                                   T && T.indexOf(t) > -1
-                                ), w(o, g.default.allTextVisible, M), o)
+                                ), O(o, b.default.allTextVisible, M), o)
                               ),
                               key: t,
                               label: (i = t, l = n, u = e.columnWidthProps(
                                 i,
                                 l
                               ).width -
-                                e.arrowWidth, a.default.createElement(
-                                y.default,
+                                e.arrowWidth, s = A(i), a.default.createElement(
+                                v.default,
                                 {
                                   'data-for': 'header-label',
-                                  'data-tip': A(i),
+                                  'data-tip': s,
                                   'data-offset': "{'top': 40, 'left': 0}",
                                   title: '',
                                   lines: 2,
@@ -21635,12 +21656,12 @@ module.exports = (function(e) {
                                   ),
                                   width: u
                                 },
-                                A(i)
+                                s
                               )),
                               dataKey: t,
                               flexGrow: 0,
                               cellRenderer: function(t) {
-                                return (0, m.default)({
+                                return (0, g.default)({
                                   props: e.props,
                                   cell: t
                                 });
@@ -21653,7 +21674,7 @@ module.exports = (function(e) {
                     );
                   }
                 ),
-                a.default.createElement(h.default, {
+                a.default.createElement(y.default, {
                   place: 'left',
                   id: 'header-label',
                   className: 'reactTooltipWhite',
@@ -21665,7 +21686,7 @@ module.exports = (function(e) {
         }
       ]), t;
     })(),
-      S = function() {
+      E = function() {
         var e = this;
         this.setOptionsClose = function() {
           e.setState(function(e) {
@@ -21685,8 +21706,8 @@ module.exports = (function(e) {
           );
           return o < r ? r : o;
         }, this.getDataSorted = function(e, t, n) {
-          var r = (0, u.default)(e, t);
-          return n === c.SortDirection.DESC ? (0, s.default)(r) : r;
+          var r = (0, c.default)(e, t);
+          return n === d.SortDirection.DESC ? (0, f.default)(r) : r;
         }, this.handleSortChange = function(t) {
           var n = t.sortBy,
             r = t.sortDirection,
@@ -21703,17 +21724,17 @@ module.exports = (function(e) {
         }, this.rowClassName = function(e) {
           var t = e.index;
           return t < 0
-            ? g.default.headerRow
-            : t % 2 == 0 ? g.default.evenRow : g.default.oddRow;
+            ? b.default.headerRow
+            : t % 2 == 0 ? b.default.evenRow : b.default.oddRow;
         }, this.getMeanLength = function(t, n, r) {
           var o = 0, i = 0;
-          return [].concat(x(Array(t).keys())).forEach(function(e) {
+          return [].concat(w(Array(t).keys())).forEach(function(e) {
             n[e] && n[e][r] && n[e][r].length && (i += n[e][r].length, o += 1);
           }), o < 1 ? e.standardColumnWidth : i / o;
         }, this.getLongestTextColumnName = function() {
           var t = e.props.data, n = [];
           []
-            .concat(x(Array(e.columnHeightSamples).keys()))
+            .concat(w(Array(e.columnHeightSamples).keys()))
             .forEach(function(e) {
               var r = t[e] && Object.keys(t[e]), o = {};
               r && r.forEach(function(n) {
@@ -21726,7 +21747,7 @@ module.exports = (function(e) {
               r[t] || (r[t] = 0), e[t] ? r[t] += e[t] : r[t] += 0;
             });
           });
-          var o = Math.max.apply(Math, x(Object.values(r)));
+          var o = Math.max.apply(Math, w(Object.values(r)));
           return Object.keys(r).find(function(e) {
             return r[e] === o;
           });
@@ -21753,12 +21774,12 @@ module.exports = (function(e) {
             });
           return r.filter(function(e) {
             return n.includes(e);
-          }).concat((0, p.default)(r, n));
+          }).concat((0, u.default)(r, n));
         }, this.capitalizeFirstLetter = function(e) {
           return '' + e.charAt(0).toUpperCase() + e.slice(1);
         };
       };
-    O.propTypes = {
+    S.propTypes = {
       data: l.default.array.isRequired,
       defaultColumns: l.default.array,
       sortBy: l.default.string,
@@ -21783,7 +21804,7 @@ module.exports = (function(e) {
           })
         )
       )
-    }, O.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, parseHtml: !1, parseMarkdown: !1 }, t.default = O;
+    }, S.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, parseHtml: !1, parseMarkdown: !1 }, t.default = S;
   },
   KJAg: function(e, t, n) {
     'use strict';
@@ -32109,9 +32130,8 @@ module.exports = (function(e) {
       l = g(n('qCFj')),
       u = g(n('u6S6')),
       s = g(n('K2gz')),
-      c = g(n('sXgQ'));
-    n('adkz');
-    var f = g(n('GlS/')),
+      c = g(n('sXgQ')),
+      f = g(n('GlS/')),
       d = g(n('i9Y8')),
       p = g(n('mGSp')),
       h = g(n('wrKF')),
@@ -32211,10 +32231,10 @@ module.exports = (function(e) {
                 { className: (0, s.default)(m.default.pieChart, u.pieChart) },
                 i.default.createElement(
                   y.default,
-                  { width: r, aspect: 4 / 3, margin: o },
+                  { width: r, aspect: 4 / 3 },
                   i.default.createElement(
                     h.default,
-                    null,
+                    { margin: o },
                     i.default.createElement(f.default, {
                       isAnimationActive: !1,
                       content: function(e) {
@@ -32636,13 +32656,13 @@ module.exports = (function(e) {
               null,
               i.default.createElement(
                 s.default,
-                { height: r, margin: o },
+                { height: r },
                 i.default.createElement(
                   u.default,
                   {
                     barGap: k,
                     data: n,
-                    margin: { top: 10, right: 0, left: -10, bottom: 0 },
+                    margin: o,
                     height: r,
                     onMouseMove: this.handleMouseMove
                   },
@@ -32720,7 +32740,12 @@ module.exports = (function(e) {
       height: a.default.oneOfType([ a.default.number, a.default.string ]),
       onMouseMove: a.default.func,
       forceFixedFormatDecimals: a.default.number,
-      margin: a.default.object,
+      margin: a.default.shape({
+        top: a.default.number,
+        bottom: a.default.number,
+        left: a.default.number,
+        right: a.default.number
+      }),
       domain: a.default.object,
       customXAxisTick: a.default.node,
       customYAxisTick: a.default.node,
@@ -32733,7 +32758,7 @@ module.exports = (function(e) {
       showUnit: !1,
       onMouseMove: function() {
       },
-      margin: { top: 0, right: 10, left: 10, bottom: 0 },
+      margin: { top: 10, right: 0, left: -10, bottom: 0 },
       domain: null,
       forceFixedFormatDecimals: null,
       config: {},
@@ -38644,8 +38669,9 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = x(o),
       a = x(n('rf6O')),
-      l = x(n('OFL0')),
-      u = x(n('JVao')),
+      l = x(n('OFL0'));
+    n('adkz');
+    var u = x(n('JVao')),
       s = x(n('FehL')),
       c = x(n('GlS/')),
       f = x(n('ukY8')),
@@ -38750,14 +38776,10 @@ module.exports = (function(e) {
               { className: _.default.wrapper },
               i.default.createElement(
                 s.default,
-                { height: O, margin: S },
+                { height: O },
                 i.default.createElement(
                   u.default,
-                  {
-                    data: n,
-                    margin: { top: 10, right: 0, left: -10, bottom: 0 },
-                    onMouseMove: this.handleMouseMove
-                  },
+                  { data: n, margin: S, onMouseMove: this.handleMouseMove },
                   P,
                   i.default.createElement(p.default, {
                     dataKey: 'x',
@@ -38854,7 +38876,12 @@ module.exports = (function(e) {
       height: a.default.oneOfType([ a.default.number, a.default.string ]),
       onMouseMove: a.default.func,
       forceFixedFormatDecimals: a.default.number,
-      margin: a.default.object,
+      margin: a.default.shape({
+        top: a.default.number,
+        bottom: a.default.number,
+        left: a.default.number,
+        right: a.default.number
+      }),
       domain: a.default.object,
       theme: a.default.shape({ legend: a.default.string }),
       children: a.default.node.isRequired,
@@ -38877,7 +38904,7 @@ module.exports = (function(e) {
       model: null,
       hideRemoveOptions: !1,
       dataSelected: [],
-      margin: { top: 0, right: 10, left: 10, bottom: 0 },
+      margin: { top: 10, right: 0, left: -10, bottom: 0 },
       domain: null,
       forceFixedFormatDecimals: null,
       theme: {},
@@ -89215,26 +89242,25 @@ module.exports = (function(e) {
               P = e.customTooltip,
               A = e.getCustomYLabelFormat,
               j = e.projectedData,
-              N = e.lineChartMargin,
-              R = this.state,
-              I = R.activePoint,
-              L = R.tooltipVisibility,
-              D = E && (0, l.default)(n, 'axes.yLeft.unit')
+              N = this.state,
+              R = N.activePoint,
+              I = N.tooltipVisibility,
+              L = E && (0, l.default)(n, 'axes.yLeft.unit')
                 ? n.axes.yLeft.unit
                 : null,
-              z = (0, l.default)(n, 'axes.yLeft.suffix')
+              D = (0, l.default)(n, 'axes.yLeft.suffix')
                 ? n.axes.yLeft.suffix
                 : null,
-              B = { projectedData: j, data: r, config: n },
-              U = (0, S.getDataMaxMin)(B),
-              W = j ? (0, S.getDomain)(B) : g,
-              F = (0, v.getMaxValue)((0, S.getDataWithTotal)(B));
+              z = { projectedData: j, data: r, config: n },
+              B = (0, S.getDataMaxMin)(z),
+              U = j ? (0, S.getDomain)(z) : g,
+              W = (0, v.getMaxValue)((0, S.getDataWithTotal)(z));
             return i.default.createElement(
               s.default,
-              { height: o, margin: a },
+              { height: o },
               i.default.createElement(
                 y.default,
-                { data: r, margin: N, onMouseMove: this.handleMouseMove },
+                { data: r, margin: a, onMouseMove: this.handleMouseMove },
                 i.default.createElement(p.default, {
                   dataKey: 'x',
                   scale: 'time',
@@ -89242,7 +89268,7 @@ module.exports = (function(e) {
                   tick: M || i.default.createElement(O.CustomXAxisTick, null),
                   padding: { left: 15, right: 20 },
                   tickSize: 8,
-                  domain: W && W.x || [ 'auto', 'auto' ],
+                  domain: U && U.x || [ 'auto', 'auto' ],
                   interval: 'preserveStartEnd'
                 }),
                 i.default.createElement(
@@ -89255,16 +89281,16 @@ module.exports = (function(e) {
                     tick: C ||
                       i.default.createElement(O.CustomYAxisTick, {
                         precision: n.precision,
-                        suffix: z,
+                        suffix: D,
                         getCustomYLabelFormat: A
                       }),
-                    domain: W && W.y || [ 'auto', 'auto' ],
+                    domain: U && U.y || [ 'auto', 'auto' ],
                     interval: 'preserveStartEnd'
                   },
-                  (0, _.default)(D)
+                  (0, _.default)(L)
                 ),
                 i.default.createElement(f.default, { vertical: !1 }),
-                L && i.default.createElement(c.default, {
+                I && i.default.createElement(c.default, {
                     isAnimationActive: !1,
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     filterNull: !1,
@@ -89296,7 +89322,7 @@ module.exports = (function(e) {
                   }),
                 j &&
                   j.length &&
-                  (0, x.default)({ x: F.x, labels: n.dividerLine }),
+                  (0, x.default)({ x: W.x, labels: n.dividerLine }),
                 i.default.createElement(u.default, {
                   x1: 150,
                   x2: 180,
@@ -89309,8 +89335,8 @@ module.exports = (function(e) {
                   j.length &&
                   (0, w.default)({
                     data: j,
-                    dataMaxMin: U,
-                    activePoint: I,
+                    dataMaxMin: B,
+                    activePoint: R,
                     handleProjectedDataHover: this.handleProjectedDataHover,
                     config: n
                   })
@@ -89329,8 +89355,12 @@ module.exports = (function(e) {
       height: a.default.oneOfType([ a.default.number, a.default.string ]),
       onMouseMove: a.default.func,
       forceFixedFormatDecimals: a.default.number,
-      margin: a.default.object,
-      lineChartMargin: a.default.object,
+      margin: a.default.shape({
+        top: a.default.number,
+        bottom: a.default.number,
+        left: a.default.number,
+        right: a.default.number
+      }),
       domain: a.default.object,
       lineType: a.default.string,
       customYAxisTick: a.default.node,
@@ -89344,8 +89374,7 @@ module.exports = (function(e) {
       showUnit: !1,
       onMouseMove: function() {
       },
-      margin: { top: 0, right: 10, left: 10, bottom: 0 },
-      lineChartMargin: { top: 45, right: 0, left: -10, bottom: 0 },
+      margin: { top: 45, right: 0, left: -10, bottom: 0 },
       domain: null,
       forceFixedFormatDecimals: null,
       lineType: 'monotone',
