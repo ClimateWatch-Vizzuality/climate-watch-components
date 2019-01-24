@@ -132,7 +132,7 @@ class ChartStackedArea extends PureComponent {
       customTooltip,
       getCustomYLabelFormat,
       showUnit,
-      chartMargin
+      margin
     } = this.props;
 
     const stackedAreaState = { projectedData, data, config };
@@ -162,7 +162,7 @@ class ChartStackedArea extends PureComponent {
       <ResponsiveContainer height={height}>
         <ComposedChart
           data={dataWithTotal}
-          margin={chartMargin}
+          margin={margin}
           onMouseMove={this.handleMouseMove}
           onMouseLeave={() => this.setLastPoint(true)}
           onMouseEnter={() => this.setLastPoint(false)}
@@ -299,7 +299,7 @@ ChartStackedArea.propTypes = {
   ]),
   onMouseMove: PropTypes.func,
   /** Margin of the chart */
-  chartMargin: PropTypes.shape({
+  margin: PropTypes.shape({
     top: PropTypes.number,
     bottom: PropTypes.number,
     left: PropTypes.number,
@@ -320,7 +320,7 @@ ChartStackedArea.defaultProps = {
   projectedData: [],
   onMouseMove: () => {
   },
-  chartMargin: { top: 45, right: 20, left: -10, bottom: 0 },
+  margin: { top: 45, right: 20, left: -10, bottom: 0 },
   includeTotalLine: true,
   stepped: false,
   customYAxisTick: null,

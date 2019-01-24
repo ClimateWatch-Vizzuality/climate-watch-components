@@ -39,7 +39,6 @@ class SimpleBarChart extends PureComponent {
       data,
       height,
       margin,
-      chartMargin,
       domain,
       showUnit,
       forceFixedFormatDecimals,
@@ -71,11 +70,11 @@ class SimpleBarChart extends PureComponent {
 
     return (
       <div>
-        <ResponsiveContainer height={height} margin={margin}>
+        <ResponsiveContainer height={height}>
           <BarChart
             barGap={barGap}
             data={data}
-            margin={chartMargin}
+            margin={margin}
             height={height}
             onMouseMove={this.handleMouseMove}
           >
@@ -154,9 +153,8 @@ SimpleBarChart.propTypes = {
   height: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   onMouseMove: PropTypes.func,
   forceFixedFormatDecimals: PropTypes.number,
-  margin: PropTypes.object,
   /** Margin of the chart */
-  chartMargin: PropTypes.shape({
+  margin: PropTypes.shape({
     top: PropTypes.number,
     bottom: PropTypes.number,
     left: PropTypes.number,
@@ -177,8 +175,7 @@ SimpleBarChart.defaultProps = {
   showUnit: false,
   onMouseMove: () => {
   },
-  margin: { top: 0, right: 10, left: 10, bottom: 0 },
-  chartMargin: { top: 10, right: 0, left: -10, bottom: 0 },
+  margin: { top: 10, right: 0, left: -10, bottom: 0 },
   domain: null,
   forceFixedFormatDecimals: null,
   config: {},

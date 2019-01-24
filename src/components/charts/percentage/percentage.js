@@ -69,7 +69,7 @@ class ChartPercentage extends PureComponent {
       customYAxisTick,
       customTooltip,
       showUnit,
-      chartMargin
+      margin
     } = this.props;
     const percentageState = { data, config };
     const percentageData = getData(percentageState);
@@ -92,7 +92,7 @@ class ChartPercentage extends PureComponent {
       <ResponsiveContainer height={height}>
         <ComposedChart
           data={percentageData}
-          margin={chartMargin}
+          margin={margin}
           onMouseMove={this.handleMouseMove}
           stackOffset="sign"
         >
@@ -177,7 +177,7 @@ ChartPercentage.propTypes = {
     PropTypes.string
   ]),
   /** Margin of the chart */
-  chartMargin: PropTypes.shape({
+  margin: PropTypes.shape({
     top: PropTypes.number,
     bottom: PropTypes.number,
     left: PropTypes.number,
@@ -196,7 +196,7 @@ ChartPercentage.defaultProps = {
   data: [],
   onMouseMove: () => {
   },
-  chartMargin: { top: 45, right: 20, left: -10, bottom: 0 },
+  margin: { top: 45, right: 20, left: -10, bottom: 0 },
   stepped: false,
   customYAxisTick: null,
   customXAxisTick: null,
