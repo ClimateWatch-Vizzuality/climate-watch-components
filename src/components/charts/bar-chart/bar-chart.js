@@ -66,16 +66,15 @@ class SimpleBarChart extends PureComponent {
       ? config.axes.yLeft.label
       : undefined;
 
-    const LineChartMargin = { top: 10, right: 0, left: -10, bottom: 0 };
     const dataKeys = config.columns.y.map(o => o.value);
 
     return (
       <div>
-        <ResponsiveContainer height={height} margin={margin}>
+        <ResponsiveContainer height={height}>
           <BarChart
             barGap={barGap}
             data={data}
-            margin={LineChartMargin}
+            margin={margin}
             height={height}
             onMouseMove={this.handleMouseMove}
           >
@@ -154,7 +153,13 @@ SimpleBarChart.propTypes = {
   height: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   onMouseMove: PropTypes.func,
   forceFixedFormatDecimals: PropTypes.number,
-  margin: PropTypes.object,
+  /** Margin of the chart */
+  margin: PropTypes.shape({
+    top: PropTypes.number,
+    bottom: PropTypes.number,
+    left: PropTypes.number,
+    right: PropTypes.number
+  }),
   domain: PropTypes.object,
   customXAxisTick: PropTypes.node,
   customYAxisTick: PropTypes.node,
@@ -170,7 +175,7 @@ SimpleBarChart.defaultProps = {
   showUnit: false,
   onMouseMove: () => {
   },
-  margin: { top: 0, right: 10, left: 10, bottom: 0 },
+  margin: { top: 10, right: 0, left: -10, bottom: 0 },
   domain: null,
   forceFixedFormatDecimals: null,
   config: {},
