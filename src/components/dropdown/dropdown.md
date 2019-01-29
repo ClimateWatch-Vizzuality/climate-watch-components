@@ -3,7 +3,9 @@
 const data = [
   { label: 'Apple', value: 'Apple' },
   { label: 'Mango', value: 'Mango' },
-  { label: 'Banana', value: 'Banana '}
+  { label: 'Banana', value: 'Banana'},
+  { label: 'ReallyLongFruitNameWhichIDontRememberRighNow', value: 'Temporarily Unknown fruit'},
+  { label: 'Vaccinium ovatum Evergreen Huckleberry', value: 'Evergreen Huckleberry'}
 ]
 initialState = {
   selected: data[0],
@@ -12,14 +14,16 @@ initialState = {
 const onValueChange = (selected) => {
   setState({ selected })
 }
-<Dropdown
-  value={state.selected}
-  options={state.data}
-  onValueChange={onValueChange}
-/>
+<div style={{ width: '200px' }}>
+  <Dropdown
+    value={state.selected}
+    options={state.data}
+    onValueChange={onValueChange}
+  />
+</div>
 ```
 
-Themed white version
+Themed version
 ```js
 const data = [
   { label: 'Apple', value: 'Apple' },
