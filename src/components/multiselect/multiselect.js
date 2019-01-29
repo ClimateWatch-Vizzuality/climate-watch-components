@@ -11,6 +11,7 @@ import cx from 'classnames';
 import remove from 'lodash/remove';
 import deburr from 'lodash/deburr';
 import toUpper from 'lodash/toUpper';
+import Truncate from 'react-truncate';
 
 import dropdownArrow from './assets/dropdown-arrow.svg';
 import infoIcon from './assets/info.svg';
@@ -33,26 +34,26 @@ class Multiselect extends Component {
   }
 
   getSelectorValue() {
-    const { values, options, selectedLabel, children } = this.props;
+    const { values, options, children } = this.props;
     if (children) {
       return children;
     }
     const { search } = this.state;
     const hasValues = values && values.length;
-    if (selectedLabel && !search) {
-      return (
-        <span>
-          {selectedLabel}
-        </span>
-      );
-    }
     if (hasValues && !search) {
-      if (values.length === options && options.length)
-        return <span> All selected </span>;
-      return values.length === 1 ? values[0].label : (
+      if (values.length === options && options.length) return (
         <span>
-          {`${values.length} selected`}
+            All selected
         </span>
+        );
+      return values.length === 1 ? (
+        <Truncate lines={1}>
+          {values[0].label}
+        </Truncate>
+) : (
+  <span>
+    {`${values.length} selected`}
+  </span>
 );
     }
     return null;
@@ -205,7 +206,6 @@ Multiselect.propTypes = {
   info: PropTypes.bool,
   infoText: PropTypes.string,
   label: PropTypes.string,
-  selectedLabel: PropTypes.string,
   children: PropTypes.node,
   loading: PropTypes.bool,
   mirrorX: PropTypes.bool,
@@ -220,7 +220,6 @@ Multiselect.defaultProps = {
   info: false,
   icon: null,
   infoText: '',
-  selectedLabel: '',
   children: null,
   label: '',
   mirrorX: false,
