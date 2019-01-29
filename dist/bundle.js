@@ -7016,23 +7016,24 @@ module.exports = (function(e) {
         };
       })(),
       i = n('cDcd'),
-      a = b(i),
-      l = b(n('rf6O')),
+      a = _(i),
+      l = _(n('rf6O')),
       u = n('Q6Jk'),
-      s = (n('1w3K'), b(n('K2gz'))),
-      c = b(n('wEy/')),
-      f = b(n('TKrE')),
-      d = b(n('moYt')),
-      p = b(n('6u1v')),
-      h = b(n('ZvNE')),
-      y = b(n('QRQV')),
-      v = b(n('XGPw')),
-      m = b(n('OaxJ')),
-      g = b(n('27mk'));
-    function b(e) {
+      s = (n('1w3K'), _(n('K2gz'))),
+      c = _(n('wEy/')),
+      f = _(n('TKrE')),
+      d = _(n('moYt')),
+      p = _(n('one6')),
+      h = _(n('6u1v')),
+      y = _(n('ZvNE')),
+      v = _(n('QRQV')),
+      m = _(n('XGPw')),
+      g = _(n('OaxJ')),
+      b = _(n('27mk'));
+    function _(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function _(e, t, n) {
+    function x(e, t, n) {
       return t in e
         ? Object.defineProperty(e, t, {
           value: n,
@@ -7042,7 +7043,7 @@ module.exports = (function(e) {
         })
         : e[t] = n, e;
     }
-    var x = (function(e) {
+    var w = (function(e) {
       function t() {
         !(function(e, t) {
           if (!(e instanceof t))
@@ -7120,23 +7121,21 @@ module.exports = (function(e) {
             var e = this.props,
               t = e.values,
               n = e.options,
-              r = e.selectedLabel,
-              o = e.children;
-            if (o) return o;
-            var i = this.state.search, l = t && t.length;
-            return r && !i
-              ? a.default.createElement('span', null, r)
-              : l && !i
-                ? t.length === n && n.length
-                  ? a.default.createElement('span', null, ' All selected ')
-                  : 1 === t.length
-                    ? t[0].label
-                    : a.default.createElement(
-                      'span',
-                      null,
-                      t.length + ' selected'
-                    )
-                : null;
+              r = e.children,
+              o = e.defaultText;
+            if (r) return r;
+            var i = this.state.search;
+            return t && t.length && !i
+              ? t.length === (n && n.length)
+                ? a.default.createElement('span', null, o.allSelected)
+                : 1 === t.length
+                  ? a.default.createElement(p.default, { lines: 1 }, t[0].label)
+                  : a.default.createElement(
+                    'span',
+                    null,
+                    t.length + ' ' + o.selected
+                  )
+              : null;
           }
         },
         {
@@ -7151,31 +7150,32 @@ module.exports = (function(e) {
               c = n.children,
               f = n.mirrorX,
               d = n.hideSelected,
-              b = n.icon,
-              x = n.info,
-              w = n.infoText;
+              _ = n.icon,
+              w = n.info,
+              O = n.infoText,
+              S = n.truncateWidth;
             return a.default.createElement(
               'div',
               {
                 className: (0, s.default)(
-                  m.default.dropdown,
-                  g.default.multiSelectWrapper,
+                  g.default.dropdown,
+                  b.default.multiSelectWrapper,
                   i.wrapper
                 )
               },
               o &&
                 a.default.createElement(
                   'span',
-                  { className: g.default.label },
+                  { className: b.default.label },
                   o
                 ),
-              x &&
+              w &&
                 a.default.createElement(
                   'div',
-                  { 'data-tip': w, className: g.default.infoContainer },
-                  a.default.createElement(y.default, {
-                    icon: h.default,
-                    className: g.default.infoIcon
+                  { 'data-tip': O, className: b.default.infoContainer },
+                  a.default.createElement(v.default, {
+                    icon: y.default,
+                    className: b.default.infoIcon
                   })
                 ),
               a.default.createElement(
@@ -7183,21 +7183,21 @@ module.exports = (function(e) {
                 {
                   className: (0, s.default)(
                     i.dropdown,
-                    g.default.multiSelect,
-                    c ? g.default.hasChildren : '',
-                    _({}, g.default.mirrorX, f),
-                    _({}, g.default.searchable, !b)
+                    b.default.multiSelect,
+                    c ? b.default.hasChildren : '',
+                    x({}, b.default.mirrorX, f),
+                    x({}, b.default.searchable, !_)
                   )
                 },
-                !b &&
+                !_ &&
                   a.default.createElement(
                     'div',
-                    { className: (0, s.default)(g.default.values, 'values') },
+                    { className: (0, s.default)(b.default.values, 'values') },
                     this.getSelectorValue()
                   ),
                 l &&
-                  a.default.createElement(v.default, {
-                    className: g.default.loader,
+                  a.default.createElement(m.default, {
+                    className: b.default.loader,
                     mini: !0
                   }),
                 a.default.createElement(
@@ -7213,7 +7213,7 @@ module.exports = (function(e) {
                       },
                       renderOption: function(e) {
                         var t = e.isSelected
-                          ? (0, s.default)(g.default.selected, i.selected)
+                          ? (0, s.default)(b.default.selected, i.selected)
                           : '';
                         return (!d || !e.isSelected) &&
                           a.default.createElement(
@@ -7221,22 +7221,26 @@ module.exports = (function(e) {
                             {
                               className: (0, s.default)(
                                 t,
-                                e.groupId ? g.default.nested : ''
+                                e.groupId ? b.default.nested : ''
                               )
                             },
-                            e.label,
+                            a.default.createElement(
+                              p.default,
+                              { width: S, lines: 6 },
+                              e.label
+                            ),
                             e.isSelected &&
                               a.default.createElement('span', {
-                                className: g.default.checked
+                                className: b.default.checked
                               })
                           );
                       },
                       onValuesChange: this.handleChange,
                       renderToggleButton: function(e) {
                         var t = e.open;
-                        return a.default.createElement(y.default, {
-                          className: t ? g.default.isOpen : '',
-                          icon: b || p.default
+                        return a.default.createElement(v.default, {
+                          className: t ? b.default.isOpen : '',
+                          icon: _ || h.default
                         });
                       },
                       onSearchChange: function(t) {
@@ -7253,32 +7257,36 @@ module.exports = (function(e) {
         }
       ]), t;
     })(),
-      w = {
+      O = {
         label: l.default.string,
         value: l.default.oneOfType([
           l.default.number,
           l.default.string
         ]).isRequired
       };
-    x.propTypes = {
+    w.propTypes = {
       theme: l.default.shape({
         wrapper: l.default.string,
         dropdown: l.default.string,
         selected: l.default.string
       }),
+      defaultText: l.default.shape({
+        selected: l.default.string,
+        allSelected: l.default.string
+      }),
       onValueChange: l.default.func.isRequired,
       info: l.default.bool,
       infoText: l.default.string,
       label: l.default.string,
-      selectedLabel: l.default.string,
       children: l.default.node,
       loading: l.default.bool,
       mirrorX: l.default.bool,
       icon: l.default.object,
-      options: l.default.arrayOf(l.default.shape(w)).isRequired,
-      values: l.default.arrayOf(l.default.shape(w)).isRequired,
-      hideSelected: l.default.bool
-    }, x.defaultProps = { theme: { selected: g.default.selected }, info: !1, icon: null, infoText: '', selectedLabel: '', children: null, label: '', mirrorX: !1, loading: !1, hideSelected: !1 }, t.default = x;
+      options: l.default.arrayOf(l.default.shape(O)).isRequired,
+      values: l.default.arrayOf(l.default.shape(O)).isRequired,
+      hideSelected: l.default.bool,
+      truncateWidth: l.default.number
+    }, w.defaultProps = { theme: { selected: b.default.selected }, defaultText: { selected: 'selected', allSelected: 'All selected' }, info: !1, icon: null, infoText: '', children: null, label: '', mirrorX: !1, loading: !1, hideSelected: !1, truncateWidth: 180 }, t.default = w;
   },
   '6WnC': function(e, t) {
     e.exports = {

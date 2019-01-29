@@ -907,7 +907,8 @@
   right: 0; }
 
 .cw__chart-styles_legend {
-  min-height: 30px; }
+  min-height: 30px;
+  margin-top: 15px; }
 
 .cw__chart-styles_wrapper * {
   font-family: "Lato", sans-serif; }
