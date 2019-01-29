@@ -112,7 +112,8 @@ class Multiselect extends Component {
       hideSelected,
       icon,
       info,
-      infoText
+      infoText,
+      truncateWidth
     } = this.props;
     return (
       <div
@@ -170,7 +171,9 @@ class Multiselect extends Component {
                       option.groupId ? styles.nested : ''
                     )}
               >
-                {option.label}
+                <Truncate width={truncateWidth} lines={6}>
+                  {option.label}
+                </Truncate>
                 {option.isSelected && <span className={styles.checked} />}
               </div>
                 );
@@ -217,7 +220,9 @@ Multiselect.propTypes = {
   icon: PropTypes.object,
   options: PropTypes.arrayOf(PropTypes.shape(valueShape)).isRequired,
   values: PropTypes.arrayOf(PropTypes.shape(valueShape)).isRequired,
-  hideSelected: PropTypes.bool
+  hideSelected: PropTypes.bool,
+  /** Number of pixels before truncating a single line while options */
+  truncateWidth: PropTypes.number
 };
 
 Multiselect.defaultProps = {
@@ -230,7 +235,8 @@ Multiselect.defaultProps = {
   label: '',
   mirrorX: false,
   loading: false,
-  hideSelected: false
+  hideSelected: false,
+  truncateWidth: 180
 };
 
 export default Multiselect;
