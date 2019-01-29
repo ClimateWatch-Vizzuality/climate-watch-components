@@ -14,23 +14,16 @@ initialState = {
 const onValueChange = (selected) => {
   setState({ selected })
 }
-<div>
+<div style={{ width: '200px' }}>
   <Dropdown
     value={state.selected}
     options={state.data}
     onValueChange={onValueChange}
   />
-  <div style={{ width: '200px', marginTop: '1em' }}>
-    <Dropdown
-      value={state.selected}
-      options={state.data}
-      onValueChange={onValueChange}
-    />
-  </div>
 </div>
 ```
 
-Themed white version
+Themed version
 ```js
 const data = [
   { label: 'Apple', value: 'Apple' },
