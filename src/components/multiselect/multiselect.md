@@ -5,18 +5,23 @@ initialState = {
   data:[
     { label: 'Apple', value: 'Apple' },
     { label: 'Mango', value: 'Mango' },
-    { label: 'Banana', value: 'Banana '}
+    { label: 'Banana', value: 'Banana '},
+    { label: 'ReallyLongFruitNameWhichIDontRememberRighNow', value: 'Temporarily Unknown fruit'},
+    { label: 'Vaccinium ovatum Evergreen Huckleberry', value: 'Evergreen Huckleberry'}
   ]
 }
 const onValueChange = (selected) => {
   setState({ selected })
 }
 
-<Multiselect
-  options={state.data}
-  values={state.selected}
-  onValueChange={onValueChange}
->
+<div style={{ width: '200px'}}>
+  <Multiselect
+    options={state.data}
+    values={state.selected}
+    onValueChange={onValueChange}
+    placeholder={'Select a fruit'}
+  >
 </Multiselect>
+</div>
 ```
 

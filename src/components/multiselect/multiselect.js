@@ -11,6 +11,7 @@ import cx from 'classnames';
 import remove from 'lodash/remove';
 import deburr from 'lodash/deburr';
 import toUpper from 'lodash/toUpper';
+import Truncate from 'react-truncate';
 
 import dropdownArrow from './assets/dropdown-arrow.svg';
 import infoIcon from './assets/info.svg';
@@ -33,26 +34,26 @@ class Multiselect extends Component {
   }
 
   getSelectorValue() {
-    const { values, options, selectedLabel, children } = this.props;
+    const { values, options, children, defaultText } = this.props;
     if (children) {
       return children;
     }
     const { search } = this.state;
     const hasValues = values && values.length;
-    if (selectedLabel && !search) {
-      return (
-        <span>
-          {selectedLabel}
-        </span>
-      );
-    }
     if (hasValues && !search) {
-      if (values.length === options && options.length)
-        return <span> All selected </span>;
-      return values.length === 1 ? values[0].label : (
+      if (values.length === (options && options.length)) return (
         <span>
-          {`${values.length} selected`}
+          {defaultText.allSelected}
         </span>
+        );
+      return values.length === 1 ? (
+        <Truncate lines={1}>
+          {values[0].label}
+        </Truncate>
+) : (
+  <span>
+    {`${values.length} ${defaultText.selected}`}
+  </span>
 );
     }
     return null;
@@ -111,7 +112,8 @@ class Multiselect extends Component {
       hideSelected,
       icon,
       info,
-      infoText
+      infoText,
+      truncateWidth
     } = this.props;
     return (
       <div
@@ -169,7 +171,9 @@ class Multiselect extends Component {
                       option.groupId ? styles.nested : ''
                     )}
               >
-                {option.label}
+                <Truncate width={truncateWidth} lines={6}>
+                  {option.label}
+                </Truncate>
                 {option.isSelected && <span className={styles.checked} />}
               </div>
                 );
@@ -201,31 +205,38 @@ Multiselect.propTypes = {
     dropdown: PropTypes.string,
     selected: PropTypes.string
   }),
+  /** For translations */
+  defaultText: PropTypes.shape({
+    selected: PropTypes.string,
+    allSelected: PropTypes.string
+  }),
   onValueChange: PropTypes.func.isRequired,
   info: PropTypes.bool,
   infoText: PropTypes.string,
   label: PropTypes.string,
-  selectedLabel: PropTypes.string,
   children: PropTypes.node,
   loading: PropTypes.bool,
   mirrorX: PropTypes.bool,
   icon: PropTypes.object,
   options: PropTypes.arrayOf(PropTypes.shape(valueShape)).isRequired,
   values: PropTypes.arrayOf(PropTypes.shape(valueShape)).isRequired,
-  hideSelected: PropTypes.bool
+  hideSelected: PropTypes.bool,
+  /** Number of pixels before truncating a single line while options */
+  truncateWidth: PropTypes.number
 };
 
 Multiselect.defaultProps = {
   theme: { selected: styles.selected },
+  defaultText: { selected: 'selected', allSelected: 'All selected' },
   info: false,
   icon: null,
   infoText: '',
-  selectedLabel: '',
   children: null,
   label: '',
   mirrorX: false,
   loading: false,
-  hideSelected: false
+  hideSelected: false,
+  truncateWidth: 180
 };
 
 export default Multiselect;
