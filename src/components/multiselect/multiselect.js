@@ -34,16 +34,16 @@ class Multiselect extends Component {
   }
 
   getSelectorValue() {
-    const { values, options, children } = this.props;
+    const { values, options, children, defaultText } = this.props;
     if (children) {
       return children;
     }
     const { search } = this.state;
     const hasValues = values && values.length;
     if (hasValues && !search) {
-      if (values.length === options && options.length) return (
+      if (values.length === (options && options.length)) return (
         <span>
-            All selected
+          {defaultText.allSelected}
         </span>
         );
       return values.length === 1 ? (
@@ -52,7 +52,7 @@ class Multiselect extends Component {
         </Truncate>
 ) : (
   <span>
-    {`${values.length} selected`}
+    {`${values.length} ${defaultText.selected}`}
   </span>
 );
     }
@@ -202,6 +202,11 @@ Multiselect.propTypes = {
     dropdown: PropTypes.string,
     selected: PropTypes.string
   }),
+  /** For translations */
+  defaultText: PropTypes.shape({
+    selected: PropTypes.string,
+    allSelected: PropTypes.string
+  }),
   onValueChange: PropTypes.func.isRequired,
   info: PropTypes.bool,
   infoText: PropTypes.string,
@@ -217,6 +222,7 @@ Multiselect.propTypes = {
 
 Multiselect.defaultProps = {
   theme: { selected: styles.selected },
+  defaultText: { selected: 'selected', allSelected: 'All selected' },
   info: false,
   icon: null,
   infoText: '',
