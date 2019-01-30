@@ -43,7 +43,6 @@ initialState = {
   ]
 }
 const onValueChange = (selected) => {
-  console.log('selected', selected)
   setState({ selected })
 }
 
