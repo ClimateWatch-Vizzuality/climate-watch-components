@@ -2,9 +2,7 @@ import { createElement, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { deburrUpper } from 'utils/utils';
 import groupBy from 'lodash/groupBy';
-import isArray from 'lodash/isArray';
 import castArray from 'lodash/castArray';
-import isEqual from 'lodash/isEqual';
 import remove from 'lodash/remove';
 
 import Component from './multi-level-dropdown-component';
@@ -17,29 +15,9 @@ class MultiLevelDropdown extends PureComponent {
       isOpen: false,
       showGroup: '',
       highlightedIndex: 0,
-      activeValue: undefined,
       activeLabel: undefined
     };
   }
-
-  componentDidUpdate(prevProps) {
-    const { values } = this.props;
-    const { values: prevValues } = prevProps;
-    if (!isEqual(values, prevValues)) this.updateActiveValue();
-  }
-
-  updateActiveValue = () => {
-    const { options, values } = this.props;
-    const activeValue = typeof values === 'string' || typeof values === 'number'
-      ? options.find(o => o.value === values)
-      : values;
-    const activeLabel = activeValue &&
-      (isArray(activeValue) && activeValue.length === 1
-        ? activeValue[0].label
-        : activeValue.label);
-
-    this.setState({ activeValue, activeLabel });
-  };
 
   onInputClick = () => {
     const { searchable } = this.props;
@@ -102,39 +80,49 @@ class MultiLevelDropdown extends PureComponent {
     const itemToRemove = selectedItems.find(
       s => s.label === changes.inputValue
     );
-    const isOutsideClickChange = changes &&
-      changes.type === '__autocomplete_mouseup__';
-    if (!isOutsideClickChange) {
-      if (itemToRemove) {
-        selectedItems.splice(selectedItems.indexOf(itemToRemove), 1);
-      } else {
-        selectedItems.push(downshiftStateAndHelpers.selectedItem);
-      }
-      onChange(selectedItems);
+    if (itemToRemove) {
+      selectedItems.splice(selectedItems.indexOf(itemToRemove), 1);
+    } else {
+      selectedItems.push(downshiftStateAndHelpers.selectedItem);
     }
+    onChange(selectedItems);
+  };
+
+  updateActiveLabel = selectedItem => {
+    const { values, multiselect } = this.props;
+    const activeLabel = multiselect
+      ? values && values.length === 1 && values[0].label || null
+      : selectedItem;
+    this.setState({ activeLabel });
   };
 
   handleStateChange = (changes, downshiftStateAndHelpers) => {
     const { multiselect } = this.props;
-    if (!downshiftStateAndHelpers.isOpen) {
-      this.setState({ inputValue: '' });
-    } else if (changes && changes.inputValue || changes.inputValue === '') {
-      if (multiselect) {
-        this.handleMultiselectChange(changes, downshiftStateAndHelpers);
+    if (changes) {
+      if (!downshiftStateAndHelpers.isOpen) {
+        this.setState({ inputValue: '' });
+      } else if (changes.type === '__autocomplete_mouseup__') {
+        this.setState({ isOpen: false });
+      } else if (changes.inputValue || changes.inputValue === '') {
+        if (multiselect) {
+          this.handleMultiselectChange(changes, downshiftStateAndHelpers);
+        }
+        this.setState({ inputValue: changes.inputValue });
       }
-      this.setState({ inputValue: changes.inputValue });
-    }
 
-    if (changes && changes.selectedItem && !multiselect) {
-      this.setState({ isOpen: false, inputValue: '' });
-    }
+      if (changes.selectedItem && !multiselect) {
+        this.setState({ isOpen: false, inputValue: '' });
+      }
 
-    if (Object.keys(changes).indexOf('isOpen') > -1) {
-      this.setState({ inputValue: '' });
-    }
+      if (Object.keys(changes).indexOf('isOpen') > -1) {
+        this.setState({ inputValue: '' });
+      }
 
-    if (changes && changes.highlightedIndex || changes.highlightedIndex === 0) {
-      this.setState({ highlightedIndex: changes.highlightedIndex });
+      if (changes.highlightedIndex || changes.highlightedIndex === 0) {
+        this.setState({ highlightedIndex: changes.highlightedIndex });
+      }
+      if (changes.type === '__autocomplete_click_item__')
+        this.updateActiveLabel(changes.inputValue);
     }
   };
 
@@ -193,7 +181,6 @@ class MultiLevelDropdown extends PureComponent {
       showGroup,
       inputValue,
       highlightedIndex,
-      activeValue,
       activeLabel
     } = this.state;
     return createElement(Component, {
@@ -210,7 +197,6 @@ class MultiLevelDropdown extends PureComponent {
       toggleOpenGroup: this.toggleOpenGroup,
       handleOnChange: this.handleOnChange,
       items: this.getGroupedItems(),
-      activeValue,
       activeLabel
     });
   }

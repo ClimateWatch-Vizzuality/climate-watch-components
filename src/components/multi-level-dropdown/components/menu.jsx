@@ -8,7 +8,7 @@ import styles from '../multi-level-dropdown-styles.scss';
 const Menu = props => {
   const {
     isOpen,
-    activeValue,
+    values,
     activeLabel,
     items,
     showGroup,
@@ -36,10 +36,10 @@ const Menu = props => {
             toggleOpenGroup={toggleOpenGroup}
             optionsAction={optionsAction}
             optionsActionKey={optionsActionKey}
-            activeValue={activeValue}
             activeLabel={activeLabel}
             noParentSelection={noParentSelection}
             theme={theme}
+            values={values}
           />
         ))
       ) : (
@@ -53,7 +53,7 @@ const Menu = props => {
 
 Menu.propTypes = {
   isOpen: PropTypes.bool,
-  activeValue: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   theme: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   items: PropTypes.array,
@@ -69,7 +69,7 @@ Menu.propTypes = {
 
 Menu.defaultProps = {
   isOpen: false,
-  activeValue: undefined,
+  values: [],
   theme: undefined,
   activeLabel: undefined,
   items: undefined,

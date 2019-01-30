@@ -14,7 +14,6 @@ const Selector = props => {
     arrowPosition,
     onSelectorClick,
     clearable,
-    activeValue,
     activeLabel,
     searchable,
     inputProps,
@@ -24,7 +23,7 @@ const Selector = props => {
     placeholder,
     values
   } = props;
-  const showCloseIcon = clearable && activeValue;
+  const showCloseIcon = clearable && values;
   const showDownArrow = arrowPosition !== 'left' && !disabled;
   const valuesSelectedLength = values.length;
   const arrowDown = (
@@ -51,7 +50,7 @@ const Selector = props => {
         {arrowPosition === 'left' && arrowDown}
         <span
           className={cx(styles.value, {
-            [styles.noValue]: !activeValue,
+            [styles.noValue]: !values || values.length === 0,
             [styles.clearable]: clearable,
             [styles.placeholder]:
               !isOpen && !activeLabel && valuesSelectedLength === 0
@@ -90,7 +89,6 @@ Selector.propTypes = {
   arrowPosition: PropTypes.string,
   onSelectorClick: PropTypes.func,
   clearable: PropTypes.bool,
-  activeValue: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   searchable: PropTypes.bool,
   inputProps: PropTypes.func,
@@ -107,7 +105,6 @@ Selector.defaultProps = {
   arrowPosition: undefined,
   onSelectorClick: undefined,
   clearable: false,
-  activeValue: undefined,
   activeLabel: undefined,
   searchable: false,
   inputProps: undefined,

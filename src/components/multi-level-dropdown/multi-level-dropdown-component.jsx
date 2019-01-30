@@ -29,7 +29,6 @@ class Dropdown extends PureComponent {
       isOpen,
       showGroup,
       items,
-      activeValue,
       activeLabel,
       highlightedIndex,
       noParentSelection,
@@ -52,7 +51,6 @@ class Dropdown extends PureComponent {
             arrowPosition={arrowPosition}
             onSelectorClick={onSelectorClick}
             clearable={clearable}
-            activeValue={activeValue}
             activeLabel={activeLabel}
             searchable={searchable}
             inputProps={() => buildInputProps(getInputProps)}
@@ -64,7 +62,6 @@ class Dropdown extends PureComponent {
           >
             <Menu
               isOpen={isOpen}
-              activeValue={activeValue}
               activeLabel={activeLabel}
               items={items}
               showGroup={showGroup}
@@ -125,7 +122,6 @@ Dropdown.propTypes = {
   buildInputProps: PropTypes.func,
   checkModalClosing: PropTypes.func,
   items: PropTypes.array,
-  activeValue: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   highlightedIndex: PropTypes.number
 };
@@ -158,7 +154,6 @@ Dropdown.defaultProps = {
   buildInputProps: undefined,
   checkModalClosing: undefined,
   items: undefined,
-  activeValue: undefined,
   activeLabel: undefined,
   highlightedIndex: undefined,
   values: []

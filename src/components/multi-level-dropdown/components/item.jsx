@@ -15,7 +15,7 @@ const Item = props => {
     highlightedIndex,
     getItemProps,
     toggleOpenGroup,
-    activeValue,
+    values,
     activeLabel,
     noParentSelection,
     theme
@@ -29,7 +29,7 @@ const Item = props => {
     highlightedIndex === index ||
     activeLabel === label ||
     (groupParent && groupParent === showGroup) ||
-    (groupParent && activeValue && groupParent === activeValue.group);
+    (groupParent && values && groupParent === values.group);
   const showToChildrenArrow =
     groupParent && showGroup !== groupParent && isDisplayed;
   const parentClickProp =
@@ -95,7 +95,7 @@ Item.propTypes = {
   highlightedIndex: PropTypes.number,
   getItemProps: PropTypes.func.isRequired,
   toggleOpenGroup: PropTypes.func.isRequired,
-  activeValue: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   theme: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   noParentSelection: PropTypes.bool
@@ -106,7 +106,7 @@ Item.defaultProps = {
   item: undefined,
   showGroup: undefined,
   highlightedIndex: undefined,
-  activeValue: undefined,
+  values: undefined,
   activeLabel: undefined,
   noParentSelection: false,
   theme: undefined
