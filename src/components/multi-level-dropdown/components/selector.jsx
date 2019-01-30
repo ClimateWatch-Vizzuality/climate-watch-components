@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Icon from 'components/icon';
 import cx from 'classnames';
+import isArray from 'lodash/isArray';
 import arrowDownIcon from '../assets/dropdown-arrow.svg';
 import closeIcon from '../assets/close.svg';
 import styles from '../multi-level-dropdown-styles.scss';
@@ -23,7 +24,7 @@ const Selector = props => {
     placeholder,
     values
   } = props;
-  const showCloseIcon = clearable && values;
+  const showCloseIcon = clearable && isArray(values) && values.length > 0;
   const showDownArrow = arrowPosition !== 'left' && !disabled;
   const valuesSelectedLength = values.length;
   const arrowDown = (
