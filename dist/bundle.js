@@ -5933,14 +5933,15 @@ module.exports = (function(e) {
       };
     })(),
       o = n('cDcd'),
-      i = s(o),
-      a = s(n('rf6O')),
-      l = s(n('K2gz')),
-      u = s(n('QSPw'));
-    function s(e) {
+      i = c(o),
+      a = c(n('rf6O')),
+      l = c(n('K2gz')),
+      u = c(n('geB+')),
+      s = c(n('QSPw'));
+    function c(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var c = (function(e) {
+    var f = (function(e) {
       function t() {
         return (function(e, t) {
           if (!(e instanceof t))
@@ -5977,35 +5978,58 @@ module.exports = (function(e) {
         {
           key: 'render',
           value: function() {
-            var e = this.props, t = e.title, n = e.theme, r = e.children;
+            var e = this.props,
+              t = e.title,
+              n = e.tabTitles,
+              r = e.tabSelectedIndex,
+              o = e.handleTabIndexChange,
+              a = e.theme,
+              c = e.children;
             return i.default.createElement(
               'div',
-              { className: (0, l.default)(u.default.header, n.header) },
+              { className: (0, l.default)(s.default.header, a.header) },
               t &&
                 i.default.createElement(
                   'h2',
                   {
                     className: (0, l.default)(
-                      u.default.headerTitle,
-                      n.headerTitle
+                      s.default.headerTitle,
+                      a.headerTitle
                     )
                   },
                   t
                 ),
-              r
+              n &&
+                i.default.createElement(u.default, {
+                  options: n,
+                  selectedIndex: r,
+                  handleTabIndexChange: o
+                }),
+              c
             );
           }
         }
       ]), t;
     })();
-    c.propTypes = {
+    f.propTypes = {
       title: a.default.string,
+      tabTitles: a.default.arrayOf(a.default.string),
+      tabSelectedIndex: a.default.number,
+      handleTabIndexChange: a.default.func,
       theme: a.default.shape({
         header: a.default.string,
         headerTitle: a.default.string
       }),
       children: a.default.node
-    }, c.defaultProps = { title: 'Modal title', theme: {}, children: null }, t.default = c;
+    }, f.defaultProps = {
+      title: null,
+      tabTitles: null,
+      tabSelectedIndex: 0,
+      handleTabIndexChange: function() {
+      },
+      theme: {},
+      children: null
+    }, t.default = f;
   },
   '5NkO': function(e, t, n) {
     'use strict';
@@ -26105,6 +26129,114 @@ module.exports = (function(e) {
     e.exports = function(e, t) {
       return null != e && o(e, t, r);
     };
+  },
+  ONYF: function(e, t, n) {
+    'use strict';
+    Object.defineProperty(t, '__esModule', { value: !0 });
+    var r = (function() {
+      function e(e, t) {
+        for (var n = 0; n < t.length; n++) {
+          var r = t[n];
+          r.enumerable = r.enumerable || !1, r.configurable = !0, 'value' in
+            r &&
+            (r.writable = !0), Object.defineProperty(e, r.key, r);
+        }
+      }
+      return function(t, n, r) {
+        return n && e(t.prototype, n), r && e(t, r), t;
+      };
+    })(),
+      o = n('cDcd'),
+      i = s(o),
+      a = s(n('rf6O')),
+      l = s(n('K2gz')),
+      u = s(n('mjQE'));
+    function s(e) {
+      return e && e.__esModule ? e : { default: e };
+    }
+    var c = (function(e) {
+      function t() {
+        return (function(e, t) {
+          if (!(e instanceof t))
+            throw new TypeError('Cannot call a class as a function');
+        })(this, t), (function(e, t) {
+          if (!e)
+            throw new ReferenceError(
+              "this hasn't been initialised - super() hasn't been called"
+            );
+          return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
+        })(
+          this,
+          (t.__proto__ || Object.getPrototypeOf(t)).apply(this, arguments)
+        );
+      }
+      return (function(e, t) {
+        if ('function' != typeof t && null !== t)
+          throw new TypeError(
+            'Super expression must either be null or a function, not ' +
+              typeof t
+          );
+        e.prototype = Object.create(t && t.prototype, {
+          constructor: {
+            value: e,
+            enumerable: !1,
+            writable: !0,
+            configurable: !0
+          }
+        }), t &&
+          (Object.setPrototypeOf
+            ? Object.setPrototypeOf(e, t)
+            : e.__proto__ = t);
+      })(t, o.PureComponent), r(t, [
+        {
+          key: 'render',
+          value: function() {
+            var e = this.props,
+              t = e.options,
+              n = e.selectedIndex,
+              r = e.handleTabIndexChange,
+              o = e.classNames;
+            return i.default.createElement(
+              'div',
+              { className: (0, l.default)(u.default.tab, o) },
+              t.map(function(e, t) {
+                return i.default.createElement(
+                  'button',
+                  {
+                    key: e,
+                    className: (0, l.default)([
+                      u.default.link,
+                      (o = {}, a = u.default.linkActive, s = n === t, a in o
+                        ? Object.defineProperty(o, a, {
+                          value: s,
+                          enumerable: !0,
+                          configurable: !0,
+                          writable: !0
+                        })
+                        : o[a] = s, o)
+                    ]),
+                    onClick: function() {
+                      return r(t);
+                    },
+                    role: 'menuitem',
+                    type: 'button',
+                    tabIndex: -1
+                  },
+                  e
+                );
+                var o, a, s;
+              })
+            );
+          }
+        }
+      ]), t;
+    })();
+    c.propTypes = {
+      options: a.default.array.isRequired,
+      selectedIndex: a.default.number.isRequired,
+      handleTabIndexChange: a.default.func.isRequired,
+      classNames: a.default.string
+    }, c.defaultProps = { classNames: '' }, t.default = c;
   },
   OS56: function(e, t, n) {
     'use strict';
@@ -87219,6 +87351,12 @@ module.exports = (function(e) {
       return e;
     };
   },
+  'geB+': function(e, t, n) {
+    'use strict';
+    Object.defineProperty(t, '__esModule', { value: !0 });
+    var r, o = n('ONYF'), i = (r = o) && r.__esModule ? r : { default: r };
+    t.default = i.default;
+  },
   gpbi: function(e, t, n) {
     var r = n('ZWtO'), o = n('KxBF');
     e.exports = function(e, t) {
@@ -92101,6 +92239,13 @@ module.exports = (function(e) {
     Object.defineProperty(t, '__esModule', { value: !0 });
     var r, o = n('MdjF'), i = (r = o) && r.__esModule ? r : { default: r };
     t.default = i.default;
+  },
+  mjQE: function(e, t) {
+    e.exports = {
+      tab: 'cw__tab-styles_tab',
+      link: 'cw__tab-styles_link',
+      linkActive: 'cw__tab-styles_linkActive'
+    };
   },
   mnNX: function(e, t, n) {
     'use strict';
@@ -103936,220 +104081,227 @@ module.exports = (function(e) {
     Object.defineProperty(t, 'Accordion', {
       enumerable: !0,
       get: function() {
-        return R(r).default;
+        return I(r).default;
       }
     });
     var o = n('ZOtO');
     Object.defineProperty(t, 'BottomBar', {
       enumerable: !0,
       get: function() {
-        return R(o).default;
+        return I(o).default;
       }
     });
     var i = n('yQV4');
     Object.defineProperty(t, 'Button', {
       enumerable: !0,
       get: function() {
-        return R(i).default;
+        return I(i).default;
       }
     });
     var a = n('Uw3e');
     Object.defineProperty(t, 'ButtonGroup', {
       enumerable: !0,
       get: function() {
-        return R(a).default;
+        return I(a).default;
       }
     });
     var l = n('+vc9');
     Object.defineProperty(t, 'BubbleChart', {
       enumerable: !0,
       get: function() {
-        return R(l).default;
+        return I(l).default;
       }
     });
     var u = n('kb7i');
     Object.defineProperty(t, 'Card', {
       enumerable: !0,
       get: function() {
-        return R(u).default;
+        return I(u).default;
       }
     });
     var s = n('ZOm7');
     Object.defineProperty(t, 'Carousel', {
       enumerable: !0,
       get: function() {
-        return R(s).default;
+        return I(s).default;
       }
     });
     var c = n('bYMs');
     Object.defineProperty(t, 'Chart', {
       enumerable: !0,
       get: function() {
-        return R(c).default;
+        return I(c).default;
       }
     });
     var f = n('LbaS');
     Object.defineProperty(t, 'CheckInput', {
       enumerable: !0,
       get: function() {
-        return R(f).default;
+        return I(f).default;
       }
     });
     var d = n('/g0T');
     Object.defineProperty(t, 'Contact', {
       enumerable: !0,
       get: function() {
-        return R(d).default;
+        return I(d).default;
       }
     });
     var p = n('mJ17');
     Object.defineProperty(t, 'Dropdown', {
       enumerable: !0,
       get: function() {
-        return R(p).default;
+        return I(p).default;
       }
     });
     var h = n('QRQV');
     Object.defineProperty(t, 'Icon', {
       enumerable: !0,
       get: function() {
-        return R(h).default;
+        return I(h).default;
       }
     });
     var y = n('JKEQ');
     Object.defineProperty(t, 'Input', {
       enumerable: !0,
       get: function() {
-        return R(y).default;
+        return I(y).default;
       }
     });
     var v = n('FNW6');
     Object.defineProperty(t, 'Intro', {
       enumerable: !0,
       get: function() {
-        return R(v).default;
+        return I(v).default;
       }
     });
     var m = n('bzzt');
     Object.defineProperty(t, 'ChartComposed', {
       enumerable: !0,
       get: function() {
-        return R(m).default;
+        return I(m).default;
       }
     });
     var g = n('XGPw');
     Object.defineProperty(t, 'Loading', {
       enumerable: !0,
       get: function() {
-        return R(g).default;
+        return I(g).default;
       }
     });
     var b = n('5ZwA');
     Object.defineProperty(t, 'MapComponent', {
       enumerable: !0,
       get: function() {
-        return R(b).default;
+        return I(b).default;
       }
     });
     var _ = n('ZsBd');
     Object.defineProperty(t, 'Modal', {
       enumerable: !0,
       get: function() {
-        return R(_).default;
+        return I(_).default;
       }
     });
     var x = n('5MDE');
     Object.defineProperty(t, 'ModalHeader', {
       enumerable: !0,
       get: function() {
-        return R(x).default;
+        return I(x).default;
       }
     });
     var w = n('6V4F');
     Object.defineProperty(t, 'Multiselect', {
       enumerable: !0,
       get: function() {
-        return R(w).default;
+        return I(w).default;
       }
     });
     var O = n('qywY');
     Object.defineProperty(t, 'NoContent', {
       enumerable: !0,
       get: function() {
-        return R(O).default;
+        return I(O).default;
       }
     });
     var S = n('VppJ');
     Object.defineProperty(t, 'PieChart', {
       enumerable: !0,
       get: function() {
-        return R(S).default;
+        return I(S).default;
       }
     });
     var E = n('u5Li');
     Object.defineProperty(t, 'PlayTimeline', {
       enumerable: !0,
       get: function() {
-        return R(E).default;
+        return I(E).default;
       }
     });
     var T = n('Rd+V');
     Object.defineProperty(t, 'Sankey', {
       enumerable: !0,
       get: function() {
-        return R(T).default;
+        return I(T).default;
       }
     });
     var k = n('pa6h');
     Object.defineProperty(t, 'Section', {
       enumerable: !0,
       get: function() {
-        return R(k).default;
+        return I(k).default;
       }
     });
     var M = n('oszI');
     Object.defineProperty(t, 'Stories', {
       enumerable: !0,
       get: function() {
-        return R(M).default;
+        return I(M).default;
       }
     });
     var C = n('tyEz');
     Object.defineProperty(t, 'Switch', {
       enumerable: !0,
       get: function() {
-        return R(C).default;
+        return I(C).default;
       }
     });
     var P = n('ZSpp');
     Object.defineProperty(t, 'SunburstChart', {
       enumerable: !0,
       get: function() {
-        return R(P).default;
+        return I(P).default;
       }
     });
-    var A = n('KJAd');
+    var A = n('geB+');
+    Object.defineProperty(t, 'Tab', {
+      enumerable: !0,
+      get: function() {
+        return I(A).default;
+      }
+    });
+    var j = n('KJAd');
     Object.defineProperty(t, 'Table', {
       enumerable: !0,
       get: function() {
-        return R(A).default;
+        return I(j).default;
       }
     });
-    var j = n('sXgQ');
+    var N = n('sXgQ');
     Object.defineProperty(t, 'Tag', {
       enumerable: !0,
       get: function() {
-        return R(j).default;
+        return I(N).default;
       }
     });
-    var N = n('qCFj');
-    function R(e) {
+    var R = n('qCFj');
+    function I(e) {
       return e && e.__esModule ? e : { default: e };
     }
     Object.defineProperty(t, 'TooltipChart', {
       enumerable: !0,
       get: function() {
-        return R(N).default;
+        return I(R).default;
       }
     });
   },

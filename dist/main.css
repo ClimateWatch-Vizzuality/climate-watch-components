@@ -1230,6 +1230,31 @@ input:checked ~ .cw__check-input-styles_label {
 
 .ReactModal__Body--open {
   overflow: hidden; }
+.cw__tab-styles_tab {
+  display: flex;
+  align-items: center;
+  margin-top: 15px; }
+
+.cw__tab-styles_link {
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
+  border: 0;
+  background-color: transparent;
+  color: #113750;
+  margin-right: 30px;
+  padding-bottom: 15px;
+  text-decoration: none;
+  position: relative;
+  cursor: pointer; }
+  .cw__tab-styles_linkActive::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffc735;
+    width: 100%;
+    height: 4px; }
 .cw__simple-tag-theme_tag {
   border: none;
   box-shadow: none;
