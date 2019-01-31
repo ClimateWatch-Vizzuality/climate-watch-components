@@ -147,11 +147,12 @@ $dd-height: 45px;
 .clearBtn {
   z-index: 3;
   cursor: pointer;
+  border: none;
+  outline: none;
 
   .clearIcon {
-    max-width: rem(8px);
-    max-height: rem(8px);
-    margin-right: rem(16px);
+    max-width: rem(10px);
+    max-height: rem(10px);
     fill: $dark-gray;
   }
 }

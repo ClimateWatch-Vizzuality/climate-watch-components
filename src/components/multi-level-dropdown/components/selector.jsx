@@ -22,6 +22,7 @@ const Selector = props => {
     children,
     innerRef,
     placeholder,
+    defaultText,
     values
   } = props;
   const showCloseIcon = clearable && isArray(values) && values.length > 0;
@@ -52,14 +53,13 @@ const Selector = props => {
         <span
           className={cx(styles.value, {
             [styles.noValue]: !values || values.length === 0,
-            [styles.clearable]: clearable,
             [styles.placeholder]:
               !isOpen && !activeLabel && valuesSelectedLength === 0
           })}
         >
           {(isOpen && !searchable) || !isOpen ? (
             activeLabel ||
-            (valuesSelectedLength > 0 && `${valuesSelectedLength} selected`) ||
+            (valuesSelectedLength > 0 && `${valuesSelectedLength} ${defaultText.selected}`) ||
             placeholder
           ) : (
             ''
@@ -96,6 +96,7 @@ Selector.propTypes = {
   handleClearSelection: PropTypes.func,
   placeholder: PropTypes.string,
   innerRef: PropTypes.func,
+  defaultText: PropTypes.shape({ selected: PropTypes.string }),
   values: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
@@ -112,6 +113,7 @@ Selector.defaultProps = {
   handleClearSelection: undefined,
   placeholder: undefined,
   innerRef: undefined,
+  defaultText: { selected: 'selected' },
   values: []
 };
 

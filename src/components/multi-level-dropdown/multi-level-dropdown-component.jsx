@@ -35,6 +35,7 @@ class Dropdown extends PureComponent {
       placeholder,
       disabled,
       handleOnChange,
+      defaultText,
       values
     } = this.props;
     const dropdown = (
@@ -58,6 +59,7 @@ class Dropdown extends PureComponent {
             disabled={disabled}
             placeholder={placeholder}
             values={values}
+            defaultText={defaultText}
             {...getRootProps({ refKey: 'innerRef' })}
           >
             <Menu
@@ -123,7 +125,8 @@ Dropdown.propTypes = {
   checkModalClosing: PropTypes.func,
   items: PropTypes.array,
   activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  highlightedIndex: PropTypes.number
+  highlightedIndex: PropTypes.number,
+  defaultText: PropTypes.shape({ selected: PropTypes.string})
 };
 
 Dropdown.defaultProps = {
@@ -156,6 +159,7 @@ Dropdown.defaultProps = {
   items: undefined,
   activeLabel: undefined,
   highlightedIndex: undefined,
+  defaultText: { selected: 'selected' },
   values: []
 };
 

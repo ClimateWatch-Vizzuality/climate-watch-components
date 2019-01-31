@@ -7,6 +7,12 @@ import remove from 'lodash/remove';
 
 import Component from './multi-level-dropdown-component';
 
+const EVENT_TYPES = {
+  mouseUp: '__autocomplete_mouseup__',
+  keyDownEnter: '__autocomplete_keydown_enter__',
+  click: '__autocomplete_click_item__'
+};
+
 class MultiLevelDropdown extends PureComponent {
   constructor(props) {
     super(props);
@@ -88,12 +94,14 @@ class MultiLevelDropdown extends PureComponent {
     onChange(selectedItems);
   };
 
-  updateActiveLabel = selectedItem => {
+  updateActiveLabel = (selectedItem, clear) => {
     const { values, multiselect } = this.props;
+    if (clear) return this.setState({ activeLabel: null });
+
     const activeLabel = multiselect
       ? values && values.length === 1 && values[0].label || null
       : selectedItem;
-    this.setState({ activeLabel });
+    return this.setState({ activeLabel });
   };
 
   handleStateChange = (changes, downshiftStateAndHelpers) => {
@@ -101,10 +109,14 @@ class MultiLevelDropdown extends PureComponent {
     if (changes) {
       if (!downshiftStateAndHelpers.isOpen) {
         this.setState({ inputValue: '' });
-      } else if (changes.type === '__autocomplete_mouseup__') {
+      } else if (changes.type === EVENT_TYPES.mouseUp) {
         this.setState({ isOpen: false });
       } else if (changes.inputValue || changes.inputValue === '') {
-        if (multiselect) {
+        if (
+          multiselect &&
+            (changes.type === EVENT_TYPES.keyDownEnter ||
+              changes.type === EVENT_TYPES.click)
+        ) {
           this.handleMultiselectChange(changes, downshiftStateAndHelpers);
         }
         this.setState({ inputValue: changes.inputValue });
@@ -121,14 +133,16 @@ class MultiLevelDropdown extends PureComponent {
       if (changes.highlightedIndex || changes.highlightedIndex === 0) {
         this.setState({ highlightedIndex: changes.highlightedIndex });
       }
-      if (changes.type === '__autocomplete_click_item__')
+      if (changes.type === EVENT_TYPES.click) {
         this.updateActiveLabel(changes.inputValue);
+      }
     }
   };
 
   handleClearSelection = () => {
     const { onChange } = this.props;
-    onChange();
+    onChange([]);
+    this.updateActiveLabel('', true);
     this.setState({ isOpen: false, showGroup: '', inputValue: '' });
   };
 
