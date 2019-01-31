@@ -142,6 +142,7 @@ Dropdown.propTypes = {
   }),
   icons: PropTypes.shape(iconsShape),
   value: PropTypes.shape(valueShape),
+  onValueChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape(valueShape)).isRequired
 };
 

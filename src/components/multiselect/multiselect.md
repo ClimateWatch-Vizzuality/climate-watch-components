@@ -3,6 +3,7 @@
 initialState = {
   selected: [],
   data:[
+    { label: 'All Selected', value: 'all-selected', total: true },
     { label: 'Apple', value: 'Apple' },
     { label: 'Mango', value: 'Mango' },
     { label: 'Banana', value: 'Banana '},

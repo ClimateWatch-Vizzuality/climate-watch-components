@@ -11,6 +11,7 @@ import cx from 'classnames';
 import remove from 'lodash/remove';
 import deburr from 'lodash/deburr';
 import toUpper from 'lodash/toUpper';
+import last from 'lodash/last';
 import Truncate from 'react-truncate';
 
 import dropdownArrow from './assets/dropdown-arrow.svg';
@@ -19,6 +20,27 @@ import Icon from '../icon';
 import Loading from '../loading';
 import selectizeStyles from '../../styles/react-selectize.scss';
 import styles from './multiselect-styles.scss';
+
+const findDuplicateInArray = array => {
+  let repeatedValue = null;
+  array.forEach((value, index) => {
+    if (array.indexOf(value) !== index && array.indexOf(value) > -1) {
+      repeatedValue = value;
+    }
+  });
+  return repeatedValue;
+};
+
+const removeDuplicates = options => {
+  const selectedValues = options.map(d => d.value);
+  const duplicateValue = findDuplicateInArray(selectedValues);
+  if (duplicateValue) {
+    remove(selectedValues, value => duplicateValue === value);
+  }
+  return options.filter(
+    value => selectedValues.indexOf(value.value) > -1 && !value.total
+  );
+};
 
 class Multiselect extends Component {
   constructor() {
@@ -76,29 +98,16 @@ class Multiselect extends Component {
     );
   };
 
-  handleChange = values => {
+  handleChange = selectedOptions => {
     const { onValueChange } = this.props;
     if (onValueChange) {
-      const selectedValues = values.map(d => d.value);
-      const duplicateValue = this.findDuplicateInArray(selectedValues);
-      if (duplicateValue) {
-        remove(selectedValues, value => duplicateValue === value);
-      }
-      const selected = values.filter(
-        value => selectedValues.indexOf(value.value) > -1
-      );
+      const lastOption = selectedOptions && last(selectedOptions);
+      const hasTotalOption = lastOption && lastOption.total;
+      const selected = hasTotalOption
+        ? [ lastOption ]
+        : removeDuplicates(selectedOptions);
       onValueChange(selected);
     }
-  };
-
-  findDuplicateInArray = array => {
-    let repeatedValue = null;
-    array.forEach((value, index) => {
-      if (array.indexOf(value) !== index && array.indexOf(value) > -1) {
-        repeatedValue = value;
-      }
-    });
-    return repeatedValue;
   };
 
   render() {
