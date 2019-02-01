@@ -36,8 +36,7 @@ class MultiLevelDropdown extends PureComponent {
   };
 
   onSelectorClick = () => {
-    const { isOpen } = this.state;
-    this.setState({ isOpen: !isOpen, inputValue: '' });
+    this.setState(state => ({ isOpen: !state.isOpen, inputValue: '' }));
   };
 
   getGroupedItems = () => {
@@ -151,11 +150,10 @@ class MultiLevelDropdown extends PureComponent {
   };
 
   toggleOpenGroup = item => {
-    const { showGroup } = this.state;
-    this.setState({
-      showGroup: item.groupParent === showGroup ? '' : item.groupParent,
+    this.setState(state => ({
+      showGroup: item.groupParent === state.showGroup ? '' : item.groupParent,
       isOpen: true
-    });
+    }));
   };
 
   handleKeyEnter = e => {
@@ -216,7 +214,16 @@ class MultiLevelDropdown extends PureComponent {
 MultiLevelDropdown.propTypes = {
   searchable: PropTypes.bool,
   multiselect: PropTypes.bool,
-  options: PropTypes.array,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.oneOf([ PropTypes.string, PropTypes.number ]),
+      /** Group name of the the group it creates (only parents) */
+      groupParent: PropTypes.oneOf([ PropTypes.string, PropTypes.number ]),
+      /** Group name of the parent of the current object (only children) */
+      group: PropTypes.oneOf([ PropTypes.string, PropTypes.number ])
+    })
+  ),
   /** Name of the attribute in the values for the group name */
   groupKey: PropTypes.string,
   placeholder: PropTypes.string,
