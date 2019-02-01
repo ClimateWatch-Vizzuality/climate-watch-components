@@ -106,12 +106,11 @@ class MultiLevelDropdown extends PureComponent {
 
   handleStateChange = (changes, downshiftStateAndHelpers) => {
     const { multiselect } = this.props;
-    if (changes) {
-      if (!downshiftStateAndHelpers.isOpen) {
-        this.setState({ inputValue: '' });
-      } else if (changes.type === EVENT_TYPES.mouseUp) {
-        this.setState({ isOpen: false });
-      } else if (changes.inputValue || changes.inputValue === '') {
+    if (!changes || !downshiftStateAndHelpers.isOpen) return;
+    if (changes.type === EVENT_TYPES.mouseUp) {
+      this.setState({ isOpen: false });
+    } else {
+      if (changes.inputValue || changes.inputValue === '') {
         if (
           multiselect &&
             (changes.type === EVENT_TYPES.keyDownEnter ||
@@ -126,14 +125,12 @@ class MultiLevelDropdown extends PureComponent {
         this.setState({ isOpen: false, inputValue: '' });
       }
 
-      if (Object.keys(changes).indexOf('isOpen') > -1) {
-        this.setState({ inputValue: '' });
-      }
-
       if (changes.highlightedIndex || changes.highlightedIndex === 0) {
         this.setState({ highlightedIndex: changes.highlightedIndex });
       }
+
       if (changes.type === EVENT_TYPES.click) {
+        this.setState({ inputValue: '' });
         this.updateActiveLabel(changes.inputValue);
       }
     }
