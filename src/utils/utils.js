@@ -4,6 +4,7 @@ import isFinite from 'lodash/isFinite';
 import minBy from 'lodash/minBy';
 import maxBy from 'lodash/maxBy';
 import { getNiceTickValues } from 'recharts-scale';
+import deburr from 'lodash/deburr';
 
 export const sanitize = data => {
   if (isArray(data)) {
@@ -136,3 +137,5 @@ export const getMaxValue = data => {
   const lastData = data[data.length - 1];
   return { x: lastData.x, y: lastData.total };
 };
+
+export const deburrUpper = string => deburr(String(string).toUpperCase());
