@@ -150,6 +150,7 @@ $dd-height: 45px;
   cursor: pointer;
   border: none;
   outline: none;
+  background-color: $white;
 
   .clearIcon {
     max-width: rem(10px);
@@ -178,6 +179,7 @@ $dd-height: 45px;
     width: 100%;
     padding: rem(12px) rem(10px);
     border-bottom: 1px solid $border-color;
+    overflow: hidden;
   }
 
   .infoButton {
