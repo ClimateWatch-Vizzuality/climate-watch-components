@@ -19,15 +19,16 @@ import { NoContent, Loading, Table } from 'cw-components';
 
 and will be ready to use them!
 
+## How to develop
 
-## Release
+Install using yarn install. Package-lock.json won't be created as we want to avoid conflicts
+
+## How to release
 
 We are using the [release](https://github.com/zeit/release) package to run automatically this process
 
 To make it easier with our workflow it is using a custom fork where it only takes all of the PR commits to generate the changelog instead of them al
 
-
-## How to
 
 So to make a new release follow the next steps:
 1. Make sure you want to put in production everything that it is in master.
