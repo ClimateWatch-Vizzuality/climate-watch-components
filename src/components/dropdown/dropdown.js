@@ -85,13 +85,13 @@ class Dropdown extends PureComponent {
                 renderOption={item => (
                   <Icon
                     icon={icons[item.label]}
-                    theme={{ icon: styles.iconOption }}
+                    theme={{ icon: cx(styles.iconOption, theme.iconOption) }}
                   />
                 )}
                 renderValue={item => (
                   <Icon
                     icon={icons[item.label]}
-                    theme={{ icon: styles.iconValue }}
+                    theme={{ icon: cx(styles.iconValue, theme.iconValue) }}
                   />
                 )}
                 hideResetButton={hideResetButton}
