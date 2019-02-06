@@ -138,7 +138,9 @@ Dropdown.propTypes = {
     dot: PropTypes.string,
     dropdow: PropTypes.string,
     select: PropTypes.string,
-    icon: PropTypes.string
+    icon: PropTypes.string,
+    iconValue: PropTypes.string,
+    iconOption: PropTypes.string
   }),
   icons: PropTypes.shape(iconsShape),
   value: PropTypes.shape(valueShape),
