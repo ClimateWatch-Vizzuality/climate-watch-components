@@ -9,9 +9,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  ReferenceArea
+  ReferenceArea,
+  ReferenceLine
 } from 'recharts';
-import { getMaxValue } from 'utils';
+import { getMaxValue, getCustomTicks } from 'utils';
 import TooltipChart from 'components/charts/tooltip-chart';
 import debounce from 'lodash/debounce';
 import isUndefined from 'lodash/isUndefined';
@@ -85,7 +86,19 @@ class ChartLine extends PureComponent {
     const lineState = { projectedData, data, config };
     const dataMaxMin = getDataMaxMin(lineState);
     const domain = projectedData ? getDomain(lineState) : customDomain;
+    const dataWithTotal = getDataWithTotal(lineState);
     const lastData = getMaxValue(getDataWithTotal(lineState));
+
+    const tickColumns = {
+      x: config.columns.x,
+      y: config.columns.y.concat({ value: 'y' })
+    };
+
+    const tickValues = getCustomTicks(
+      tickColumns,
+      dataWithTotal.concat(projectedData),
+      5
+    );
 
     return (
       <ResponsiveContainer height={height}>
@@ -125,6 +138,10 @@ class ChartLine extends PureComponent {
             {yAxisLabel(unit)}
           </YAxis>
           <CartesianGrid vertical={false} />
+          {
+            tickValues.min < 0 &&
+              <ReferenceLine y={0} strokeWidth="2" stroke="#666" fill="" />
+          }
           {
             tooltipVisibility &&
               (
