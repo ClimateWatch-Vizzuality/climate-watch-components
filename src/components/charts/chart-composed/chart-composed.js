@@ -7,7 +7,8 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  ComposedChart
+  ComposedChart,
+  ReferenceLine
 } from 'recharts';
 import cx from 'classnames';
 import TooltipChart from 'components/charts/tooltip-chart';
@@ -110,6 +111,7 @@ class ChartComposed extends PureComponent {
               {yAxisLabel(unit)}
             </YAxis>
             <CartesianGrid vertical={false} />
+            <ReferenceLine y={0} strokeWidth="2" stroke="#666" fill="" />
             <Tooltip
               isAnimationActive={false}
               cursor={{ stroke: '#113750', strokeWidth: 2 }}
