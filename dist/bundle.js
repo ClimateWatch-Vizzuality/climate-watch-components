@@ -90981,30 +90981,31 @@ module.exports = (function(e) {
       };
     })(),
       o = n('cDcd'),
-      i = E(o),
-      a = E(n('rf6O')),
-      l = E(n('OFL0')),
-      u = E(n('X/mw')),
-      s = E(n('FehL')),
-      c = E(n('GlS/')),
-      f = E(n('ukY8')),
-      d = E(n('nyGZ')),
-      p = E(n('NbxL')),
-      h = E(n('SCd1')),
-      y = E(n('qbDl')),
-      v = n('+n12'),
-      m = E(n('qCFj')),
-      g = E(n('sEfC')),
-      b = E(n('TP7S')),
-      _ = E(n('kjI7')),
-      x = E(n('Xh48')),
-      w = E(n('h3pi')),
-      O = n('7C9U'),
-      S = n('s7al');
-    function E(e) {
+      i = T(o),
+      a = T(n('rf6O')),
+      l = T(n('OFL0')),
+      u = T(n('pIUp')),
+      s = T(n('X/mw')),
+      c = T(n('FehL')),
+      f = T(n('GlS/')),
+      d = T(n('ukY8')),
+      p = T(n('nyGZ')),
+      h = T(n('NbxL')),
+      y = T(n('SCd1')),
+      v = T(n('qbDl')),
+      m = n('+n12'),
+      g = T(n('qCFj')),
+      b = T(n('sEfC')),
+      _ = T(n('TP7S')),
+      x = T(n('kjI7')),
+      w = T(n('Xh48')),
+      O = T(n('h3pi')),
+      S = n('7C9U'),
+      E = n('s7al');
+    function T(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var T = (function(e) {
+    var k = (function(e) {
       function t() {
         !(function(e, t) {
           if (!(e instanceof t))
@@ -91017,7 +91018,7 @@ module.exports = (function(e) {
             );
           return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
         })(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this));
-        return e.debouncedMouseMove = (0, g.default)(
+        return e.debouncedMouseMove = (0, b.default)(
           function(t) {
             e.props.onMouseMove(t);
           },
@@ -91069,83 +91070,93 @@ module.exports = (function(e) {
               r = e.data,
               o = e.height,
               a = e.margin,
-              g = e.domain,
-              E = e.showUnit,
-              T = e.forceFixedFormatDecimals,
-              k = e.lineType,
-              M = e.customXAxisTick,
-              C = e.customYAxisTick,
-              P = e.customTooltip,
-              A = e.getCustomYLabelFormat,
-              j = e.projectedData,
-              N = this.state,
-              I = N.activePoint,
-              R = N.tooltipVisibility,
-              L = E && (0, l.default)(n, 'axes.yLeft.unit')
+              b = e.domain,
+              T = e.showUnit,
+              k = e.forceFixedFormatDecimals,
+              M = e.lineType,
+              C = e.customXAxisTick,
+              P = e.customYAxisTick,
+              A = e.customTooltip,
+              j = e.getCustomYLabelFormat,
+              N = e.projectedData,
+              I = this.state,
+              R = I.activePoint,
+              L = I.tooltipVisibility,
+              D = T && (0, l.default)(n, 'axes.yLeft.unit')
                 ? n.axes.yLeft.unit
                 : null,
-              D = (0, l.default)(n, 'axes.yLeft.suffix')
+              z = (0, l.default)(n, 'axes.yLeft.suffix')
                 ? n.axes.yLeft.suffix
                 : null,
-              z = { projectedData: j, data: r, config: n },
-              B = (0, S.getDataMaxMin)(z),
-              U = j ? (0, S.getDomain)(z) : g,
-              W = (0, v.getMaxValue)((0, S.getDataWithTotal)(z));
+              B = { projectedData: N, data: r, config: n },
+              U = (0, E.getDataMaxMin)(B),
+              W = N ? (0, E.getDomain)(B) : b,
+              F = (0, E.getDataWithTotal)(B),
+              H = (0, m.getMaxValue)((0, E.getDataWithTotal)(B)),
+              q = { x: n.columns.x, y: n.columns.y.concat({ value: 'y' }) },
+              G = (0, m.getCustomTicks)(q, F.concat(N), 5);
             return i.default.createElement(
-              s.default,
+              c.default,
               { height: o },
               i.default.createElement(
-                y.default,
+                v.default,
                 { data: r, margin: a, onMouseMove: this.handleMouseMove },
-                i.default.createElement(p.default, {
+                i.default.createElement(h.default, {
                   dataKey: 'x',
                   scale: 'time',
                   type: 'number',
-                  tick: M || i.default.createElement(O.CustomXAxisTick, null),
+                  tick: C || i.default.createElement(S.CustomXAxisTick, null),
                   padding: { left: 15, right: 20 },
                   tickSize: 8,
-                  domain: U && U.x || [ 'auto', 'auto' ],
+                  domain: W && W.x || [ 'auto', 'auto' ],
                   interval: 'preserveStartEnd'
                 }),
                 i.default.createElement(
-                  d.default,
+                  p.default,
                   {
                     axisLine: !1,
                     tickLine: !1,
                     scale: 'linear',
                     type: 'number',
-                    tick: C ||
-                      i.default.createElement(O.CustomYAxisTick, {
+                    tick: P ||
+                      i.default.createElement(S.CustomYAxisTick, {
                         precision: n.precision,
-                        suffix: D,
-                        getCustomYLabelFormat: A
+                        suffix: z,
+                        getCustomYLabelFormat: j
                       }),
-                    domain: U && U.y || [ 'auto', 'auto' ],
+                    domain: W && W.y || [ 'auto', 'auto' ],
                     interval: 'preserveStartEnd'
                   },
-                  (0, _.default)(L)
+                  (0, x.default)(D)
                 ),
-                i.default.createElement(f.default, { vertical: !1 }),
-                R && i.default.createElement(c.default, {
+                i.default.createElement(d.default, { vertical: !1 }),
+                G.min < 0 &&
+                  i.default.createElement(u.default, {
+                    y: 0,
+                    strokeWidth: '2',
+                    stroke: '#666',
+                    fill: ''
+                  }),
+                L && i.default.createElement(f.default, {
                     isAnimationActive: !1,
                     cursor: { stroke: '#113750', strokeWidth: 2 },
                     filterNull: !1,
                     content: function(e) {
-                      return P &&
-                        i.default.cloneElement(P, { content: e, config: n }) ||
-                        i.default.createElement(m.default, {
+                      return A &&
+                        i.default.cloneElement(A, { content: e, config: n }) ||
+                        i.default.createElement(g.default, {
                           content: e,
                           config: n,
-                          forceFixedFormatDecimals: T,
-                          getCustomYLabelFormat: A
+                          forceFixedFormatDecimals: k,
+                          getCustomYLabelFormat: j
                         });
                     }
                   }),
                 n.columns && n.columns.y.map(function(e) {
                     var r = n.theme[e.value].stroke || '';
-                    return i.default.createElement(h.default, {
+                    return i.default.createElement(y.default, {
                       key: e.value,
-                      isAnimationActive: !!(0, b.default)(n.animation) ||
+                      isAnimationActive: !!(0, _.default)(n.animation) ||
                         n.animation,
                       dot: t &&
                         !e.hideData &&
@@ -91153,13 +91164,13 @@ module.exports = (function(e) {
                       dataKey: e.value,
                       stroke: e.hideData ? 'transparent' : r,
                       strokeWidth: e.hideData ? 0 : 2,
-                      type: k
+                      type: M
                     });
                   }),
-                j &&
-                  j.length &&
-                  (0, x.default)({ x: W.x, labels: n.dividerLine }),
-                i.default.createElement(u.default, {
+                N &&
+                  N.length &&
+                  (0, w.default)({ x: H.x, labels: n.dividerLine }),
+                i.default.createElement(s.default, {
                   x1: 150,
                   x2: 180,
                   y1: 200,
@@ -91167,12 +91178,12 @@ module.exports = (function(e) {
                   stroke: 'red',
                   strokeOpacity: .3
                 }),
-                j &&
-                  j.length &&
-                  (0, w.default)({
-                    data: j,
-                    dataMaxMin: B,
-                    activePoint: I,
+                N &&
+                  N.length &&
+                  (0, O.default)({
+                    data: N,
+                    dataMaxMin: U,
+                    activePoint: R,
                     handleProjectedDataHover: this.handleProjectedDataHover,
                     config: n
                   })
@@ -91182,7 +91193,7 @@ module.exports = (function(e) {
         }
       ]), t;
     })();
-    T.propTypes = {
+    k.propTypes = {
       dots: a.default.bool,
       config: a.default.object.isRequired,
       data: a.default.array.isRequired,
@@ -91203,7 +91214,7 @@ module.exports = (function(e) {
       customXAxisTick: a.default.node,
       customTooltip: a.default.node,
       getCustomYLabelFormat: a.default.func
-    }, T.defaultProps = {
+    }, k.defaultProps = {
       projectedData: [],
       dots: !0,
       height: '100%',
@@ -91218,7 +91229,7 @@ module.exports = (function(e) {
       customXAxisTick: null,
       customTooltip: null,
       getCustomYLabelFormat: null
-    }, t.default = T;
+    }, t.default = k;
   },
   kaWx: function(e, t, n) {
     'use strict';
@@ -93937,13 +93948,23 @@ module.exports = (function(e) {
                         renderOption: function(e) {
                           return a.default.createElement(c.default, {
                             icon: T[e.label],
-                            theme: { icon: y.default.iconOption }
+                            theme: {
+                              icon: (0, s.default)(
+                                y.default.iconOption,
+                                u.iconOption
+                              )
+                            }
                           });
                         },
                         renderValue: function(e) {
                           return a.default.createElement(c.default, {
                             icon: T[e.label],
-                            theme: { icon: y.default.iconValue }
+                            theme: {
+                              icon: (0, s.default)(
+                                y.default.iconValue,
+                                u.iconValue
+                              )
+                            }
                           });
                         },
                         hideResetButton: O
@@ -93995,7 +94016,9 @@ module.exports = (function(e) {
         dot: u.default.string,
         dropdow: u.default.string,
         select: u.default.string,
-        icon: u.default.string
+        icon: u.default.string,
+        iconValue: u.default.string,
+        iconOption: u.default.string
       }),
       icons: u.default.shape(x),
       value: u.default.shape(_),
