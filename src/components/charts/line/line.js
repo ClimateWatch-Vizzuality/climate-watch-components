@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import has from 'lodash/has';
+import get from 'lodash/get';
 import {
   LineChart,
   Line,
@@ -22,7 +22,8 @@ import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 import {
   getDataMaxMin,
   getDataWithTotal,
-  getDomain
+  getDomain,
+  getDiscontinousScale
 } from '../selectors/chart-selectors';
 
 class ChartLine extends PureComponent {
@@ -76,16 +77,13 @@ class ChartLine extends PureComponent {
       projectedData
     } = this.props;
     const { activePoint, tooltipVisibility } = this.state;
-    const unit = showUnit && has(config, 'axes.yLeft.unit')
-      ? config.axes.yLeft.unit
-      : null;
-    const suffix = has(config, 'axes.yLeft.suffix')
-      ? config.axes.yLeft.suffix
-      : null;
+    const unit = showUnit && get(config, 'axes.yLeft.unit', null);
+    const suffix = get(config, 'axes.yLeft.suffix', null);
     const lineState = { projectedData, data, config };
     const dataMaxMin = getDataMaxMin(lineState);
     const domain = projectedData ? getDomain(lineState) : customDomain;
     const lastData = getMaxValue(getDataWithTotal(lineState));
+    const xAxisScale = getDiscontinousScale(lineState) || 'time';
 
     return (
       <ResponsiveContainer height={height}>
@@ -96,7 +94,7 @@ class ChartLine extends PureComponent {
         >
           <XAxis
             dataKey="x"
-            scale="time"
+            scale={xAxisScale}
             type="number"
             tick={customXAxisTick || <CustomXAxisTick />}
             padding={{ left: 15, right: 20 }}

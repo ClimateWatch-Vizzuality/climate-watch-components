@@ -1,9 +1,16 @@
 import min from 'lodash/min';
 import max from 'lodash/max';
 import isArray from 'lodash/isArray';
+import uniq from 'lodash/uniq';
 import { createSelector } from 'reselect';
+import {
+  scaleDiscontinuous,
+  discontinuityRange
+} from '@d3fc/d3fc-discontinuous-scale';
+import { scaleTime } from 'd3-scale';
 
 const getData = state => state.data || null;
+const getProjectedData = state => state.projectedData || null;
 export const getDataWithTotal = createSelector(
   [ getData, state => state.config ],
   (data, config) => {
@@ -48,13 +55,7 @@ const getDataMax = createSelector(getDataWithTotal, data => {
 });
 
 export const getDomain = createSelector(
-  [
-    getData,
-    state => state.config,
-    state => state.projectedData,
-    getDataMin,
-    getDataMax
-  ],
+  [ getData, state => state.config, getProjectedData, getDataMin, getDataMax ],
   (data, config, projectedData, dataMin, dataMax) => {
     if (!data || !config) return null;
     const domain = { x: [ 'dataMin', 'dataMax' ], y: [ 'auto', 'auto' ] };
@@ -84,3 +85,23 @@ export const getDataMaxMin = createSelector([ getDataMin, getDataMax ], (
   dataMin,
   dataMax
 ) => ({ max: dataMax, min: dataMin }));
+
+export const getDiscontinousScale = createSelector(
+  [ getData, getProjectedData ],
+  (data, projectedData) => {
+    if (!data || !data.length || !projectedData || !projectedData.length)
+      return null;
+
+    const lastValueYear = data[data.length - 1].x;
+    const projectedDataYears = uniq(projectedData.map(d => d.x));
+    const allYears = [ lastValueYear, ...projectedDataYears ];
+
+    const omitYearRanges = allYears
+      .slice(1)
+      .map((y, index) => [ allYears[index], allYears[index + 1] - 1 ]);
+
+    return scaleDiscontinuous(
+      scaleTime()
+    ).discontinuityProvider(discontinuityRange(...omitYearRanges));
+  }
+);
