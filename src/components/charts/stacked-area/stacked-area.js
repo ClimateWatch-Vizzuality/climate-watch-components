@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import { isMicrosoftBrowser, getCustomTicks, getMaxValue } from 'utils';
 import isUndefined from 'lodash/isUndefined';
-import has from 'lodash/has';
+import get from 'lodash/get';
 import { format } from 'd3-format';
 import {
   ComposedChart,
@@ -25,7 +25,8 @@ import ProjectedData from '../projected-data';
 import {
   getDataWithTotal,
   getDomain,
-  getDataMaxMin
+  getDataMaxMin,
+  getDiscontinousScale
 } from '../selectors/chart-selectors';
 import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 
@@ -151,12 +152,10 @@ class ChartStackedArea extends PureComponent {
       dataWithTotal.concat(projectedData),
       5
     );
-    const suffix = has(config, 'axes.yLeft.suffix')
-      ? config.axes.yLeft.suffix
-      : null;
-    const unit = showUnit && has(config, 'axes.yLeft.unit')
-      ? config.axes.yLeft.unit
-      : null;
+    const suffix = get(config, 'axes.yLeft.suffix', null);
+    const unit = showUnit && get(config, 'axes.yLeft.unit', null);
+    const anyProjectedData = projectedData && projectedData.length;
+    const xAxisScale = getDiscontinousScale(stackedAreaState) || 'auto';
 
     return (
       <ResponsiveContainer height={height}>
@@ -170,6 +169,7 @@ class ChartStackedArea extends PureComponent {
         >
           <XAxis
             domain={domain.x}
+            scale={xAxisScale}
             type="number"
             dataKey="x"
             padding={{ left: 30, right: 40 }}
@@ -267,13 +267,11 @@ class ChartStackedArea extends PureComponent {
           }
           {showLastPoint && renderLastPoint(lastData)}
           {
-            projectedData &&
-              projectedData.length &&
+            anyProjectedData &&
               DividerLine({ x: lastData.x, labels: config.dividerLine })
           }
           {
-            projectedData &&
-              projectedData.length &&
+            anyProjectedData &&
               ProjectedData({
                 data: projectedData,
                 dataMaxMin,
