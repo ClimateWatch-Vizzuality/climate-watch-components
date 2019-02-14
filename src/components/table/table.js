@@ -49,6 +49,12 @@ class Table extends PureComponent {
     );
   }
 
+  componentDidMount() {
+    const tableWrapper = window &&
+      window.document.getElementById('tableWrapper');
+    this.tableWrapperWidth = tableWrapper && tableWrapper.offsetWidth;
+  }
+
   componentDidUpdate() {
     const tableWrapper = window &&
       window.document.getElementById('tableWrapper');
