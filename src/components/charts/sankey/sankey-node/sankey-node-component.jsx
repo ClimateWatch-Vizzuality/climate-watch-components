@@ -22,6 +22,7 @@ function SankeyNode({ x, y, width, height, index, payload, config }) {
     const svgTexts = splitSVGText(text, textHeight, tspanLineHeight, charactersPerLine, maxLines);
     return svgTexts.map((t, i) => (
       `<tspan
+        key="${i}"
         x="${startX}"
         y="${startY + fontSize * lineHeight + i * fontSize * lineHeight - (0.5 * (svgTexts.length - 1)) * fontSize}"
       >

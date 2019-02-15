@@ -9,13 +9,13 @@ const htmlToSvgSubscript = unitY => {
     if (chain.includes('</sub>')) {
       const subChain = chain.split('</sub>');
       return (
-        <tspan>
+        <tspan key={unitY}>
           <tspan dy="4" fontSize="11px">{subChain[0]}</tspan>
           <tspan dy="-4">{subChain[1]}</tspan>
         </tspan>
       );
     }
-    return <tspan>{chain}</tspan>;
+    return <tspan key={chain}>{chain}</tspan>;
   });
 };
 

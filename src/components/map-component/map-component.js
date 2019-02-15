@@ -104,7 +104,7 @@ class MapComponent extends Component {
                       disableOptimization={forceUpdate || !cache}
                     >
                       {(geographies, projection) =>
-                        geographies.map(geography => {
+                        geographies.map((geography, key) => {
                           if (geography) {
                             let commonProps = {
                               geography,
@@ -138,7 +138,14 @@ class MapComponent extends Component {
                                 };
                               }
                             }
-                            return <Geography {...commonProps} />;
+                            // eslint-disable-next-line react/no-array-index-key
+                            return (
+                              <Geography
+                                // eslint-disable-next-line react/no-array-index-key
+                                key={`${geography.properties.id}-${key}`}
+                                {...commonProps}
+                              />
+                            );
                           }
                           return null;
                         })}

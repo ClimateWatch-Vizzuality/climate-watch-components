@@ -75,6 +75,7 @@ class PieChart extends PureComponent {
             {
               isMultilevelPieChart ? Object.keys(data).map(key => (
                 <Pie
+                  key={key}
                   data={data[key]}
                   dataKey="value"
                   outerRadius={config.radius[key].outerRadius}
@@ -151,13 +152,16 @@ PieChart.propTypes = {
     /** hide legend component */
     hideLegend: PropTypes.bool
   }),
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
-      fill: PropTypes.string.isRequired
-    })
-  ),
+  data: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        value: PropTypes.number,
+        fill: PropTypes.string
+      })
+    ),
+    PropTypes.object
+  ]),
   width: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
   margin: PropTypes.shape({
     top: PropTypes.number,
