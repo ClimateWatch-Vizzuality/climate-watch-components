@@ -1,6 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
   entry: './src/index.js',
@@ -19,20 +20,27 @@ const config = {
       { test: /\.svg$/, use: [ { loader: 'svg-sprite-loader' } ] },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=cw__[name]_[local]',
-          'resolve-url-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              includePaths: [ './node_modules', './src/styles' ]
-                .map(d => path.join(__dirname, d))
-                .map(g => glob.sync(g))
-                .reduce((a, c) => a.concat(c), [])
+        use: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: 'cw__[name]_[local]'
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: [ './node_modules', './src/styles' ]
+                  .map(d => path.join(__dirname, d))
+                  .map(g => glob.sync(g))
+                  .reduce((a, c) => a.concat(c), [])
+              }
             }
-          }
-        ]
+          ]
+        })
       }
     ]
   },
@@ -47,7 +55,13 @@ const config = {
       utils: path.resolve(__dirname, 'src/utils/')
     }
   },
-  plugins: []
+  plugins: [
+    new ExtractTextPlugin({
+      disable: false,
+      allChunks: true,
+      filename: '[name].css'
+    })
+  ]
 };
 
 module.exports = config;
