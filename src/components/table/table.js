@@ -236,7 +236,6 @@ class Table extends PureComponent {
       const header = columnLabel(columnText);
       return (
         <Truncate
-          key={Math.random()}
           data-for="header-label"
           data-tip={header}
           data-offset="{'top': 40, 'left': 0}"
@@ -256,14 +255,10 @@ class Table extends PureComponent {
       [];
 
     return (
-      <div
-        key={Math.random()}
-        className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}
-      >
+      <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
           hasColumnSelectedOptions && (
           <div
-            key={Math.random()}
             role="button"
             tabIndex={0}
             className={styles.columnSelectorWrapper}
@@ -286,15 +281,13 @@ class Table extends PureComponent {
             )
         }
         <div
-          key={Math.random()}
           className={cx(styles.tableWrapper, {
             [styles.horizontalScroll]: horizontalScroll
           })}
         >
-          <AutoSizer key={Math.random()} disableHeight>
+          <AutoSizer disableHeight>
             {({ width }) => (
               <VirtualizedTable
-                key={Math.random()}
                 className={styles.table}
                 width={this.getFullWidth(propsData, activeColumns, width)}
                 height={tableHeight}
