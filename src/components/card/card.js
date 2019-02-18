@@ -12,17 +12,23 @@ class Card extends PureComponent {
     const { title, subtitle, theme } = this.props;
 
     return (
-      <div className={cx(styles.contentContainer, theme.contentContainer)}>
+      <div
+        key={`${title}-${subtitle}`}
+        className={cx(styles.contentContainer, theme.contentContainer)}
+      >
         {
           title && (
-          <p className={cx(styles.title, theme.title)}>
+          <p
+            key={`${title}-${subtitle}`}
+            className={cx(styles.title, theme.title)}
+          >
             {title}
           </p>
             )
         }
         {
           subtitle && (
-          <p className={cx(styles.subtitle, theme.subtitle)}>
+          <p key={subtitle} className={cx(styles.subtitle, theme.subtitle)}>
             {subtitle}
           </p>
             )
@@ -32,10 +38,10 @@ class Card extends PureComponent {
   };
 
   renderChildren = () => {
-    const { children, theme } = this.props;
+    const { children, theme, title } = this.props;
 
     return (
-      <div className={cx(styles.data, theme.data)}>
+      <div key={title} className={cx(styles.data, theme.data)}>
         {children}
       </div>
     );

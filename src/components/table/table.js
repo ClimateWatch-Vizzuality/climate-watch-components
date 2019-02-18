@@ -320,7 +320,7 @@ class Table extends PureComponent {
                           ellipsisColumns.indexOf(column) > -1,
                         [styles.allTextVisible]: dynamicRowsHeight
                       })}
-                      key={column}
+                      key={getHeaderLabel(column, data)}
                       label={getHeaderLabel(column, data)}
                       dataKey={column}
                       flexGrow={0}
