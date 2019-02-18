@@ -118,7 +118,7 @@ class TooltipChart extends PureComponent {
             content.payload.length > 0 &&
             this.sortByValue(content.payload).map(y => {
               const hasDataKey = !!y.dataKey;
-              const labelName = y.dataKey || y.name;
+              const labelName = y.name || y.dataKey;
               return y.payload &&
                 y.dataKey !== 'total' &&
                 (hasDataKey
