@@ -38,10 +38,12 @@ To remove this local linked package from the application. Run following on the a
 
 Make sure that React, react-dom or maybe other libraries are not loaded twice when linking this package locally.
 
-In the app webpack configuration, resolve packages to always use app's node_modules version
+In the app webpack configuration, resolve packages to always use app's node_modules version and do not resolve symlinks, because
+[webpack has some problems with that](https://github.com/webpack/webpack/issues/1643).
 
 ```
   resolve: {
+    symlinks: false,
     alias: {
       react: path.resolve('./node_modules/react'),
       'react-dom': path.resolve('./node_modules/react-dom')
