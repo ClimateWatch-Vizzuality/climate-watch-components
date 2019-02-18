@@ -52,7 +52,7 @@ class SunburstChart extends PureComponent {
                 }}
           >
             {firstLevelLegend.map(q => (
-              <React.Fragment>
+              <React.Fragment key={q}>
                 <Tag
                   theme={theme.tag || simpleTagTheme}
                   key={config.theme[q].label}
@@ -64,6 +64,7 @@ class SunburstChart extends PureComponent {
                       config.theme[q].children &&
                         config.theme[q].children.map(nestedTag => (
                           <div
+                            key={nestedTag}
                             className={cx(styles.legend, theme.legend)}
                             style={{
                               marginLeft: width / config.legendPositionRatio +

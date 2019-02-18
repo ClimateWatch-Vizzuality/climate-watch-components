@@ -217,11 +217,11 @@ MultiLevelDropdown.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      value: PropTypes.oneOf([ PropTypes.string, PropTypes.number ]),
+      value: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
       /** Group name of the the group it creates (only parents) */
-      groupParent: PropTypes.oneOf([ PropTypes.string, PropTypes.number ]),
+      groupParent: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
       /** Group name of the parent of the current object (only children) */
-      group: PropTypes.oneOf([ PropTypes.string, PropTypes.number ])
+      group: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
     })
   ),
   /** Name of the attribute in the values for the group name */
