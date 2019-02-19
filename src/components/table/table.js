@@ -50,15 +50,7 @@ class Table extends PureComponent {
   }
 
   componentDidMount() {
-    const tableWrapper = window &&
-      window.document.getElementById('tableWrapper');
-    this.tableWrapperWidth = tableWrapper && tableWrapper.offsetWidth;
-  }
-
-  componentDidUpdate() {
-    const tableWrapper = window &&
-      window.document.getElementById('tableWrapper');
-    this.tableWrapperWidth = tableWrapper && tableWrapper.offsetWidth;
+    this.tableWrapperWidth = this.tableWrapper && this.tableWrapper.offsetWidth;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,6 +73,7 @@ class Table extends PureComponent {
   };
 
   getFullWidth = (data, columns, width) => {
+    const { setColumnWidth } = this.props;
     const columnsLenght = columns.length;
     if (columnsLenght === 1) return width;
     const totalWidth = columns.reduce(
@@ -88,8 +81,12 @@ class Table extends PureComponent {
         acc + this.getColumnLength(data, column.label) + this.rowColumnMargin,
       this.rowColumnMargin + 10
     );
-    this.setState({ shouldOverflow: width < this.tableWrapperWidth });
-    return totalWidth < width ? width : totalWidth;
+    this.tableWrapperWidth = this.tableWrapper && this.tableWrapper.offsetWidth;
+    const realWidth = setColumnWidth
+      ? (setColumnWidth() + this.rowColumnMargin + 10) * columnsLenght
+      : totalWidth;
+    this.setState({ shouldOverflow: realWidth > this.tableWrapperWidth });
+    return realWidth < width ? width : realWidth;
   };
 
   getDataSorted = (data, sortBy, sortDirection) => {
@@ -295,7 +292,9 @@ class Table extends PureComponent {
             )
         }
         <div
-          id="tableWrapper"
+          ref={table => {
+            this.tableWrapper = table;
+          }}
           className={cx(styles.tableWrapper, {
             [styles.horizontalScroll]: shouldOverflow
           })}

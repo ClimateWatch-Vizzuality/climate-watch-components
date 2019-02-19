@@ -91,7 +91,6 @@ p {
   .ReactVirtualized__Grid,
   .ReactVirtualized__Table__Grid {
     border-top: solid 1px $theme-color-light;
-    overflow: inherit !important;
 
     &:focus {
       outline: none;
