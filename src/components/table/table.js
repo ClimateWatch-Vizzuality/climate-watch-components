@@ -30,7 +30,8 @@ class Table extends PureComponent {
       sortBy: sortBy || get(allColumns, '[0]'),
       sortDirection: SortDirection.ASC,
       activeColumns: columns.map(d => ({ label: d, value: d })),
-      columnsOptions: allColumns.map(d => ({ label: d, value: d }))
+      columnsOptions: allColumns.map(d => ({ label: d, value: d })),
+      shouldOverflow: false
     };
     this.standardColumnWidth = 180;
     this.minColumnWidth = 80;
@@ -46,6 +47,10 @@ class Table extends PureComponent {
       styles.rowcolumnmargin.replace('px', ''),
       10
     );
+  }
+
+  componentDidMount() {
+    this.tableWrapperWidth = this.tableWrapper && this.tableWrapper.offsetWidth;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -68,6 +73,7 @@ class Table extends PureComponent {
   };
 
   getFullWidth = (data, columns, width) => {
+    const { setColumnWidth } = this.props;
     const columnsLenght = columns.length;
     if (columnsLenght === 1) return width;
     const totalWidth = columns.reduce(
@@ -75,7 +81,12 @@ class Table extends PureComponent {
         acc + this.getColumnLength(data, column.label) + this.rowColumnMargin,
       this.rowColumnMargin + 10
     );
-    return totalWidth < width ? width : totalWidth;
+    this.tableWrapperWidth = this.tableWrapper && this.tableWrapper.offsetWidth;
+    const realWidth = setColumnWidth
+      ? (setColumnWidth() + this.rowColumnMargin + 10) * columnsLenght
+      : totalWidth;
+    this.setState({ shouldOverflow: realWidth > this.tableWrapperWidth });
+    return realWidth < width ? width : realWidth;
   };
 
   getDataSorted = (data, sortBy, sortDirection) => {
@@ -191,7 +202,8 @@ class Table extends PureComponent {
       sortDirection,
       activeColumns,
       columnsOptions,
-      optionsOpen
+      optionsOpen,
+      shouldOverflow
     } = this.state;
     const {
       data: propsData,
@@ -200,7 +212,6 @@ class Table extends PureComponent {
       headerHeight,
       setRowsHeight,
       ellipsisColumns,
-      horizontalScroll,
       dynamicRowsHeight,
       hiddenColumnHeaderLabels
     } = this.props;
@@ -281,8 +292,11 @@ class Table extends PureComponent {
             )
         }
         <div
+          ref={table => {
+            this.tableWrapper = table;
+          }}
           className={cx(styles.tableWrapper, {
-            [styles.horizontalScroll]: horizontalScroll
+            [styles.horizontalScroll]: shouldOverflow
           })}
         >
           <AutoSizer disableHeight>
@@ -370,8 +384,6 @@ Table.propTypes = {
   /** Trim line to include ... */
   // eslint-disable-next-line react/forbid-prop-types
   ellipsisColumns: PropTypes.array,
-  /** Boolean to allow scroll in the horizontal direction */
-  horizontalScroll: PropTypes.bool.isRequired,
   /** Array to order the column headers */
   // eslint-disable-next-line react/forbid-prop-types
   firstColumnHeaders: PropTypes.array,
