@@ -1,4 +1,5 @@
 import { createElement, PureComponent } from 'react';
+import Downshift from 'downshift';
 import PropTypes from 'prop-types';
 import { deburrUpper } from 'utils/utils';
 import groupBy from 'lodash/groupBy';
@@ -7,11 +8,7 @@ import remove from 'lodash/remove';
 
 import Component from './multi-level-dropdown-component';
 
-const EVENT_TYPES = {
-  mouseUp: '__autocomplete_mouseup__',
-  keyDownEnter: '__autocomplete_keydown_enter__',
-  click: '__autocomplete_click_item__'
-};
+const EVENT_TYPES = Downshift.stateChangeTypes;
 
 class MultiLevelDropdown extends PureComponent {
   constructor(props) {
@@ -106,17 +103,21 @@ class MultiLevelDropdown extends PureComponent {
   handleStateChange = (changes, downshiftStateAndHelpers) => {
     const { multiselect } = this.props;
     if (!changes || !downshiftStateAndHelpers.isOpen) return;
-    if (changes.type === EVENT_TYPES.mouseUp) {
+
+    if (changes.type === Downshift.stateChangeTypes.blurInput) return;
+
+    if (changes.type === Downshift.stateChangeTypes.mouseUp) {
       this.setState({ isOpen: false });
     } else {
       if (changes.inputValue || changes.inputValue === '') {
         if (
           multiselect &&
             (changes.type === EVENT_TYPES.keyDownEnter ||
-              changes.type === EVENT_TYPES.click)
+              changes.type === EVENT_TYPES.clickItem)
         ) {
           this.handleMultiselectChange(changes, downshiftStateAndHelpers);
         }
+
         this.setState({ inputValue: changes.inputValue });
       }
 
@@ -128,7 +129,7 @@ class MultiLevelDropdown extends PureComponent {
         this.setState({ highlightedIndex: changes.highlightedIndex });
       }
 
-      if (changes.type === EVENT_TYPES.click) {
+      if (changes.type === EVENT_TYPES.clickItem) {
         this.setState({ inputValue: '' });
         this.updateActiveLabel(changes.inputValue);
       }
