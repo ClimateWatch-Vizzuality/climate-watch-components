@@ -41,20 +41,11 @@ class Multiselect extends Component {
     const { search } = this.state;
     const hasValues = values && values.length;
     if (hasValues && !search) {
-      if (values.length === (options && options.length)) return (
-        <span>
-          {defaultText.allSelected}
-        </span>
-        );
-      return values.length === 1 ? (
-        <Truncate lines={1}>
-          {values[0].label}
-        </Truncate>
-) : (
-  <span>
-    {`${values.length} ${defaultText.selected}`}
-  </span>
-);
+      if (values.length > 1 && values.length === (options && options.length))
+        return <span>{defaultText.allSelected}</span>;
+      return values.length === 1
+        ? <Truncate lines={1}>{values[0].label}</Truncate>
+        : <span>{`${values.length} ${defaultText.selected}`}</span>;
     }
     return null;
   }
@@ -123,13 +114,7 @@ class Multiselect extends Component {
           theme.wrapper
         )}
       >
-        {
-          label && (
-          <span className={styles.label}>
-            {label}
-          </span>
-            )
-        }
+        {label && <span className={styles.label}>{label}</span>}
         {
           info && (
           <div data-tip={infoText} className={styles.infoContainer}>
@@ -147,10 +132,11 @@ class Multiselect extends Component {
           )}
         >
           {
-            !icon && (
-            <div className={cx(styles.values, 'values')}>
-              {this.getSelectorValue()}
-            </div>
+            !icon &&
+              (
+                <div className={cx(styles.values, 'values')}>
+                  {this.getSelectorValue()}
+                </div>
               )
           }
           {loading && <Loading className={styles.loader} mini />}
