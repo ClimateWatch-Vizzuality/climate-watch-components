@@ -28,6 +28,7 @@ Install using yarn install. Package-lock.json won't be created as we want to avo
 1. Register cw-components as linked package. Run `yarn link`. Have to be done just once.
 2. Run `yarn dev` to run webpack with development config.
 3. On app repo. `yarn link cw-components`.
+4. It's a good practice to unlink the package after testing to not forget about it later.
 
 To remove this local linked package from the application. Run following on the app repo:
 

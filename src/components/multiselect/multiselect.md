@@ -1,4 +1,3 @@
-
 ```js
 initialState = {
   selected: [],
@@ -24,4 +23,3 @@ const onValueChange = (selected) => {
 </Multiselect>
 </div>
 ```
-

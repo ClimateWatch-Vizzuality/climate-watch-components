@@ -28,6 +28,9 @@ const Selector = props => {
   const showCloseIcon = clearable && isArray(values) && values.length > 0;
   const showDownArrow = arrowPosition !== 'left' && !disabled;
   const valuesSelectedLength = values.length;
+  const valuesSelectedLabel = valuesSelectedLength === 1
+                           ? values[0].label
+                           : valuesSelectedLength && `${valuesSelectedLength} ${defaultText.selected}`;
   const arrowDown = (
     <button
       className={styles.arrowBtn}
@@ -59,7 +62,7 @@ const Selector = props => {
         >
           {(isOpen && !searchable) || !isOpen ? (
             activeLabel ||
-            (valuesSelectedLength > 0 && `${valuesSelectedLength} ${defaultText.selected}`) ||
+            valuesSelectedLabel ||
             placeholder
           ) : (
             ''
