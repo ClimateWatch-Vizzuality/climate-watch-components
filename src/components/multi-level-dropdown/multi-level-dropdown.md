@@ -1,5 +1,3 @@
-
-
 ```js
 initialState = {
   selected: [],
