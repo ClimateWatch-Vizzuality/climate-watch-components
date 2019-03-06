@@ -12,8 +12,8 @@
   },
   "lint-staged": {
     "**/*.scss": "stylelint --syntax=scss --fix",
-    "**/*.js": [
-      "prettier --single-quote --write",
+    "**/*.{js,jsx}": [
+      "prettier --write",
       "eslint --quiet --fix",
       "git add"
     ]
@@ -87,7 +87,7 @@
     "lodash": "4.17.10",
     "node-sass": "4.5.3",
     "postcss-loader": "2.0.6",
-    "prettier": "0.11.0",
+    "prettier": "1.16.4",
     "prop-types": "15.6.2",
     "react": "16.4.1",
     "react-dom": "16.4.1",
