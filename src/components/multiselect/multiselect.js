@@ -128,15 +128,14 @@ class Multiselect extends Component {
             styles.multiSelect,
             children ? styles.hasChildren : '',
             { [styles.mirrorX]: mirrorX },
-            { [styles.searchable]: !icon }
+            { [styles.unsearchable]: icon }
           )}
         >
           {
-            !icon &&
-              (
-                <div className={cx(styles.values, 'values')}>
-                  {this.getSelectorValue()}
-                </div>
+            !icon && (
+            <div className={cx(styles.values, 'values')}>
+              {this.getSelectorValue()}
+            </div>
               )
           }
           {loading && <Loading className={styles.loader} mini />}
