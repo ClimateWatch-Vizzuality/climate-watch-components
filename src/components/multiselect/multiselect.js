@@ -128,7 +128,7 @@ class Multiselect extends Component {
             styles.multiSelect,
             children ? styles.hasChildren : '',
             { [styles.mirrorX]: mirrorX },
-            { [styles.searchable]: !icon }
+            { [styles.unsearchable]: icon }
           )}
         >
           {
