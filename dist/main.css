@@ -689,11 +689,8 @@
 .cw__multiselect-styles_hasChildren .react-selectize-control {
   opacity: 0; }
 
-.multi-select .react-selectize-search-field-and-selected-values .resizable-input {
+.cw__multiselect-styles_unsearchable .react-selectize-search-field-and-selected-values .resizable-input {
   opacity: 0; }
-
-.cw__multiselect-styles_searchable .react-selectize-search-field-and-selected-values .resizable-input {
-  opacity: 1; }
 
 .cw__multiselect-styles_selected {
   display: flex;

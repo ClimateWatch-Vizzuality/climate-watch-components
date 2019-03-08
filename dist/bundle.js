@@ -3458,7 +3458,7 @@ module.exports = (function(e) {
       mirrorX: 'cw__multiselect-styles_mirrorX',
       multiSelect: 'cw__multiselect-styles_multiSelect',
       hasChildren: 'cw__multiselect-styles_hasChildren',
-      searchable: 'cw__multiselect-styles_searchable',
+      unsearchable: 'cw__multiselect-styles_unsearchable',
       selected: 'cw__multiselect-styles_selected',
       checked: 'cw__multiselect-styles_checked',
       nested: 'cw__multiselect-styles_nested'
@@ -9686,7 +9686,7 @@ module.exports = (function(e) {
                     b.default.multiSelect,
                     c ? b.default.hasChildren : '',
                     w({}, b.default.mirrorX, f),
-                    w({}, b.default.searchable, !_)
+                    w({}, b.default.unsearchable, _)
                   )
                 },
                 !_ &&
