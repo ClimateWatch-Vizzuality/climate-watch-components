@@ -28,7 +28,9 @@ export const CustomYAxisTick = (
       getCustomYLabelFormat
         ? getCustomYLabelFormat(value)
         : getYLabelformat(value);
-    return (
+
+    const shouldRenderTick = y > 30;
+    return shouldRenderTick ? (
       <g transform={`translate(${x},${y})`}>
         <text
           x="0"
@@ -48,7 +50,7 @@ export const CustomYAxisTick = (
           }
         </text>
       </g>
-    );
+) : null;
   };
 
 CustomXAxisTick.propTypes = {
