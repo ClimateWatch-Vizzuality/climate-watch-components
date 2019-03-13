@@ -22616,7 +22616,7 @@ module.exports = (function(e) {
           var n = e.props,
             r = n.setColumnWidth,
             o = n.data,
-            i = r ? r(t) : e.getColumnLength(o, t);
+            i = r && r(t) || e.getColumnLength(o, t);
           return { width: i, minWidth: i, maxWidth: i };
         }, this.getColumnData = function() {
           var t = e.state.activeColumns,
