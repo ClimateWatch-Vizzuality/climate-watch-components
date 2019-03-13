@@ -176,9 +176,8 @@ class Table extends PureComponent {
 
   columnWidthProps = column => {
     const { setColumnWidth, data } = this.props;
-    const length = setColumnWidth
-      ? setColumnWidth(column)
-      : this.getColumnLength(data, column);
+    const customColumnWidth = setColumnWidth && setColumnWidth(column);
+    const length = customColumnWidth || this.getColumnLength(data, column);
     return { width: length, minWidth: length, maxWidth: length };
   };
 
