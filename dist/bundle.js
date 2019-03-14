@@ -34544,19 +34544,20 @@ module.exports = (function(e) {
               E = e.getCustomYLabelFormat,
               T = e.barSize,
               P = e.barGap,
-              k = h && (0, g.default)(t, 'axes.yLeft.unit')
+              k = e.stackOffset,
+              M = h && (0, g.default)(t, 'axes.yLeft.unit')
                 ? t.axes.yLeft.unit
                 : null,
-              M = h && (0, g.default)(t, 'axes.xBottom.unit')
+              C = h && (0, g.default)(t, 'axes.xBottom.unit')
                 ? t.axes.xBottom.unit
                 : null,
-              C = (0, g.default)(t, 'axes.xBottom.label')
+              A = (0, g.default)(t, 'axes.xBottom.label')
                 ? t.axes.xBottom.label
                 : void 0,
-              A = (0, g.default)(t, 'axes.yLeft.label')
+              j = (0, g.default)(t, 'axes.yLeft.label')
                 ? t.axes.yLeft.label
                 : void 0,
-              j = t.columns.y.map(function(e) {
+              N = t.columns.y.map(function(e) {
                 return e.value;
               });
             return i.default.createElement(
@@ -34572,7 +34573,8 @@ module.exports = (function(e) {
                     data: n,
                     margin: o,
                     height: r,
-                    onMouseMove: this.handleMouseMove
+                    onMouseMove: this.handleMouseMove,
+                    stackOffset: k
                   },
                   i.default.createElement(p.default, {
                     dataKey: 'x',
@@ -34583,12 +34585,12 @@ module.exports = (function(e) {
                     domain: a && a.x || [ 'auto', 'auto' ],
                     interval: 'preserveStartEnd',
                     label: {
-                      value: M,
-                      dx: C && C.dx,
-                      dy: C && C.dy,
+                      value: C,
+                      dx: A && A.dx,
+                      dy: A && A.dy,
                       className: (0, m.default)(
                         v.default.yAxisLabel,
-                        C && C.className
+                        A && A.className
                       ),
                       position: 'insideBottomRight'
                     }
@@ -34607,7 +34609,7 @@ module.exports = (function(e) {
                       domain: a && a.y || [ 'auto', 'auto' ],
                       interval: 'preserveStartEnd'
                     },
-                    (0, y.default)(k, A)
+                    (0, y.default)(M, j)
                   ),
                   i.default.createElement(f.default, { vertical: !1 }),
                   i.default.createElement(c.default, {
@@ -34625,7 +34627,7 @@ module.exports = (function(e) {
                         });
                     }
                   }),
-                  j.map(function(e, n) {
+                  N.map(function(e, n) {
                     return i.default.createElement(u.default, {
                       key: e,
                       dataKey: e,
@@ -34660,7 +34662,8 @@ module.exports = (function(e) {
       customTooltip: a.default.node,
       getCustomYLabelFormat: a.default.func,
       barSize: a.default.number,
-      barGap: a.default.number
+      barGap: a.default.number,
+      stackOffset: a.default.string
     }, x.defaultProps = {
       height: '100%',
       showUnit: !1,
@@ -34676,7 +34679,8 @@ module.exports = (function(e) {
       customTooltip: null,
       getCustomYLabelFormat: null,
       barSize: void 0,
-      barGap: void 0
+      barGap: void 0,
+      stackOffset: 'sign'
     }, t.default = x;
   },
   WvGa: function(e, t, n) {
