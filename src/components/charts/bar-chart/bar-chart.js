@@ -47,7 +47,8 @@ class SimpleBarChart extends PureComponent {
       customTooltip,
       getCustomYLabelFormat,
       barSize,
-      barGap
+      barGap,
+      stackOffset
     } = this.props;
 
     const yUnit = showUnit && has(config, 'axes.yLeft.unit')
@@ -77,6 +78,7 @@ class SimpleBarChart extends PureComponent {
             margin={margin}
             height={height}
             onMouseMove={this.handleMouseMove}
+            stackOffset={stackOffset}
           >
             <XAxis
               dataKey="x"
@@ -167,7 +169,11 @@ SimpleBarChart.propTypes = {
   getCustomYLabelFormat: PropTypes.func,
   barSize: PropTypes.number,
   /** Bar gap between bars if there are multiple bars per one x value */
-  barGap: PropTypes.number
+  barGap: PropTypes.number,
+  /** Type of offset function used to generate the lower and upper values in the series array.
+   * documentation: http://recharts.org/en-US/api/BarChart#stackOffset
+   */
+  stackOffset: PropTypes.string
 };
 
 SimpleBarChart.defaultProps = {
@@ -185,7 +191,8 @@ SimpleBarChart.defaultProps = {
   customTooltip: null,
   getCustomYLabelFormat: null,
   barSize: undefined,
-  barGap: undefined
+  barGap: undefined,
+  stackOffset: 'sign'
 };
 
 export default SimpleBarChart;
