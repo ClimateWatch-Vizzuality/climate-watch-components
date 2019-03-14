@@ -77,16 +77,16 @@ class Table extends PureComponent {
     const columnsLenght = columns.length;
     if (columnsLenght === 1) return width;
     const totalWidth = columns.reduce(
-      (acc, column) =>
-        acc + this.getColumnLength(data, column.label) + this.rowColumnMargin,
+      (acc, column) => {
+        const columnWidth = setColumnWidth && setColumnWidth(column.label) ||
+          this.getColumnLength(data, column.label);
+        return acc + columnWidth + this.rowColumnMargin;
+      },
       this.rowColumnMargin + 10
     );
     this.tableWrapperWidth = this.tableWrapper && this.tableWrapper.offsetWidth;
-    const realWidth = setColumnWidth
-      ? (setColumnWidth() + this.rowColumnMargin + 10) * columnsLenght
-      : totalWidth;
-    this.setState({ shouldOverflow: realWidth > this.tableWrapperWidth });
-    return realWidth < width ? width : realWidth;
+    this.setState({ shouldOverflow: totalWidth > this.tableWrapperWidth });
+    return totalWidth < width ? width : totalWidth;
   };
 
   getDataSorted = (data, sortBy, sortDirection) => {
