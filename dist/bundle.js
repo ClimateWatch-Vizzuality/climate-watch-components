@@ -22544,19 +22544,18 @@ module.exports = (function(e) {
             return e.optionsOpen ? null : { optionsOpen: !0 };
           });
         }, this.getFullWidth = function(t, n, r) {
-          var o = e.props.setColumnWidth, i = n.length;
-          if (1 === i) return r;
-          var a = n.reduce(
+          var o = e.props.setColumnWidth;
+          if (1 === n.length) return r;
+          var i = n.reduce(
             function(n, r) {
-              return n + e.getColumnLength(t, r.label) + e.rowColumnMargin;
+              return n +
+                (o && o(r.label) || e.getColumnLength(t, r.label)) +
+                e.rowColumnMargin;
             },
             e.rowColumnMargin + 10
           );
-          e.tableWrapperWidth = e.tableWrapper && e.tableWrapper.offsetWidth;
-          var u = o ? (o() + e.rowColumnMargin + 10) * i : a;
-          return e.setState({
-            shouldOverflow: u > e.tableWrapperWidth
-          }), u < r ? r : u;
+          return e.tableWrapperWidth = e.tableWrapper &&
+            e.tableWrapper.offsetWidth, e.setState({ shouldOverflow: i > e.tableWrapperWidth }), i < r ? r : i;
         }, this.getDataSorted = function(e, t, n) {
           var r = (0, c.default)(e, t);
           return n === d.SortDirection.DESC ? (0, f.default)(r) : r;
@@ -34027,8 +34026,9 @@ module.exports = (function(e) {
       u = g(n('qCFj')),
       l = g(n('u6S6')),
       s = g(n('K2gz')),
-      c = g(n('sXgQ')),
-      f = g(n('GlS/')),
+      c = g(n('sXgQ'));
+    n('adkz');
+    var f = g(n('GlS/')),
       d = g(n('i9Y8')),
       p = g(n('mGSp')),
       h = g(n('wrKF')),
@@ -40871,9 +40871,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = _(o),
       a = _(n('rf6O')),
-      u = _(n('OFL0'));
-    n('adkz');
-    var l = _(n('JVao')),
+      u = _(n('OFL0')),
+      l = _(n('JVao')),
       s = _(n('FehL')),
       c = _(n('GlS/')),
       f = _(n('ukY8')),
