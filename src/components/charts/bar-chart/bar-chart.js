@@ -170,7 +170,7 @@ SimpleBarChart.propTypes = {
   barSize: PropTypes.number,
   /** Bar gap between bars if there are multiple bars per one x value */
   barGap: PropTypes.number,
-  /** Type of offset function used to generate the lower and upper values in the series array.
+  /** Type of offset function used to generate the lower and upper values in the series array
    * documentation: http://recharts.org/en-US/api/BarChart#stackOffset
    */
   stackOffset: PropTypes.string
