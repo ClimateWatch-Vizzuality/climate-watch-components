@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import {
   // eslint-disable-next-line
@@ -8,6 +9,7 @@ import {
 // eslint-disable-next-line
 import { CSSTransitionGroup } from 'react-transition-group';
 import cx from 'classnames';
+import get from 'lodash/get';
 import remove from 'lodash/remove';
 import deburr from 'lodash/deburr';
 import toUpper from 'lodash/toUpper';
@@ -40,14 +42,24 @@ class Multiselect extends Component {
     }
     const { search } = this.state;
     const hasValues = values && values.length;
+    const displayValue = value => <span>{value}</span>;
+
     if (hasValues && !search) {
       if (values.length > 1 && values.length === (options && options.length))
-        return <span>{defaultText.allSelected}</span>;
+        return displayValue(defaultText.allSelected);
       return values.length === 1
         ? <Truncate lines={1}>{values[0].label}</Truncate>
-        : <span>{`${values.length} ${defaultText.selected}`}</span>;
+        : displayValue(`${values.length} ${defaultText.selected}`);
     }
     return null;
+  }
+
+  getSelectedOptionsTooltipText() {
+    const { selectedOptionsTooltip, values } = this.props;
+
+    if (!values || values.length < 2 || !selectedOptionsTooltip) return '';
+
+    return values.map(o => o.label).join(', ');
   }
 
   filterOptions = (options, something, search) => {
@@ -95,17 +107,31 @@ class Multiselect extends Component {
   render() {
     const { search } = this.state;
     const {
-      label,
-      theme,
-      loading,
       children,
-      mirrorX,
       hideSelected,
       icon,
       info,
       infoText,
+      label,
+      loading,
+      mirrorX,
+      selectedOptionsTooltip,
+      theme,
       truncateWidth
     } = this.props;
+
+    // workaround to set up tooltip only on main selector input not with selectize dropdown menu
+    const setTooltip = element => {
+      const controlElement = get(element, 'refs.select.refs.control');
+      if (controlElement) {
+        controlElement.setAttribute(
+          'data-tip',
+          this.getSelectedOptionsTooltipText()
+        );
+        controlElement.setAttribute('data-for', 'multiselectOptionsTooltip');
+      }
+    };
+
     return (
       <div
         className={cx(
@@ -142,6 +168,7 @@ class Multiselect extends Component {
           <SelectizeMultiSelect
             ref={el => {
               this.selectorElement = el;
+              setTooltip(el);
             }}
             filterOptions={this.filterOptions}
             renderValue={() => <span />}
@@ -175,6 +202,10 @@ class Multiselect extends Component {
             {...this.props}
           />
         </div>
+        {
+          selectedOptionsTooltip &&
+            <ReactTooltip id="multiselectOptionsTooltip" effect="solid" />
+        }
       </div>
     );
   }
@@ -207,7 +238,8 @@ Multiselect.propTypes = {
   values: PropTypes.arrayOf(PropTypes.shape(valueShape)).isRequired,
   hideSelected: PropTypes.bool,
   /** Number of pixels before truncating a single line while options */
-  truncateWidth: PropTypes.number
+  truncateWidth: PropTypes.number,
+  selectedOptionsTooltip: PropTypes.bool
 };
 
 Multiselect.defaultProps = {
@@ -221,7 +253,8 @@ Multiselect.defaultProps = {
   mirrorX: false,
   loading: false,
   hideSelected: false,
-  truncateWidth: 180
+  truncateWidth: 180,
+  selectedOptionsTooltip: true
 };
 
 export default Multiselect;
