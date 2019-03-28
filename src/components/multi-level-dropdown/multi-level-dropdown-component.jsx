@@ -36,7 +36,8 @@ class Dropdown extends PureComponent {
       disabled,
       handleOnChange,
       defaultText,
-      values
+      values,
+      selectedOptionsTooltip
     } = this.props;
     const dropdown = (
       <Downshift
@@ -60,6 +61,7 @@ class Dropdown extends PureComponent {
             placeholder={placeholder}
             values={values}
             defaultText={defaultText}
+            selectedOptionsTooltip={selectedOptionsTooltip}
             {...getRootProps({ refKey: 'innerRef' })}
           >
             <Menu
@@ -126,7 +128,8 @@ Dropdown.propTypes = {
   items: PropTypes.array,
   activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   highlightedIndex: PropTypes.number,
-  defaultText: PropTypes.shape({ selected: PropTypes.string})
+  defaultText: PropTypes.shape({ selected: PropTypes.string}),
+  selectedOptionsTooltip: PropTypes.bool
 };
 
 Dropdown.defaultProps = {
@@ -160,7 +163,8 @@ Dropdown.defaultProps = {
   activeLabel: undefined,
   highlightedIndex: undefined,
   defaultText: { selected: 'selected' },
-  values: []
+  values: [],
+  selectedOptionsTooltip: true
 };
 
 export default Dropdown;

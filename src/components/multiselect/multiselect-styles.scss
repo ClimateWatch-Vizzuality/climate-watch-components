@@ -48,6 +48,7 @@
   z-index: 9;
 
   span {
+    pointer-events: unset;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
