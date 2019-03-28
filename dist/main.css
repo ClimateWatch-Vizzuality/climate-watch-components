@@ -673,6 +673,7 @@
   pointer-events: none;
   z-index: 9; }
   .cw__multiselect-styles_values span {
+    pointer-events: unset;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
