@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 import Icon from 'components/icon';
 import cx from 'classnames';
@@ -23,6 +24,7 @@ const Selector = props => {
     innerRef,
     placeholder,
     defaultText,
+    selectedOptionsTooltip,
     values
   } = props;
   const showCloseIcon = clearable && isArray(values) && values.length > 0;
@@ -41,12 +43,20 @@ const Selector = props => {
     </button>
   );
 
+  const getSelectedOptionsTooltipText = () => {
+    if (!values || !isArray(values) || values.length < 2 || !selectedOptionsTooltip) return '';
+
+    return values.map(o => o.label).join(', ');
+  };
+
   return (
     <div
       ref={innerRef}
       className={styles.container}
     >
       <div
+        data-tip={getSelectedOptionsTooltipText()}
+        data-for="multiLevelDropdownOptionsTooltip"
         className={cx(styles.selector, {
           [styles.alignLeft]: arrowPosition,
           [styles.disabled]: disabled
@@ -55,17 +65,17 @@ const Selector = props => {
         {arrowPosition === 'left' && arrowDown}
         <span
           className={cx(styles.value, {
-            [styles.noValue]: !values || values.length === 0,
-            [styles.placeholder]:
+              [styles.noValue]: !values || values.length === 0,
+              [styles.placeholder]:
               !isOpen && !activeLabel && valuesSelectedLength === 0
           })}
         >
           {(isOpen && !searchable) || !isOpen ? (
-            activeLabel ||
-            valuesSelectedLabel ||
-            placeholder
+             activeLabel ||
+             valuesSelectedLabel ||
+             placeholder
           ) : (
-            ''
+             ''
           )}
         </span>
         <input {...inputProps()} />
@@ -82,6 +92,12 @@ const Selector = props => {
       </div>
       <div className={styles.menuArrow} />
       {children}
+      {selectedOptionsTooltip && (
+         <ReactTooltip
+           id="multiLevelDropdownOptionsTooltip"
+           effect="solid"
+         />
+      )}
     </div>
   );
 };
@@ -100,7 +116,8 @@ Selector.propTypes = {
   placeholder: PropTypes.string,
   innerRef: PropTypes.func,
   defaultText: PropTypes.shape({ selected: PropTypes.string }),
-  values: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+  values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  selectedOptionsTooltip: PropTypes.bool
 };
 
 Selector.defaultProps = {
@@ -117,7 +134,8 @@ Selector.defaultProps = {
   placeholder: undefined,
   innerRef: undefined,
   defaultText: { selected: 'selected' },
-  values: []
+  values: [],
+  selectedOptionsTooltip: true
 };
 
 export default Selector;
