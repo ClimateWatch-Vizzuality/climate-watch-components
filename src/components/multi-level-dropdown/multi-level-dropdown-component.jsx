@@ -29,6 +29,7 @@ class Dropdown extends PureComponent {
       isOpen,
       showGroup,
       items,
+      optGroups,
       activeLabel,
       highlightedIndex,
       noParentSelection,
@@ -68,6 +69,7 @@ class Dropdown extends PureComponent {
               isOpen={isOpen}
               activeLabel={activeLabel}
               items={items}
+              optGroups={optGroups}
               showGroup={showGroup}
               getItemProps={getItemProps}
               highlightedIndex={highlightedIndex}
@@ -126,6 +128,7 @@ Dropdown.propTypes = {
   buildInputProps: PropTypes.func,
   checkModalClosing: PropTypes.func,
   items: PropTypes.array,
+  optGroups: PropTypes.array,
   activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   highlightedIndex: PropTypes.number,
   defaultText: PropTypes.shape({ selected: PropTypes.string}),

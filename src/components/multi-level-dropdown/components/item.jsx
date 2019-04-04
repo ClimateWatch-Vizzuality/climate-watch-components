@@ -9,21 +9,20 @@ import styles from '../multi-level-dropdown-styles.scss';
 
 const Item = props => {
   const {
-    index,
-    item,
-    showGroup,
-    highlightedIndex,
-    getItemProps,
-    toggleOpenGroup,
-    values,
     activeLabel,
+    extraIndent,
+    getItemProps,
+    highlightedIndex,
+    index,
+    isDisplayed,
+    item,
     noParentSelection,
-    theme
+    showGroup,
+    theme,
+    toggleOpenGroup,
+    values
   } = props;
   const { group, groupParent, label, active, hasActiveChild } = item;
-  const isDisplayed =
-    (!showGroup && !group) ||
-    (group === showGroup || groupParent === showGroup);
   const isGroupParentActive = groupParent && showGroup === groupParent;
   const isHighlighted =
     highlightedIndex === index ||
@@ -75,7 +74,10 @@ const Item = props => {
         {...getItemProps({
           item,
           index,
-          className: cx(styles.item, { [styles.highlight]: isHighlighted })
+          className: cx(styles.item, {
+            [styles.highlight]: isHighlighted,
+            [styles.extraIndent]: extraIndent
+          })
         })}
         {...parentClickProp}
       >
@@ -98,7 +100,9 @@ Item.propTypes = {
   values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   theme: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  noParentSelection: PropTypes.bool
+  noParentSelection: PropTypes.bool,
+  isDisplayed: PropTypes.bool,
+  extraIndent: PropTypes.bool
 };
 
 Item.defaultProps = {
@@ -109,7 +113,9 @@ Item.defaultProps = {
   values: undefined,
   activeLabel: undefined,
   noParentSelection: false,
-  theme: undefined
+  theme: undefined,
+  isDisplayed: true,
+  extraIndent: false
 };
 
 export default Item;
