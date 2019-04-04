@@ -1396,6 +1396,8 @@ input:checked ~ .cw__check-input-styles_label {
     padding: 0.75rem 0.625rem;
     border-bottom: 1px solid rgba(26, 28, 34, 0.1);
     overflow: hidden; }
+    .cw__multi-level-dropdown-styles_menu .cw__multi-level-dropdown-styles_item.cw__multi-level-dropdown-styles_extraIndent {
+      padding-left: 1.25rem; }
   .cw__multi-level-dropdown-styles_menu .cw__multi-level-dropdown-styles_infoButton {
     margin-right: 0.625rem;
     width: 1rem;
@@ -1443,6 +1445,13 @@ input:checked ~ .cw__check-input-styles_label {
     flex: 1;
     overflow: initial;
     transition: margin-left 0.2s ease-in-out; }
+
+.cw__multi-level-dropdown-styles_optGroup {
+  color: #25597c;
+  padding: 12px 10px;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  font-weight: 600; }
 .cw__simple-tag-theme_tag {
   border: none;
   box-shadow: none;

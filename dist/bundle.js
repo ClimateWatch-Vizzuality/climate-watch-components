@@ -4372,16 +4372,17 @@ module.exports = (function(e) {
               O = e.isOpen,
               S = e.showGroup,
               E = e.items,
-              T = e.activeLabel,
-              M = e.highlightedIndex,
-              P = e.noParentSelection,
-              k = e.placeholder,
-              C = e.disabled,
-              A = e.handleOnChange,
-              j = e.defaultText,
-              N = e.values,
-              I = e.selectedOptionsTooltip,
-              R = a.default.createElement(
+              T = e.optGroups,
+              M = e.activeLabel,
+              P = e.highlightedIndex,
+              k = e.noParentSelection,
+              C = e.placeholder,
+              A = e.disabled,
+              j = e.handleOnChange,
+              N = e.defaultText,
+              I = e.values,
+              R = e.selectedOptionsTooltip,
+              L = a.default.createElement(
                 l.default,
                 r(
                   {
@@ -4392,7 +4393,7 @@ module.exports = (function(e) {
                     onOuterClick: m
                   },
                   this.props,
-                  { onChange: A }
+                  { onChange: j }
                 ),
                 function(e) {
                   var t = e.getInputProps,
@@ -4406,7 +4407,7 @@ module.exports = (function(e) {
                         arrowPosition: v,
                         onSelectorClick: x,
                         clearable: u,
-                        activeLabel: T,
+                        activeLabel: M,
                         searchable: i,
                         inputProps: function() {
                           return w(t);
@@ -4414,26 +4415,27 @@ module.exports = (function(e) {
                         handleClearSelection: function() {
                           return b();
                         },
-                        disabled: C,
-                        placeholder: k,
-                        values: N,
-                        defaultText: j,
-                        selectedOptionsTooltip: I
+                        disabled: A,
+                        placeholder: C,
+                        values: I,
+                        defaultText: N,
+                        selectedOptionsTooltip: R
                       },
                       l({ refKey: 'innerRef' })
                     ),
                     a.default.createElement(f.default, {
                       isOpen: O,
-                      activeLabel: T,
+                      activeLabel: M,
                       items: E,
+                      optGroups: T,
                       showGroup: S,
                       getItemProps: o,
-                      highlightedIndex: M,
+                      highlightedIndex: P,
                       optionsAction: h,
                       optionsActionKey: y,
                       noItemsFound: p,
                       toggleOpenGroup: _,
-                      noParentSelection: P,
+                      noParentSelection: k,
                       theme: n
                     })
                   );
@@ -4448,7 +4450,7 @@ module.exports = (function(e) {
                   { className: (0, s.default)(d.default.label, n.wrapper) },
                   o
                 ),
-              R
+              L
             );
           }
         }
@@ -4484,6 +4486,7 @@ module.exports = (function(e) {
       buildInputProps: u.default.func,
       checkModalClosing: u.default.func,
       items: u.default.array,
+      optGroups: u.default.array,
       activeLabel: u.default.oneOfType([ u.default.string, u.default.number ]),
       highlightedIndex: u.default.number,
       defaultText: u.default.shape({ selected: u.default.string }),
@@ -6364,13 +6367,15 @@ module.exports = (function(e) {
       clearIcon: 'cw__multi-level-dropdown-styles_clearIcon',
       menu: 'cw__multi-level-dropdown-styles_menu',
       item: 'cw__multi-level-dropdown-styles_item',
+      extraIndent: 'cw__multi-level-dropdown-styles_extraIndent',
       groupParent: 'cw__multi-level-dropdown-styles_groupParent',
       selected: 'cw__multi-level-dropdown-styles_selected',
       groupIcon: 'cw__multi-level-dropdown-styles_groupIcon',
       highlight: 'cw__multi-level-dropdown-styles_highlight',
       itemWrapper: 'cw__multi-level-dropdown-styles_itemWrapper',
       base: 'cw__multi-level-dropdown-styles_base',
-      show: 'cw__multi-level-dropdown-styles_show'
+      show: 'cw__multi-level-dropdown-styles_show',
+      optGroup: 'cw__multi-level-dropdown-styles_optGroup'
     };
   },
   '4yOJ': function(e, t) {
@@ -22236,60 +22241,103 @@ module.exports = (function(e) {
   H703: function(e, t, n) {
     'use strict';
     Object.defineProperty(t, '__esModule', { value: !0 });
-    var r = l(n('cDcd')),
-      o = l(n('rf6O')),
-      i = l(n('K2gz')),
-      a = l(n('JlKc')),
-      u = l(n('4xhu'));
-    function l(e) {
+    var r = c(n('cDcd')),
+      o = c(n('rf6O')),
+      i = c(n('K2gz')),
+      a = c(n('bt/X')),
+      u = c(n('JlKc')),
+      l = c(n('STWu')),
+      s = c(n('4xhu'));
+    function c(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    var s = function(e) {
+    var f = function(e) {
       var t = e.isOpen,
         n = e.values,
         o = e.activeLabel,
-        l = e.items,
-        s = e.showGroup,
-        c = e.getItemProps,
-        f = e.highlightedIndex,
-        d = e.optionsAction,
-        p = e.optionsActionKey,
-        h = e.noItemsFound,
-        y = e.toggleOpenGroup,
-        v = e.noParentSelection,
-        m = e.theme;
-      return t ? r.default.createElement(
-          'div',
-          { className: (0, i.default)(u.default.menu, m.menu) },
-          l && l.length ? l.map(function(e, t) {
-              return r.default.createElement(a.default, {
+        c = e.items,
+        f = e.showGroup,
+        d = e.getItemProps,
+        p = e.highlightedIndex,
+        h = e.optionsAction,
+        y = e.optionsActionKey,
+        v = e.noItemsFound,
+        m = e.toggleOpenGroup,
+        g = e.noParentSelection,
+        b = e.theme,
+        _ = e.optGroups,
+        w = function(e) {
+          var t = e.group, n = e.groupParent;
+          return !f && !t || t === f || n === f;
+        },
+        x = 0,
+        O = function(e) {
+          var t = arguments.length > 1 &&
+            void 0 !== arguments[1] &&
+            arguments[1];
+          return e && e.map(function(e) {
+              return r.default.createElement(u.default, {
                 key: '' + e.slug + e.id + e.label,
-                index: t,
+                index: x++,
                 item: e,
-                showGroup: s,
-                highlightedIndex: f,
-                getItemProps: c,
-                toggleOpenGroup: y,
-                optionsAction: d,
-                optionsActionKey: p,
+                isDisplayed: w(e),
+                extraIndent: t,
+                showGroup: f,
+                highlightedIndex: p,
+                getItemProps: d,
+                toggleOpenGroup: m,
+                optionsAction: h,
+                optionsActionKey: y,
                 activeLabel: o,
-                noParentSelection: v,
-                theme: m,
+                noParentSelection: g,
+                theme: b,
                 values: n
               });
-            }) : r.default.createElement(
+            });
+        },
+        S = (0, a.default)(c, 'optGroup'),
+        E = _ && !!_.length,
+        T = function(e) {
+          var t = S[e.groupId];
+          if (!t || !t.length) return null;
+          var n = t.filter(function(e) {
+            return !(f === e.groupParent);
+          }).some(w);
+          return r.default.createElement(
+            r.default.Fragment,
+            { key: e.groupId },
+            n && r.default.createElement(l.default, { label: e.title }),
+            O(t, !0)
+          );
+        };
+      return t
+        ? r.default.createElement(
+          'div',
+          { className: (0, i.default)(s.default.menu, b.menu) },
+          c && c.length
+            ? E
+              ? r.default.createElement(
+                r.default.Fragment,
+                null,
+                _.map(T),
+                O(S.undefined)
+              )
+              : O(c)
+            : r.default.createElement(
               'div',
-              { className: (0, i.default)(u.default.item, u.default.notFound) },
-              h || 'No results found'
+              { className: (0, i.default)(s.default.item, s.default.notFound) },
+              v || 'No results found'
             )
-        ) : null;
+        )
+        : null;
     };
-    s.propTypes = {
+    f.propTypes = {
       isOpen: o.default.bool,
       values: o.default.oneOfType([ o.default.object, o.default.array ]),
       theme: o.default.oneOfType([ o.default.string, o.default.object ]),
       activeLabel: o.default.oneOfType([ o.default.string, o.default.number ]),
       items: o.default.array,
+      optGroups: o.default.array,
       showGroup: o.default.string,
       getItemProps: o.default.func,
       highlightedIndex: o.default.number,
@@ -22298,7 +22346,7 @@ module.exports = (function(e) {
       noItemsFound: o.default.string,
       noParentSelection: o.default.bool,
       toggleOpenGroup: o.default.func.isRequired
-    }, s.defaultProps = { isOpen: !1, values: [], theme: void 0, activeLabel: void 0, items: void 0, showGroup: void 0, getItemProps: void 0, highlightedIndex: void 0, optionsAction: void 0, optionsActionKey: void 0, noItemsFound: void 0, noParentSelection: !1 }, t.default = s;
+    }, f.defaultProps = { isOpen: !1, values: [], theme: void 0, activeLabel: void 0, items: void 0, optGroups: void 0, showGroup: void 0, getItemProps: void 0, highlightedIndex: void 0, optionsAction: void 0, optionsActionKey: void 0, noItemsFound: void 0, noParentSelection: !1 }, t.default = f;
   },
   H8j4: function(e, t, n) {
     var r = n('QkVE');
@@ -23967,60 +24015,62 @@ module.exports = (function(e) {
     }
     var d = function(e) {
       var t,
-        n = e.index,
-        i = e.item,
-        c = e.showGroup,
-        d = e.highlightedIndex,
-        p = e.getItemProps,
-        h = e.toggleOpenGroup,
-        y = e.values,
-        v = e.activeLabel,
+        n,
+        i = e.activeLabel,
+        c = e.extraIndent,
+        d = e.getItemProps,
+        p = e.highlightedIndex,
+        h = e.index,
+        y = e.isDisplayed,
+        v = e.item,
         m = e.noParentSelection,
-        g = e.theme,
-        b = i.group,
-        _ = i.groupParent,
-        w = i.label,
-        x = i.active,
-        O = i.hasActiveChild,
-        S = !c && !b || b === c || _ === c,
-        E = _ && c === _,
-        T = d === n || v === w || _ && _ === c || _ && y && _ === y.group,
-        M = _ && c !== _ && S,
-        P = !m || c && !E ? {} : {
+        g = e.showGroup,
+        b = e.theme,
+        _ = e.toggleOpenGroup,
+        w = e.values,
+        x = v.group,
+        O = v.groupParent,
+        S = v.label,
+        E = v.active,
+        T = v.hasActiveChild,
+        M = O && g === O,
+        P = p === h || i === S || O && O === g || O && w && O === w.group,
+        k = O && g !== O && y,
+        C = !m || g && !M ? {} : {
             onClick: function() {
-              return h(i);
+              return _(v);
             }
           },
-        k = o.default.createElement(a.default, {
+        A = o.default.createElement(a.default, {
           icon: l.default,
           theme: {
             icon: (0, u.default)(
               s.default.groupIcon,
               s.default.selected,
-              g.backArrow
+              b.backArrow
             )
           },
           onClick: function() {
-            return h(i);
+            return _(v);
           }
         }),
-        C = o.default.createElement(a.default, {
+        j = o.default.createElement(a.default, {
           icon: l.default,
           theme: {
             icon: (0, u.default)(
               s.default.groupIcon,
-              f({}, s.default.selected, c === _),
-              g.toChildrenArrow
+              f({}, s.default.selected, g === O),
+              b.toChildrenArrow
             )
           },
           onClick: function() {
-            return h(i);
+            return _(v);
           }
         }),
-        A = o.default.createElement('span', {
+        N = o.default.createElement('span', {
           className: (0, u.default)(
             s.default.childrenActiveMark,
-            g.childrenActiveMark
+            b.childrenActiveMark
           )
         });
       return o.default.createElement(
@@ -24028,36 +24078,40 @@ module.exports = (function(e) {
         {
           className: (0, u.default)(
             s.default.itemWrapper,
-            (t = {}, f(t, s.default.show, S), f(t, s.default.base, !b), f(
+            (t = {}, f(t, s.default.show, y), f(t, s.default.base, !x), f(
               t,
               s.default.selected,
-              E
-            ), f(t, s.default.groupParent, _), t)
+              M
+            ), f(t, s.default.groupParent, O), t)
           )
         },
-        E && k,
+        M && A,
         o.default.createElement(
           'div',
           r(
             {},
-            p({
-              item: i,
-              index: n,
+            d({
+              item: v,
+              index: h,
               className: (0, u.default)(
                 s.default.item,
-                f({}, s.default.highlight, T)
+                (n = {}, f(n, s.default.highlight, P), f(
+                  n,
+                  s.default.extraIndent,
+                  c
+                ), n)
               )
             }),
-            P
+            C
           ),
-          w,
-          x &&
+          S,
+          E &&
             o.default.createElement('span', {
-              className: (0, u.default)(s.default.activeMark, g.activeMark)
+              className: (0, u.default)(s.default.activeMark, b.activeMark)
             }),
-          O && !x && A
+          T && !E && N
         ),
-        M && C
+        k && j
       );
     };
     d.propTypes = {
@@ -24070,8 +24124,10 @@ module.exports = (function(e) {
       values: i.default.oneOfType([ i.default.object, i.default.array ]),
       activeLabel: i.default.oneOfType([ i.default.string, i.default.number ]),
       theme: i.default.oneOfType([ i.default.string, i.default.object ]),
-      noParentSelection: i.default.bool
-    }, d.defaultProps = { index: void 0, item: void 0, showGroup: void 0, highlightedIndex: void 0, values: void 0, activeLabel: void 0, noParentSelection: !1, theme: void 0 }, t.default = d;
+      noParentSelection: i.default.bool,
+      isDisplayed: i.default.bool,
+      extraIndent: i.default.bool
+    }, d.defaultProps = { index: void 0, item: void 0, showGroup: void 0, highlightedIndex: void 0, values: void 0, activeLabel: void 0, noParentSelection: !1, theme: void 0, isDisplayed: !0, extraIndent: !1 }, t.default = d;
   },
   Jq9m: function(e, t, n) {
     var r = n('ARZr'), o = n('nLrN');
@@ -34184,6 +34240,29 @@ module.exports = (function(e) {
   SKAX: function(e, t, n) {
     var r = n('JC6p'), o = n('lQqw')(r);
     e.exports = o;
+  },
+  STWu: function(e, t, n) {
+    'use strict';
+    Object.defineProperty(t, '__esModule', { value: !0 });
+    var r = u(n('cDcd')), o = u(n('rf6O')), i = u(n('K2gz')), a = u(n('4xhu'));
+    function u(e) {
+      return e && e.__esModule ? e : { default: e };
+    }
+    var l = function(e) {
+      var t = e.label;
+      return r.default.createElement(
+        'div',
+        { className: (0, i.default)(a.default.itemWrapper, a.default.show) },
+        r.default.createElement(
+          'div',
+          { className: (0, i.default)(a.default.item, a.default.optGroup) },
+          t
+        )
+      );
+    };
+    l.propTypes = {
+      label: o.default.string
+    }, l.defaultProps = { label: void 0 }, t.default = l;
   },
   SYNo: function(e, t, n) {
     var r = n('bqBW')(n('Qwdu'), 'WeakMap');
