@@ -9,7 +9,6 @@ import styles from '../multi-level-dropdown-styles.scss';
 
 const Item = props => {
   const {
-    activeLabel,
     extraIndent,
     getItemProps,
     highlightedIndex,
@@ -19,16 +18,13 @@ const Item = props => {
     noParentSelection,
     showGroup,
     theme,
-    toggleOpenGroup,
-    values
+    toggleOpenGroup
   } = props;
   const { group, groupParent, label, active, hasActiveChild } = item;
   const isGroupParentActive = groupParent && showGroup === groupParent;
   const isHighlighted =
     highlightedIndex === index ||
-    activeLabel === label ||
-    (groupParent && groupParent === showGroup) ||
-    (groupParent && values && groupParent === values.group);
+    (groupParent && groupParent === showGroup)
   const showToChildrenArrow =
     groupParent && showGroup !== groupParent && isDisplayed;
   const parentClickProp =
@@ -97,8 +93,6 @@ Item.propTypes = {
   highlightedIndex: PropTypes.number,
   getItemProps: PropTypes.func.isRequired,
   toggleOpenGroup: PropTypes.func.isRequired,
-  values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   theme: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   noParentSelection: PropTypes.bool,
   isDisplayed: PropTypes.bool,
@@ -110,8 +104,6 @@ Item.defaultProps = {
   item: undefined,
   showGroup: undefined,
   highlightedIndex: undefined,
-  values: undefined,
-  activeLabel: undefined,
   noParentSelection: false,
   theme: undefined,
   isDisplayed: true,
