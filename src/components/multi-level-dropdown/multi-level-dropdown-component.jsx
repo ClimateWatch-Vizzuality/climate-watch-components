@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import castArray from 'lodash/castArray';
 
 import Downshift from 'downshift';
 import cx from 'classnames';
@@ -30,7 +31,6 @@ class Dropdown extends PureComponent {
       showGroup,
       items,
       optGroups,
-      activeLabel,
       highlightedIndex,
       noParentSelection,
       placeholder,
@@ -40,6 +40,7 @@ class Dropdown extends PureComponent {
       values,
       selectedOptionsTooltip
     } = this.props;
+    const arrayValues = castArray(values).filter(x => x);
     const dropdown = (
       <Downshift
         itemToString={i => i && i.label}
@@ -54,20 +55,18 @@ class Dropdown extends PureComponent {
             arrowPosition={arrowPosition}
             onSelectorClick={onSelectorClick}
             clearable={clearable}
-            activeLabel={activeLabel}
             searchable={searchable}
             inputProps={() => buildInputProps(getInputProps)}
             handleClearSelection={() => handleClearSelection()}
             disabled={disabled}
             placeholder={placeholder}
-            values={values}
+            values={arrayValues}
             defaultText={defaultText}
             selectedOptionsTooltip={selectedOptionsTooltip}
             {...getRootProps({ refKey: 'innerRef' })}
           >
             <Menu
               isOpen={isOpen}
-              activeLabel={activeLabel}
               items={items}
               optGroups={optGroups}
               showGroup={showGroup}
@@ -129,7 +128,6 @@ Dropdown.propTypes = {
   checkModalClosing: PropTypes.func,
   items: PropTypes.array,
   optGroups: PropTypes.array,
-  activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   highlightedIndex: PropTypes.number,
   defaultText: PropTypes.shape({ selected: PropTypes.string}),
   selectedOptionsTooltip: PropTypes.bool
@@ -163,7 +161,6 @@ Dropdown.defaultProps = {
   buildInputProps: undefined,
   checkModalClosing: undefined,
   items: undefined,
-  activeLabel: undefined,
   highlightedIndex: undefined,
   defaultText: { selected: 'selected' },
   values: [],

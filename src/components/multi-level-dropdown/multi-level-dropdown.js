@@ -17,8 +17,7 @@ class MultiLevelDropdown extends PureComponent {
       inputValue: '',
       isOpen: false,
       showGroup: '',
-      highlightedIndex: 0,
-      activeLabel: undefined
+      highlightedIndex: 0
     };
   }
 
@@ -90,16 +89,6 @@ class MultiLevelDropdown extends PureComponent {
     onChange(selectedItems);
   };
 
-  updateActiveLabel = (selectedItem, clear) => {
-    const { values, multiselect } = this.props;
-    if (clear) return this.setState({ activeLabel: null });
-
-    const activeLabel = multiselect
-      ? values && values.length === 1 && values[0].label || null
-      : selectedItem;
-    return this.setState({ activeLabel });
-  };
-
   handleStateChange = (changes, downshiftStateAndHelpers) => {
     const { multiselect } = this.props;
     if (!changes || !downshiftStateAndHelpers.isOpen) return;
@@ -107,7 +96,7 @@ class MultiLevelDropdown extends PureComponent {
     if (changes.type === Downshift.stateChangeTypes.blurInput) return;
 
     if (changes.type === Downshift.stateChangeTypes.mouseUp) {
-      this.setState({ isOpen: false });
+      this.setState({ isOpen: false, inputValue: '' });
     } else {
       if (changes.inputValue || changes.inputValue === '') {
         if (
@@ -131,7 +120,6 @@ class MultiLevelDropdown extends PureComponent {
 
       if (changes.type === EVENT_TYPES.clickItem) {
         this.setState({ inputValue: '' });
-        this.updateActiveLabel(changes.inputValue);
       }
     }
   };
@@ -139,7 +127,6 @@ class MultiLevelDropdown extends PureComponent {
   handleClearSelection = () => {
     const { onChange } = this.props;
     onChange([]);
-    this.updateActiveLabel('', true);
     this.setState({ isOpen: false, showGroup: '', inputValue: '' });
   };
 
@@ -186,13 +173,7 @@ class MultiLevelDropdown extends PureComponent {
   };
 
   render() {
-    const {
-      isOpen,
-      showGroup,
-      inputValue,
-      highlightedIndex,
-      activeLabel
-    } = this.state;
+    const { isOpen, showGroup, inputValue, highlightedIndex } = this.state;
     return createElement(Component, {
       ...this.props,
       isOpen,
@@ -206,8 +187,7 @@ class MultiLevelDropdown extends PureComponent {
       buildInputProps: this.buildInputProps,
       toggleOpenGroup: this.toggleOpenGroup,
       handleOnChange: this.handleOnChange,
-      items: this.getGroupedItems(),
-      activeLabel
+      items: this.getGroupedItems()
     });
   }
 }
