@@ -7,7 +7,8 @@ initialState = {
     { label: 'Mango', value: 'Mango' , group: 'Fruits'},
     { label: 'Banana', value: 'Banana ', group: 'Fruits'},
     { label: 'Vegetables', value: 'Vegetables', groupParent: 'Vegetables'},
-    { label: 'Pepper', value: 'Pepper', group: 'Vegetables'}
+    { label: 'Pepper', value: 'Pepper', group: 'Vegetables'},
+    { label: 'Sweets', value: 'Empty', groupParent: 'Sweets'}
   ]
 }
 const onValueChange = (selected) => {
