@@ -9,6 +9,12 @@ import Selector from './components/selector';
 import Menu from './components/menu';
 import styles from './multi-level-dropdown-styles.scss';
 
+const nullifyGroupParentsWithoutElements = (items) =>
+  items.map((item) => ({
+    ...item,
+    groupParent: items.some(i => i.group === item.groupParent) ? item.groupParent : null
+  }));
+
 class Dropdown extends PureComponent {
   render() {
     const {
@@ -41,6 +47,7 @@ class Dropdown extends PureComponent {
       selectedOptionsTooltip
     } = this.props;
     const arrayValues = castArray(values).filter(x => x);
+    const menuItems = nullifyGroupParentsWithoutElements(items);
     const dropdown = (
       <Downshift
         itemToString={i => i && i.label}
@@ -67,7 +74,7 @@ class Dropdown extends PureComponent {
           >
             <Menu
               isOpen={isOpen}
-              items={items}
+              items={menuItems}
               optGroups={optGroups}
               showGroup={showGroup}
               getItemProps={getItemProps}
