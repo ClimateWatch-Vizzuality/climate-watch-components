@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import has from 'lodash/has';
+import get from 'lodash/get';
 import {
   XAxis,
   YAxis,
@@ -59,15 +59,9 @@ class ChartComposed extends PureComponent {
       customTooltip,
       getCustomYLabelFormat
     } = this.props;
-    const unit = showUnit &&
-      config &&
-      has(config, 'axes.yLeft.unit') &&
-      config.axes.yLeft.unit ||
-      null;
-    const suffix = config &&
-      has(config, 'axes.yLeft.suffix') &&
-      config.axes.yLeft.suffix ||
-      null;
+    const unit = showUnit && get(config, 'axes.yLeft.unit', null);
+    const suffix = get(config, 'axes.yLeft.suffix', null);
+    const yAxisScale = get(config, 'axes.yLeft.scale', 'auto');
     const hasDataOptions = !loading && dataOptions;
 
     return (
@@ -92,7 +86,7 @@ class ChartComposed extends PureComponent {
             <YAxis
               axisLine={false}
               tickLine={false}
-              scale="linear"
+              scale={yAxisScale}
               type="number"
               tick={
                 customYAxisTick ||
@@ -165,7 +159,8 @@ ChartComposed.propTypes = {
         name: PropTypes.string,
         unit: PropTypes.string,
         format: PropTypes.string,
-        suffix: PropTypes.string
+        suffix: PropTypes.string,
+        scale: PropTypes.string
       })
     })
   }),
