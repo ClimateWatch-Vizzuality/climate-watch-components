@@ -80,6 +80,7 @@ class ChartLine extends PureComponent {
     const { activePoint, tooltipVisibility } = this.state;
     const unit = showUnit && get(config, 'axes.yLeft.unit', null);
     const suffix = get(config, 'axes.yLeft.suffix', null);
+    const yAxisScale = get(config, 'axes.yLeft.scale', 'auto');
     const lineState = { projectedData, data, config };
     const dataMaxMin = getDataMaxMin(lineState);
     const domain = projectedData ? getDomain(lineState) : customDomain;
@@ -118,7 +119,7 @@ class ChartLine extends PureComponent {
           <YAxis
             axisLine={false}
             tickLine={false}
-            scale="linear"
+            scale={yAxisScale}
             type="number"
             tick={
               customYAxisTick ||
