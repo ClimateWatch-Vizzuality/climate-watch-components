@@ -83,7 +83,8 @@ class ChartLine extends PureComponent {
     const yAxisScale = get(config, 'axes.yLeft.scale', 'auto');
     const lineState = { projectedData, data, config };
     const dataMaxMin = getDataMaxMin(lineState);
-    const domain = projectedData ? getDomain(lineState) : customDomain;
+    const projectedDataAvailable = !!get(projectedData, 'length');
+    const domain = projectedDataAvailable ? getDomain(lineState) : customDomain;
     const dataWithTotal = getDataWithTotal(lineState);
     const lastData = getMaxValue(getDataWithTotal(lineState));
     const xAxisScale = getDiscontinousScale(lineState) || 'time';
