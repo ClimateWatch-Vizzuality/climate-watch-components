@@ -101,3 +101,9 @@
 .white {
   fill: #fff;
 }
+
+.dropdown :global {
+  .dropdown-menu {
+    max-height: 300px !important;
+  }
+}
