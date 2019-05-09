@@ -65,6 +65,7 @@
   position: relative;
 
   .dropdown-menu {
+    max-height: 300px !important;
     .option-wrapper {
       padding: 12px 10px;
       position: relative;
