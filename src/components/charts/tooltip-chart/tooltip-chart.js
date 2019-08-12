@@ -31,15 +31,15 @@ class TooltipChart extends PureComponent {
   sortByValue = payload => {
     const yValues = payload[0].payload;
     const compare = (a, b) => {
-      if (yValues[b.dataKey] === undefined) return -1;
-      if (yValues[a.dataKey] === undefined) return 1;
+      if (yValues[b.dataKey] == null) return -1;
+      if (yValues[a.dataKey] == null) return 1;
       return yValues[b.dataKey] - yValues[a.dataKey];
     };
     return payload.sort(compare);
   };
 
   renderValue = (y, labelName, suffix) => {
-    if (y.payload && (y.payload[labelName] !== undefined || y.payload.value)) {
+    if (y.payload && (y.payload[labelName] != null || y.payload.value)) {
       if (Array.isArray(y.payload[labelName])) {
         return `${this.formatValue(
           y.payload[labelName][0]
