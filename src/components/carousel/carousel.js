@@ -42,7 +42,8 @@ class Carousel extends Component {
       pauseOnFocus: true,
       slidesToShow: 1,
       slidesToScroll: 1,
-      beforeChange: (current, next) => this.secondarySlider.slickGoTo(next),
+      beforeChange: (current, next) =>
+        this.secondarySlider && this.secondarySlider.slickGoTo(next),
       dots: hasPaging,
       dotsClass: 'cwCarouselPaging',
       speed: 500,
@@ -54,7 +55,8 @@ class Carousel extends Component {
       arrows: false,
       autoplay: false,
       slidesToShow: 1,
-      beforeChange: (current, next) => this.mainSlider.slickGoTo(next)
+      beforeChange: (current, next) =>
+        this.mainSlider && this.mainSlider.slickGoTo(next)
     };
 
     return primarySlider === 'top'
