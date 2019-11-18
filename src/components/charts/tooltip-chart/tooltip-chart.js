@@ -31,15 +31,15 @@ class TooltipChart extends PureComponent {
   sortByValue = payload => {
     const yValues = payload[0].payload;
     const compare = (a, b) => {
-      if (yValues[b.dataKey] === undefined) return -1;
-      if (yValues[a.dataKey] === undefined) return 1;
+      if (yValues[b.dataKey] == null) return -1;
+      if (yValues[a.dataKey] == null) return 1;
       return yValues[b.dataKey] - yValues[a.dataKey];
     };
     return payload.sort(compare);
   };
 
   renderValue = (y, labelName, suffix) => {
-    if (y.payload && (y.payload[labelName] !== undefined || y.payload.value)) {
+    if (y.payload && (y.payload[labelName] != null || y.payload.value)) {
       if (Array.isArray(y.payload[labelName])) {
         return `${this.formatValue(
           y.payload[labelName][0]
@@ -118,7 +118,7 @@ class TooltipChart extends PureComponent {
             content.payload.length > 0 &&
             this.sortByValue(content.payload).map(y => {
               const hasDataKey = !!y.dataKey;
-              const labelName = y.dataKey || y.name;
+              const labelName = y.name || y.dataKey;
               return y.payload &&
                 y.dataKey !== 'total' &&
                 (hasDataKey

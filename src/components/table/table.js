@@ -30,7 +30,8 @@ class Table extends PureComponent {
       sortBy: sortBy || get(allColumns, '[0]'),
       sortDirection: SortDirection.ASC,
       activeColumns: columns.map(d => ({ label: d, value: d })),
-      columnsOptions: allColumns.map(d => ({ label: d, value: d }))
+      columnsOptions: allColumns.map(d => ({ label: d, value: d })),
+      shouldOverflow: false
     };
     this.standardColumnWidth = 180;
     this.minColumnWidth = 80;
@@ -46,6 +47,10 @@ class Table extends PureComponent {
       styles.rowcolumnmargin.replace('px', ''),
       10
     );
+  }
+
+  componentDidMount() {
+    this.tableWrapperWidth = this.tableWrapper && this.tableWrapper.offsetWidth;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -68,13 +73,19 @@ class Table extends PureComponent {
   };
 
   getFullWidth = (data, columns, width) => {
+    const { setColumnWidth } = this.props;
     const columnsLenght = columns.length;
     if (columnsLenght === 1) return width;
     const totalWidth = columns.reduce(
-      (acc, column) =>
-        acc + this.getColumnLength(data, column.label) + this.rowColumnMargin,
+      (acc, column) => {
+        const columnWidth = setColumnWidth && setColumnWidth(column.label) ||
+          this.getColumnLength(data, column.label);
+        return acc + columnWidth + this.rowColumnMargin;
+      },
       this.rowColumnMargin + 10
     );
+    this.tableWrapperWidth = this.tableWrapper && this.tableWrapper.offsetWidth;
+    this.setState({ shouldOverflow: totalWidth > this.tableWrapperWidth });
     return totalWidth < width ? width : totalWidth;
   };
 
@@ -165,9 +176,8 @@ class Table extends PureComponent {
 
   columnWidthProps = column => {
     const { setColumnWidth, data } = this.props;
-    const length = setColumnWidth
-      ? setColumnWidth(column)
-      : this.getColumnLength(data, column);
+    const customColumnWidth = setColumnWidth && setColumnWidth(column);
+    const length = customColumnWidth || this.getColumnLength(data, column);
     return { width: length, minWidth: length, maxWidth: length };
   };
 
@@ -191,7 +201,8 @@ class Table extends PureComponent {
       sortDirection,
       activeColumns,
       columnsOptions,
-      optionsOpen
+      optionsOpen,
+      shouldOverflow
     } = this.state;
     const {
       data: propsData,
@@ -200,7 +211,6 @@ class Table extends PureComponent {
       headerHeight,
       setRowsHeight,
       ellipsisColumns,
-      horizontalScroll,
       dynamicRowsHeight,
       hiddenColumnHeaderLabels
     } = this.props;
@@ -281,8 +291,11 @@ class Table extends PureComponent {
             )
         }
         <div
+          ref={table => {
+            this.tableWrapper = table;
+          }}
           className={cx(styles.tableWrapper, {
-            [styles.horizontalScroll]: horizontalScroll
+            [styles.horizontalScroll]: shouldOverflow
           })}
         >
           <AutoSizer disableHeight>
@@ -320,7 +333,7 @@ class Table extends PureComponent {
                           ellipsisColumns.indexOf(column) > -1,
                         [styles.allTextVisible]: dynamicRowsHeight
                       })}
-                      key={column}
+                      key={getHeaderLabel(column, data)}
                       label={getHeaderLabel(column, data)}
                       dataKey={column}
                       flexGrow={0}
@@ -370,8 +383,6 @@ Table.propTypes = {
   /** Trim line to include ... */
   // eslint-disable-next-line react/forbid-prop-types
   ellipsisColumns: PropTypes.array,
-  /** Boolean to allow scroll in the horizontal direction */
-  horizontalScroll: PropTypes.bool.isRequired,
   /** Array to order the column headers */
   // eslint-disable-next-line react/forbid-prop-types
   firstColumnHeaders: PropTypes.array,

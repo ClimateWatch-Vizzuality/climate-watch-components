@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import castArray from 'lodash/castArray';
 
 import Downshift from 'downshift';
 import cx from 'classnames';
@@ -7,6 +8,12 @@ import cx from 'classnames';
 import Selector from './components/selector';
 import Menu from './components/menu';
 import styles from './multi-level-dropdown-styles.scss';
+
+const nullifyGroupParentsWithoutElements = (items) =>
+  items.map((item) => ({
+    ...item,
+    groupParent: items.some(i => i.group === item.groupParent) ? item.groupParent : null
+  }));
 
 class Dropdown extends PureComponent {
   render() {
@@ -29,15 +36,18 @@ class Dropdown extends PureComponent {
       isOpen,
       showGroup,
       items,
-      activeLabel,
+      optGroups,
       highlightedIndex,
       noParentSelection,
       placeholder,
       disabled,
       handleOnChange,
       defaultText,
-      values
+      values,
+      selectedOptionsTooltip
     } = this.props;
+    const arrayValues = castArray(values).filter(x => x);
+    const menuItems = nullifyGroupParentsWithoutElements(items);
     const dropdown = (
       <Downshift
         itemToString={i => i && i.label}
@@ -52,20 +62,20 @@ class Dropdown extends PureComponent {
             arrowPosition={arrowPosition}
             onSelectorClick={onSelectorClick}
             clearable={clearable}
-            activeLabel={activeLabel}
             searchable={searchable}
             inputProps={() => buildInputProps(getInputProps)}
             handleClearSelection={() => handleClearSelection()}
             disabled={disabled}
             placeholder={placeholder}
-            values={values}
+            values={arrayValues}
             defaultText={defaultText}
+            selectedOptionsTooltip={selectedOptionsTooltip}
             {...getRootProps({ refKey: 'innerRef' })}
           >
             <Menu
               isOpen={isOpen}
-              activeLabel={activeLabel}
-              items={items}
+              items={menuItems}
+              optGroups={optGroups}
               showGroup={showGroup}
               getItemProps={getItemProps}
               highlightedIndex={highlightedIndex}
@@ -124,9 +134,10 @@ Dropdown.propTypes = {
   buildInputProps: PropTypes.func,
   checkModalClosing: PropTypes.func,
   items: PropTypes.array,
-  activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  optGroups: PropTypes.array,
   highlightedIndex: PropTypes.number,
-  defaultText: PropTypes.shape({ selected: PropTypes.string})
+  defaultText: PropTypes.shape({ selected: PropTypes.string}),
+  selectedOptionsTooltip: PropTypes.bool
 };
 
 Dropdown.defaultProps = {
@@ -157,10 +168,10 @@ Dropdown.defaultProps = {
   buildInputProps: undefined,
   checkModalClosing: undefined,
   items: undefined,
-  activeLabel: undefined,
   highlightedIndex: undefined,
   defaultText: { selected: 'selected' },
-  values: []
+  values: [],
+  selectedOptionsTooltip: true
 };
 
 export default Dropdown;

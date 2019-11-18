@@ -137,7 +137,8 @@ Chart.propTypes = {
         name: PropTypes.string,
         unit: PropTypes.string,
         format: PropTypes.string,
-        suffix: PropTypes.string
+        suffix: PropTypes.string,
+        scale: PropTypes.string
       })
     }),
     /** In barchart add same stackId attribute to each column object that you want to stack */

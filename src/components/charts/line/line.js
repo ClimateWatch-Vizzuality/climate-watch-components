@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import has from 'lodash/has';
+import get from 'lodash/get';
 import {
   LineChart,
   Line,
@@ -9,9 +9,10 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  ReferenceArea
+  ReferenceArea,
+  ReferenceLine
 } from 'recharts';
-import { getMaxValue } from 'utils';
+import { getMaxValue, getCustomTicks } from 'utils';
 import TooltipChart from 'components/charts/tooltip-chart';
 import debounce from 'lodash/debounce';
 import isUndefined from 'lodash/isUndefined';
@@ -22,7 +23,8 @@ import { CustomXAxisTick, CustomYAxisTick } from './axis-ticks';
 import {
   getDataMaxMin,
   getDataWithTotal,
-  getDomain
+  getDomain,
+  getDiscontinousScale
 } from '../selectors/chart-selectors';
 
 class ChartLine extends PureComponent {
@@ -76,16 +78,27 @@ class ChartLine extends PureComponent {
       projectedData
     } = this.props;
     const { activePoint, tooltipVisibility } = this.state;
-    const unit = showUnit && has(config, 'axes.yLeft.unit')
-      ? config.axes.yLeft.unit
-      : null;
-    const suffix = has(config, 'axes.yLeft.suffix')
-      ? config.axes.yLeft.suffix
-      : null;
+    const unit = showUnit && get(config, 'axes.yLeft.unit', null);
+    const suffix = get(config, 'axes.yLeft.suffix', null);
+    const yAxisScale = get(config, 'axes.yLeft.scale', 'auto');
     const lineState = { projectedData, data, config };
     const dataMaxMin = getDataMaxMin(lineState);
-    const domain = projectedData ? getDomain(lineState) : customDomain;
+    const projectedDataAvailable = !!get(projectedData, 'length');
+    const domain = projectedDataAvailable ? getDomain(lineState) : customDomain;
+    const dataWithTotal = getDataWithTotal(lineState);
     const lastData = getMaxValue(getDataWithTotal(lineState));
+    const xAxisScale = getDiscontinousScale(lineState) || 'time';
+
+    const tickColumns = {
+      x: config.columns.x,
+      y: config.columns.y.concat({ value: 'y' })
+    };
+
+    const tickValues = getCustomTicks(
+      tickColumns,
+      dataWithTotal.concat(projectedData),
+      5
+    );
 
     return (
       <ResponsiveContainer height={height}>
@@ -96,7 +109,7 @@ class ChartLine extends PureComponent {
         >
           <XAxis
             dataKey="x"
-            scale="time"
+            scale={xAxisScale}
             type="number"
             tick={customXAxisTick || <CustomXAxisTick />}
             padding={{ left: 15, right: 20 }}
@@ -107,7 +120,7 @@ class ChartLine extends PureComponent {
           <YAxis
             axisLine={false}
             tickLine={false}
-            scale="linear"
+            scale={yAxisScale}
             type="number"
             tick={
               customYAxisTick ||
@@ -125,6 +138,10 @@ class ChartLine extends PureComponent {
             {yAxisLabel(unit)}
           </YAxis>
           <CartesianGrid vertical={false} />
+          {
+            tickValues.min < 0 &&
+              <ReferenceLine y={0} strokeWidth="2" stroke="#666" fill="" />
+          }
           {
             tooltipVisibility &&
               (

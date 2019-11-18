@@ -1,4 +1,5 @@
 import { createElement, PureComponent } from 'react';
+import Downshift from 'downshift';
 import PropTypes from 'prop-types';
 import { deburrUpper } from 'utils/utils';
 import groupBy from 'lodash/groupBy';
@@ -7,11 +8,7 @@ import remove from 'lodash/remove';
 
 import Component from './multi-level-dropdown-component';
 
-const EVENT_TYPES = {
-  mouseUp: '__autocomplete_mouseup__',
-  keyDownEnter: '__autocomplete_keydown_enter__',
-  click: '__autocomplete_click_item__'
-};
+const EVENT_TYPES = Downshift.stateChangeTypes;
 
 class MultiLevelDropdown extends PureComponent {
   constructor(props) {
@@ -20,8 +17,7 @@ class MultiLevelDropdown extends PureComponent {
       inputValue: '',
       isOpen: false,
       showGroup: '',
-      highlightedIndex: 0,
-      activeLabel: undefined
+      highlightedIndex: 0
     };
   }
 
@@ -93,30 +89,24 @@ class MultiLevelDropdown extends PureComponent {
     onChange(selectedItems);
   };
 
-  updateActiveLabel = (selectedItem, clear) => {
-    const { values, multiselect } = this.props;
-    if (clear) return this.setState({ activeLabel: null });
-
-    const activeLabel = multiselect
-      ? values && values.length === 1 && values[0].label || null
-      : selectedItem;
-    return this.setState({ activeLabel });
-  };
-
   handleStateChange = (changes, downshiftStateAndHelpers) => {
     const { multiselect } = this.props;
     if (!changes || !downshiftStateAndHelpers.isOpen) return;
-    if (changes.type === EVENT_TYPES.mouseUp) {
-      this.setState({ isOpen: false });
+
+    if (changes.type === Downshift.stateChangeTypes.blurInput) return;
+
+    if (changes.type === Downshift.stateChangeTypes.mouseUp) {
+      this.setState({ isOpen: false, inputValue: '' });
     } else {
       if (changes.inputValue || changes.inputValue === '') {
         if (
           multiselect &&
             (changes.type === EVENT_TYPES.keyDownEnter ||
-              changes.type === EVENT_TYPES.click)
+              changes.type === EVENT_TYPES.clickItem)
         ) {
           this.handleMultiselectChange(changes, downshiftStateAndHelpers);
         }
+
         this.setState({ inputValue: changes.inputValue });
       }
 
@@ -128,9 +118,8 @@ class MultiLevelDropdown extends PureComponent {
         this.setState({ highlightedIndex: changes.highlightedIndex });
       }
 
-      if (changes.type === EVENT_TYPES.click) {
+      if (changes.type === EVENT_TYPES.clickItem) {
         this.setState({ inputValue: '' });
-        this.updateActiveLabel(changes.inputValue);
       }
     }
   };
@@ -138,7 +127,6 @@ class MultiLevelDropdown extends PureComponent {
   handleClearSelection = () => {
     const { onChange } = this.props;
     onChange([]);
-    this.updateActiveLabel('', true);
     this.setState({ isOpen: false, showGroup: '', inputValue: '' });
   };
 
@@ -185,13 +173,7 @@ class MultiLevelDropdown extends PureComponent {
   };
 
   render() {
-    const {
-      isOpen,
-      showGroup,
-      inputValue,
-      highlightedIndex,
-      activeLabel
-    } = this.state;
+    const { isOpen, showGroup, inputValue, highlightedIndex } = this.state;
     return createElement(Component, {
       ...this.props,
       isOpen,
@@ -205,8 +187,7 @@ class MultiLevelDropdown extends PureComponent {
       buildInputProps: this.buildInputProps,
       toggleOpenGroup: this.toggleOpenGroup,
       handleOnChange: this.handleOnChange,
-      items: this.getGroupedItems(),
-      activeLabel
+      items: this.getGroupedItems()
     });
   }
 }
@@ -217,11 +198,11 @@ MultiLevelDropdown.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      value: PropTypes.oneOf([ PropTypes.string, PropTypes.number ]),
+      value: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
       /** Group name of the the group it creates (only parents) */
-      groupParent: PropTypes.oneOf([ PropTypes.string, PropTypes.number ]),
+      groupParent: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
       /** Group name of the parent of the current object (only children) */
-      group: PropTypes.oneOf([ PropTypes.string, PropTypes.number ])
+      group: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
     })
   ),
   /** Name of the attribute in the values for the group name */

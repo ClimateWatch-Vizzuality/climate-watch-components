@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Collapse } from 'react-collapse';
 import cx from 'classnames';
+import ReactMarkdown from 'react-markdown/with-html';
+
 import Icon from '../icon/icon';
 
 import dropdownArrow from './assets/dropdown-arrow.svg';
@@ -55,9 +57,7 @@ class Accordion extends PureComponent {
                   >
                     <div className={styles.layout}>
                       <div className={cx(styles.title, theme.title)}>
-                        <span>
-                          {title}
-                        </span>
+                        <ReactMarkdown source={title} escapeHtml={false} />
                         <Icon
                           icon={dropdownArrow}
                           theme={{

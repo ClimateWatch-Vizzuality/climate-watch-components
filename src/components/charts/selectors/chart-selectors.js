@@ -1,12 +1,23 @@
 import min from 'lodash/min';
 import max from 'lodash/max';
 import isArray from 'lodash/isArray';
+import uniq from 'lodash/uniq';
 import { createSelector } from 'reselect';
+import {
+  scaleDiscontinuous,
+  discontinuityRange
+} from '@d3fc/d3fc-discontinuous-scale';
+import { scaleTime } from 'd3-scale';
 
 const getData = state => state.data || null;
-export const getDataWithTotal = createSelector(
-  [ getData, state => state.config ],
-  (data, config) => {
+const getProjectedData = state => state.projectedData || null;
+const getConfig = state => state.config || null;
+
+export const getDataWithTotal = createSelector([ getData, getConfig ], (
+  data,
+  config
+) =>
+  {
     if (!data || !config) return null;
     return data.map(d => {
       let total = null;
@@ -18,8 +29,7 @@ export const getDataWithTotal = createSelector(
       });
       return { ...d, total };
     });
-  }
-);
+  });
 
 const getDataMin = createSelector(getDataWithTotal, data => {
   if (!data) return null;
@@ -48,13 +58,7 @@ const getDataMax = createSelector(getDataWithTotal, data => {
 });
 
 export const getDomain = createSelector(
-  [
-    getData,
-    state => state.config,
-    state => state.projectedData,
-    getDataMin,
-    getDataMax
-  ],
+  [ getData, getConfig, getProjectedData, getDataMin, getDataMax ],
   (data, config, projectedData, dataMin, dataMax) => {
     if (!data || !config) return null;
     const domain = { x: [ 'dataMin', 'dataMax' ], y: [ 'auto', 'auto' ] };
@@ -84,3 +88,32 @@ export const getDataMaxMin = createSelector([ getDataMin, getDataMax ], (
   dataMin,
   dataMax
 ) => ({ max: dataMax, min: dataMin }));
+
+export const getDiscontinousScale = createSelector(
+  [ getData, getProjectedData ],
+  (data, projectedData) => {
+    if (!data || !data.length || !projectedData || !projectedData.length)
+      return null;
+
+    const firstValueYear = data[0].x;
+    const lastValueYear = data[data.length - 1].x;
+    const projectedDataYears = uniq(projectedData.map(d => d.x));
+    const allYears = [ lastValueYear, ...projectedDataYears ];
+    const dataYearsSpan = lastValueYear - firstValueYear;
+
+    // make the target to be min of 15% of data years span close
+    const beforeTargetInterval = Math.ceil(0.15 * dataYearsSpan);
+    const omitYearRanges = allYears
+      .slice(1)
+      .map((y, index) => [
+        allYears[index],
+        allYears[index + 1] - beforeTargetInterval
+      ])
+      .filter(range => range[1] > range[0]);
+
+    // filter out wrong ranges
+    return scaleDiscontinuous(
+      scaleTime()
+    ).discontinuityProvider(discontinuityRange(...omitYearRanges));
+  }
+);

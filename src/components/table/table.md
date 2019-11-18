@@ -4,6 +4,11 @@ const data = require('./data.json');
 const defaultColumns = ["name", "definition", "very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_long_header_label", "unit", "composite_name"];
 const ellipsisColumns = ["composite_name"];
 const firstColumnHeaders = ["composite_name", "name"];
+const narrowColumns = ['definition']
+const setColumnWidth = column => {
+  if (narrowColumns.includes(column)) return 100;
+  return null
+}
 
 <Table
   data={data}
@@ -17,5 +22,6 @@ const firstColumnHeaders = ["composite_name", "name"];
   dynamicRowsHeight={true}
   titleLinks={data.map(c => [{columnName: "link", url: "self", label: "View more"}])}
   hiddenColumnHeaderLabels={['link']}
+  setColumnWidth={setColumnWidth}
 />
 ```

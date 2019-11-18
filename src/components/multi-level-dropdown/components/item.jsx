@@ -9,27 +9,22 @@ import styles from '../multi-level-dropdown-styles.scss';
 
 const Item = props => {
   const {
-    index,
-    item,
-    showGroup,
-    highlightedIndex,
+    extraIndent,
     getItemProps,
-    toggleOpenGroup,
-    values,
-    activeLabel,
+    highlightedIndex,
+    index,
+    isDisplayed,
+    item,
     noParentSelection,
-    theme
+    showGroup,
+    theme,
+    toggleOpenGroup
   } = props;
   const { group, groupParent, label, active, hasActiveChild } = item;
-  const isDisplayed =
-    (!showGroup && !group) ||
-    (group === showGroup || groupParent === showGroup);
   const isGroupParentActive = groupParent && showGroup === groupParent;
   const isHighlighted =
     highlightedIndex === index ||
-    activeLabel === label ||
-    (groupParent && groupParent === showGroup) ||
-    (groupParent && values && groupParent === values.group);
+    (groupParent && groupParent === showGroup)
   const showToChildrenArrow =
     groupParent && showGroup !== groupParent && isDisplayed;
   const parentClickProp =
@@ -75,7 +70,10 @@ const Item = props => {
         {...getItemProps({
           item,
           index,
-          className: cx(styles.item, { [styles.highlight]: isHighlighted })
+          className: cx(styles.item, {
+            [styles.highlight]: isHighlighted,
+            [styles.extraIndent]: extraIndent
+          })
         })}
         {...parentClickProp}
       >
@@ -95,10 +93,10 @@ Item.propTypes = {
   highlightedIndex: PropTypes.number,
   getItemProps: PropTypes.func.isRequired,
   toggleOpenGroup: PropTypes.func.isRequired,
-  values: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  activeLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   theme: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  noParentSelection: PropTypes.bool
+  noParentSelection: PropTypes.bool,
+  isDisplayed: PropTypes.bool,
+  extraIndent: PropTypes.bool
 };
 
 Item.defaultProps = {
@@ -106,10 +104,10 @@ Item.defaultProps = {
   item: undefined,
   showGroup: undefined,
   highlightedIndex: undefined,
-  values: undefined,
-  activeLabel: undefined,
   noParentSelection: false,
-  theme: undefined
+  theme: undefined,
+  isDisplayed: true,
+  extraIndent: false
 };
 
 export default Item;
