@@ -69,12 +69,35 @@ class PieChart extends PureComponent {
                     ))}
                 </Pie>
                 )) : (
-                  <Pie data={data} dataKey="value" fill={config.theme && config.theme.fill} label={content => CustomizedLabel(content, config, theme)} labelLine={false} activeShape={config.innerHoverLabel ? props => <CustomizedActiveShape innerHoverLabel={config.innerHoverLabel} theme={theme} {...props} /> : undefined} activeIndex={activeIndex} onMouseEnter={onPieEnter} isAnimationActive={config.animation || false} legendType="circle" innerRadius={config.innerRadius} outerRadius={config.outerRadius} cx={config.cx} cy={config.cy}>
+                  <Pie
+                    data={data}
+                    dataKey="value"
+                    fill={config.theme && config.theme.fill}
+                    label={content => CustomizedLabel(content, config, theme)}
+                    labelLine={false}
+                    activeShape={config.innerHoverLabel ?
+                      props => (
+                        <CustomizedActiveShape
+                          innerHoverLabel={config.innerHoverLabel}
+                          theme={theme}
+                          {...props}
+                        />
+                      ) : undefined
+                    }
+                    activeIndex={activeIndex}
+                    onMouseEnter={onPieEnter}
+                    isAnimationActive={config.animation || false}
+                    legendType="circle"
+                    innerRadius={config.innerRadius}
+                    outerRadius={config.outerRadius}
+                    cx={config.cx}
+                    cy={config.cy}
+                  >
                     {data.map(d => (
                       <Cell key={d.name} fill={getColor(d, config)} />
-                  ))}
+                    ))}
                   </Pie>
-)
+                )
             }
           </RechartsPieChart>
         </ResponsiveContainer>
@@ -83,23 +106,22 @@ class PieChart extends PureComponent {
           <div
             className={classnames(styles.legend, theme.legend)}
             style={{
-                  marginLeft: width / (config.legendPositionRatio || 4.75)
-                }}
+              marginLeft: width / (config.legendPositionRatio || 4.75)
+            }}
           >
             {Object
-                  .keys(config.theme)
-                  .map(q => (
-                    <Tag
-                      theme={theme.tag || simpleTagTheme}
-                      key={config.theme[q].label}
-                      canRemove={false}
-                      label={config.theme[q].label}
-                      color={config.theme[q].stroke}
-                    />
-                  ))}
+              .keys(config.theme)
+              .map(q => (
+                <Tag
+                  theme={theme.tag || simpleTagTheme}
+                  key={config.theme[q].label}
+                  canRemove={false}
+                  label={config.theme[q].label}
+                  color={config.theme[q].stroke}
+                />
+              ))}
           </div>
-            )
-        }
+        )}
       </div>
     );
   }
