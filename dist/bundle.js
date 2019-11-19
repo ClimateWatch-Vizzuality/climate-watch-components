@@ -35795,8 +35795,9 @@ module.exports = (function(e) {
         return e;
       },
       o = d(n('cDcd')),
-      i = n('rf6O'),
-      a = d(n('FehL')),
+      i = n('rf6O');
+    n('adkz');
+    var a = d(n('FehL')),
       u = d(n('GlS/')),
       l = d(n('QVpu')),
       s = d(n('3nzE')),
@@ -40145,7 +40146,9 @@ module.exports = (function(e) {
                             config: n
                           });
                       },
-                      offset: n.innerHoverLabel ? 80 : void 0,
+                      offset: n.innerHoverLabel
+                        ? n.innerHoverLabel.offset
+                        : void 0,
                       filterNull: !1
                     }),
                     S ? Object.keys(o).map(function(e) {
@@ -40274,8 +40277,8 @@ module.exports = (function(e) {
         label: u.default.oneOfType([ u.default.shape(), u.default.string ]),
         tag: u.default.oneOfType([ u.default.shape(), u.default.string ]),
         innerHoverLabel: u.default.oneOfType([
-          u.default.shape(),
-          u.default.string
+          u.default.shape({ offset: u.default.number }),
+          u.default.bool
         ])
       })
     }, O.defaultProps = { width: 600, margin: { top: 0, right: 10, left: 10, bottom: 0 }, config: { innerRadius: 0, innerHoverLabel: !1, outerRadius: null, hideLabel: !1, hideLegend: !1 }, data: [], customTooltip: null, theme: {} }, t.default = O;
@@ -48027,9 +48030,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      u = w(n('mwIZ'));
-    n('adkz');
-    var l = w(n('JVao')),
+      u = w(n('mwIZ')),
+      l = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
