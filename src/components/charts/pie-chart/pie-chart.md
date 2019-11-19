@@ -235,7 +235,7 @@ const config = {
     groupF: { label: 'Group F', stroke: 'fuchsia' },
   },
   innerRadius: 50,
-  innerHoverLabel: true,
+  innerHoverLabel: { offset: 80 },
   outerRadius: 80,
   hideLabel: true,
   hideLegend: true
