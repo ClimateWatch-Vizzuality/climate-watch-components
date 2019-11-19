@@ -1479,6 +1479,9 @@ input:checked ~ .cw__check-input-styles_label {
 
 .cw__pie-chart-styles_legend {
   opacity: 1; }
+
+.cw__pie-chart-styles_innerHoverLabel {
+  font-size: 2rem; }
 .cw__play-timeline-styles_timelineContainer {
   display: flex;
   align-items: center;
