@@ -13,43 +13,8 @@ import {
 } from 'recharts';
 import simpleTagTheme from 'components/tag/simple-tag-theme.scss';
 import styles from './pie-chart-styles.scss';
-
-const RADIAN = Math.PI / 180;
-const CustomizedLabel = (
-  { cx, cy, midAngle, innerRadius, outerRadius, percent },
-  { labelPositionRatio, hideLabel },
-  theme
-) =>
-  {
-    const radius = innerRadius +
-      (outerRadius - innerRadius) * (labelPositionRatio || 0.6);
-    const x = cx + radius * Math.cos((-midAngle) * RADIAN);
-    const y = cy + radius * Math.sin((-midAngle) * RADIAN);
-
-    return !hideLabel
-      ? (
-        <text
-          x={x}
-          y={y}
-          fill="white"
-          textAnchor={x > cx ? 'start' : 'end'}
-          dominantBaseline="central"
-          className={theme.label}
-        >
-          {`${(percent * 100).toFixed(0)}%`}
-        </text>
-)
-      : null;
-  };
-
-CustomizedLabel.propTypes = {
-  cx: PropTypes.number.isRequired,
-  cy: PropTypes.number.isRequired,
-  midAngle: PropTypes.number.isRequired,
-  innerRadius: PropTypes.number.isRequired,
-  outerRadius: PropTypes.number.isRequired,
-  percent: PropTypes.number.isRequired
-};
+import CustomizedActiveShape from './customized-active-shape';
+import CustomizedLabel from './customized-label';
 
 const getColor = (d, config) => {
   const configD = config.theme[camelCase(d.name)];
@@ -57,9 +22,19 @@ const getColor = (d, config) => {
 };
 
 class PieChart extends PureComponent {
+  constructor() {
+    super();
+    this.state = { activeIndex: 0 };
+  }
+
   render() {
     const { config, data, width, margin, customTooltip, theme } = this.props;
+    const { activeIndex } = this.state;
     const isMultilevelPieChart = !Array.isArray(data);
+
+    const onPieEnter = (d, index) => {
+      this.setState({ activeIndex: index });
+    };
     return (
       <div className={classnames(styles.pieChart, theme.pieChart)}>
         <ResponsiveContainer width={width} aspect={4 / 3}>
@@ -70,6 +45,7 @@ class PieChart extends PureComponent {
                 customTooltip &&
                   React.cloneElement(customTooltip, { content, config }) ||
                   <TooltipChart content={content} config={config} />}
+              offset={config.innerHoverLabel ? 80 : undefined}
               filterNull={false}
             />
             {
@@ -93,7 +69,7 @@ class PieChart extends PureComponent {
                     ))}
                 </Pie>
                 )) : (
-                  <Pie data={data} dataKey="value" fill={config.theme && config.theme.fill} label={content => CustomizedLabel(content, config, theme)} labelLine={false} isAnimationActive={config.animation || false} legendType="circle" innerRadius={config.innerRadius} outerRadius={config.outerRadius} cx={config.cx} cy={config.cy}>
+                  <Pie data={data} dataKey="value" fill={config.theme && config.theme.fill} label={content => CustomizedLabel(content, config, theme)} labelLine={false} activeShape={config.innerHoverLabel ? props => <CustomizedActiveShape innerHoverLabel={config.innerHoverLabel} theme={theme} {...props} /> : undefined} activeIndex={activeIndex} onMouseEnter={onPieEnter} isAnimationActive={config.animation || false} legendType="circle" innerRadius={config.innerRadius} outerRadius={config.outerRadius} cx={config.cx} cy={config.cy}>
                     {data.map(d => (
                       <Cell key={d.name} fill={getColor(d, config)} />
                   ))}
@@ -174,21 +150,27 @@ PieChart.propTypes = {
     pieChart: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
     legend: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
     label: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
-    tag: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ])
+    tag: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
+    innerHoverLabel: PropTypes.oneOfType([
+      PropTypes.shape(),
+      PropTypes.string
+    ])
   })
 };
 
 PieChart.defaultProps = {
   width: 600,
   margin: { top: 0, right: 10, left: 10, bottom: 0 },
-  config: {},
+  config: {
+    innerRadius: 0,
+    innerHoverLabel: false,
+    outerRadius: null,
+    hideLabel: false,
+    hideLegend: false
+  },
   data: [],
   customTooltip: null,
-  theme: {},
-  innerRadius: 0,
-  outerRadius: null,
-  hideLabel: false,
-  hideLegend: false
+  theme: {}
 };
 
 export default PieChart;
