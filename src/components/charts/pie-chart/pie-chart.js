@@ -45,7 +45,11 @@ class PieChart extends PureComponent {
                 customTooltip &&
                   React.cloneElement(customTooltip, { content, config }) ||
                   <TooltipChart content={content} config={config} />}
-              offset={config.innerHoverLabel ? 80 : undefined}
+              offset={
+                config.innerHoverLabel
+                  ? config.innerHoverLabel.offset
+                  : undefined
+              }
               filterNull={false}
             />
             {
@@ -66,62 +70,63 @@ class PieChart extends PureComponent {
                 >
                   {data[key].map(d => (
                     <Cell key={d.name} fill={getColor(d, config)} />
-                    ))}
+                  ))}
                 </Pie>
-                )) : (
-                  <Pie
-                    data={data}
-                    dataKey="value"
-                    fill={config.theme && config.theme.fill}
-                    label={content => CustomizedLabel(content, config, theme)}
-                    labelLine={false}
-                    activeShape={config.innerHoverLabel ?
-                      props => (
-                        <CustomizedActiveShape
-                          innerHoverLabel={config.innerHoverLabel}
-                          theme={theme}
-                          {...props}
-                        />
-                      ) : undefined
-                    }
-                    activeIndex={activeIndex}
-                    onMouseEnter={onPieEnter}
-                    isAnimationActive={config.animation || false}
-                    legendType="circle"
-                    innerRadius={config.innerRadius}
-                    outerRadius={config.outerRadius}
-                    cx={config.cx}
-                    cy={config.cy}
-                  >
-                    {data.map(d => (
-                      <Cell key={d.name} fill={getColor(d, config)} />
-                    ))}
-                  </Pie>
-                )
+              )) : (
+                <Pie
+                  data={data}
+                  dataKey="value"
+                  fill={config.theme && config.theme.fill}
+                  label={content => CustomizedLabel(content, config, theme)}
+                  labelLine={false}
+                  activeShape={
+                    config.innerHoverLabel ? props => (
+                      <CustomizedActiveShape
+                        innerHoverLabel={config.innerHoverLabel}
+                        theme={theme}
+                        {...props}
+                      />
+                    ) : undefined
+                  }
+                  activeIndex={activeIndex}
+                  onMouseEnter={onPieEnter}
+                  isAnimationActive={config.animation || false}
+                  legendType="circle"
+                  innerRadius={config.innerRadius}
+                  outerRadius={config.outerRadius}
+                  cx={config.cx}
+                  cy={config.cy}
+                >
+                  {data.map(d => (
+                    <Cell key={d.name} fill={getColor(d, config)} />
+                  ))}
+                </Pie>
+              )
             }
           </RechartsPieChart>
         </ResponsiveContainer>
         {
           !config.hideLegend && Object.keys(config.theme) && (
-          <div
-            className={classnames(styles.legend, theme.legend)}
-            style={{
-              marginLeft: width / (config.legendPositionRatio || 4.75)
-            }}
-          >
-            {Object
-              .keys(config.theme)
-              .map(q => (
-                <Tag
-                  theme={theme.tag || simpleTagTheme}
-                  key={config.theme[q].label}
-                  canRemove={false}
-                  label={config.theme[q].label}
-                  color={config.theme[q].stroke}
-                />
-              ))}
-          </div>
-        )}
+            <div
+              className={classnames(styles.legend, theme.legend)}
+              style={{
+                marginLeft: width / (config.legendPositionRatio || 4.75)
+              }}
+            >
+              {Object
+                .keys(config.theme)
+                .map(q => (
+                  <Tag
+                    theme={theme.tag || simpleTagTheme}
+                    key={config.theme[q].label}
+                    canRemove={false}
+                    label={config.theme[q].label}
+                    color={config.theme[q].stroke}
+                  />
+                ))}
+            </div>
+          )
+        }
       </div>
     );
   }
@@ -174,8 +179,8 @@ PieChart.propTypes = {
     label: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
     tag: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
     innerHoverLabel: PropTypes.oneOfType([
-      PropTypes.shape(),
-      PropTypes.string
+      PropTypes.shape({ offset: PropTypes.number }),
+      PropTypes.bool
     ])
   })
 };
