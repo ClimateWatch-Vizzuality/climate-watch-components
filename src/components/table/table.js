@@ -109,9 +109,13 @@ class Table extends PureComponent {
   };
 
   rowClassName = ({ index }) => {
-    if (index < 0) return styles.headerRow;
+    const { theme } = this.props;
 
-    return index % 2 === 0 ? styles.evenRow : styles.oddRow;
+    if (index < 0) return cx(styles.headerRow, theme.headerRow);
+
+    return index % 2 === 0
+      ? cx(styles.evenRow, theme.row, theme.evenRow)
+      : cx(styles.oddRow, theme.row, theme.oddRow);
   };
 
   getMeanLength = (columnWidthSamples, data, column) => {
@@ -212,7 +216,8 @@ class Table extends PureComponent {
       setRowsHeight,
       ellipsisColumns,
       dynamicRowsHeight,
-      hiddenColumnHeaderLabels
+      hiddenColumnHeaderLabels,
+      theme
     } = this.props;
 
     if (!data.length) return null;
@@ -271,7 +276,10 @@ class Table extends PureComponent {
           <div
             role="button"
             tabIndex={0}
-            className={styles.columnSelectorWrapper}
+            className={cx(
+                  styles.columnSelectorWrapper,
+                  theme.columnSelector
+                )}
             onMouseEnter={this.setOptionsOpen}
             onMouseLeave={this.setOptionsClose}
           >
@@ -294,9 +302,11 @@ class Table extends PureComponent {
           ref={table => {
             this.tableWrapper = table;
           }}
-          className={cx(styles.tableWrapper, {
-            [styles.horizontalScroll]: shouldOverflow
-          })}
+          className={cx(
+            styles.tableWrapper,
+            { [styles.horizontalScroll]: shouldOverflow },
+            theme.tableWrapper
+          )}
         >
           <AutoSizer disableHeight>
             {({ width }) => (
@@ -328,11 +338,19 @@ class Table extends PureComponent {
                   .getColumnData()
                   .map(column => (
                     <Column
-                      className={cx(styles.column, {
-                        [styles.ellipsis]: ellipsisColumns &&
-                          ellipsisColumns.indexOf(column) > -1,
-                        [styles.allTextVisible]: dynamicRowsHeight
-                      })}
+                      className={cx(
+                        styles.column,
+                        {
+                          [styles.ellipsis]: ellipsisColumns &&
+                            ellipsisColumns.indexOf(column) > -1,
+                          [styles.allTextVisible]: dynamicRowsHeight
+                        },
+                        theme.column
+                      )}
+                      headerClassName={cx(
+                        styles.columnHeader,
+                        theme.columnHeader
+                      )}
                       key={getHeaderLabel(column, data)}
                       label={getHeaderLabel(column, data)}
                       dataKey={column}
@@ -393,7 +411,7 @@ Table.propTypes = {
   /** Array of arrays of objects holding the properties of the columns that should have linkable content.
    * This prop is passed to `cell-renderer-component`
    * exaple: __`titleLinks={data.map(c => [{columnName: "link", url: "self", label: "View more"}])}`__
-  */
+   */
   titleLinks: PropTypes.arrayOf(
     PropTypes.arrayOf(
       PropTypes.shape({
@@ -401,13 +419,24 @@ Table.propTypes = {
         columnName: PropTypes.string,
         /** If is an external link `url: "self"`
          *  if is inside the platform `url: "/uri-to-resource"`
-        */
+         */
         url: PropTypes.string,
         /** If provided it will be displayed as column text */
         label: PropTypes.string
       })
     )
-  )
+  ),
+  theme: PropTypes.shape({
+    tableWrapper: PropTypes.string,
+    table: PropTypes.string,
+    column: PropTypes.string,
+    row: PropTypes.string,
+    oddRow: PropTypes.string,
+    evenRow: PropTypes.string,
+    headerRow: PropTypes.string,
+    columnHeader: PropTypes.string,
+    columnSelector: PropTypes.string
+  })
 };
 
 Table.defaultProps = {
@@ -424,7 +453,8 @@ Table.defaultProps = {
   titleLinks: [],
   dynamicRowsHeight: false,
   parseHtml: false,
-  parseMarkdown: false
+  parseMarkdown: false,
+  theme: {}
 };
 
 export default Table;
