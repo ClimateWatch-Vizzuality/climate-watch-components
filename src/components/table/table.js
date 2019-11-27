@@ -94,8 +94,10 @@ class Table extends PureComponent {
     const samples = data.slice(0, 5).map(d => d[sortBy]).filter(Boolean);
     const areNumbers = samples.every(sample => !isNaN(parseFloat(sample)));
 
-    const notNullValueData = data.filter(d => d[sortBy]);
-    const nullValueData = data.filter(d => !d[sortBy]);
+    const isItemDefined = d =>
+      d[sortBy] !== null && typeof d[sortBy] !== 'undefined';
+    const notNullValueData = data.filter(isItemDefined);
+    const nullValueData = data.filter(d => !isItemDefined(d));
 
     let dataSorted = [];
     if (areNumbers) {
