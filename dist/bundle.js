@@ -831,7 +831,7 @@ module.exports = (function(e) {
         ? e.join(', ')
         : e && !(0, o.default)(e)
           ? (0, i.default)(e) ? e.toString() : e.name || e.full_name || ''
-          : e;
+          : 0 === e ? '0' : e;
     }, t.isMicrosoftBrowser = function() {
       var e = window && window.navigator ? window.navigator.userAgent : '';
       return -1 !== e.indexOf('Edge') || -1 !== e.indexOf('Trident/');
@@ -1772,31 +1772,27 @@ module.exports = (function(e) {
       var h = l && l[p] && l[p].find(function(e) {
           return e.columnName === d;
         });
-      return h
-        ? 'self' === h.url
+      if (h)
+        return 'self' === h.url
           ? r.default.createElement(
             'a',
             { target: '_blank', rel: 'noopener noreferrer', href: f },
             h.label || f
           )
-          : r.default.createElement('a', { href: h.url }, h.label || f)
-        : o
-          ? r.default.createElement(i.default, {
-            className: u.default.description,
-            source: f
-          })
-          : n
-            ? r.default.createElement('div', {
-              dangerouslySetInnerHTML: { __html: f }
-            })
-            : f ||
-              (s
-                ? r.default.createElement(
-                  'div',
-                  { className: u.default.emptyValue },
-                  s
-                )
-                : '');
+          : r.default.createElement('a', { href: h.url }, h.label || f);
+      if (o)
+        return r.default.createElement(i.default, {
+          className: u.default.description,
+          source: f
+        });
+      if (n)
+        return r.default.createElement('div', {
+          dangerouslySetInnerHTML: { __html: f }
+        });
+      var y = s
+        ? r.default.createElement('div', { className: u.default.emptyValue }, s)
+        : '';
+      return f || y;
     };
     s.propTypes = {
       cell: o.default.shape({}).isRequired,
@@ -24218,6 +24214,12 @@ module.exports = (function(e) {
       });
     e.exports = i;
   },
+  GODc: function(e, t, n) {
+    var r = n('UB5X');
+    e.exports = function(e) {
+      return r(e) && e != +e;
+    };
+  },
   GQeE: function(e, t, n) {
     e.exports = { default: n('iq4v'), __esModule: !0 };
   },
@@ -27256,32 +27258,33 @@ module.exports = (function(e) {
         };
       })(),
       i = n('cDcd'),
-      a = w(i),
-      u = w(n('rf6O')),
-      l = w(n('zqxM')),
-      s = w(n('mwIZ')),
-      c = w(n('xweI')),
-      f = w(n('USjQ')),
-      p = n('9bdd'),
-      d = w(n('QWsV')),
-      h = w(n('K2gz')),
-      y = w(n('OnOE')),
-      v = w(n('one6')),
-      m = w(n('6V4F')),
-      g = w(n('/Kx+')),
-      b = w(n('A4w7')),
-      _ = w(n('1Aof'));
-    function w(e) {
+      a = x(i),
+      u = x(n('rf6O')),
+      l = x(n('zqxM')),
+      s = x(n('mwIZ')),
+      c = x(n('xweI')),
+      f = x(n('GODc')),
+      p = x(n('USjQ')),
+      d = n('9bdd'),
+      h = x(n('QWsV')),
+      y = x(n('K2gz')),
+      v = x(n('OnOE')),
+      m = x(n('one6')),
+      g = x(n('6V4F')),
+      b = x(n('/Kx+')),
+      _ = x(n('A4w7')),
+      w = x(n('1Aof'));
+    function x(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function x(e) {
+    function O(e) {
       if (Array.isArray(e)) {
         for (var t = 0, n = Array(e.length); t < e.length; t++) n[t] = e[t];
         return n;
       }
       return Array.from(e);
     }
-    function O(e, t, n) {
+    function S(e, t, n) {
       return t in e
         ? Object.defineProperty(e, t, {
           value: n,
@@ -27291,7 +27294,7 @@ module.exports = (function(e) {
         })
         : e[t] = n, e;
     }
-    var S = (function(e) {
+    var E = (function(e) {
       function t(e) {
         !(function(e, t) {
           if (!(e instanceof t))
@@ -27304,7 +27307,7 @@ module.exports = (function(e) {
             );
           return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
         })(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));
-        E.call(n);
+        T.call(n);
         var r = e.data,
           o = e.defaultColumns,
           i = e.sortBy,
@@ -27314,7 +27317,7 @@ module.exports = (function(e) {
           data: r,
           optionsOpen: !1,
           sortBy: i || (0, s.default)(u, '[0]'),
-          sortDirection: p.SortDirection.ASC,
+          sortDirection: d.SortDirection.ASC,
           activeColumns: l.map(function(e) {
             return { label: e, value: e };
           }),
@@ -27323,10 +27326,10 @@ module.exports = (function(e) {
           }),
           shouldOverflow: !1
         }, n.standardColumnWidth = 180, n.minColumnWidth = 80, n.maxColumnWidth = 300, n.lengthWidthRatio = 4, n.columnWidthSamples = 5, n.columnHeightSamples = 10, n.minRowHeight = 80, n.rowHeightWithEllipsis = 150, n.virtualizedTable = a.default.createRef(), n.arrowWidth = parseInt(
-          b.default.sorticonwidth.replace('px', ''),
+          _.default.sorticonwidth.replace('px', ''),
           10
         ), n.rowColumnMargin = parseInt(
-          b.default.rowcolumnmargin.replace('px', ''),
+          _.default.rowcolumnmargin.replace('px', ''),
           10
         ), n;
       }
@@ -27375,28 +27378,29 @@ module.exports = (function(e) {
               s = t.optionsOpen,
               c = t.shouldOverflow,
               f = this.props,
-              w = f.data,
+              p = f.data,
               x = f.hasColumnSelect,
-              S = f.tableHeight,
+              O = f.tableHeight,
               E = f.headerHeight,
               T = f.setRowsHeight,
               k = f.ellipsisColumns,
               M = f.dynamicRowsHeight,
-              P = f.hiddenColumnHeaderLabels;
+              P = f.hiddenColumnHeaderLabels,
+              C = f.theme;
             if (!n.length) return null;
-            var C = x && l,
-              A = function(t) {
+            var A = x && l,
+              j = function(t) {
                 if (P.includes(t)) return '';
                 var n = t.replace(/_/g, ' ');
                 return e.capitalizeFirstLetter(n);
               },
-              j = function(e, t) {
+              N = function(e, t) {
                 return e[t];
               },
-              N = function(t, n) {
-                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = A(t);
+              I = function(t, n) {
+                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = j(t);
                 return a.default.createElement(
-                  v.default,
+                  m.default,
                   {
                     'data-for': 'header-label',
                     'data-tip': o,
@@ -27409,37 +27413,40 @@ module.exports = (function(e) {
                   o
                 );
               },
-              I = l.map(function(e) {
-                return r({}, e, { label: A(e.value) });
+              R = l.map(function(e) {
+                return r({}, e, { label: j(e.value) });
               }) || [];
             return a.default.createElement(
               'div',
               {
-                className: (0, h.default)(O({}, b.default.hasColumnSelect, x))
+                className: (0, y.default)(S({}, _.default.hasColumnSelect, x))
               },
-              C &&
+              A &&
                 a.default.createElement(
                   'div',
                   {
                     role: 'button',
                     tabIndex: 0,
-                    className: b.default.columnSelectorWrapper,
+                    className: (0, y.default)(
+                      _.default.columnSelectorWrapper,
+                      C.columnSelector
+                    ),
                     onMouseEnter: this.setOptionsOpen,
                     onMouseLeave: this.setOptionsClose
                   },
                   a.default.createElement(
-                    m.default,
+                    g.default,
                     {
-                      theme: { dropdown: b.default.columnSelector },
+                      theme: { dropdown: _.default.columnSelector },
                       values: u || [],
-                      options: I,
+                      options: R,
                       onValueChange: this.handleColumnChange,
                       hideResetButton: !0,
                       open: s
                     },
                     a.default.createElement(
                       'span',
-                      { className: b.default.selectorValue },
+                      { className: _.default.selectorValue },
                       '...'
                     )
                   )
@@ -27450,30 +27457,31 @@ module.exports = (function(e) {
                   ref: function(t) {
                     e.tableWrapper = t;
                   },
-                  className: (0, h.default)(
-                    b.default.tableWrapper,
-                    O({}, b.default.horizontalScroll, c)
+                  className: (0, y.default)(
+                    _.default.tableWrapper,
+                    S({}, _.default.horizontalScroll, c),
+                    C.tableWrapper
                   )
                 },
                 a.default.createElement(
-                  d.default,
+                  h.default,
                   { disableHeight: !0 },
                   function(t) {
                     var l = t.width;
                     return a.default.createElement(
-                      p.Table,
+                      d.Table,
                       {
-                        className: b.default.table,
-                        width: e.getFullWidth(w, u, l),
-                        height: S,
+                        className: _.default.table,
+                        width: e.getFullWidth(p, u, l),
+                        height: O,
                         headerHeight: E,
                         rowClassName: e.rowClassName,
                         rowHeight: function(t) {
                           var r = t.index;
                           return M ? (function(t) {
                               var r = e.getLongestTextColumnName();
-                              return j(n, t)[r] &&
-                                j(n, t)[r].length / 3 + 100 ||
+                              return N(n, t)[r] &&
+                                N(n, t)[r].length / 3 + 100 ||
                                 120;
                             })(
                               r
@@ -27489,7 +27497,7 @@ module.exports = (function(e) {
                         },
                         headerRowRenderer: function(t) {
                           var n = t.columns, o = t.style, i = t.className;
-                          return (0, _.default)(
+                          return (0, w.default)(
                             r({}, e.props, {
                               columns: n,
                               style: o,
@@ -27502,23 +27510,28 @@ module.exports = (function(e) {
                       e.getColumnData().map(function(t) {
                         var o;
                         return a.default.createElement(
-                          p.Column,
+                          d.Column,
                           r(
                             {
-                              className: (0, h.default)(
-                                b.default.column,
-                                (o = {}, O(
+                              className: (0, y.default)(
+                                _.default.column,
+                                (o = {}, S(
                                   o,
-                                  b.default.ellipsis,
+                                  _.default.ellipsis,
                                   k && k.indexOf(t) > -1
-                                ), O(o, b.default.allTextVisible, M), o)
+                                ), S(o, _.default.allTextVisible, M), o),
+                                C.column
                               ),
-                              key: N(t, n),
-                              label: N(t, n),
+                              headerClassName: (0, y.default)(
+                                _.default.columnHeader,
+                                C.columnHeader
+                              ),
+                              key: I(t, n),
+                              label: I(t, n),
                               dataKey: t,
                               flexGrow: 0,
                               cellRenderer: function(t) {
-                                return (0, g.default)({
+                                return (0, b.default)({
                                   props: e.props,
                                   cell: t
                                 });
@@ -27531,7 +27544,7 @@ module.exports = (function(e) {
                     );
                   }
                 ),
-                a.default.createElement(y.default, {
+                a.default.createElement(v.default, {
                   place: 'left',
                   id: 'header-label',
                   className: 'reactTooltipWhite',
@@ -27543,7 +27556,7 @@ module.exports = (function(e) {
         }
       ]), t;
     })(),
-      E = function() {
+      T = function() {
         var e = this;
         this.setOptionsClose = function() {
           e.setState(function(e) {
@@ -27567,8 +27580,30 @@ module.exports = (function(e) {
           return e.tableWrapperWidth = e.tableWrapper &&
             e.tableWrapper.offsetWidth, e.setState({ shouldOverflow: i > e.tableWrapperWidth }), i < r ? r : i;
         }, this.getDataSorted = function(e, t, n) {
-          var r = (0, c.default)(e, t);
-          return n === p.SortDirection.DESC ? (0, f.default)(r) : r;
+          var r = e
+            .slice(0, 5)
+            .map(function(e) {
+              return e[t];
+            })
+            .filter(Boolean)
+            .every(function(e) {
+              return !(0, f.default)(parseFloat(e));
+            }),
+            o = function(e) {
+              return null !== e[t] && void 0 !== e[t];
+            },
+            i = e.filter(o),
+            a = e.filter(function(e) {
+              return !o(e);
+            }),
+            u = [];
+          if (r) {
+            u = i.sort(function(e, n) {
+              return parseFloat(e[t]) - parseFloat(n[t]);
+            });
+          } else u = (0, c.default)(i, t);
+          var l = n === d.SortDirection.DESC ? (0, p.default)(u) : u;
+          return a ? l.concat(a) : l;
         }, this.handleSortChange = function(t) {
           var n = t.sortBy,
             r = t.sortDirection,
@@ -27582,20 +27617,22 @@ module.exports = (function(e) {
           }), i && e.virtualizedTable.current.recomputeRowHeights(0);
         }, this.handleColumnChange = function(t) {
           e.setState({ activeColumns: t });
-        }, this.rowClassName = function(e) {
-          var t = e.index;
-          return t < 0
-            ? b.default.headerRow
-            : t % 2 == 0 ? b.default.evenRow : b.default.oddRow;
+        }, this.rowClassName = function(t) {
+          var n = t.index, r = e.props.theme;
+          return n < 0
+            ? (0, y.default)(_.default.headerRow, r.headerRow)
+            : n % 2 == 0
+              ? (0, y.default)(_.default.evenRow, r.row, r.evenRow)
+              : (0, y.default)(_.default.oddRow, r.row, r.oddRow);
         }, this.getMeanLength = function(t, n, r) {
           var o = 0, i = 0;
-          return [].concat(x(Array(t).keys())).forEach(function(e) {
+          return [].concat(O(Array(t).keys())).forEach(function(e) {
             n[e] && n[e][r] && n[e][r].length && (i += n[e][r].length, o += 1);
           }), o < 1 ? e.standardColumnWidth : i / o;
         }, this.getLongestTextColumnName = function() {
           var t = e.props.data, n = [];
           []
-            .concat(x(Array(e.columnHeightSamples).keys()))
+            .concat(O(Array(e.columnHeightSamples).keys()))
             .forEach(function(e) {
               var r = t[e] && Object.keys(t[e]), o = {};
               r && r.forEach(function(n) {
@@ -27608,7 +27645,7 @@ module.exports = (function(e) {
               r[t] || (r[t] = 0), e[t] ? r[t] += e[t] : r[t] += 0;
             });
           });
-          var o = Math.max.apply(Math, x(Object.values(r)));
+          var o = Math.max.apply(Math, O(Object.values(r)));
           return Object.keys(r).find(function(e) {
             return r[e] === o;
           });
@@ -27640,7 +27677,7 @@ module.exports = (function(e) {
           return '' + e.charAt(0).toUpperCase() + e.slice(1);
         };
       };
-    S.propTypes = {
+    E.propTypes = {
       data: u.default.array.isRequired,
       defaultColumns: u.default.array,
       sortBy: u.default.string,
@@ -27663,8 +27700,19 @@ module.exports = (function(e) {
             label: u.default.string
           })
         )
-      )
-    }, S.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, parseHtml: !1, parseMarkdown: !1 }, t.default = S;
+      ),
+      theme: u.default.shape({
+        tableWrapper: u.default.string,
+        table: u.default.string,
+        column: u.default.string,
+        row: u.default.string,
+        oddRow: u.default.string,
+        evenRow: u.default.string,
+        headerRow: u.default.string,
+        columnHeader: u.default.string,
+        columnSelector: u.default.string
+      })
+    }, E.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, parseHtml: !1, parseMarkdown: !1, theme: {} }, t.default = E;
   },
   KJAg: function(e, t, n) {
     'use strict';
@@ -35795,9 +35843,8 @@ module.exports = (function(e) {
         return e;
       },
       o = d(n('cDcd')),
-      i = n('rf6O');
-    n('adkz');
-    var a = d(n('FehL')),
+      i = n('rf6O'),
+      a = d(n('FehL')),
       u = d(n('GlS/')),
       l = d(n('QVpu')),
       s = d(n('3nzE')),
@@ -48030,8 +48077,9 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      u = w(n('mwIZ')),
-      l = w(n('JVao')),
+      u = w(n('mwIZ'));
+    n('adkz');
+    var l = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
