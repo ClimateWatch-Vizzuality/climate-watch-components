@@ -14,6 +14,7 @@ export const sanitize = data => {
     if (isFinite(data)) return data.toString();
     return data.name || data.full_name || '';
   }
+  if (data === 0) return '0';
   return data;
 };
 

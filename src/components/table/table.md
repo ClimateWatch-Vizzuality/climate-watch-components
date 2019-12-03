@@ -1,7 +1,7 @@
 ```jsx
 const data = require('./data.json');
 
-const defaultColumns = ["name", "definition", "very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_long_header_label", "unit", "composite_name"];
+const defaultColumns = ["name", "definition", "unit", "composite_name", "percentages", "very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_long_header_label"];
 const ellipsisColumns = ["composite_name"];
 const firstColumnHeaders = ["composite_name", "name"];
 const narrowColumns = ['definition']

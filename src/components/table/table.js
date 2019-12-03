@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import difference from 'lodash/difference';
 import get from 'lodash/get';
 import _sortBy from 'lodash/sortBy';
+import isNaN from 'lodash/isNaN';
 import reverse from 'lodash/reverse';
 import {
   Table as VirtualizedTable,
@@ -90,10 +91,29 @@ class Table extends PureComponent {
   };
 
   getDataSorted = (data, sortBy, sortDirection) => {
-    const dataSorted = _sortBy(data, sortBy);
-    return sortDirection === SortDirection.DESC
+    const samples = data.slice(0, 5).map(d => d[sortBy]).filter(Boolean);
+    const areNumbers = samples.every(sample => !isNaN(parseFloat(sample)));
+
+    const isItemDefined = d =>
+      d[sortBy] !== null && typeof d[sortBy] !== 'undefined';
+    const notNullValueData = data.filter(isItemDefined);
+    const nullValueData = data.filter(d => !isItemDefined(d));
+
+    let dataSorted = [];
+    if (areNumbers) {
+      const sortByNumbers = (a, b) =>
+        parseFloat(a[sortBy]) - parseFloat(b[sortBy]);
+      dataSorted = notNullValueData.sort(sortByNumbers);
+    } else {
+      dataSorted = _sortBy(notNullValueData, sortBy);
+    }
+
+    const notNullValueSortedData = sortDirection === SortDirection.DESC
       ? reverse(dataSorted)
       : dataSorted;
+    return nullValueData
+      ? notNullValueSortedData.concat(nullValueData)
+      : notNullValueSortedData;
   };
 
   handleSortChange = ({ sortBy, sortDirection }) => {
