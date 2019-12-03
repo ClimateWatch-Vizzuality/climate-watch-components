@@ -42,16 +42,13 @@ const cellRenderer = ({
      return <div dangerouslySetInnerHTML={{ __html: cellData }} />
   }
 
-  return (
-    cellData ||
-    (emptyValueLabel ? (
-      <div className={styles.emptyValue}>
-        {emptyValueLabel}
-      </div>
-    ) : (
-      ''
-    ))
-  );
+  const renderEmptyValue = emptyValueLabel ? (
+    <div className={styles.emptyValue}>
+      {emptyValueLabel}
+    </div>
+  ) : "";
+  return cellData || renderEmptyValue;
+
 };
 
 cellRenderer.propTypes = {
