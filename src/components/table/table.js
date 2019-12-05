@@ -55,9 +55,16 @@ class Table extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data } = this.props;
+    const { data, defaultColumns } = this.props;
     if (nextProps.data !== data) {
       this.setState({ data: nextProps.data });
+    }
+    if (nextProps.defaultColumns !== defaultColumns) {
+      const allColumns = Object.keys(get(data, '[0]', {}));
+      const columns = defaultColumns.length ? defaultColumns : allColumns;
+      this.setState({
+        activeColumns: columns.map(d => ({ label: d, value: d }))
+      });
     }
   }
 
