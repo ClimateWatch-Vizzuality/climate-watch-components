@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import difference from 'lodash/difference';
 import get from 'lodash/get';
 import _sortBy from 'lodash/sortBy';
+import isEqual from 'lodash/isEqual';
 import isNaN from 'lodash/isNaN';
 import reverse from 'lodash/reverse';
 import {
@@ -57,10 +58,10 @@ class Table extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const { data, defaultColumns } = this.props;
     const { data: nextData, defaultColumns: nextDefaultColumns } = nextProps;
-    if (nextData !== data) {
+    if (!isEqual(nextData, data)) {
       this.setState({ data: nextData });
     }
-    if (nextDefaultColumns !== defaultColumns) {
+    if (!isEqual(nextDefaultColumns, defaultColumns)) {
       const allColumns = Object.keys(get(data, '[0]', {}));
       const columns = nextDefaultColumns.length
         ? nextDefaultColumns
