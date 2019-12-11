@@ -27258,34 +27258,25 @@ module.exports = (function(e) {
         };
       })(),
       i = n('cDcd'),
-      a = O(i),
-      u = O(n('rf6O')),
-      l = O(n('zqxM')),
-      s = O(n('mwIZ')),
-      c = O(n('xweI')),
-      f = O(n('Y+p1')),
-      p = O(n('GODc')),
-      d = O(n('USjQ')),
-      h = n('9bdd'),
-      y = O(n('QWsV')),
-      v = O(n('K2gz')),
-      m = O(n('OnOE')),
-      g = O(n('one6')),
-      b = O(n('6V4F')),
-      _ = O(n('/Kx+')),
-      w = O(n('A4w7')),
-      x = O(n('1Aof'));
-    function O(e) {
+      a = w(i),
+      u = w(n('rf6O')),
+      l = w(n('zqxM')),
+      s = w(n('mwIZ')),
+      c = w(n('Y+p1')),
+      f = n('9bdd'),
+      p = w(n('QWsV')),
+      d = w(n('K2gz')),
+      h = w(n('OnOE')),
+      y = w(n('one6')),
+      v = w(n('6V4F')),
+      m = w(n('/Kx+')),
+      g = w(n('A4w7')),
+      b = w(n('1Aof')),
+      _ = n('Qh/c');
+    function w(e) {
       return e && e.__esModule ? e : { default: e };
     }
-    function S(e) {
-      if (Array.isArray(e)) {
-        for (var t = 0, n = Array(e.length); t < e.length; t++) n[t] = e[t];
-        return n;
-      }
-      return Array.from(e);
-    }
-    function E(e, t, n) {
+    function x(e, t, n) {
       return t in e
         ? Object.defineProperty(e, t, {
           value: n,
@@ -27295,7 +27286,7 @@ module.exports = (function(e) {
         })
         : e[t] = n, e;
     }
-    var T = (function(e) {
+    var O = (function(e) {
       function t(e) {
         !(function(e, t) {
           if (!(e instanceof t))
@@ -27308,7 +27299,7 @@ module.exports = (function(e) {
             );
           return !t || 'object' != typeof t && 'function' != typeof t ? e : t;
         })(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this, e));
-        k.call(n);
+        S.call(n);
         var r = e.data,
           o = e.defaultColumns,
           i = e.sortBy,
@@ -27318,7 +27309,7 @@ module.exports = (function(e) {
           data: r,
           optionsOpen: !1,
           sortBy: i || (0, s.default)(u, '[0]'),
-          sortDirection: h.SortDirection.ASC,
+          sortDirection: f.SortDirection.ASC,
           activeColumns: l.map(function(e) {
             return { label: e, value: e };
           }),
@@ -27327,10 +27318,10 @@ module.exports = (function(e) {
           }),
           shouldOverflow: !1
         }, n.standardColumnWidth = 180, n.minColumnWidth = 80, n.maxColumnWidth = 300, n.lengthWidthRatio = 4, n.columnWidthSamples = 5, n.columnHeightSamples = 10, n.minRowHeight = 80, n.rowHeightWithEllipsis = 150, n.virtualizedTable = a.default.createRef(), n.arrowWidth = parseInt(
-          w.default.sorticonwidth.replace('px', ''),
+          g.default.sorticonwidth.replace('px', ''),
           10
         ), n.rowColumnMargin = parseInt(
-          w.default.rowcolumnmargin.replace('px', ''),
+          g.default.rowcolumnmargin.replace('px', ''),
           10
         ), n;
       }
@@ -27368,16 +27359,21 @@ module.exports = (function(e) {
               o = e.data,
               i = e.defaultColumns;
             if (
-              ((0, f.default)(o, n) ||
-                this.setState({ data: o }), !(0, f.default)(i, r))
+              ((0, c.default)(o, n) ||
+                this.setState({ data: o }), !(0, c.default)(i, r))
             ) {
               var a = Object.keys((0, s.default)(n, '[0]', {})),
                 u = i.length ? i : a;
-              this.setState({
-                activeColumns: u.map(function(e) {
-                  return { label: e, value: e };
-                })
-              });
+              this.virtualizedTable.current.recomputeRowHeights(), this.setState(
+                {
+                  activeColumns: u.map(function(e) {
+                    return { label: e, value: e };
+                  }),
+                  columnsOptions: a.map(function(e) {
+                    return { label: e, value: e };
+                  })
+                }
+              );
             }
           }
         },
@@ -27393,30 +27389,27 @@ module.exports = (function(e) {
               l = t.columnsOptions,
               s = t.optionsOpen,
               c = t.shouldOverflow,
-              f = this.props,
-              p = f.data,
-              d = f.hasColumnSelect,
-              O = f.tableHeight,
-              S = f.headerHeight,
-              T = f.setRowsHeight,
-              k = f.ellipsisColumns,
-              M = f.dynamicRowsHeight,
-              P = f.hiddenColumnHeaderLabels,
-              C = f.theme;
+              w = this.props,
+              O = w.data,
+              S = w.hasColumnSelect,
+              E = w.tableHeight,
+              T = w.headerHeight,
+              k = w.setRowsHeight,
+              M = w.ellipsisColumns,
+              P = w.dynamicRowsHeight,
+              C = w.hiddenColumnHeaderLabels,
+              A = w.theme;
             if (!n.length) return null;
-            var A = d && l,
-              j = function(t) {
-                if (P.includes(t)) return '';
-                var n = t.replace(/_/g, ' ');
-                return e.capitalizeFirstLetter(n);
-              },
-              N = function(e, t) {
-                return e[t];
+            var j = S && l,
+              N = function(e) {
+                if (C.includes(e)) return '';
+                var t = e.replace(/_/g, ' ');
+                return (0, _.capitalizeFirstLetter)(t);
               },
               I = function(t, n) {
-                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = j(t);
+                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = N(t);
                 return a.default.createElement(
-                  g.default,
+                  y.default,
                   {
                     'data-for': 'header-label',
                     'data-tip': o,
@@ -27430,30 +27423,30 @@ module.exports = (function(e) {
                 );
               },
               R = l.map(function(e) {
-                return r({}, e, { label: j(e.value) });
+                return r({}, e, { label: N(e.value) });
               }) || [];
             return a.default.createElement(
               'div',
               {
-                className: (0, v.default)(E({}, w.default.hasColumnSelect, d))
+                className: (0, d.default)(x({}, g.default.hasColumnSelect, S))
               },
-              A &&
+              j &&
                 a.default.createElement(
                   'div',
                   {
                     role: 'button',
                     tabIndex: 0,
-                    className: (0, v.default)(
-                      w.default.columnSelectorWrapper,
-                      C.columnSelector
+                    className: (0, d.default)(
+                      g.default.columnSelectorWrapper,
+                      A.columnSelector
                     ),
                     onMouseEnter: this.setOptionsOpen,
                     onMouseLeave: this.setOptionsClose
                   },
                   a.default.createElement(
-                    b.default,
+                    v.default,
                     {
-                      theme: { dropdown: w.default.columnSelector },
+                      theme: { dropdown: g.default.columnSelector },
                       values: u || [],
                       options: R,
                       onValueChange: this.handleColumnChange,
@@ -27462,7 +27455,7 @@ module.exports = (function(e) {
                     },
                     a.default.createElement(
                       'span',
-                      { className: w.default.selectorValue },
+                      { className: g.default.selectorValue },
                       '...'
                     )
                   )
@@ -27473,35 +27466,38 @@ module.exports = (function(e) {
                   ref: function(t) {
                     e.tableWrapper = t;
                   },
-                  className: (0, v.default)(
-                    w.default.tableWrapper,
-                    E({}, w.default.horizontalScroll, c),
-                    C.tableWrapper
+                  className: (0, d.default)(
+                    g.default.tableWrapper,
+                    x({}, g.default.horizontalScroll, c),
+                    A.tableWrapper
                   )
                 },
                 a.default.createElement(
-                  y.default,
+                  p.default,
                   { disableHeight: !0 },
                   function(t) {
                     var l = t.width;
                     return a.default.createElement(
-                      h.Table,
+                      f.Table,
                       {
-                        className: w.default.table,
-                        width: e.getFullWidth(p, u, l),
-                        height: O,
-                        headerHeight: S,
+                        className: g.default.table,
+                        width: e.getFullWidth(O, u, l),
+                        height: E,
+                        headerHeight: T,
                         rowClassName: e.rowClassName,
                         rowHeight: function(t) {
                           var r = t.index;
-                          return M ? (function(t) {
-                              var r = e.getLongestTextColumnName();
-                              return N(n, t)[r] &&
-                                N(n, t)[r].length / 3 + 100 ||
-                                120;
-                            })(
+                          return P
+                            ? (0, _.getDynamicRowHeight)(
+                              n,
+                              e.columnHeightSamples,
                               r
-                            ) : T ? T(r) : k.length > 0 ? e.rowHeightWithEllipsis : e.minRowHeight;
+                            )
+                            : k
+                              ? k(r)
+                              : M.length > 0
+                                ? e.rowHeightWithEllipsis
+                                : e.minRowHeight;
                         },
                         rowCount: n.length,
                         sort: e.handleSortChange,
@@ -27513,7 +27509,7 @@ module.exports = (function(e) {
                         },
                         headerRowRenderer: function(t) {
                           var n = t.columns, o = t.style, i = t.className;
-                          return (0, x.default)(
+                          return (0, b.default)(
                             r({}, e.props, {
                               columns: n,
                               style: o,
@@ -27526,28 +27522,28 @@ module.exports = (function(e) {
                       e.getColumnData().map(function(t) {
                         var o;
                         return a.default.createElement(
-                          h.Column,
+                          f.Column,
                           r(
                             {
-                              className: (0, v.default)(
-                                w.default.column,
-                                (o = {}, E(
+                              className: (0, d.default)(
+                                g.default.column,
+                                (o = {}, x(
                                   o,
-                                  w.default.ellipsis,
-                                  k && k.indexOf(t) > -1
-                                ), E(o, w.default.allTextVisible, M), o),
-                                C.column
+                                  g.default.ellipsis,
+                                  M && M.indexOf(t) > -1
+                                ), x(o, g.default.allTextVisible, P), o),
+                                A.column
                               ),
-                              headerClassName: (0, v.default)(
-                                w.default.columnHeader,
-                                C.columnHeader
+                              headerClassName: (0, d.default)(
+                                g.default.columnHeader,
+                                A.columnHeader
                               ),
                               key: I(t, n),
                               label: I(t, n),
                               dataKey: t,
                               flexGrow: 0,
                               cellRenderer: function(t) {
-                                return (0, _.default)({
+                                return (0, m.default)({
                                   props: e.props,
                                   cell: t
                                 });
@@ -27560,7 +27556,7 @@ module.exports = (function(e) {
                     );
                   }
                 ),
-                a.default.createElement(m.default, {
+                a.default.createElement(h.default, {
                   place: 'left',
                   id: 'header-label',
                   className: 'reactTooltipWhite',
@@ -27572,7 +27568,7 @@ module.exports = (function(e) {
         }
       ]), t;
     })(),
-      k = function() {
+      S = function() {
         var e = this;
         this.setOptionsClose = function() {
           e.setState(function(e) {
@@ -27595,37 +27591,12 @@ module.exports = (function(e) {
           );
           return e.tableWrapperWidth = e.tableWrapper &&
             e.tableWrapper.offsetWidth, e.setState({ shouldOverflow: i > e.tableWrapperWidth }), i < r ? r : i;
-        }, this.getDataSorted = function(e, t, n) {
-          var r = e
-            .slice(0, 5)
-            .map(function(e) {
-              return e[t];
-            })
-            .filter(Boolean)
-            .every(function(e) {
-              return !(0, p.default)(parseFloat(e));
-            }),
-            o = function(e) {
-              return null !== e[t] && void 0 !== e[t];
-            },
-            i = e.filter(o),
-            a = e.filter(function(e) {
-              return !o(e);
-            }),
-            u = [];
-          if (r) {
-            u = i.sort(function(e, n) {
-              return parseFloat(e[t]) - parseFloat(n[t]);
-            });
-          } else u = (0, c.default)(i, t);
-          var l = n === h.SortDirection.DESC ? (0, d.default)(u) : u;
-          return a ? l.concat(a) : l;
         }, this.handleSortChange = function(t) {
           var n = t.sortBy,
             r = t.sortDirection,
             o = e.state.data,
             i = e.props.dynamicRowsHeight,
-            a = e.getDataSorted(o, n, r);
+            a = (0, _.getDataSorted)(o, n, r);
           e.setState({
             data: a,
             sortBy: n,
@@ -27636,37 +27607,12 @@ module.exports = (function(e) {
         }, this.rowClassName = function(t) {
           var n = t.index, r = e.props.theme;
           return n < 0
-            ? (0, v.default)(w.default.headerRow, r.headerRow)
+            ? (0, d.default)(g.default.headerRow, r.headerRow)
             : n % 2 == 0
-              ? (0, v.default)(w.default.evenRow, r.row, r.evenRow)
-              : (0, v.default)(w.default.oddRow, r.row, r.oddRow);
-        }, this.getMeanLength = function(t, n, r) {
-          var o = 0, i = 0;
-          return [].concat(S(Array(t).keys())).forEach(function(e) {
-            n[e] && n[e][r] && n[e][r].length && (i += n[e][r].length, o += 1);
-          }), o < 1 ? e.standardColumnWidth : i / o;
-        }, this.getLongestTextColumnName = function() {
-          var t = e.props.data, n = [];
-          []
-            .concat(S(Array(e.columnHeightSamples).keys()))
-            .forEach(function(e) {
-              var r = t[e] && Object.keys(t[e]), o = {};
-              r && r.forEach(function(n) {
-                  o[n] = t[e][n] && t[e][n].length;
-                }), n.push(o);
-            });
-          var r = {};
-          n.forEach(function(e) {
-            Object.keys(e).forEach(function(t) {
-              r[t] || (r[t] = 0), e[t] ? r[t] += e[t] : r[t] += 0;
-            });
-          });
-          var o = Math.max.apply(Math, S(Object.values(r)));
-          return Object.keys(r).find(function(e) {
-            return r[e] === o;
-          });
+              ? (0, d.default)(g.default.evenRow, r.row, r.evenRow)
+              : (0, d.default)(g.default.oddRow, r.row, r.oddRow);
         }, this.getColumnLength = function(t, n) {
-          var r = e.getMeanLength(e.columnWidthSamples, t, n) *
+          var r = (0, _.getMeanLength)(e.columnWidthSamples, t, n) *
             e.lengthWidthRatio,
             o = (n.length + e.arrowWidth) * e.lengthWidthRatio;
           return r < e.minColumnWidth
@@ -27689,11 +27635,9 @@ module.exports = (function(e) {
           return r.filter(function(e) {
             return n.includes(e);
           }).concat((0, l.default)(r, n));
-        }, this.capitalizeFirstLetter = function(e) {
-          return '' + e.charAt(0).toUpperCase() + e.slice(1);
         };
       };
-    T.propTypes = {
+    O.propTypes = {
       data: u.default.array.isRequired,
       defaultColumns: u.default.array,
       sortBy: u.default.string,
@@ -27728,7 +27672,7 @@ module.exports = (function(e) {
         columnHeader: u.default.string,
         columnSelector: u.default.string
       })
-    }, T.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, parseHtml: !1, parseMarkdown: !1, theme: {} }, t.default = T;
+    }, O.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, parseHtml: !1, parseMarkdown: !1, theme: {} }, t.default = O;
   },
   KJAg: function(e, t, n) {
     'use strict';
@@ -35665,6 +35609,89 @@ module.exports = (function(e) {
         return e;
       };
   },
+  'Qh/c': function(e, t, n) {
+    'use strict';
+    Object.defineProperty(t, '__esModule', {
+      value: !0
+    }), t.getDynamicRowHeight = t.getMeanLength = t.capitalizeFirstLetter = t.getDataSorted = void 0;
+    var r = u(n('xweI')), o = u(n('GODc')), i = u(n('USjQ')), a = n('9bdd');
+    function u(e) {
+      return e && e.__esModule ? e : { default: e };
+    }
+    function l(e) {
+      if (Array.isArray(e)) {
+        for (var t = 0, n = Array(e.length); t < e.length; t++) n[t] = e[t];
+        return n;
+      }
+      return Array.from(e);
+    }
+    var s = function(e, t) {
+      var n = e.slice(0, 5).map(function(e) {
+        return e[t];
+      }).filter(Boolean);
+      if (n.every(function(e) {
+          return t = new Date(
+            e
+          ), '[object Date]' === Object.prototype.toString.call(t) && !(0, o.default)(new Date(t).getTime());
+          var t;
+        })) {
+        return e.sort(function(e, n) {
+          return new Date(e[t]) - new Date(n[t]);
+        });
+      }
+      if (n.every(function(e) {
+          return !(0, o.default)(parseFloat(e));
+        })) {
+        return e.sort(function(e, n) {
+          return parseFloat(e[t]) - parseFloat(n[t]);
+        });
+      }
+      return (0, r.default)(e, t);
+    },
+      c = (t.getDataSorted = function(e, t, n) {
+        var r = function(e) {
+          return null !== e[t] && void 0 !== e[t];
+        },
+          o = e.filter(r),
+          u = e.filter(function(e) {
+            return !r(e);
+          }),
+          l = s(o, t),
+          c = n === a.SortDirection.DESC ? (0, i.default)(l) : l;
+        return u ? c.concat(u) : c;
+      }, t.capitalizeFirstLetter = function(e) {
+        return '' + e.charAt(0).toUpperCase() + e.slice(1);
+      }, t.getMeanLength = function(e, t, n) {
+        var r = 0, o = 0;
+        return [].concat(l(Array(e).keys())).forEach(function(e) {
+          t[e] && t[e][n] && t[e][n].length && (o += t[e][n].length, r += 1);
+        }), r < 1 ? (void 0).standardColumnWidth : o / r;
+      }, function(e, t) {
+        return e[t];
+      });
+    t.getDynamicRowHeight = function(e, t, n) {
+      var r = (function(e, t) {
+        var n = [];
+        [].concat(l(Array(t).keys())).forEach(function(t) {
+          var r = e[t] && Object.keys(e[t]), o = {};
+          r && r.forEach(function(n) {
+              o[n] = e[t][n] && e[t][n].length;
+            }), n.push(o);
+        });
+        var r = {};
+        n.forEach(function(e) {
+          Object.keys(e).forEach(function(t) {
+            r[t] || (r[t] = 0), e[t] ? r[t] += e[t] : r[t] += 0;
+          });
+        });
+        var o = Math.max.apply(Math, l(Object.values(r)));
+        return Object.keys(r).find(function(e) {
+          return r[e] === o;
+        });
+      })(e, t);
+      return c(e, n)[r] && c(e, n)[r].length / 3 + 100 || 120;
+    };
+  },
   QkVE: function(e, t, n) {
     var r = n('EpBk');
     e.exports = function(e, t) {
@@ -35859,8 +35886,9 @@ module.exports = (function(e) {
         return e;
       },
       o = d(n('cDcd')),
-      i = n('rf6O'),
-      a = d(n('FehL')),
+      i = n('rf6O');
+    n('adkz');
+    var a = d(n('FehL')),
       u = d(n('GlS/')),
       l = d(n('QVpu')),
       s = d(n('3nzE')),
@@ -48093,9 +48121,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      u = w(n('mwIZ'));
-    n('adkz');
-    var l = w(n('JVao')),
+      u = w(n('mwIZ')),
+      l = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
