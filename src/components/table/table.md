@@ -29,10 +29,10 @@ const setColumnWidth = column => {
 Table with theme
 
 ```jsx
-const data = require('./data2.json');
-const newData = require('./data3.json');
+const data = require('./second-table-data.json');
+const newData = require('./second-table-data-2.json');
 const tableTheme = require('./table-theme.scss');
-const defaultColumns = ["country", "Co-benefits of mitigation actions for adaptation/resilience and vice versa (Current selection)", "Long-term Strategy Document", "Date of LTS submission", "ndce_ghg"];
+const defaultColumns = ['country', 'Co-benefits of mitigation actions for adaptation/resilience and vice versa (Current selection)', 'Long-term Strategy Document', 'Date of LTS submission'];
 const isEqual = require('lodash/isEqual');
 
 initialState = {
@@ -40,16 +40,18 @@ initialState = {
   data
 }
 
-const ellipsisColumns = ["composite_name"];
-const firstColumnHeaders = ["composite_name", "name"];
-const narrowColumns = ['definition']
+const ellipsisColumns = ['composite_name'];
+const firstColumnHeaders = ['composite_name', 'name'];
+const narrowColumns = ['country', 'Date of LTS submission']
+const wideColumns = ['Assessment of the impacts of changes in climate on long-lived infrastructure, land-use planning, (Current selection)', 'Co-benefits of mitigation actions for adaptation/resilience and vice versa (Current selection)']
 const setColumnWidth = column => {
-  if (narrowColumns.includes(column)) return 180;
-  return 230
+  if (wideColumns.includes(column)) return 380;
+  if (narrowColumns.includes(column)) return 100;
+  return 300
 }
 
 const toggleDefaultColumns = () => {
-  const newDefaultColumns = ["country", "Assessment of the impacts of changes in climate on…structure, land-use planning, (Current selection)", "Long-term Strategy Document", "Date of LTS submission", "ndce_ghg"];
+  const newDefaultColumns = ['country', 'Assessment of the impacts of changes in climate on long-lived infrastructure, land-use planning, (Current selection)', 'Long-term Strategy Document', 'Date of LTS submission'];
 
   if (isEqual(state.defaultColumns, defaultColumns)) {
     setState({ defaultColumns: newDefaultColumns })

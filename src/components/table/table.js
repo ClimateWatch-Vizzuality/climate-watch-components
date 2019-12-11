@@ -66,6 +66,7 @@ class Table extends PureComponent {
       const columns = nextDefaultColumns.length
         ? nextDefaultColumns
         : allColumns;
+      this.virtualizedTable.current.recomputeRowHeights();
       this.setState({
         activeColumns: columns.map(d => ({ label: d, value: d })),
         columnsOptions: allColumns.map(d => ({ label: d, value: d }))
