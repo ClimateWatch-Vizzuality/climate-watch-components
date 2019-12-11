@@ -2,10 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import difference from 'lodash/difference';
 import get from 'lodash/get';
-import _sortBy from 'lodash/sortBy';
 import isEqual from 'lodash/isEqual';
-import isNaN from 'lodash/isNaN';
-import reverse from 'lodash/reverse';
 import {
   Table as VirtualizedTable,
   Column,
@@ -19,6 +16,12 @@ import MultiSelect from '../multiselect';
 import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
 import headerRowRenderer from './components/header-row-renderer-component';
+import {
+  getDataSorted,
+  capitalizeFirstLetter,
+  getMeanLength,
+  getDynamicRowHeight
+} from './table-utils';
 
 class Table extends PureComponent {
   constructor(props) {
@@ -66,8 +69,10 @@ class Table extends PureComponent {
       const columns = nextDefaultColumns.length
         ? nextDefaultColumns
         : allColumns;
+      this.virtualizedTable.current.recomputeRowHeights();
       this.setState({
-        activeColumns: columns.map(d => ({ label: d, value: d }))
+        activeColumns: columns.map(d => ({ label: d, value: d })),
+        columnsOptions: allColumns.map(d => ({ label: d, value: d }))
       });
     }
   }
@@ -101,36 +106,10 @@ class Table extends PureComponent {
     return totalWidth < width ? width : totalWidth;
   };
 
-  getDataSorted = (data, sortBy, sortDirection) => {
-    const samples = data.slice(0, 5).map(d => d[sortBy]).filter(Boolean);
-    const areNumbers = samples.every(sample => !isNaN(parseFloat(sample)));
-
-    const isItemDefined = d =>
-      d[sortBy] !== null && typeof d[sortBy] !== 'undefined';
-    const notNullValueData = data.filter(isItemDefined);
-    const nullValueData = data.filter(d => !isItemDefined(d));
-
-    let dataSorted = [];
-    if (areNumbers) {
-      const sortByNumbers = (a, b) =>
-        parseFloat(a[sortBy]) - parseFloat(b[sortBy]);
-      dataSorted = notNullValueData.sort(sortByNumbers);
-    } else {
-      dataSorted = _sortBy(notNullValueData, sortBy);
-    }
-
-    const notNullValueSortedData = sortDirection === SortDirection.DESC
-      ? reverse(dataSorted)
-      : dataSorted;
-    return nullValueData
-      ? notNullValueSortedData.concat(nullValueData)
-      : notNullValueSortedData;
-  };
-
   handleSortChange = ({ sortBy, sortDirection }) => {
     const { data } = this.state;
     const { dynamicRowsHeight } = this.props;
-    const sortedData = this.getDataSorted(data, sortBy, sortDirection);
+    const sortedData = getDataSorted(data, sortBy, sortDirection);
     this.setState({ data: sortedData, sortBy, sortDirection });
     if (dynamicRowsHeight) this.virtualizedTable.current.recomputeRowHeights(0);
   };
@@ -149,55 +128,8 @@ class Table extends PureComponent {
       : cx(styles.oddRow, theme.row, theme.oddRow);
   };
 
-  getMeanLength = (columnWidthSamples, data, column) => {
-    const sampleNumbersArray = [ ...Array(columnWidthSamples).keys() ];
-    let samples = 0;
-    let aggregatedLenght = 0;
-    sampleNumbersArray.forEach(n => {
-      if (data[n] && data[n][column] && data[n][column].length) {
-        aggregatedLenght += data[n][column].length;
-        samples += 1;
-      }
-    });
-    if (samples < 1) return this.standardColumnWidth;
-    return aggregatedLenght / samples;
-  };
-
-  getLongestTextColumnName = () => {
-    const { data } = this.props;
-    const columnsTextLengthSamples = [];
-    [ ...Array(this.columnHeightSamples).keys() ].forEach(n => {
-      const keys = data[n] && Object.keys(data[n]);
-      const columnsTextLength = {};
-      if (keys) {
-        keys.forEach(column => {
-          columnsTextLength[column] = data[n][column] && data[n][column].length;
-        });
-      }
-      columnsTextLengthSamples.push(columnsTextLength);
-    });
-
-    const aggregatedLength = {};
-    columnsTextLengthSamples.forEach(sample => {
-      Object.keys(sample).forEach(key => {
-        if (!aggregatedLength[key]) aggregatedLength[key] = 0;
-        if (sample[key]) aggregatedLength[key] += sample[key];
-        else aggregatedLength[key] += 0;
-      });
-    });
-    const greatestLength = Math.max(...Object.values(aggregatedLength));
-    const columnName = Object
-      .keys(aggregatedLength)
-      .find(column => aggregatedLength[column] === greatestLength);
-    return columnName;
-  };
-
   getColumnLength = (data, column) => {
-    const meanLenght = this.getMeanLength(
-      this.columnWidthSamples,
-      data,
-      column
-    );
+    const meanLenght = getMeanLength(this.columnWidthSamples, data, column);
     const length = meanLenght * this.lengthWidthRatio;
     const columnTitleLength = (column.length + this.arrowWidth) *
       this.lengthWidthRatio;
@@ -220,14 +152,10 @@ class Table extends PureComponent {
     const { activeColumns } = this.state;
     const { firstColumnHeaders } = this.props;
     const activeColumnNames = activeColumns.map(c => c.value);
-
     return activeColumnNames
       .filter(c => firstColumnHeaders.includes(c))
       .concat(difference(activeColumnNames, firstColumnHeaders));
   };
-
-  capitalizeFirstLetter = text =>
-    `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 
   render() {
     const {
@@ -250,30 +178,18 @@ class Table extends PureComponent {
       hiddenColumnHeaderLabels,
       theme
     } = this.props;
-
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
     const columnLabel = columnSlug => {
       if (hiddenColumnHeaderLabels.includes(columnSlug)) return '';
       const headerLabel = columnSlug.replace(/_/g, ' ');
-      return this.capitalizeFirstLetter(headerLabel);
+      return capitalizeFirstLetter(headerLabel);
     };
 
     const rowsHeight = d => {
       if (setRowsHeight) return setRowsHeight(d);
       if (ellipsisColumns.length > 0) return this.rowHeightWithEllipsis;
       return this.minRowHeight;
-    };
-
-    const getDatum = (dataD, index) => dataD[index];
-
-    const getDynamicRowHeight = index => {
-      const considerableMargin = 100;
-      const greatestColumnName = this.getLongestTextColumnName();
-      return getDatum(data, index)[greatestColumnName] &&
-        getDatum(data, index)[greatestColumnName].length / 3 +
-          considerableMargin ||
-        120;
     };
 
     const getHeaderLabel = (columnText, columnData) => {
@@ -294,6 +210,7 @@ class Table extends PureComponent {
         </Truncate>
       );
     };
+
     const multiSelectOptions = columnsOptions.map(o => ({
       ...o,
       label: columnLabel(o.value)
@@ -349,7 +266,7 @@ class Table extends PureComponent {
                 rowClassName={this.rowClassName}
                 rowHeight={({ index }) =>
                   dynamicRowsHeight
-                    ? getDynamicRowHeight(index)
+                    ? getDynamicRowHeight(data, this.columnHeightSamples, index)
                     : rowsHeight(index)}
                 rowCount={data.length}
                 sort={this.handleSortChange}
