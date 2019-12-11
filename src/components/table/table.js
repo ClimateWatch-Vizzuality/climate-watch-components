@@ -67,7 +67,8 @@ class Table extends PureComponent {
         ? nextDefaultColumns
         : allColumns;
       this.setState({
-        activeColumns: columns.map(d => ({ label: d, value: d }))
+        activeColumns: columns.map(d => ({ label: d, value: d })),
+        columnsOptions: allColumns.map(d => ({ label: d, value: d }))
       });
     }
   }
@@ -220,7 +221,6 @@ class Table extends PureComponent {
     const { activeColumns } = this.state;
     const { firstColumnHeaders } = this.props;
     const activeColumnNames = activeColumns.map(c => c.value);
-
     return activeColumnNames
       .filter(c => firstColumnHeaders.includes(c))
       .concat(difference(activeColumnNames, firstColumnHeaders));
@@ -250,7 +250,6 @@ class Table extends PureComponent {
       hiddenColumnHeaderLabels,
       theme
     } = this.props;
-
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
     const columnLabel = columnSlug => {
@@ -270,6 +269,7 @@ class Table extends PureComponent {
     const getDynamicRowHeight = index => {
       const considerableMargin = 100;
       const greatestColumnName = this.getLongestTextColumnName();
+
       return getDatum(data, index)[greatestColumnName] &&
         getDatum(data, index)[greatestColumnName].length / 3 +
           considerableMargin ||
