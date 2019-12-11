@@ -20,6 +20,28 @@ import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
 import headerRowRenderer from './components/header-row-renderer-component';
 
+const sortData = (data, sortBy) => {
+  const samples = data.slice(0, 5).map(d => d[sortBy]).filter(Boolean);
+
+  const isADate = d =>
+    Object.prototype.toString.call(d) === '[object Date]' &&
+      !isNaN(new Date(d).getTime());
+  const areDates = samples.every(sample => isADate(new Date(sample)));
+
+  if (areDates) {
+    const sortByDate = (a, b) => new Date(a[sortBy]) - new Date(b[sortBy]);
+    return data.sort(sortByDate);
+  }
+
+  const areNumbers = samples.every(sample => !isNaN(parseFloat(sample)));
+  if (areNumbers) {
+    const sortByNumbers = (a, b) =>
+      parseFloat(a[sortBy]) - parseFloat(b[sortBy]);
+    return data.sort(sortByNumbers);
+  }
+  return _sortBy(data, sortBy);
+};
+
 class Table extends PureComponent {
   constructor(props) {
     super(props);
@@ -104,23 +126,12 @@ class Table extends PureComponent {
   };
 
   getDataSorted = (data, sortBy, sortDirection) => {
-    const samples = data.slice(0, 5).map(d => d[sortBy]).filter(Boolean);
-    const areNumbers = samples.every(sample => !isNaN(parseFloat(sample)));
-
     const isItemDefined = d =>
       d[sortBy] !== null && typeof d[sortBy] !== 'undefined';
     const notNullValueData = data.filter(isItemDefined);
     const nullValueData = data.filter(d => !isItemDefined(d));
 
-    let dataSorted = [];
-    if (areNumbers) {
-      const sortByNumbers = (a, b) =>
-        parseFloat(a[sortBy]) - parseFloat(b[sortBy]);
-      dataSorted = notNullValueData.sort(sortByNumbers);
-    } else {
-      dataSorted = _sortBy(notNullValueData, sortBy);
-    }
-
+    const dataSorted = sortData(notNullValueData, sortBy);
     const notNullValueSortedData = sortDirection === SortDirection.DESC
       ? reverse(dataSorted)
       : dataSorted;
