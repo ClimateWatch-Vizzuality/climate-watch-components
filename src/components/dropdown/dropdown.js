@@ -52,7 +52,10 @@ class Dropdown extends PureComponent {
         )}
       >
         {withDot && <span className={cx(styles.dot, theme.dot)} />}
-        {label && <span className={styles.label}>{label}</span>}
+        {
+          label &&
+            <span className={cx(styles.label, theme.label)}> {label} </span>
+        }
         {
           isRequired &&
             <span className={styles.requiredError}>This field is required</span>
