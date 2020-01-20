@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import difference from 'lodash/difference';
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
+import omit from 'lodash/omit';
 import {
   Table as VirtualizedTable,
   Column,
@@ -26,7 +27,7 @@ import {
 class Table extends PureComponent {
   constructor(props) {
     super(props);
-    const { data, defaultColumns, sortBy } = props;
+    const { data, defaultColumns, sortBy, titleLinks } = props;
     const allColumns = Object.keys(get(data, '[0]', {}));
     const columns = defaultColumns.length ? defaultColumns : allColumns;
     this.state = {
@@ -36,7 +37,8 @@ class Table extends PureComponent {
       sortDirection: SortDirection.ASC,
       activeColumns: columns.map(d => ({ label: d, value: d })),
       columnsOptions: allColumns.map(d => ({ label: d, value: d })),
-      shouldOverflow: false
+      shouldOverflow: false,
+      titleLinks
     };
     this.standardColumnWidth = 180;
     this.minColumnWidth = 80;
@@ -59,10 +61,14 @@ class Table extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data, defaultColumns } = this.props;
-    const { data: nextData, defaultColumns: nextDefaultColumns } = nextProps;
-    if (!isEqual(nextData, data)) {
-      this.setState({ data: nextData });
+    const { data, defaultColumns, titleLinks } = this.props;
+    const {
+      data: nextData,
+      titleLinks: nextTitleLinks,
+      defaultColumns: nextDefaultColumns
+    } = nextProps;
+    if (!isEqual(nextData, data) || !isEqual(nextTitleLinks, titleLinks)) {
+      this.setState({ data: nextData, titleLinks: nextTitleLinks });
     }
     if (!isEqual(nextDefaultColumns, defaultColumns)) {
       const allColumns = Object.keys(get(data, '[0]', {}));
@@ -107,10 +113,26 @@ class Table extends PureComponent {
   };
 
   handleSortChange = ({ sortBy, sortDirection }) => {
-    const { data } = this.state;
+    const { data, titleLinks } = this.state;
     const { dynamicRowsHeight } = this.props;
-    const sortedData = getDataSorted(data, sortBy, sortDirection);
-    this.setState({ data: sortedData, sortBy, sortDirection });
+    const dataWithTitleLinks = [ ...data ];
+    data.forEach((d, i) => {
+      dataWithTitleLinks[i].titleLink = titleLinks[i];
+    });
+    const sortedData = getDataSorted(dataWithTitleLinks, sortBy, sortDirection);
+
+    const sortedDataWithoutTitleLinks = [];
+    const sortedTitleLinks = [];
+    sortedData.forEach(d => {
+      sortedDataWithoutTitleLinks.push(omit(d, [ 'titleLink' ]));
+      sortedTitleLinks.push(d.titleLink);
+    });
+    this.setState({
+      data: sortedDataWithoutTitleLinks,
+      titleLinks: sortedTitleLinks,
+      sortBy,
+      sortDirection
+    });
     if (dynamicRowsHeight) this.virtualizedTable.current.recomputeRowHeights(0);
   };
 
@@ -165,7 +187,8 @@ class Table extends PureComponent {
       activeColumns,
       columnsOptions,
       optionsOpen,
-      shouldOverflow
+      shouldOverflow,
+      titleLinks
     } = this.state;
     const {
       data: propsData,
@@ -304,7 +327,10 @@ class Table extends PureComponent {
                       dataKey={column}
                       flexGrow={0}
                       cellRenderer={cell =>
-                        cellRenderer({ props: this.props, cell })}
+                        cellRenderer({
+                          props: { ...this.props, titleLinks },
+                          cell
+                        })}
                       {...this.columnWidthProps(column, data)}
                     />
                   ))}

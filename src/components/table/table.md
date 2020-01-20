@@ -20,7 +20,7 @@ const setColumnWidth = column => {
   horizontalScroll
   parseMarkdown
   dynamicRowsHeight={true}
-  titleLinks={data.map(c => [{columnName: "link", url: "self", label: "View more"}])}
+  titleLinks={data.map(c => [{ columnName: "name", url: c.link.name }])}
   hiddenColumnHeaderLabels={['link']}
   setColumnWidth={setColumnWidth}
 />
