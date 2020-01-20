@@ -13,7 +13,7 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
 import Truncate from 'react-truncate';
-import MultiSelect from '../multiselect';
+import ColumnSelector from './components/column-selector';
 import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
 import headerRowRenderer from './components/header-row-renderer-component';
@@ -32,7 +32,6 @@ class Table extends PureComponent {
     const columns = defaultColumns.length ? defaultColumns : allColumns;
     this.state = {
       data,
-      optionsOpen: false,
       sortBy: sortBy || get(allColumns, '[0]'),
       sortDirection: SortDirection.ASC,
       activeColumns: columns.map(d => ({ label: d, value: d })),
@@ -82,18 +81,6 @@ class Table extends PureComponent {
       });
     }
   }
-
-  setOptionsClose = () => {
-    this.setState(
-      ({ optionsOpen }) => optionsOpen ? { optionsOpen: false } : null
-    );
-  };
-
-  setOptionsOpen = () => {
-    this.setState(
-      ({ optionsOpen }) => !optionsOpen ? { optionsOpen: true } : null
-    );
-  };
 
   getFullWidth = (data, columns, width) => {
     const { setColumnWidth } = this.props;
@@ -186,7 +173,6 @@ class Table extends PureComponent {
       sortDirection,
       activeColumns,
       columnsOptions,
-      optionsOpen,
       shouldOverflow,
       titleLinks
     } = this.state;
@@ -243,30 +229,14 @@ class Table extends PureComponent {
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
-          hasColumnSelectedOptions && (
-          <div
-            role="button"
-            tabIndex={0}
-            className={cx(
-                  styles.columnSelectorWrapper,
-                  theme.columnSelector
-                )}
-            onMouseEnter={this.setOptionsOpen}
-            onMouseLeave={this.setOptionsClose}
-          >
-            <MultiSelect
-              theme={{ dropdown: styles.columnSelector }}
-              values={activeColumns || []}
-              options={multiSelectOptions}
-              onValueChange={this.handleColumnChange}
-              hideResetButton
-              open={optionsOpen}
-            >
-              <span className={styles.selectorValue}>
-                    ...
-              </span>
-            </MultiSelect>
-          </div>
+          hasColumnSelectedOptions &&
+            (
+              <ColumnSelector
+                activeColumns={activeColumns}
+                multiSelectOptions={multiSelectOptions}
+                handleColumnChange={this.handleColumnChange}
+                columnSelectorTheme={theme.columnSelector}
+              />
             )
         }
         <div
