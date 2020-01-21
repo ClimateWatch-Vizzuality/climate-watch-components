@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import difference from 'lodash/difference';
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
+import omit from 'lodash/omit';
 import {
   Table as VirtualizedTable,
   Column,
@@ -12,7 +13,7 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import cx from 'classnames';
 import ReactTooltip from 'react-tooltip';
 import Truncate from 'react-truncate';
-import MultiSelect from '../multiselect';
+import ColumnSelector from './components/column-selector';
 import cellRenderer from './components/cell-renderer-component';
 import styles from './table-styles.scss';
 import headerRowRenderer from './components/header-row-renderer-component';
@@ -26,17 +27,17 @@ import {
 class Table extends PureComponent {
   constructor(props) {
     super(props);
-    const { data, defaultColumns, sortBy } = props;
+    const { data, defaultColumns, sortBy, titleLinks } = props;
     const allColumns = Object.keys(get(data, '[0]', {}));
     const columns = defaultColumns.length ? defaultColumns : allColumns;
     this.state = {
       data,
-      optionsOpen: false,
       sortBy: sortBy || get(allColumns, '[0]'),
       sortDirection: SortDirection.ASC,
       activeColumns: columns.map(d => ({ label: d, value: d })),
       columnsOptions: allColumns.map(d => ({ label: d, value: d })),
-      shouldOverflow: false
+      shouldOverflow: false,
+      titleLinks
     };
     this.standardColumnWidth = 180;
     this.minColumnWidth = 80;
@@ -59,10 +60,14 @@ class Table extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data, defaultColumns } = this.props;
-    const { data: nextData, defaultColumns: nextDefaultColumns } = nextProps;
-    if (!isEqual(nextData, data)) {
-      this.setState({ data: nextData });
+    const { data, defaultColumns, titleLinks } = this.props;
+    const {
+      data: nextData,
+      titleLinks: nextTitleLinks,
+      defaultColumns: nextDefaultColumns
+    } = nextProps;
+    if (!isEqual(nextData, data) || !isEqual(nextTitleLinks, titleLinks)) {
+      this.setState({ data: nextData, titleLinks: nextTitleLinks });
     }
     if (!isEqual(nextDefaultColumns, defaultColumns)) {
       const allColumns = Object.keys(get(data, '[0]', {}));
@@ -76,18 +81,6 @@ class Table extends PureComponent {
       });
     }
   }
-
-  setOptionsClose = () => {
-    this.setState(
-      ({ optionsOpen }) => optionsOpen ? { optionsOpen: false } : null
-    );
-  };
-
-  setOptionsOpen = () => {
-    this.setState(
-      ({ optionsOpen }) => !optionsOpen ? { optionsOpen: true } : null
-    );
-  };
 
   getFullWidth = (data, columns, width) => {
     const { setColumnWidth } = this.props;
@@ -107,10 +100,26 @@ class Table extends PureComponent {
   };
 
   handleSortChange = ({ sortBy, sortDirection }) => {
-    const { data } = this.state;
+    const { data, titleLinks } = this.state;
     const { dynamicRowsHeight } = this.props;
-    const sortedData = getDataSorted(data, sortBy, sortDirection);
-    this.setState({ data: sortedData, sortBy, sortDirection });
+    const dataWithTitleLinks = [ ...data ];
+    data.forEach((d, i) => {
+      dataWithTitleLinks[i].titleLink = titleLinks[i];
+    });
+    const sortedData = getDataSorted(dataWithTitleLinks, sortBy, sortDirection);
+
+    const sortedDataWithoutTitleLinks = [];
+    const sortedTitleLinks = [];
+    sortedData.forEach(d => {
+      sortedDataWithoutTitleLinks.push(omit(d, [ 'titleLink' ]));
+      sortedTitleLinks.push(d.titleLink);
+    });
+    this.setState({
+      data: sortedDataWithoutTitleLinks,
+      titleLinks: sortedTitleLinks,
+      sortBy,
+      sortDirection
+    });
     if (dynamicRowsHeight) this.virtualizedTable.current.recomputeRowHeights(0);
   };
 
@@ -164,8 +173,8 @@ class Table extends PureComponent {
       sortDirection,
       activeColumns,
       columnsOptions,
-      optionsOpen,
-      shouldOverflow
+      shouldOverflow,
+      titleLinks
     } = this.state;
     const {
       data: propsData,
@@ -220,30 +229,14 @@ class Table extends PureComponent {
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
-          hasColumnSelectedOptions && (
-          <div
-            role="button"
-            tabIndex={0}
-            className={cx(
-                  styles.columnSelectorWrapper,
-                  theme.columnSelector
-                )}
-            onMouseEnter={this.setOptionsOpen}
-            onMouseLeave={this.setOptionsClose}
-          >
-            <MultiSelect
-              theme={{ dropdown: styles.columnSelector }}
-              values={activeColumns || []}
-              options={multiSelectOptions}
-              onValueChange={this.handleColumnChange}
-              hideResetButton
-              open={optionsOpen}
-            >
-              <span className={styles.selectorValue}>
-                    ...
-              </span>
-            </MultiSelect>
-          </div>
+          hasColumnSelectedOptions &&
+            (
+              <ColumnSelector
+                activeColumns={activeColumns}
+                multiSelectOptions={multiSelectOptions}
+                handleColumnChange={this.handleColumnChange}
+                columnSelectorTheme={theme.columnSelector}
+              />
             )
         }
         <div
@@ -304,7 +297,10 @@ class Table extends PureComponent {
                       dataKey={column}
                       flexGrow={0}
                       cellRenderer={cell =>
-                        cellRenderer({ props: this.props, cell })}
+                        cellRenderer({
+                          props: { ...this.props, titleLinks },
+                          cell
+                        })}
                       {...this.columnWidthProps(column, data)}
                     />
                   ))}
