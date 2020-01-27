@@ -28,13 +28,22 @@ class PieChart extends PureComponent {
   }
 
   render() {
-    const { config, data, width, margin, customTooltip, theme } = this.props;
+    const {
+      config,
+      data,
+      width,
+      margin,
+      customTooltip,
+      theme,
+      customInnerHoverLabel
+    } = this.props;
     const { activeIndex } = this.state;
     const isMultilevelPieChart = !Array.isArray(data);
 
     const onPieEnter = (d, index) => {
       this.setState({ activeIndex: index });
     };
+
     return (
       <div className={classnames(styles.pieChart, theme.pieChart)}>
         <ResponsiveContainer width={width} aspect={4 / 3}>
@@ -61,7 +70,13 @@ class PieChart extends PureComponent {
                   outerRadius={config.radius[key].outerRadius}
                   innerRadius={config.radius[key].innerRadius}
                   fill={config.theme && config.theme.fill}
-                  label={content => CustomizedLabel(content, config, theme)}
+                  label={content =>
+                      CustomizedLabel(
+                        content,
+                        config,
+                        theme,
+                        customInnerHoverLabel
+                      )}
                   labelLine={false}
                   isAnimationActive={config.animation || false}
                   legendType="circle"
@@ -70,62 +85,39 @@ class PieChart extends PureComponent {
                 >
                   {data[key].map(d => (
                     <Cell key={d.name} fill={getColor(d, config)} />
-                  ))}
+                    ))}
                 </Pie>
-              )) : (
-                <Pie
-                  data={data}
-                  dataKey="value"
-                  fill={config.theme && config.theme.fill}
-                  label={content => CustomizedLabel(content, config, theme)}
-                  labelLine={false}
-                  activeShape={
-                    config.innerHoverLabel ? props => (
-                      <CustomizedActiveShape
-                        innerHoverLabel={config.innerHoverLabel}
-                        theme={theme}
-                        {...props}
-                      />
-                    ) : undefined
-                  }
-                  activeIndex={activeIndex}
-                  onMouseEnter={onPieEnter}
-                  isAnimationActive={config.animation || false}
-                  legendType="circle"
-                  innerRadius={config.innerRadius}
-                  outerRadius={config.outerRadius}
-                  cx={config.cx}
-                  cy={config.cy}
-                >
-                  {data.map(d => (
-                    <Cell key={d.name} fill={getColor(d, config)} />
+                )) : (
+                  <Pie data={data} dataKey="value" fill={config.theme && config.theme.fill} label={content => CustomizedLabel(content, config, theme)} labelLine={false} activeShape={config.innerHoverLabel ? props => <CustomizedActiveShape customInnerHoverLabel={customInnerHoverLabel} innerHoverLabel={config.innerHoverLabel} theme={theme} {...props} /> : undefined} activeIndex={activeIndex} onMouseEnter={onPieEnter} isAnimationActive={config.animation || false} legendType="circle" innerRadius={config.innerRadius} outerRadius={config.outerRadius} cx={config.cx} cy={config.cy}>
+                    {data.map(d => (
+                      <Cell key={d.name} fill={getColor(d, config)} />
                   ))}
-                </Pie>
-              )
+                  </Pie>
+)
             }
           </RechartsPieChart>
         </ResponsiveContainer>
         {
           !config.hideLegend && Object.keys(config.theme) && (
-            <div
-              className={classnames(styles.legend, theme.legend)}
-              style={{
-                marginLeft: width / (config.legendPositionRatio || 4.75)
-              }}
-            >
-              {Object
-                .keys(config.theme)
-                .map(q => (
-                  <Tag
-                    theme={theme.tag || simpleTagTheme}
-                    key={config.theme[q].label}
-                    canRemove={false}
-                    label={config.theme[q].label}
-                    color={config.theme[q].stroke}
-                  />
-                ))}
-            </div>
-          )
+          <div
+            className={classnames(styles.legend, theme.legend)}
+            style={{
+                  marginLeft: width / (config.legendPositionRatio || 4.75)
+                }}
+          >
+            {Object
+                  .keys(config.theme)
+                  .map(q => (
+                    <Tag
+                      theme={theme.tag || simpleTagTheme}
+                      key={config.theme[q].label}
+                      canRemove={false}
+                      label={config.theme[q].label}
+                      color={config.theme[q].stroke}
+                    />
+                  ))}
+          </div>
+            )
         }
       </div>
     );
@@ -173,6 +165,7 @@ PieChart.propTypes = {
     bottom: PropTypes.number
   }),
   customTooltip: PropTypes.node,
+  customInnerHoverLabel: PropTypes.node,
   theme: PropTypes.shape({
     pieChart: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
     legend: PropTypes.oneOfType([ PropTypes.shape(), PropTypes.string ]),
@@ -197,6 +190,7 @@ PieChart.defaultProps = {
   },
   data: [],
   customTooltip: null,
+  customInnerHoverLabel: null,
   theme: {}
 };
 
