@@ -17703,25 +17703,23 @@ module.exports = (function(e) {
           l = e.innerRadius,
           s = e.outerRadius,
           c = e.percent,
-          f = t.labelPositionRatio,
-          p = t.hideLabel,
-          d = l + (s - l) * (f || .6),
-          h = o + d * Math.cos((-u) * a),
-          y = i + d * Math.sin((-u) * a);
-        return p
-          ? null
-          : r.default.createElement(
-            'text',
-            {
-              x: h,
-              y: y,
-              fill: 'white',
-              textAnchor: h > o ? 'start' : 'end',
-              dominantBaseline: 'central',
-              className: n.label
-            },
-            (100 * c).toFixed(0) + '%'
-          );
+          f = t.labelPositionRatio;
+        if (t.hideLabel) return null;
+        var p = l + (s - l) * (f || .6),
+          d = o + p * Math.cos((-u) * a),
+          h = i + p * Math.sin((-u) * a);
+        return r.default.createElement(
+          'text',
+          {
+            x: d,
+            y: h,
+            fill: 'white',
+            textAnchor: d > o ? 'start' : 'end',
+            dominantBaseline: 'central',
+            className: n.label
+          },
+          (100 * c).toFixed(0) + '%'
+        );
       };
     u.propTypes = {
       cx: o.default.number.isRequired,
@@ -39959,7 +39957,8 @@ module.exports = (function(e) {
         c = e.endAngle,
         f = e.fill,
         p = e.percent,
-        d = e.theme;
+        d = e.theme,
+        h = e.customInnerHoverLabel;
       return r.default.createElement(
         'g',
         null,
@@ -39972,21 +39971,24 @@ module.exports = (function(e) {
           endAngle: c,
           fill: f
         }),
-        r.default.createElement(
-          'text',
-          {
-            x: t,
-            y: n,
-            dy: 10,
-            dx: 2,
-            textAnchor: 'middle',
-            className: (0, i.default)(
-              u.default.innerHoverLabel,
-              d.innerHoverLabel
-            )
-          },
-          (100 * p).toFixed(0) + '%'
-        )
+        h
+          ? h({ x: t, y: n, value: p })
+          : r.default.createElement(
+            'text',
+            {
+              x: t,
+              y: n,
+              dy: 10,
+              dx: 2,
+              textAnchor: 'middle',
+              className: (0, i.default)(
+                u.default.innerHoverLabel,
+                d.innerHoverLabel
+              )
+            },
+            '(',
+            (100 * p).toFixed(0) + '%'
+          )
       );
     };
     s.propTypes = {
@@ -39998,8 +40000,9 @@ module.exports = (function(e) {
       startAngle: o.default.number.isRequired,
       endAngle: o.default.number.isRequired,
       fill: o.default.string.isRequired,
-      theme: o.default.shape()
-    }, s.defaultProps = { theme: void 0 }, t.default = s;
+      theme: o.default.shape(),
+      customInnerHoverLabel: o.default.node
+    }, s.defaultProps = { theme: void 0, customInnerHoverLabel: void 0 }, t.default = s;
   },
   VOcB: function(e, t, n) {
     'use strict';
@@ -40342,8 +40345,9 @@ module.exports = (function(e) {
       l = w(n('qCFj')),
       s = w(n('u6S6')),
       c = w(n('K2gz')),
-      f = w(n('sXgQ')),
-      p = w(n('GlS/')),
+      f = w(n('sXgQ'));
+    n('adkz');
+    var p = w(n('GlS/')),
       d = w(n('i9Y8')),
       h = w(n('mGSp')),
       y = w(n('wrKF')),
@@ -40403,8 +40407,9 @@ module.exports = (function(e) {
                 u = t.margin,
                 s = t.customTooltip,
                 w = t.theme,
-                O = this.state.activeIndex,
-                S = !Array.isArray(o);
+                O = t.customInnerHoverLabel,
+                S = this.state.activeIndex,
+                E = !Array.isArray(o);
               return a.default.createElement(
                 'div',
                 { className: (0, c.default)(g.default.pieChart, w.pieChart) },
@@ -40432,7 +40437,7 @@ module.exports = (function(e) {
                         : void 0,
                       filterNull: !1
                     }),
-                    S ? Object.keys(o).map(function(e) {
+                    E ? Object.keys(o).map(function(e) {
                         return a.default.createElement(
                           h.default,
                           {
@@ -40443,7 +40448,7 @@ module.exports = (function(e) {
                             innerRadius: n.radius[e].innerRadius,
                             fill: n.theme && n.theme.fill,
                             label: function(e) {
-                              return (0, _.default)(e, n, w);
+                              return (0, _.default)(e, n, w, O);
                             },
                             labelLine: !1,
                             isAnimationActive: n.animation || !1,
@@ -40473,6 +40478,7 @@ module.exports = (function(e) {
                                 b.default,
                                 r(
                                   {
+                                    customInnerHoverLabel: O,
                                     innerHoverLabel: n.innerHoverLabel,
                                     theme: w
                                   },
@@ -40480,7 +40486,7 @@ module.exports = (function(e) {
                                 )
                               );
                             }) : void 0,
-                          activeIndex: O,
+                          activeIndex: S,
                           onMouseEnter: function(t, n) {
                             e.setState({ activeIndex: n });
                           },
@@ -40552,6 +40558,7 @@ module.exports = (function(e) {
         bottom: u.default.number
       }),
       customTooltip: u.default.node,
+      customInnerHoverLabel: u.default.node,
       theme: u.default.shape({
         pieChart: u.default.oneOfType([ u.default.shape(), u.default.string ]),
         legend: u.default.oneOfType([ u.default.shape(), u.default.string ]),
@@ -40562,7 +40569,7 @@ module.exports = (function(e) {
           u.default.bool
         ])
       })
-    }, O.defaultProps = { width: 600, margin: { top: 0, right: 10, left: 10, bottom: 0 }, config: { innerRadius: 0, innerHoverLabel: !1, outerRadius: null, hideLabel: !1, hideLegend: !1 }, data: [], customTooltip: null, theme: {} }, t.default = O;
+    }, O.defaultProps = { width: 600, margin: { top: 0, right: 10, left: 10, bottom: 0 }, config: { innerRadius: 0, innerHoverLabel: !1, outerRadius: null, hideLabel: !1, hideLegend: !1 }, data: [], customTooltip: null, customInnerHoverLabel: null, theme: {} }, t.default = O;
   },
   W070: function(e, t, n) {
     var r = n('NsO/'), o = n('tEej'), i = n('D8kY');
@@ -48331,9 +48338,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      u = w(n('mwIZ'));
-    n('adkz');
-    var l = w(n('JVao')),
+      u = w(n('mwIZ')),
+      l = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
