@@ -198,6 +198,8 @@ const config = {
 
 Example with animated pie chart, with inner hover label and extended hovered sector
 ```js
+
+const theme = require('./pie-chart-theme.scss');
 const width = 400;
 
 const data = [
@@ -208,7 +210,33 @@ const data = [
   { name: 'groupE', value: 278 },
   { name: 'groupF', value: 189 }
 ];
-
+const customInnerHoverLabel = ({ x, y, value }) => (
+    <text
+      x={x}
+      y={y - 18}
+    >
+      <tspan
+        x={x}
+        textAnchor="middle"
+      >
+        {Math.round(value * 10) / 10} %
+      </tspan>
+      <tspan
+        x={x}
+        textAnchor="middle"
+        dy="20"
+      >
+        of global
+      </tspan>
+      <tspan
+        x={x}
+        textAnchor="middle"
+        dy="20"
+      >
+        emissions.
+      </tspan>
+    </text>
+  );
 const config = {
   tooltip: {
     groupA: { label: 'Group A' },
@@ -245,5 +273,7 @@ const config = {
   data={data}
   width={width}
   config={config}
+  customInnerHoverLabel={customInnerHoverLabel}
+  theme={theme}
 />
 ```
