@@ -16,7 +16,8 @@ const CustomizedActiveShape = props => {
     endAngle,
     fill,
     percent,
-    theme
+    theme,
+    customInnerHoverLabel
   } = props;
   return (
     <g>
@@ -29,16 +30,22 @@ const CustomizedActiveShape = props => {
         endAngle={endAngle}
         fill={fill}
       />
-      <text
-        x={cx}
-        y={cy}
-        dy={10}
-        dx={2}
-        textAnchor="middle"
-        className={classnames(styles.innerHoverLabel, theme.innerHoverLabel)}
-      >
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
+      {customInnerHoverLabel ?
+        customInnerHoverLabel({ x: cx, y: cy, value: percent }) :
+        (
+          <text
+            x={cx}
+            y={cy}
+            dy={10}
+            dx={2}
+            textAnchor="middle"
+            className={classnames(styles.innerHoverLabel, theme.innerHoverLabel)}
+          >
+          (
+            {`${(percent * 100).toFixed(0)}%`}
+          </text>
+        )
+      }
     </g>
   );
 };
@@ -52,11 +59,13 @@ CustomizedActiveShape.propTypes = {
   startAngle: PropTypes.number.isRequired,
   endAngle: PropTypes.number.isRequired,
   fill: PropTypes.string.isRequired,
-  theme: PropTypes.shape()
+  theme: PropTypes.shape(),
+  customInnerHoverLabel: PropTypes.node
 };
 
 CustomizedActiveShape.defaultProps = {
-  theme: undefined
+  theme: undefined,
+  customInnerHoverLabel: undefined
 };
 
 export default CustomizedActiveShape;

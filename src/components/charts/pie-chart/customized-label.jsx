@@ -7,12 +7,12 @@ const CustomizedLabel = (
   { labelPositionRatio, hideLabel },
   theme
 ) => {
+  if (hideLabel) return null;
   const radius =
     innerRadius + (outerRadius - innerRadius) * (labelPositionRatio || 0.6);
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  return !hideLabel ? (
+  return (
     <text
       x={x}
       y={y}
@@ -23,7 +23,7 @@ const CustomizedLabel = (
     >
       {`${(percent * 100).toFixed(0)}%`}
     </text>
-  ) : null;
+  );
 };
 
 CustomizedLabel.propTypes = {
@@ -32,7 +32,7 @@ CustomizedLabel.propTypes = {
   midAngle: PropTypes.number.isRequired,
   innerRadius: PropTypes.number.isRequired,
   outerRadius: PropTypes.number.isRequired,
-  percent: PropTypes.number.isRequired
+  percent: PropTypes.number.isRequired,
 };
 
 export default CustomizedLabel;
