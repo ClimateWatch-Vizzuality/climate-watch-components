@@ -75,4 +75,25 @@ const toggleDefaultColumns = () => {
     theme={tableTheme}
   />
 </>
+
+```
+
+Table with custom Cell renderer
+
+```jsx
+const data = require('./data.json');
+const isNaN = require('lodash/isNaN');
+const iconDownload = require('../button-group/assets/download.svg').default;
+const iconInfo = require('../button-group/assets/info.svg').default;
+const defaultColumns = ["name", "percentages"];
+
+<Table
+  data={data}
+  defaultColumns={defaultColumns}
+  customCellRenderer={(cell) => isNaN(parseFloat(cell.cellData)) ? (
+    <Icon onClick={() => console.log('NaN clicked')} icon={iconDownload}></Icon>
+  ) : (
+    <Icon onClick={() => console.log('Number clicked')} icon={iconInfo}></Icon>
+  )}
+/>
 ```

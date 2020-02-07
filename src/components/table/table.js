@@ -185,7 +185,8 @@ class Table extends PureComponent {
       ellipsisColumns,
       dynamicRowsHeight,
       hiddenColumnHeaderLabels,
-      theme
+      theme,
+      customCellRenderer
     } = this.props;
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
@@ -297,10 +298,12 @@ class Table extends PureComponent {
                       dataKey={column}
                       flexGrow={0}
                       cellRenderer={cell =>
-                        cellRenderer({
-                          props: { ...this.props, titleLinks },
-                          cell
-                        })}
+                        customCellRenderer
+                          ? customCellRenderer(cell)
+                          : cellRenderer({
+                            props: { ...this.props, titleLinks },
+                            cell
+                          })}
                       {...this.columnWidthProps(column, data)}
                     />
                   ))}
@@ -348,6 +351,8 @@ Table.propTypes = {
   /** Array to order the column headers */
   // eslint-disable-next-line react/forbid-prop-types
   firstColumnHeaders: PropTypes.array,
+  /** Function that overrides the cell rendering */
+  customCellRenderer: PropTypes.func,
   /** Boolean value to calculate dynamic rows */
   dynamicRowsHeight: PropTypes.bool,
   /** Array of column header that dev do not want to display on header row */
@@ -398,6 +403,7 @@ Table.defaultProps = {
   dynamicRowsHeight: false,
   parseHtml: false,
   parseMarkdown: false,
+  customCellRenderer: undefined,
   theme: {}
 };
 
