@@ -27475,16 +27475,17 @@ module.exports = (function(e) {
               M = f.ellipsisColumns,
               P = f.dynamicRowsHeight,
               C = f.hiddenColumnHeaderLabels,
-              A = f.theme;
+              A = f.theme,
+              j = f.customCellRenderer;
             if (!n.length) return null;
-            var j = S && l,
-              N = function(e) {
+            var N = S && l,
+              I = function(e) {
                 if (C.includes(e)) return '';
                 var t = e.replace(/_/g, ' ');
                 return (0, w.capitalizeFirstLetter)(t);
               },
-              I = function(t, n) {
-                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = N(t);
+              R = function(t, n) {
+                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = I(t);
                 return a.default.createElement(
                   v.default,
                   {
@@ -27499,18 +27500,18 @@ module.exports = (function(e) {
                   o
                 );
               },
-              R = l.map(function(e) {
-                return r({}, e, { label: N(e.value) });
+              L = l.map(function(e) {
+                return r({}, e, { label: I(e.value) });
               }) || [];
             return a.default.createElement(
               'div',
               {
                 className: (0, h.default)(O({}, b.default.hasColumnSelect, S))
               },
-              j &&
+              N &&
                 a.default.createElement(m.default, {
                   activeColumns: u,
-                  multiSelectOptions: R,
+                  multiSelectOptions: L,
                   handleColumnChange: this.handleColumnChange,
                   columnSelectorTheme: A.columnSelector
                 }),
@@ -27592,15 +27593,17 @@ module.exports = (function(e) {
                                 b.default.columnHeader,
                                 A.columnHeader
                               ),
-                              key: I(t, n),
-                              label: I(t, n),
+                              key: R(t, n),
+                              label: R(t, n),
                               dataKey: t,
                               flexGrow: 0,
                               cellRenderer: function(t) {
-                                return (0, g.default)({
-                                  props: r({}, e.props, { titleLinks: c }),
-                                  cell: t
-                                });
+                                return j
+                                  ? j(t)
+                                  : (0, g.default)({
+                                    props: r({}, e.props, { titleLinks: c }),
+                                    cell: t
+                                  });
                               }
                             },
                             e.columnWidthProps(t, n)
@@ -27717,6 +27720,7 @@ module.exports = (function(e) {
       headerHeight: u.default.number,
       ellipsisColumns: u.default.array,
       firstColumnHeaders: u.default.array,
+      customCellRenderer: u.default.func,
       dynamicRowsHeight: u.default.bool,
       hiddenColumnHeaderLabels: u.default.arrayOf(u.default.string),
       titleLinks: u.default.arrayOf(
@@ -27739,7 +27743,7 @@ module.exports = (function(e) {
         columnHeader: u.default.string,
         columnSelector: u.default.string
       })
-    }, S.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, parseHtml: !1, parseMarkdown: !1, theme: {} }, t.default = S;
+    }, S.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, parseHtml: !1, parseMarkdown: !1, customCellRenderer: void 0, theme: {} }, t.default = S;
   },
   KJAg: function(e, t, n) {
     'use strict';
