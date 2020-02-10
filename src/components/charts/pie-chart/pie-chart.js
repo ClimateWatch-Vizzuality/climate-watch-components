@@ -80,6 +80,7 @@ class PieChart extends PureComponent {
                   labelLine={false}
                   isAnimationActive={config.animation || false}
                   legendType="circle"
+                  minAngle={config.minAngle}
                   cx={config.cx}
                   cy={config.cy}
                 >
@@ -88,7 +89,7 @@ class PieChart extends PureComponent {
                     ))}
                 </Pie>
                 )) : (
-                  <Pie data={data} dataKey="value" fill={config.theme && config.theme.fill} label={content => CustomizedLabel(content, config, theme)} labelLine={false} activeShape={config.innerHoverLabel ? props => <CustomizedActiveShape customInnerHoverLabel={customInnerHoverLabel} innerHoverLabel={config.innerHoverLabel} theme={theme} {...props} /> : undefined} activeIndex={activeIndex} onMouseEnter={onPieEnter} isAnimationActive={config.animation || false} legendType="circle" innerRadius={config.innerRadius} outerRadius={config.outerRadius} cx={config.cx} cy={config.cy}>
+                  <Pie data={data} dataKey="value" fill={config.theme && config.theme.fill} label={content => CustomizedLabel(content, config, theme)} labelLine={false} activeShape={config.innerHoverLabel ? props => <CustomizedActiveShape customInnerHoverLabel={customInnerHoverLabel} innerHoverLabel={config.innerHoverLabel} theme={theme} {...props} /> : undefined} activeIndex={activeIndex} onMouseEnter={onPieEnter} isAnimationActive={config.animation || false} legendType="circle" innerRadius={config.innerRadius} outerRadius={config.outerRadius} cx={config.cx} cy={config.cy} minAngle={config.minAngle}>
                     {data.map(d => (
                       <Cell key={d.name} fill={getColor(d, config)} />
                   ))}
