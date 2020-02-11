@@ -40457,6 +40457,7 @@ module.exports = (function(e) {
                             labelLine: !1,
                             isAnimationActive: n.animation || !1,
                             legendType: 'circle',
+                            minAngle: n.minAngle,
                             cx: n.cx,
                             cy: n.cy
                           },
@@ -40499,7 +40500,8 @@ module.exports = (function(e) {
                           innerRadius: n.innerRadius,
                           outerRadius: n.outerRadius,
                           cx: n.cx,
-                          cy: n.cy
+                          cy: n.cy,
+                          minAngle: n.minAngle
                         },
                         o.map(function(e) {
                           return a.default.createElement(d.default, {
