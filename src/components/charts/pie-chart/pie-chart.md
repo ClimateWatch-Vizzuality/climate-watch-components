@@ -207,7 +207,7 @@ const data = [
   { name: 'groupC', value: 300 },
   { name: 'groupD', value: 200 },
   { name: 'groupE', value: 278 },
-  { name: 'groupF', value: 189 }
+  { name: 'groupF', value: 0.1 }
 ];
 const customInnerHoverLabel = ({ x, y, value }) => (
     <text
@@ -265,7 +265,8 @@ const config = {
   innerHoverLabel: { offset: 80 },
   outerRadius: 80,
   hideLabel: true,
-  hideLegend: true
+  hideLegend: true,
+  minAngle: 2
 };
 
 <PieChart
