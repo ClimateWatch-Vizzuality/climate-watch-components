@@ -84,4 +84,41 @@ const onValueChange = (selected) => {
 </div>
 ```
 
+Icons with label version and custom theme
+```js
+const theme = require('./dropdown-themes.scss');
+require('./dropdown-custom-theme.scss');
+const areaIcon = require('./assets/icon_area_chart.svg');
+const arrowIcon = require('./assets/dropdown-arrow.svg');
+const infoIcon = require('./assets/info.svg');
+const data = [
+  { label: 'line', value: 'line' },
+  { label: 'area', value: 'area' },
+  { label: 'bubble bubble bubble bubble', value: 'bubble '}
+]
+const icons = {
+  'line': areaIcon.default,
+  'area': arrowIcon.default,
+  'bubble': infoIcon.default
+}
+initialState = {
+  selected: data[0],
+  data: data
+}
 
+const onValueChange = (selected) => {
+  setState({ selected })
+}
+<div>
+  <Dropdown
+    theme={{ wrapper: theme.iconDropdownWrapper, select: theme.select }}
+    value={state.selected}
+    options={state.data}
+    onValueChange={onValueChange}
+    icons={icons}
+    hideResetButton
+    variant="icons-labels"
+    customTheme="custom"
+  />
+</div>
+```
