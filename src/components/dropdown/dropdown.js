@@ -17,7 +17,24 @@ class Dropdown extends PureComponent {
     this.selectorElement.highlightFirstSelectableOption();
   }
 
-  renderOptionIcon = (item, icons) => <Icon icon={icons[item.label]} />;
+  renderIconOption = item => {
+    const { icons, theme, variant } = this.props;
+    return (
+      <React.Fragment>
+        <Icon
+          icon={icons[item.label]}
+          theme={{ icon: cx(styles.iconOption, theme.iconOption) }}
+        />
+        {
+          variant === 'icons-labels' && (
+          <span className={cx(styles.iconLabel, theme.iconLabel)}>
+            {item.label}
+          </span>
+            )
+        }
+      </React.Fragment>
+    );
+  };
 
   render() {
     const {
@@ -33,7 +50,8 @@ class Dropdown extends PureComponent {
       hideResetButton,
       value,
       options,
-      icons
+      icons,
+      customTheme
     } = this.props;
     const hasNoValue = value && !value.value;
     const isRequired = hasNoValue && required;
@@ -54,8 +72,11 @@ class Dropdown extends PureComponent {
         {withDot && <span className={cx(styles.dot, theme.dot)} />}
         {label && <span className={styles.label}>{label}</span>}
         {
-          isRequired &&
-            <span className={styles.requiredError}>This field is required</span>
+          isRequired && (
+          <span className={styles.requiredError}>
+                This field is required
+          </span>
+            )
         }
         {optional && <span className={styles.optional}>(optional)</span>}
         {
@@ -82,12 +103,7 @@ class Dropdown extends PureComponent {
                   <Icon icon={dropdownArrow} theme={{ icon: theme.icon }} />
                 )}
                 options={options}
-                renderOption={item => (
-                  <Icon
-                    icon={icons[item.label]}
-                    theme={{ icon: cx(styles.iconOption, theme.iconOption) }}
-                  />
-                )}
+                renderOption={this.renderIconOption}
                 renderValue={item => (
                   <Icon
                     icon={icons[item.label]}
@@ -96,6 +112,7 @@ class Dropdown extends PureComponent {
                 )}
                 hideResetButton={hideResetButton}
                 {...this.props}
+                theme={customTheme}
               />
 ) : (
   <SimpleSelect
@@ -111,6 +128,7 @@ class Dropdown extends PureComponent {
       <Icon icon={dropdownArrow} theme={{ icon: theme.icon }} />
                 )}
     {...this.props}
+    theme={customTheme}
   />
 )
           }
@@ -127,12 +145,14 @@ Dropdown.propTypes = {
   label: PropTypes.string,
   info: PropTypes.bool,
   infoText: PropTypes.string,
+  variant: PropTypes.string,
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
   withDot: PropTypes.bool,
   required: PropTypes.bool,
   optional: PropTypes.bool,
   hideResetButton: PropTypes.bool,
+  customTheme: PropTypes.string,
   theme: PropTypes.shape({
     wrapper: PropTypes.string,
     dot: PropTypes.string,
@@ -140,6 +160,7 @@ Dropdown.propTypes = {
     select: PropTypes.string,
     icon: PropTypes.string,
     iconValue: PropTypes.string,
+    iconLabel: PropTypes.string,
     iconOption: PropTypes.string
   }),
   icons: PropTypes.shape(iconsShape),
@@ -151,6 +172,7 @@ Dropdown.defaultProps = {
   label: '',
   info: false,
   infoText: '',
+  variant: undefined,
   theme: {},
   loading: false,
   disabled: false,
@@ -159,7 +181,8 @@ Dropdown.defaultProps = {
   required: false,
   optional: false,
   value: null,
-  icons: null
+  icons: null,
+  customTheme: undefined
 };
 
 export default Dropdown;
