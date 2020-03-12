@@ -1017,6 +1017,10 @@ input:checked ~ .cw__check-input-styles_label {
     width: 26px;
     height: 26px; }
 
+.cw__dropdown-styles_iconLabel {
+  vertical-align: super;
+  margin-left: 10px; }
+
 .cw__dropdown-styles_iconValue {
   width: 20px;
   height: 30px; }

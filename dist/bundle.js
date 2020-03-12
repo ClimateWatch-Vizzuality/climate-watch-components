@@ -38497,6 +38497,7 @@ module.exports = (function(e) {
       label: 'cw__dropdown-styles_label',
       iconOption: 'cw__dropdown-styles_iconOption',
       icon: 'cw__dropdown-styles_icon',
+      iconLabel: 'cw__dropdown-styles_iconLabel',
       iconValue: 'cw__dropdown-styles_iconValue',
       optional: 'cw__dropdown-styles_optional',
       loader: 'cw__dropdown-styles_loader',
@@ -104404,8 +104405,24 @@ module.exports = (function(e) {
             e,
             [ this ].concat(i)
           )
-        ), r.renderOptionIcon = function(e, t) {
-          return a.default.createElement(c.default, { icon: t[e.label] });
+        ), r.renderIconOption = function(e) {
+          var t = r.props, n = t.icons, o = t.theme, i = t.variant;
+          return a.default.createElement(
+            a.default.Fragment,
+            null,
+            a.default.createElement(c.default, {
+              icon: n[e.label],
+              theme: {
+                icon: (0, s.default)(y.default.iconOption, o.iconOption)
+              }
+            }),
+            'icons-labels' === i &&
+              a.default.createElement(
+                'span',
+                { className: (0, s.default)(y.default.iconLabel, o.iconLabel) },
+                e.label
+              )
+          );
         }, g(r, n);
       }
       return (function(e, t) {
@@ -104451,8 +104468,9 @@ module.exports = (function(e) {
               S = n.value,
               E = n.options,
               T = n.icons,
-              k = S && !S.value,
-              M = k && w;
+              k = n.customTheme,
+              M = S && !S.value,
+              P = M && w;
             return a.default.createElement(
               'div',
               {
@@ -104463,7 +104481,7 @@ module.exports = (function(e) {
                     e,
                     y.default.iconDropdown,
                     T
-                  ), m(e, y.default.requiredError, w && k), e),
+                  ), m(e, y.default.requiredError, w && M), e),
                   l.wrapper
                 )
               },
@@ -104477,7 +104495,7 @@ module.exports = (function(e) {
                   { className: y.default.label },
                   i
                 ),
-              M &&
+              P &&
                 a.default.createElement(
                   'span',
                   { className: y.default.requiredError },
@@ -104525,17 +104543,7 @@ module.exports = (function(e) {
                           });
                         },
                         options: E,
-                        renderOption: function(e) {
-                          return a.default.createElement(c.default, {
-                            icon: T[e.label],
-                            theme: {
-                              icon: (0, s.default)(
-                                y.default.iconOption,
-                                l.iconOption
-                              )
-                            }
-                          });
-                        },
+                        renderOption: this.renderIconOption,
                         renderValue: function(e) {
                           return a.default.createElement(c.default, {
                             icon: T[e.label],
@@ -104549,7 +104557,8 @@ module.exports = (function(e) {
                         },
                         hideResetButton: O
                       },
-                      this.props
+                      this.props,
+                      { theme: k }
                     )
                   ) : a.default.createElement(
                     u.SimpleSelect,
@@ -104570,7 +104579,8 @@ module.exports = (function(e) {
                           });
                         }
                       },
-                      this.props
+                      this.props,
+                      { theme: k }
                     )
                   )
               )
@@ -104585,12 +104595,14 @@ module.exports = (function(e) {
       label: l.default.string,
       info: l.default.bool,
       infoText: l.default.string,
+      variant: l.default.string,
       loading: l.default.bool,
       disabled: l.default.bool,
       withDot: l.default.bool,
       required: l.default.bool,
       optional: l.default.bool,
       hideResetButton: l.default.bool,
+      customTheme: l.default.string,
       theme: l.default.shape({
         wrapper: l.default.string,
         dot: l.default.string,
@@ -104598,12 +104610,13 @@ module.exports = (function(e) {
         select: l.default.string,
         icon: l.default.string,
         iconValue: l.default.string,
+        iconLabel: l.default.string,
         iconOption: l.default.string
       }),
       icons: l.default.shape(w),
       value: l.default.shape(_),
       options: l.default.arrayOf(l.default.shape(_)).isRequired
-    }, b.defaultProps = { label: '', info: !1, infoText: '', theme: {}, loading: !1, disabled: !1, hideResetButton: !1, withDot: !1, required: !1, optional: !1, value: null, icons: null }, t.default = b;
+    }, b.defaultProps = { label: '', info: !1, infoText: '', variant: void 0, theme: {}, loading: !1, disabled: !1, hideResetButton: !1, withDot: !1, required: !1, optional: !1, value: null, icons: null, customTheme: void 0 }, t.default = b;
   },
   mKBO: function(e, t, n) {
     var r = n('bqBW')(n('Qwdu'), 'Promise');
