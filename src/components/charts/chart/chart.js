@@ -112,6 +112,7 @@ Chart.propTypes = {
   data: PropTypes.array,
   /** Array of projected chart data - Will be shown in the right part of the chart with a divider line */
   dataZoomComponent: PropTypes.node,
+  /** Component for the data zoom selector - Only positioning */
   projectedData: PropTypes.arrayOf(
     PropTypes.shape({
       data: PropTypes.arrayOf(
