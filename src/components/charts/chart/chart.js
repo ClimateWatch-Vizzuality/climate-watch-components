@@ -29,7 +29,8 @@ class Chart extends PureComponent {
       model,
       customMessage,
       hideRemoveOptions,
-      onLegendChange
+      onLegendChange,
+      dataZoomComponent
     } = this.props;
     const hasData = data && data.length > 0;
     const getMessage = () => {
@@ -62,6 +63,7 @@ class Chart extends PureComponent {
             )
         }
         {!loading && hasData && config && <ChartComponent {...this.props} />}
+        {dataZoomComponent}
         {
           hasDataOptions &&
             (
@@ -105,10 +107,11 @@ Chart.propTypes = {
   /** Callback on legend active values change */
   onLegendChange: PropTypes.func,
   /** Array of chart data
-  * Axes.yLeft has name, unit, format, suffix
-  * */
+   * Axes.yLeft has name, unit, format, suffix
+   * */
   data: PropTypes.array,
   /** Array of projected chart data - Will be shown in the right part of the chart with a divider line */
+  dataZoomComponent: PropTypes.node,
   projectedData: PropTypes.arrayOf(
     PropTypes.shape({
       data: PropTypes.arrayOf(
@@ -197,6 +200,7 @@ Chart.defaultProps = {
   customXAxisTick: null,
   customYAxisTick: null,
   customTooltip: null,
+  dataZoomComponent: null,
   getCustomYLabelFormat: null,
   barSize: undefined,
   barGap: undefined
