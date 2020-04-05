@@ -40350,9 +40350,8 @@ module.exports = (function(e) {
       l = w(n('qCFj')),
       s = w(n('u6S6')),
       c = w(n('K2gz')),
-      f = w(n('sXgQ'));
-    n('adkz');
-    var p = w(n('GlS/')),
+      f = w(n('sXgQ')),
+      p = w(n('GlS/')),
       d = w(n('i9Y8')),
       h = w(n('mGSp')),
       y = w(n('wrKF')),
@@ -48147,15 +48146,16 @@ module.exports = (function(e) {
               w = e.customMessage,
               x = e.hideRemoveOptions,
               O = e.onLegendChange,
-              S = m && m.length > 0,
-              E = ({
+              S = e.dataZoomComponent,
+              E = m && m.length > 0,
+              T = ({
                 line: s.default,
                 area: u.default,
                 bar: c.default,
                 percentage: l.default
               })[n],
-              T = !o && (r || !S),
-              k = !o && a;
+              k = !o && (r || !E),
+              M = !o && a;
             return i.default.createElement(
               'div',
               { className: (0, h.default)(y.default.wrapper, t.wrapper) },
@@ -48165,7 +48165,7 @@ module.exports = (function(e) {
                   light: !0,
                   className: y.default.loader
                 }),
-              T &&
+              k &&
                 i.default.createElement(d.default, {
                   message: r
                     ? 'Something went wrong'
@@ -48176,8 +48176,9 @@ module.exports = (function(e) {
                   className: y.default.noContent,
                   minHeight: b
                 }),
-              !o && S && g && i.default.createElement(E, this.props),
-              k &&
+              !o && E && g && i.default.createElement(T, this.props),
+              S,
+              M &&
                 i.default.createElement(f.default, {
                   theme: {
                     wrapper: (0, h.default)(y.default.legend, t.legend),
@@ -48206,6 +48207,7 @@ module.exports = (function(e) {
       dataSelected: a.default.array,
       onLegendChange: a.default.func,
       data: a.default.array,
+      dataZoomComponent: a.default.node,
       projectedData: a.default.arrayOf(
         a.default.shape({
           data: a.default.arrayOf(
@@ -48285,6 +48287,7 @@ module.exports = (function(e) {
       customXAxisTick: null,
       customYAxisTick: null,
       customTooltip: null,
+      dataZoomComponent: null,
       getCustomYLabelFormat: null,
       barSize: void 0,
       barGap: void 0
@@ -48345,8 +48348,9 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      u = w(n('mwIZ')),
-      l = w(n('JVao')),
+      u = w(n('mwIZ'));
+    n('adkz');
+    var l = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
