@@ -4,6 +4,7 @@ import difference from 'lodash/difference';
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
+import pick from 'lodash/pick';
 import {
   Table as VirtualizedTable,
   Column,
@@ -150,10 +151,14 @@ class Table extends PureComponent {
     return length;
   };
 
-  columnWidthProps = column => {
+  getColumnWidth = column => {
     const { setColumnWidth, data } = this.props;
     const customColumnWidth = setColumnWidth && setColumnWidth(column);
-    const length = customColumnWidth || this.getColumnLength(data, column);
+    return customColumnWidth || this.getColumnLength(data, column);
+  };
+
+  columnWidthProps = column => {
+    const length = this.getColumnWidth(column);
     return { width: length, minWidth: length, maxWidth: length };
   };
 
@@ -186,7 +191,8 @@ class Table extends PureComponent {
       dynamicRowsHeight,
       hiddenColumnHeaderLabels,
       theme,
-      customCellRenderer
+      customCellRenderer,
+      dynamicRowsConfig
     } = this.props;
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
@@ -226,7 +232,6 @@ class Table extends PureComponent {
       label: columnLabel(o.value)
     })) ||
       [];
-
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -260,7 +265,11 @@ class Table extends PureComponent {
                 rowClassName={this.rowClassName}
                 rowHeight={({ index }) =>
                   dynamicRowsHeight
-                    ? getDynamicRowHeight(data, this.columnHeightSamples, index)
+                    ? getDynamicRowHeight(
+                      pick(data[index], this.getColumnData()),
+                      this.getColumnWidth,
+                      dynamicRowsConfig
+                    )
                     : rowsHeight(index)}
                 rowCount={data.length}
                 sort={this.handleSortChange}
@@ -355,6 +364,16 @@ Table.propTypes = {
   customCellRenderer: PropTypes.func,
   /** Boolean value to calculate dynamic rows */
   dynamicRowsHeight: PropTypes.bool,
+  /** Variables for the dynamic row height calculation */
+  dynamicRowsConfig: PropTypes.shape({
+    fontWidth: PropTypes.number,
+    // px
+    fontSize: PropTypes.number,
+    // px
+    extraMargin: PropTypes.number,
+    // px
+    lineHeight: PropTypes.number
+  }),
   /** Array of column header that dev do not want to display on header row */
   hiddenColumnHeaderLabels: PropTypes.arrayOf(PropTypes.string),
   /** Array of arrays of objects holding the properties of the columns that should have linkable content.
@@ -401,6 +420,15 @@ Table.defaultProps = {
   hiddenColumnHeaderLabels: [],
   titleLinks: [],
   dynamicRowsHeight: false,
+  dynamicRowsConfig: {
+    fontWidth: 10,
+    // px
+    fontSize: 14,
+    // px
+    extraMargin: 30,
+    // px
+    lineHeight: 1.25
+  },
   parseHtml: false,
   parseMarkdown: false,
   customCellRenderer: undefined,

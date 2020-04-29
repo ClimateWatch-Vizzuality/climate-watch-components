@@ -4,7 +4,7 @@ const data = require('./data.json');
 const defaultColumns = ["name", "definition", "unit", "composite_name", "percentages", "very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_very_long_header_label"];
 const ellipsisColumns = ["composite_name"];
 const firstColumnHeaders = ["composite_name", "name"];
-const narrowColumns = ['definition']
+const narrowColumns = ['unit', 'country', 'Date of LTS submission', 'composite_name', 'percentages', 'stackable', 'definition']
 const setColumnWidth = column => {
   if (narrowColumns.includes(column)) return 180;
   return 230
@@ -19,7 +19,8 @@ const setColumnWidth = column => {
   emptyValueLabel={'Not specified'}
   horizontalScroll
   parseMarkdown
-  dynamicRowsHeight={true}
+  dynamicRowsHeight
+  forceAllRowSamples
   titleLinks={data.map(c => [{ columnName: "name", url: c.link.name }])}
   hiddenColumnHeaderLabels={['link']}
   setColumnWidth={setColumnWidth}
@@ -42,11 +43,11 @@ initialState = {
 
 const ellipsisColumns = ['composite_name'];
 const firstColumnHeaders = ['composite_name', 'name'];
-const narrowColumns = ['country', 'Date of LTS submission']
+const narrowColumns = ['country', 'Date of LTS submission', 'composite_name', 'percentages', 'stackable']
 const wideColumns = ['Assessment of the impacts of changes in climate on long-lived infrastructure, land-use planning, (Current selection)', 'Co-benefits of mitigation actions for adaptation/resilience and vice versa (Current selection)']
 const setColumnWidth = column => {
   if (wideColumns.includes(column)) return 380;
-  if (narrowColumns.includes(column)) return 100;
+  if (narrowColumns.includes(column)) return 60;
   return 300
 }
 
