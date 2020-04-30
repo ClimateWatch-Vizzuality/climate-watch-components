@@ -57,44 +57,27 @@ export const getMeanLength = (columnWidthSamples, data, column) => {
   return aggregatedLenght / samples;
 };
 
-const getDatum = (dataD, index) => dataD[index];
+export const getDynamicRowHeight = (
+  rowData,
+  getColumnWidth,
+  dynamicRowsConfig
+) =>
+  {
+    const { fontWidth, fontSize, extraMargin, lineHeight } = dynamicRowsConfig;
+    const orderedColumnNames = _sortBy(
+      Object.keys(rowData),
+      key => String(rowData[key]).length
+    );
+    const greatestColumnName = orderedColumnNames[orderedColumnNames.length -
+      1];
+    const columnLength = getColumnWidth([ rowData ], greatestColumnName);
 
-const getLongestTextColumnName = (data, columnHeightSamples) => {
-  const columnsTextLengthSamples = [];
-  [ ...Array(columnHeightSamples).keys() ].forEach(n => {
-    const keys = data[n] && Object.keys(data[n]);
-    const columnsTextLength = {};
-    if (keys) {
-      keys.forEach(column => {
-        columnsTextLength[column] = data[n][column] && data[n][column].length;
-      });
+    const greatestColumnNameDatum = String(rowData[greatestColumnName]);
+    if (!greatestColumnNameDatum) {
+      return 120;
     }
-    columnsTextLengthSamples.push(columnsTextLength);
-  });
-
-  const aggregatedLength = {};
-  columnsTextLengthSamples.forEach(sample => {
-    Object.keys(sample).forEach(key => {
-      if (!aggregatedLength[key]) aggregatedLength[key] = 0;
-      if (sample[key]) aggregatedLength[key] += sample[key];
-      else aggregatedLength[key] += 0;
-    });
-  });
-  const greatestLength = Math.max(...Object.values(aggregatedLength));
-  const columnName = Object
-    .keys(aggregatedLength)
-    .find(column => aggregatedLength[column] === greatestLength);
-  return columnName;
-};
-
-export const getDynamicRowHeight = (data, columnHeightSamples, index) => {
-  const considerableMargin = 100;
-  const greatestColumnName = getLongestTextColumnName(
-    data,
-    columnHeightSamples
-  );
-
-  return getDatum(data, index)[greatestColumnName] &&
-    getDatum(data, index)[greatestColumnName].length / 3 + considerableMargin ||
-    120;
-};
+    const textColumnsNumber = greatestColumnNameDatum.length *
+      fontWidth /
+      columnLength;
+    return (textColumnsNumber + 1) * fontSize * lineHeight + extraMargin;
+  };
