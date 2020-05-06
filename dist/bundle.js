@@ -40386,8 +40386,9 @@ module.exports = (function(e) {
       l = w(n('qCFj')),
       s = w(n('u6S6')),
       c = w(n('K2gz')),
-      f = w(n('sXgQ')),
-      p = w(n('GlS/')),
+      f = w(n('sXgQ'));
+    n('adkz');
+    var p = w(n('GlS/')),
       d = w(n('i9Y8')),
       h = w(n('mGSp')),
       y = w(n('wrKF')),
@@ -40448,8 +40449,13 @@ module.exports = (function(e) {
                 s = t.customTooltip,
                 w = t.theme,
                 O = t.customInnerHoverLabel,
-                S = this.state.activeIndex,
-                E = !Array.isArray(o);
+                S = t.customActiveIndex,
+                E = t.onHover,
+                T = S || this.state.activeIndex,
+                k = !Array.isArray(o),
+                M = E || function(t, n) {
+                    e.setState({ activeIndex: n });
+                  };
               return a.default.createElement(
                 'div',
                 { className: (0, c.default)(g.default.pieChart, w.pieChart) },
@@ -40477,7 +40483,7 @@ module.exports = (function(e) {
                         : void 0,
                       filterNull: !1
                     }),
-                    E ? Object.keys(o).map(function(e) {
+                    k ? Object.keys(o).map(function(e) {
                         return a.default.createElement(
                           h.default,
                           {
@@ -40527,10 +40533,8 @@ module.exports = (function(e) {
                                 )
                               );
                             }) : void 0,
-                          activeIndex: S,
-                          onMouseEnter: function(t, n) {
-                            e.setState({ activeIndex: n });
-                          },
+                          activeIndex: T,
+                          onMouseEnter: M,
                           isAnimationActive: n.animation || !1,
                           legendType: 'circle',
                           innerRadius: n.innerRadius,
@@ -40582,6 +40586,8 @@ module.exports = (function(e) {
         hideLabel: u.default.bool,
         hideLegend: u.default.bool
       }),
+      onHover: u.default.func,
+      customActiveIndex: u.default.number,
       data: u.default.oneOfType([
         u.default.arrayOf(
           u.default.shape({
@@ -40611,7 +40617,7 @@ module.exports = (function(e) {
           u.default.bool
         ])
       })
-    }, O.defaultProps = { width: 600, margin: { top: 0, right: 10, left: 10, bottom: 0 }, config: { innerRadius: 0, innerHoverLabel: !1, outerRadius: null, hideLabel: !1, hideLegend: !1 }, data: [], customTooltip: null, customInnerHoverLabel: null, theme: {} }, t.default = O;
+    }, O.defaultProps = { width: 600, margin: { top: 0, right: 10, left: 10, bottom: 0 }, config: { innerRadius: 0, innerHoverLabel: !1, outerRadius: null, hideLabel: !1, hideLegend: !1 }, data: [], customTooltip: null, customInnerHoverLabel: null, onHover: void 0, customActiveIndex: void 0, theme: {} }, t.default = O;
   },
   W070: function(e, t, n) {
     var r = n('NsO/'), o = n('tEej'), i = n('D8kY');
@@ -48384,9 +48390,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      u = w(n('mwIZ'));
-    n('adkz');
-    var l = w(n('JVao')),
+      u = w(n('mwIZ')),
+      l = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
