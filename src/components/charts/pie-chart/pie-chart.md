@@ -276,5 +276,6 @@ const config = {
   config={config}
   customInnerHoverLabel={customInnerHoverLabel}
   theme={theme}
+  onHover={(d, index) => console.info('hovered', d, index)}
 />
 ```
