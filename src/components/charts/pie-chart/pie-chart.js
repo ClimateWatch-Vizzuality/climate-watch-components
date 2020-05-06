@@ -35,14 +35,17 @@ class PieChart extends PureComponent {
       margin,
       customTooltip,
       theme,
-      customInnerHoverLabel
+      customInnerHoverLabel,
+      customActiveIndex,
+      onHover
     } = this.props;
-    const { activeIndex } = this.state;
+    // eslint-disable-next-line react/destructuring-assignment
+    const activeIndex = customActiveIndex || this.state.activeIndex;
     const isMultilevelPieChart = !Array.isArray(data);
 
-    const onPieEnter = (d, index) => {
-      this.setState({ activeIndex: index });
-    };
+    const onPieEnter = onHover || ((d, index) => {
+        this.setState({ activeIndex: index });
+      });
 
     return (
       <div className={classnames(styles.pieChart, theme.pieChart)}>
@@ -148,6 +151,10 @@ PieChart.propTypes = {
     /** hide legend component */
     hideLegend: PropTypes.bool
   }),
+  /** On hover action for controlled chart */
+  onHover: PropTypes.func,
+  /** custom ActiveIndex for controlled chart  */
+  customActiveIndex: PropTypes.number,
   data: PropTypes.oneOfType([
     PropTypes.arrayOf(
       PropTypes.shape({
@@ -192,6 +199,8 @@ PieChart.defaultProps = {
   data: [],
   customTooltip: null,
   customInnerHoverLabel: null,
+  onHover: undefined,
+  customActiveIndex: undefined,
   theme: {}
 };
 
