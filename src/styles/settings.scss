@@ -31,8 +31,10 @@ $theme-color: #113750;
 $theme-color-light: #25597c;
 $theme-secondary: #ffc735;
 $theme-border: #e6e7ed;
+$shadow-gray: #e8ecf5;
 $light-gray: #f5f6f7;
 $gray: #b1b1c1;
+$gray3: #f1f4fb;
 $dark-gray: #8f8fa1;
 $base-text: #424242;
 $placeholder-gray: #393f44;
@@ -48,8 +50,12 @@ $light-blue: #035388;
 $midnight-blue: #0a1941;
 $error: #d46948;
 
+// border
+$dropdown-border: 2.5px solid $gray3;
+
 $border-color: rgba(26, 28, 34, 0.1);
 $box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.09);
+$box-shadow-flying-dropdown: 0 0 20px 0 $shadow-gray;
 
 // Breakpoints
 $breakpoint-mobile-only: 37.4375rem; // 599px / 16px
@@ -62,3 +68,4 @@ $mobile-only: 'screen and (max-width: #{$breakpoint-mobile-only})';
 $tablet-portrait: 'screen and (min-width: #{$breakpoint-tablet-portrait})';
 $tablet-landscape: 'screen and (min-width: #{$breakpoint-tablet-landscape})';
 $desktop: 'screen and (min-width: #{$breakpoint-desktop})';
+

@@ -50,7 +50,7 @@ class Dropdown extends PureComponent {
     const menuItems = nullifyGroupParentsWithoutElements(items);
     const dropdown = (
       <Downshift
-        itemToString={i => i && i.label}
+        itemToString={(i) => i && i.label}
         onStateChange={handleStateChange}
         onOuterClick={checkModalClosing}
         {...this.props}
@@ -70,7 +70,7 @@ class Dropdown extends PureComponent {
             values={arrayValues}
             defaultText={defaultText}
             selectedOptionsTooltip={selectedOptionsTooltip}
-            {...getRootProps({ refKey: 'innerRef' })}
+            {...getRootProps({ refKey: "innerRef" })}
           >
             <Menu
               isOpen={isOpen}
@@ -92,13 +92,24 @@ class Dropdown extends PureComponent {
     );
 
     return (
-      <div className={cx(styles.dropdown, theme.wrapper, className)}>
-        {label && (
-          <div className={cx(styles.label, theme.wrapper)}>
-            {label}
+      <div className={cx(theme.container)}>
+        <div
+          className={cx(theme.wrapperContainer, {
+            [theme.openWrapperContainer]: isOpen
+          })}
+        >
+          <div
+            className={cx(
+              styles.dropdown,
+              theme.wrapper,
+              { [theme.openWrapper]: isOpen },
+              className
+            )}
+          >
+            {label && <div className={cx(styles.label)}>{label}</div>}
+            {dropdown}
           </div>
-        )}
-        {dropdown}
+        </div>
       </div>
     );
   }
@@ -150,7 +161,7 @@ Dropdown.defaultProps = {
   placeholder: undefined,
   searchable: undefined,
   noItemsFound: undefined,
-  optionsAction: undefined,
+  optGroups: undefined,
   optionsActionKey: undefined,
   arrowPosition: undefined,
   noParentSelection: undefined,
