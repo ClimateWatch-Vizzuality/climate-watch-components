@@ -51,7 +51,7 @@
   },
   "peerDependencies": {
     "classnames": "2.2.6",
-    "lodash": "4.17.10",
+    "lodash": "4.17.19",
     "prop-types": "15.6.2",
     "react": "16.8.0",
     "react-dom": "16.8.0"
@@ -84,7 +84,7 @@
     "glob": "7.1.2",
     "husky": "1.0.0-rc.13",
     "lint-staged": "7.2.0",
-    "lodash": "4.17.10",
+    "lodash": "4.17.19",
     "node-sass": "4.5.3",
     "postcss-loader": "2.0.6",
     "prettier": "0.11.0",
