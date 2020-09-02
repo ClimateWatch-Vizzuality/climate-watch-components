@@ -1,0 +1,6 @@
+// Example of custom theme
+:global .wide {
+  &.open {
+    width: 400px !important;
+  }
+}

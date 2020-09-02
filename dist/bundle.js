@@ -27429,7 +27429,7 @@ module.exports = (function(e) {
           }),
           shouldOverflow: !1,
           titleLinks: u
-        }, n.standardColumnWidth = 180, n.minColumnWidth = 80, n.maxColumnWidth = 300, n.lengthWidthRatio = 4, n.columnWidthSamples = 5, n.columnHeightSamples = 10, n.minRowHeight = 80, n.rowHeightWithEllipsis = 150, n.virtualizedTable = a.default.createRef(), n.arrowWidth = parseInt(
+        }, n.minColumnWidth = 80, n.maxColumnWidth = 300, n.lengthWidthRatio = 4, n.columnWidthSamples = 5, n.columnHeightSamples = 10, n.minRowHeight = 80, n.rowHeightWithEllipsis = 150, n.virtualizedTable = a.default.createRef(), n.arrowWidth = parseInt(
           _.default.sorticonwidth.replace('px', ''),
           10
         ), n.rowColumnMargin = parseInt(
@@ -27517,16 +27517,17 @@ module.exports = (function(e) {
               A = f.hiddenColumnHeaderLabels,
               j = f.theme,
               N = f.customCellRenderer,
-              I = f.dynamicRowsConfig;
+              I = f.dynamicRowsConfig,
+              R = f.tableWidthOffset;
             if (!n.length) return null;
-            var R = E && l,
-              L = function(e) {
+            var L = E && l,
+              D = function(e) {
                 if (A.includes(e)) return '';
                 var t = e.replace(/_/g, ' ');
                 return (0, x.capitalizeFirstLetter)(t);
               },
-              D = function(t, n) {
-                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = L(t);
+              z = function(t, n) {
+                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = D(t);
                 return a.default.createElement(
                   m.default,
                   {
@@ -27541,18 +27542,18 @@ module.exports = (function(e) {
                   o
                 );
               },
-              z = l.map(function(e) {
-                return r({}, e, { label: L(e.value) });
+              B = l.map(function(e) {
+                return r({}, e, { label: D(e.value) });
               }) || [];
             return a.default.createElement(
               'div',
               {
                 className: (0, y.default)(S({}, _.default.hasColumnSelect, E))
               },
-              R &&
+              L &&
                 a.default.createElement(g.default, {
                   activeColumns: u,
-                  multiSelectOptions: z,
+                  multiSelectOptions: B,
                   handleColumnChange: this.handleColumnChange,
                   columnSelectorTheme: j.columnSelector
                 }),
@@ -27577,7 +27578,7 @@ module.exports = (function(e) {
                       d.Table,
                       {
                         className: _.default.table,
-                        width: e.getFullWidth(O, u, l),
+                        width: e.getFullWidth(O, u, l, R),
                         height: T,
                         headerHeight: k,
                         rowClassName: e.rowClassName,
@@ -27634,8 +27635,8 @@ module.exports = (function(e) {
                                 _.default.columnHeader,
                                 j.columnHeader
                               ),
-                              key: D(t, n),
-                              label: D(t, n),
+                              key: z(t, n),
+                              label: z(t, n),
                               dataKey: t,
                               flexGrow: 0,
                               cellRenderer: function(t) {
@@ -27668,19 +27669,19 @@ module.exports = (function(e) {
     })(),
       T = function() {
         var e = this;
-        this.getFullWidth = function(t, n, r) {
-          var o = e.props.setColumnWidth;
+        this.getFullWidth = function(t, n, r, o) {
+          var i = e.props.setColumnWidth;
           if (1 === n.length) return r;
-          var i = n.reduce(
+          var a = n.reduce(
             function(n, r) {
               return n +
-                (o && o(r.label) || e.getColumnLength(t, r.label)) +
+                (i && i(r.label) || e.getColumnLength(t, r.label)) +
                 e.rowColumnMargin;
             },
             e.rowColumnMargin + 10
           );
           return e.tableWrapperWidth = e.tableWrapper &&
-            e.tableWrapper.offsetWidth, e.setState({ shouldOverflow: i > e.tableWrapperWidth }), i < r ? r : i;
+            e.tableWrapper.offsetWidth, e.setState({ shouldOverflow: a > e.tableWrapperWidth }), a < r ? r : a + o;
         }, this.handleSortChange = function(t) {
           var n = t.sortBy,
             r = t.sortDirection,
@@ -27759,6 +27760,7 @@ module.exports = (function(e) {
       setColumnWidth: u.default.func,
       tableHeight: u.default.number,
       headerHeight: u.default.number,
+      tableWidthOffset: u.default.number,
       ellipsisColumns: u.default.array,
       firstColumnHeaders: u.default.array,
       customCellRenderer: u.default.func,
@@ -27790,7 +27792,7 @@ module.exports = (function(e) {
         columnHeader: u.default.string,
         columnSelector: u.default.string
       })
-    }, E.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: null, setRowsHeight: null, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, dynamicRowsConfig: { fontWidth: 10, fontSize: 14, extraMargin: 30, lineHeight: 1.25 }, parseHtml: !1, parseMarkdown: !1, customCellRenderer: void 0, theme: {} }, t.default = E;
+    }, E.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: void 0, setRowsHeight: null, tableWidthOffset: 0, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, dynamicRowsConfig: { fontWidth: 10, fontSize: 14, extraMargin: 30, lineHeight: 1.25 }, parseHtml: !1, parseMarkdown: !1, customCellRenderer: void 0, theme: {} }, t.default = E;
   },
   KJAg: function(e, t, n) {
     'use strict';
@@ -35894,7 +35896,7 @@ module.exports = (function(e) {
         })(Array(e).keys())
       ).forEach(function(e) {
         t[e] && t[e][n] && t[e][n].length && (o += t[e][n].length, r += 1);
-      }), r < 1 ? (void 0).standardColumnWidth : o / r;
+      }), r < 1 ? 180 : o / r;
     }, t.getDynamicRowHeight = function(e, t, n) {
       var o = n.fontWidth,
         i = n.fontSize,
@@ -40386,9 +40388,8 @@ module.exports = (function(e) {
       l = w(n('qCFj')),
       s = w(n('u6S6')),
       c = w(n('K2gz')),
-      f = w(n('sXgQ'));
-    n('adkz');
-    var p = w(n('GlS/')),
+      f = w(n('sXgQ')),
+      p = w(n('GlS/')),
       d = w(n('i9Y8')),
       h = w(n('mGSp')),
       y = w(n('wrKF')),
@@ -48390,8 +48391,9 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      u = w(n('mwIZ')),
-      l = w(n('JVao')),
+      u = w(n('mwIZ'));
+    n('adkz');
+    var l = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
