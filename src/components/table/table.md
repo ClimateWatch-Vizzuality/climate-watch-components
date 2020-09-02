@@ -98,3 +98,21 @@ const defaultColumns = ["name", "percentages"];
   )}
 />
 ```
+
+Table with total width offset
+
+```jsx
+
+const data = require('./data.json');
+const tableTheme = require('./altered-table-theme.scss');
+const defaultColumns = ["name", "definition", "unit", "composite_name", "percentages", "stackable", "category","link", "subcategory"];
+
+<Table
+  data={data}
+  tableHeight={550}
+  defaultColumns={defaultColumns}
+  setColumnWidth={() => 115}
+  theme={tableTheme}
+  tableWidthOffset={-80}
+/>
+```
