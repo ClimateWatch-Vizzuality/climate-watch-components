@@ -44,6 +44,7 @@ export const capitalizeFirstLetter = text =>
   `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 
 export const getMeanLength = (columnWidthSamples, data, column) => {
+  const STANDARD_COLUMN_WIDTH = 180;
   const sampleNumbersArray = [ ...Array(columnWidthSamples).keys() ];
   let samples = 0;
   let aggregatedLenght = 0;
@@ -53,7 +54,7 @@ export const getMeanLength = (columnWidthSamples, data, column) => {
       samples += 1;
     }
   });
-  if (samples < 1) return this.standardColumnWidth;
+  if (samples < 1) return STANDARD_COLUMN_WIDTH;
   return aggregatedLenght / samples;
 };
 

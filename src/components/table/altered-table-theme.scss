@@ -1,0 +1,9 @@
+.headerRow {
+  > div { // header column
+    margin-right: 0 !important; // Due to the :global in styles
+  }
+}
+
+.column {
+  margin-right: 0 !important; // Due to the :global in styles
+}

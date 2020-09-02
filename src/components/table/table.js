@@ -40,7 +40,6 @@ class Table extends PureComponent {
       shouldOverflow: false,
       titleLinks
     };
-    this.standardColumnWidth = 180;
     this.minColumnWidth = 80;
     this.maxColumnWidth = 300;
     this.lengthWidthRatio = 4;
@@ -83,10 +82,10 @@ class Table extends PureComponent {
     }
   }
 
-  getFullWidth = (data, columns, width) => {
+  getFullWidth = (data, columns, width, tableWidthOffset) => {
     const { setColumnWidth } = this.props;
-    const columnsLenght = columns.length;
-    if (columnsLenght === 1) return width;
+    const columnsLength = columns.length;
+    if (columnsLength === 1) return width;
     const totalWidth = columns.reduce(
       (acc, column) => {
         const columnWidth = setColumnWidth && setColumnWidth(column.label) ||
@@ -97,7 +96,7 @@ class Table extends PureComponent {
     );
     this.tableWrapperWidth = this.tableWrapper && this.tableWrapper.offsetWidth;
     this.setState({ shouldOverflow: totalWidth > this.tableWrapperWidth });
-    return totalWidth < width ? width : totalWidth;
+    return totalWidth < width ? width : totalWidth + tableWidthOffset;
   };
 
   handleSortChange = ({ sortBy, sortDirection }) => {
@@ -192,7 +191,8 @@ class Table extends PureComponent {
       hiddenColumnHeaderLabels,
       theme,
       customCellRenderer,
-      dynamicRowsConfig
+      dynamicRowsConfig,
+      tableWidthOffset
     } = this.props;
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
@@ -259,7 +259,12 @@ class Table extends PureComponent {
             {({ width }) => (
               <VirtualizedTable
                 className={styles.table}
-                width={this.getFullWidth(propsData, activeColumns, width)}
+                width={this.getFullWidth(
+                  propsData,
+                  activeColumns,
+                  width,
+                  tableWidthOffset
+                )}
                 height={tableHeight}
                 headerHeight={headerHeight}
                 rowClassName={this.rowClassName}
@@ -354,6 +359,8 @@ Table.propTypes = {
   tableHeight: PropTypes.number,
   /** Initial table header height */
   headerHeight: PropTypes.number,
+  /** Custom offset for the table width in special cases */
+  tableWidthOffset: PropTypes.number,
   /** Trim line to include ... */
   // eslint-disable-next-line react/forbid-prop-types
   ellipsisColumns: PropTypes.array,
@@ -378,7 +385,7 @@ Table.propTypes = {
   hiddenColumnHeaderLabels: PropTypes.arrayOf(PropTypes.string),
   /** Array of arrays of objects holding the properties of the columns that should have linkable content.
    * This prop is passed to `cell-renderer-component`
-   * exaple: __`titleLinks={data.map(c => [{columnName: "link", url: "self", label: "View more"}])}`__
+   * example: __`titleLinks={data.map(c => [{columnName: "link", url: "self", label: "View more"}])}`__
    */
   titleLinks: PropTypes.arrayOf(
     PropTypes.arrayOf(
@@ -413,8 +420,9 @@ Table.defaultProps = {
   headerHeight: 42,
   defaultColumns: [],
   hasColumnSelect: false,
-  setColumnWidth: null,
+  setColumnWidth: undefined,
   setRowsHeight: null,
+  tableWidthOffset: 0,
   ellipsisColumns: [],
   firstColumnHeaders: [],
   hiddenColumnHeaderLabels: [],
