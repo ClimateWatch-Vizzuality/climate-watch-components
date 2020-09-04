@@ -204,7 +204,14 @@ class Multiselect extends Component {
         </div>
         {
           selectedOptionsTooltip &&
-            <ReactTooltip id="multiselectOptionsTooltip" effect="solid" />
+            (
+              <ReactTooltip
+                id="multiselectOptionsTooltip"
+                event="mouseenter"
+                eventOff="click"
+                effect="solid"
+              />
+            )
         }
       </div>
     );

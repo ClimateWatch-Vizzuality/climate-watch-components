@@ -192,7 +192,8 @@ class Table extends PureComponent {
       theme,
       customCellRenderer,
       dynamicRowsConfig,
-      tableWidthOffset
+      tableWidthOffset,
+      visibleVerticalScrollBar
     } = this.props;
     if (!data.length) return null;
     const hasColumnSelectedOptions = hasColumnSelect && columnsOptions;
@@ -232,6 +233,7 @@ class Table extends PureComponent {
       label: columnLabel(o.value)
     })) ||
       [];
+
     return (
       <div className={cx({ [styles.hasColumnSelect]: hasColumnSelect })}>
         {
@@ -258,7 +260,9 @@ class Table extends PureComponent {
           <AutoSizer disableHeight>
             {({ width }) => (
               <VirtualizedTable
-                className={styles.table}
+                className={cx(styles.table, {
+                  [styles.visibleVerticalScrollBar]: visibleVerticalScrollBar
+                })}
                 width={this.getFullWidth(
                   propsData,
                   activeColumns,
@@ -383,6 +387,8 @@ Table.propTypes = {
   }),
   /** Array of column header that dev do not want to display on header row */
   hiddenColumnHeaderLabels: PropTypes.arrayOf(PropTypes.string),
+  /** Enable this prop to always see a fixed vertical scrollbar */
+  visibleVerticalScrollBar: PropTypes.bool,
   /** Array of arrays of objects holding the properties of the columns that should have linkable content.
    * This prop is passed to `cell-renderer-component`
    * example: __`titleLinks={data.map(c => [{columnName: "link", url: "self", label: "View more"}])}`__
@@ -440,6 +446,7 @@ Table.defaultProps = {
   parseHtml: false,
   parseMarkdown: false,
   customCellRenderer: undefined,
+  visibleVerticalScrollBar: false,
   theme: {}
 };
 
