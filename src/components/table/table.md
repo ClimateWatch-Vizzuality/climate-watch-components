@@ -99,7 +99,7 @@ const defaultColumns = ["name", "percentages"];
 />
 ```
 
-Table with total width offset
+Table with total width offset and visible vertical scrollbar
 
 ```jsx
 
@@ -109,10 +109,11 @@ const defaultColumns = ["name", "definition", "unit", "composite_name", "percent
 
 <Table
   data={data}
-  tableHeight={550}
+  tableHeight={250}
   defaultColumns={defaultColumns}
   setColumnWidth={() => 115}
   theme={tableTheme}
+  visibleVerticalScrollBar
   tableWidthOffset={-80}
 />
 ```

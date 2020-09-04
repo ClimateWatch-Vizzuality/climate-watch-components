@@ -2,8 +2,10 @@
 
 $sort-icon-width: 24px;
 $row-column-margin: 10px;
+/* stylelint-disable */
 :export { sorticonwidth: $sort-icon-width; }
 :export { rowcolumnmargin: $row-column-margin; }
+/* stylelint-enable */
 
 .tableWrapper {
   position: relative;
@@ -29,6 +31,13 @@ p {
 
 .allTextVisible {
   display: inherit !important;
+}
+
+.table.visibleVerticalScrollBar :global {
+  .ReactVirtualized__Grid,
+  .ReactVirtualized__Table__Grid {
+    overflow: visible !important;
+  }
 }
 
 .table :global {
