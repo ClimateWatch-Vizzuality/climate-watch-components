@@ -10197,6 +10197,8 @@ module.exports = (function(e) {
               E &&
                 a.default.createElement(u.default, {
                   id: 'multiselectOptionsTooltip',
+                  event: 'mouseenter',
+                  eventOff: 'click',
                   effect: 'solid'
                 })
             );
@@ -18159,6 +18161,7 @@ module.exports = (function(e) {
       oddRow: 'cw__table-styles_oddRow',
       allTextVisible: 'cw__table-styles_allTextVisible',
       table: 'cw__table-styles_table',
+      visibleVerticalScrollBar: 'cw__table-styles_visibleVerticalScrollBar',
       column: 'cw__table-styles_column',
       ellipsis: 'cw__table-styles_ellipsis',
       hasColumnSelect: 'cw__table-styles_hasColumnSelect',
@@ -27518,16 +27521,17 @@ module.exports = (function(e) {
               j = f.theme,
               N = f.customCellRenderer,
               I = f.dynamicRowsConfig,
-              R = f.tableWidthOffset;
+              R = f.tableWidthOffset,
+              L = f.visibleVerticalScrollBar;
             if (!n.length) return null;
-            var L = E && l,
-              D = function(e) {
+            var D = E && l,
+              z = function(e) {
                 if (A.includes(e)) return '';
                 var t = e.replace(/_/g, ' ');
                 return (0, x.capitalizeFirstLetter)(t);
               },
-              z = function(t, n) {
-                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = D(t);
+              B = function(t, n) {
+                var r = e.columnWidthProps(t, n).width - e.arrowWidth, o = z(t);
                 return a.default.createElement(
                   m.default,
                   {
@@ -27542,18 +27546,18 @@ module.exports = (function(e) {
                   o
                 );
               },
-              B = l.map(function(e) {
-                return r({}, e, { label: D(e.value) });
+              U = l.map(function(e) {
+                return r({}, e, { label: z(e.value) });
               }) || [];
             return a.default.createElement(
               'div',
               {
                 className: (0, y.default)(S({}, _.default.hasColumnSelect, E))
               },
-              L &&
+              D &&
                 a.default.createElement(g.default, {
                   activeColumns: u,
-                  multiSelectOptions: B,
+                  multiSelectOptions: U,
                   handleColumnChange: this.handleColumnChange,
                   columnSelectorTheme: j.columnSelector
                 }),
@@ -27577,7 +27581,10 @@ module.exports = (function(e) {
                     return a.default.createElement(
                       d.Table,
                       {
-                        className: _.default.table,
+                        className: (0, y.default)(
+                          _.default.table,
+                          S({}, _.default.visibleVerticalScrollBar, L)
+                        ),
                         width: e.getFullWidth(O, u, l, R),
                         height: T,
                         headerHeight: k,
@@ -27635,8 +27642,8 @@ module.exports = (function(e) {
                                 _.default.columnHeader,
                                 j.columnHeader
                               ),
-                              key: z(t, n),
-                              label: z(t, n),
+                              key: B(t, n),
+                              label: B(t, n),
                               dataKey: t,
                               flexGrow: 0,
                               cellRenderer: function(t) {
@@ -27772,6 +27779,7 @@ module.exports = (function(e) {
         lineHeight: u.default.number
       }),
       hiddenColumnHeaderLabels: u.default.arrayOf(u.default.string),
+      visibleVerticalScrollBar: u.default.bool,
       titleLinks: u.default.arrayOf(
         u.default.arrayOf(
           u.default.shape({
@@ -27792,7 +27800,7 @@ module.exports = (function(e) {
         columnHeader: u.default.string,
         columnSelector: u.default.string
       })
-    }, E.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: void 0, setRowsHeight: null, tableWidthOffset: 0, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, dynamicRowsConfig: { fontWidth: 10, fontSize: 14, extraMargin: 30, lineHeight: 1.25 }, parseHtml: !1, parseMarkdown: !1, customCellRenderer: void 0, theme: {} }, t.default = E;
+    }, E.defaultProps = { sortBy: 'value', tableHeight: 460, headerHeight: 42, defaultColumns: [], hasColumnSelect: !1, setColumnWidth: void 0, setRowsHeight: null, tableWidthOffset: 0, ellipsisColumns: [], firstColumnHeaders: [], hiddenColumnHeaderLabels: [], titleLinks: [], dynamicRowsHeight: !1, dynamicRowsConfig: { fontWidth: 10, fontSize: 14, extraMargin: 30, lineHeight: 1.25 }, parseHtml: !1, parseMarkdown: !1, customCellRenderer: void 0, visibleVerticalScrollBar: !1, theme: {} }, t.default = E;
   },
   KJAg: function(e, t, n) {
     'use strict';

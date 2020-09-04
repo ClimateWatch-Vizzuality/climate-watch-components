@@ -1723,6 +1723,9 @@ input:checked ~ .cw__check-input-styles_label {
   cursor: not-allowed; }
 .cw__sunburst-chart-styles_legend {
   opacity: 1; }
+/* stylelint-disable */
+
+/* stylelint-enable */
 .cw__table-styles_tableWrapper {
   position: relative;
   overflow-x: hidden; }
@@ -1741,6 +1744,10 @@ p {
 
 .cw__table-styles_allTextVisible {
   display: inherit !important; }
+
+.cw__table-styles_table.cw__table-styles_visibleVerticalScrollBar .ReactVirtualized__Grid,
+.cw__table-styles_table.cw__table-styles_visibleVerticalScrollBar .ReactVirtualized__Table__Grid {
+  overflow: visible !important; }
 
 .cw__table-styles_table {
   position: relative; }
