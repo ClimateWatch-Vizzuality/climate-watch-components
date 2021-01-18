@@ -36113,8 +36113,9 @@ module.exports = (function(e) {
         return e;
       },
       o = d(n('cDcd')),
-      i = n('rf6O'),
-      a = d(n('FehL')),
+      i = n('rf6O');
+    n('adkz');
+    var a = d(n('FehL')),
       u = d(n('GlS/')),
       l = d(n('QVpu')),
       s = d(n('3nzE')),
@@ -48399,9 +48400,8 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      u = w(n('mwIZ'));
-    n('adkz');
-    var l = w(n('JVao')),
+      u = w(n('mwIZ')),
+      l = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
@@ -111063,14 +111063,19 @@ module.exports = (function(e) {
               : null == t[e.dataKey] ? 1 : t[n.dataKey] - t[e.dataKey];
           });
         }, r.renderValue = function(e, t, n) {
-          return e.payload && (null != e.payload[t] || e.payload.value)
-            ? Array.isArray(e.payload[t])
-              ? r.formatValue(e.payload[t][0]) +
+          if (
+            e.payload && (null !== e.payload[t] || null !== e.payload.value)
+          ) {
+            if (Array.isArray(e.payload[t]))
+              return r.formatValue(e.payload[t][0]) +
                 ' - ' +
                 r.formatValue(e.payload[t][1]) +
-                (n || '')
-              : '' + r.formatValue(e.payload[t] || e.payload.value) + (n || '')
-            : 'n/a';
+                (n || '');
+            var o = e.payload[t];
+            if ((o || 0 === o || (o = e.payload.value), o || 0 === o))
+              return '' + r.formatValue(o) + (n || '');
+          }
+          return 'n/a';
         }, d(r, n);
       }
       return (function(e, t) {
