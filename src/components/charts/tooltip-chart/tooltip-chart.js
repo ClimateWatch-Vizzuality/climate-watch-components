@@ -47,10 +47,14 @@ class TooltipChart extends PureComponent {
           y.payload[labelName][0]
         )} - ${this.formatValue(y.payload[labelName][1])}${suffix || ''}`;
       }
-      const value = y.payload[labelName];
-      return `${this.formatValue(
-        value || value === 0 ? value : y.payload.value
-      )}${suffix || ''}`;
+      let value = y.payload[labelName];
+      if (!value && value !== 0) {
+        // eslint-disable-next-line prefer-destructuring
+        value = y.payload.value;
+      }
+      if (value || value === 0) {
+        return `${this.formatValue(value)}${suffix || ''}`;
+      }
     }
     return 'n/a';
   };
