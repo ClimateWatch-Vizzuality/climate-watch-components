@@ -39,15 +39,22 @@ class TooltipChart extends PureComponent {
   };
 
   renderValue = (y, labelName, suffix) => {
-    if (y.payload && (y.payload[labelName] != null || y.payload.value)) {
+    if (
+      y.payload && (y.payload[labelName] !== null || y.payload.value !== null)
+    ) {
       if (Array.isArray(y.payload[labelName])) {
         return `${this.formatValue(
           y.payload[labelName][0]
         )} - ${this.formatValue(y.payload[labelName][1])}${suffix || ''}`;
       }
-      return `${this.formatValue(
-        y.payload[labelName] || y.payload.value
-      )}${suffix || ''}`;
+      let value = y.payload[labelName];
+      if (!value && value !== 0) {
+        // eslint-disable-next-line prefer-destructuring
+        value = y.payload.value;
+      }
+      if (value || value === 0) {
+        return `${this.formatValue(value)}${suffix || ''}`;
+      }
     }
     return 'n/a';
   };
