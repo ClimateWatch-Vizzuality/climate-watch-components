@@ -74,6 +74,8 @@ const toggleDefaultColumns = () => {
     dynamicRowsHeight
     setColumnWidth={setColumnWidth}
     theme={tableTheme}
+    sortBy="country"
+    sortASC={false}
   />
 </>
 

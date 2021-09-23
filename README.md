@@ -4,6 +4,8 @@
 
 ## How to use it
 
+Use node v.8.10.0 and npm (not yarn)
+
 ```
 yarn add github:ClimateWatch-Vizzuality/climate-watch-components#versionNumber
 ```

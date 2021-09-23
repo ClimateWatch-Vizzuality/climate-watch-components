@@ -44,14 +44,14 @@
     "react-transition-group": "1.1.2",
     "react-truncate": "2.4.0",
     "react-virtualized": "9.20.1",
-    "recharts": "1.5.0",
+    "recharts": "1.8.5",
     "recharts-scale": "0.3.2",
     "reselect": "3.0.1",
     "topojson-client": "^3.0.0"
   },
   "peerDependencies": {
     "classnames": "2.2.6",
-    "lodash": "4.17.10",
+    "lodash": "4.17.21",
     "prop-types": "15.6.2",
     "react": "16.8.0",
     "react-dom": "16.8.0"
@@ -84,8 +84,8 @@
     "glob": "7.1.2",
     "husky": "1.0.0-rc.13",
     "lint-staged": "7.2.0",
-    "lodash": "4.17.10",
-    "node-sass": "4.5.3",
+    "lodash": "4.17.21",
+    "node-sass": "4.13.1",
     "postcss-loader": "2.0.6",
     "prettier": "0.11.0",
     "prop-types": "15.6.2",
@@ -102,7 +102,7 @@
     "uglifyjs-webpack-plugin": "1.2.7",
     "url-loader": "1.0.1",
     "webpack": "4.16.3",
-    "webpack-bundle-analyzer": "2.13.1",
+    "webpack-bundle-analyzer": "3.3.2",
     "webpack-cli": "3.1.0"
   }
 }
