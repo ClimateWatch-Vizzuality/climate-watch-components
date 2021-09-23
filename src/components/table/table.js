@@ -28,13 +28,13 @@ import {
 class Table extends PureComponent {
   constructor(props) {
     super(props);
-    const { data, defaultColumns, sortBy, titleLinks } = props;
+    const { data, defaultColumns, sortBy, sortASC, titleLinks } = props;
     const allColumns = Object.keys(get(data, '[0]', {}));
     const columns = defaultColumns.length ? defaultColumns : allColumns;
     this.state = {
       data,
       sortBy: sortBy || get(allColumns, '[0]'),
-      sortDirection: SortDirection.ASC,
+      sortDirection: sortASC ? SortDirection.ASC : SortDirection.DESC,
       activeColumns: columns.map(d => ({ label: d, value: d })),
       columnsOptions: allColumns.map(d => ({ label: d, value: d })),
       shouldOverflow: false,
@@ -57,10 +57,16 @@ class Table extends PureComponent {
 
   componentDidMount() {
     this.tableWrapperWidth = this.tableWrapper && this.tableWrapper.offsetWidth;
+    const { sortASC, sortBy } = this.props;
+    const { sortDirection } = this.state;
+    if (!sortASC) {
+      this.handleSortChange({ sortBy, sortDirection });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     const { data, defaultColumns, titleLinks } = this.props;
+    const { sortBy, sortDirection } = this.state;
     const {
       data: nextData,
       titleLinks: nextTitleLinks,
@@ -75,6 +81,9 @@ class Table extends PureComponent {
         ? nextDefaultColumns
         : allColumns;
       this.virtualizedTable.current.recomputeRowHeights();
+      if (sortDirection !== SortDirection.ASC) {
+        this.handleSortChange({ sortBy, sortDirection });
+      }
       this.setState({
         activeColumns: columns.map(d => ({ label: d, value: d })),
         columnsOptions: allColumns.map(d => ({ label: d, value: d }))
@@ -349,6 +358,8 @@ Table.propTypes = {
   defaultColumns: PropTypes.array,
   /** Initial column to sort by */
   sortBy: PropTypes.string,
+  /** sort in Ascending order. True by default */
+  sortASC: PropTypes.bool,
   /** Render html in the cell */
   parseHtml: PropTypes.bool,
   /** Render markdown in the cell */
@@ -422,6 +433,7 @@ Table.propTypes = {
 
 Table.defaultProps = {
   sortBy: 'value',
+  sortASC: true,
   tableHeight: 460,
   headerHeight: 42,
   defaultColumns: [],
