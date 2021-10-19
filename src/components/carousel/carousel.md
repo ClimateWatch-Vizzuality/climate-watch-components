@@ -98,7 +98,7 @@ const CustomBottomSlide = ({empty, withChart}) => !empty && (
     }
   </div>
 );
-<Carousel pagingTitles={pagingTitles} primarySlider='bottom'>
+<Carousel pagingTitles={pagingTitles} primarySlider='bottom' config={{ secondarySlider: { fade: true }}}>
   <CustomBottomSlide topSlide/>
   <CustomBottomSlide topSlide withChart/>
   <CustomBottomSlide topSlide/>
