@@ -28,10 +28,11 @@ class Carousel extends Component {
       hasPaging,
       autoplay,
       autoplaySpeed,
-      primarySlider
+      primarySlider,
+      config
     } = this.props;
 
-    const mainSliderConfig = {
+    const primarySliderConfig = {
       infinite: true,
       fade: true,
       arrows: false,
@@ -47,7 +48,8 @@ class Carousel extends Component {
       dots: hasPaging,
       dotsClass: 'cwCarouselPaging',
       speed: 500,
-      customPaging: i => customPaging(i, pagingTitles, theme)
+      customPaging: i => customPaging(i, pagingTitles, theme),
+      ...(config && config.primarySlider && config.primarySlider)
     };
 
     const secondarySliderConfig = {
@@ -56,7 +58,8 @@ class Carousel extends Component {
       autoplay: false,
       slidesToShow: 1,
       beforeChange: (current, next) =>
-        this.mainSlider && this.mainSlider.slickGoTo(next)
+        this.primarySlider && this.primarySlider.slickGoTo(next),
+      ...(config && config.secondarySlider && config.secondarySlider)
     };
 
     return primarySlider === 'top'
@@ -69,9 +72,9 @@ class Carousel extends Component {
           )}
           >
             <Slider
-              {...mainSliderConfig}
+              {...primarySliderConfig}
               ref={slider => {
-              this.mainSlider = slider;
+              this.primarySlider = slider;
             }}
             >
               {children.filter(child => child.props.topSlide)}
@@ -104,9 +107,9 @@ class Carousel extends Component {
           )}
           >
             <Slider
-              {...mainSliderConfig}
+              {...primarySliderConfig}
               ref={slider => {
-              this.mainSlider = slider;
+              this.primarySlider = slider;
             }}
             >
               {children.filter(child => child.props.bottomSlide)}
@@ -136,6 +139,11 @@ Carousel.propTypes = {
     fadeSliderWithPaging: PropTypes.string,
     pagingTitle: PropTypes.string
   }),
+  /** custom config for each of the two sliders */
+  config: PropTypes.shape({
+    primarySlider: PropTypes.object,
+    secondarySlider: PropTypes.object
+  }),
   /** Slides to render  */
   children: PropTypes.arrayOf(PropTypes.node).isRequired
 };
@@ -146,6 +154,7 @@ Carousel.defaultProps = {
   hasPaging: true,
   pagingTitles: [],
   theme: {},
+  config: {},
   primarySlider: 'top'
 };
 
