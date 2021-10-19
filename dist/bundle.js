@@ -38586,9 +38586,8 @@ module.exports = (function(e) {
       l = w(n('qCFj')),
       s = w(n('u6S6')),
       c = w(n('K2gz')),
-      f = w(n('sXgQ'));
-    n('adkz');
-    var p = w(n('GlS/')),
+      f = w(n('sXgQ')),
+      p = w(n('GlS/')),
       d = w(n('i9Y8')),
       h = w(n('mGSp')),
       y = w(n('wrKF')),
@@ -43208,48 +43207,58 @@ module.exports = (function(e) {
               o = t.pagingTitles,
               i = t.theme,
               u = t.hasPaging,
-              f = {
-                infinite: !0,
-                fade: !0,
-                arrows: !1,
-                autoplay: t.autoplay,
-                autoplaySpeed: t.autoplaySpeed,
-                pauseOnHover: !0,
-                pauseOnDotsHover: !0,
-                pauseOnFocus: !0,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                beforeChange: function(t, n) {
-                  return e.secondarySlider && e.secondarySlider.slickGoTo(n);
+              f = t.autoplay,
+              p = t.autoplaySpeed,
+              d = t.primarySlider,
+              h = t.config,
+              y = r(
+                {
+                  infinite: !0,
+                  fade: !0,
+                  arrows: !1,
+                  autoplay: f,
+                  autoplaySpeed: p,
+                  pauseOnHover: !0,
+                  pauseOnDotsHover: !0,
+                  pauseOnFocus: !0,
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  beforeChange: function(t, n) {
+                    return e.secondarySlider && e.secondarySlider.slickGoTo(n);
+                  },
+                  dots: u,
+                  dotsClass: 'cwCarouselPaging',
+                  speed: 500,
+                  customPaging: function(e) {
+                    return (function(e, t, n) {
+                      return a.default.createElement(
+                        'div',
+                        {
+                          className: (0, l.default)(
+                            c.default.pagingTitle,
+                            n.pagingTitle
+                          )
+                        },
+                        t[e]
+                      );
+                    })(e, o, i);
+                  }
                 },
-                dots: u,
-                dotsClass: 'cwCarouselPaging',
-                speed: 500,
-                customPaging: function(e) {
-                  return (function(e, t, n) {
-                    return a.default.createElement(
-                      'div',
-                      {
-                        className: (0, l.default)(
-                          c.default.pagingTitle,
-                          n.pagingTitle
-                        )
-                      },
-                      t[e]
-                    );
-                  })(e, o, i);
-                }
-              },
-              p = {
-                infinite: !0,
-                arrows: !1,
-                autoplay: !1,
-                slidesToShow: 1,
-                beforeChange: function(t, n) {
-                  return e.mainSlider && e.mainSlider.slickGoTo(n);
-                }
-              };
-            return 'top' === t.primarySlider ? a.default.createElement(
+                h && h.primarySlider && h.primarySlider
+              ),
+              m = r(
+                {
+                  infinite: !0,
+                  arrows: !1,
+                  autoplay: !1,
+                  slidesToShow: 1,
+                  beforeChange: function(t, n) {
+                    return e.primarySlider && e.primarySlider.slickGoTo(n);
+                  }
+                },
+                h && h.secondarySlider && h.secondarySlider
+              );
+            return 'top' === d ? a.default.createElement(
                 'div',
                 {
                   className: (0, l.default)(
@@ -43267,9 +43276,9 @@ module.exports = (function(e) {
                   },
                   a.default.createElement(
                     s.default,
-                    r({}, f, {
+                    r({}, y, {
                       ref: function(t) {
-                        e.mainSlider = t;
+                        e.primarySlider = t;
                       }
                     }),
                     n.filter(function(e) {
@@ -43279,7 +43288,7 @@ module.exports = (function(e) {
                 ),
                 a.default.createElement(
                   s.default,
-                  r({}, p, {
+                  r({}, m, {
                     ref: function(t) {
                       e.secondarySlider = t;
                     }
@@ -43298,7 +43307,7 @@ module.exports = (function(e) {
                 },
                 a.default.createElement(
                   s.default,
-                  r({}, p, {
+                  r({}, m, {
                     ref: function(t) {
                       e.secondarySlider = t;
                     }
@@ -43317,9 +43326,9 @@ module.exports = (function(e) {
                   },
                   a.default.createElement(
                     s.default,
-                    r({}, f, {
+                    r({}, y, {
                       ref: function(t) {
-                        e.mainSlider = t;
+                        e.primarySlider = t;
                       }
                     }),
                     n.filter(function(e) {
@@ -43343,8 +43352,12 @@ module.exports = (function(e) {
         fadeSliderWithPaging: u.default.string,
         pagingTitle: u.default.string
       }),
+      config: u.default.shape({
+        primarySlider: u.default.object,
+        secondarySlider: u.default.object
+      }),
       children: u.default.arrayOf(u.default.node).isRequired
-    }, p.defaultProps = { autoplay: !0, autoplaySpeed: 4e3, hasPaging: !0, pagingTitles: [], theme: {}, primarySlider: 'top' }, t.default = p;
+    }, p.defaultProps = { autoplay: !0, autoplaySpeed: 4e3, hasPaging: !0, pagingTitles: [], theme: {}, config: {}, primarySlider: 'top' }, t.default = p;
   },
   ZOtD: function(e, t, n) {
     var r = n('ALMR'),
@@ -46852,8 +46865,9 @@ module.exports = (function(e) {
       o = n('cDcd'),
       i = w(o),
       a = w(n('rf6O')),
-      u = w(n('mwIZ')),
-      l = w(n('JVao')),
+      u = w(n('mwIZ'));
+    n('adkz');
+    var l = w(n('JVao')),
       s = w(n('FehL')),
       c = w(n('GlS/')),
       f = w(n('ukY8')),
