@@ -10,7 +10,6 @@ const sortData = (data, sortBy) => {
     Object.prototype.toString.call(d) === '[object Date]' &&
       !isNaN(new Date(d).getTime());
   const areDates = samples.every(sample => isADate(new Date(sample)));
-
   if (areDates) {
     const sortByDate = (a, b) => new Date(a[sortBy]) - new Date(b[sortBy]);
     return data.sort(sortByDate);
@@ -22,7 +21,11 @@ const sortData = (data, sortBy) => {
       parseFloat(a[sortBy]) - parseFloat(b[sortBy]);
     return data.sort(sortByNumbers);
   }
-  return _sortBy(data, sortBy);
+
+  // Provide a sortIndex for data that are objects
+  return samples[0].sortIndex
+    ? _sortBy(data, d => d[sortBy].sortIndex)
+    : _sortBy(data, sortBy);
 };
 
 export const getDataSorted = (data, sortBy, sortDirection) => {
