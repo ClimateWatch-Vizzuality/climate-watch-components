@@ -1,6 +1,6 @@
 {
   "name": "cw-components",
-  "version": "1.41.2",
+  "version": "1.66.0",
   "private": true,
   "main": "dist/bundle.js",
   "scripts": {
@@ -11,8 +11,8 @@
     "deploy": "yarn run build && gh-pages -d styleguide"
   },
   "lint-staged": {
-    "**/*.scss": "stylelint --syntax=scss --fix",
-    "**/*.js": [
+    "src/**/*.scss": "stylelint --syntax=scss --fix",
+    "src/**/*.js": [
       "prettier --single-quote --write",
       "eslint --quiet --fix",
       "git add"
