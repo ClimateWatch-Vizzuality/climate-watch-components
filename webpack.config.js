@@ -20,7 +20,12 @@ const config = {
   node: { fs: 'empty', net: 'empty' },
   module: {
     rules: [
-      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      {
+        loader: 'babel-loader',
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        query: { plugins: [ 'recharts' ] }
+      },
       { test: /\.(jpg|jpeg|png|gif)$/, use: 'url-loader' },
       { test: /\.svg$/, use: [ { loader: 'svg-sprite-loader' } ] },
       {
@@ -61,26 +66,8 @@ const config = {
     }
   },
   optimization: {
-    minimizer: [
-      // https://github.com/mishoo/UglifyJS2/tree/harmony
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          output: { comments: false },
-          minify: {},
-          compress: {
-            warnings: false,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            if_return: true,
-            join_vars: true
-          }
-        }
-      })
-    ]
+    minimize: true,
+    minimizer: [ new UglifyJsPlugin({ include: /\.min\.js$/ }) ]
   },
   plugins: [
     new ExtractTextPlugin({
