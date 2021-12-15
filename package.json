@@ -1,6 +1,6 @@
 {
   "name": "cw-components",
-  "version": "1.67.0",
+  "version": "1.65.0",
   "private": true,
   "main": "dist/bundle.js",
   "scripts": {
@@ -99,7 +99,7 @@
     "stylelint": "9.4.0",
     "stylelint-config-standard": "18.2.0",
     "svg-sprite-loader": "3.9.0",
-    "uglifyjs-webpack-plugin": "1.2.7",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "1.0.1",
     "webpack": "4.16.3",
     "webpack-bundle-analyzer": "3.3.2",
