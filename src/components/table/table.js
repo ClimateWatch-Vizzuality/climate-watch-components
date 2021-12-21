@@ -25,6 +25,18 @@ import {
   getDynamicRowHeight
 } from './table-utils';
 
+const skimTags = d => {
+  if (!d) return null;
+  const skimmedObject = {};
+  Object.keys(d).forEach(key => {
+    const updatedValue = d[key] &&
+      typeof d[key] === 'string' &&
+      d[key].replace(/<[^>]*>?/gm, '');
+    skimmedObject[key] = updatedValue;
+  });
+  return skimmedObject;
+};
+
 class Table extends PureComponent {
   constructor(props) {
     super(props);
@@ -284,7 +296,7 @@ class Table extends PureComponent {
                 rowHeight={({ index }) =>
                   dynamicRowsHeight
                     ? getDynamicRowHeight(
-                      pick(data[index], this.getColumnData()),
+                      pick(skimTags(data[index]), this.getColumnData()),
                       this.getColumnWidth,
                       dynamicRowsConfig
                     )
