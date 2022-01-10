@@ -31,7 +31,7 @@ const CustomizedActiveShape = props => {
         fill={fill}
       />
       {customInnerHoverLabel ?
-        customInnerHoverLabel({ x: cx, y: cy, value: percent }) :
+        customInnerHoverLabel({ x: cx, y: cy, value: percent, props }) :
         (
           <text
             x={cx}
