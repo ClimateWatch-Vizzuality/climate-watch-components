@@ -85,7 +85,7 @@
     "husky": "1.0.0-rc.13",
     "lint-staged": "7.2.0",
     "lodash": "4.17.21",
-    "node-sass": "4.13.1",
+    "node-sass": "7.0.0",
     "postcss-loader": "2.0.6",
     "prettier": "0.11.0",
     "prop-types": "15.6.2",
