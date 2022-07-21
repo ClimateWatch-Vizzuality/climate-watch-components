@@ -165,7 +165,11 @@ class ChartLine extends PureComponent {
           }
           {
             config.columns && config.columns.y.map(column => {
-                const color = config.theme[column.value].stroke || '';
+                const {
+                  strokeDashArray,
+                  stroke: color
+                } = config.theme[column.value] || {};
+
                 return (
                   <Line
                     key={column.value}
@@ -180,6 +184,7 @@ class ChartLine extends PureComponent {
                     dataKey={column.value}
                     stroke={column.hideData ? 'transparent' : color}
                     strokeWidth={column.hideData ? 0 : 2}
+                    {...strokeDashArray && { strokeDashArray }}
                     type={lineType}
                   />
                 );
