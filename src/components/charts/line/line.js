@@ -167,6 +167,7 @@ class ChartLine extends PureComponent {
             config.columns && config.columns.y.map(column => {
                 const {
                   strokeDasharray,
+                  strokeLinecap,
                   stroke: color
                 } = config.theme[column.value] || {};
 
@@ -185,6 +186,7 @@ class ChartLine extends PureComponent {
                     stroke={column.hideData ? 'transparent' : color}
                     strokeWidth={column.hideData ? 0 : 2}
                     {...strokeDasharray && { strokeDasharray }}
+                    {...strokeLinecap && { strokeLinecap }}
                     type={lineType}
                   />
                 );
